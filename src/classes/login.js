@@ -21,9 +21,9 @@ export class Login {
 		return key;
 	}
 
-	authenticate(username, password) {
+	authenticate(jwt) {
 		console.log("Helo9")
-		console.log("dsfs", username)
+		console.log("dsfs", jwt.username)
 		if (
 			username != this.username ||
 			password != this.password
