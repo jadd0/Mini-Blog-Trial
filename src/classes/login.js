@@ -22,8 +22,6 @@ export class Login {
 	}
 
 	authenticate(username, password) {
-		console.log("Helo9")
-		console.log("dsfs", jwt.username)
 		if (
 			username != this.username ||
 			password != this.password
