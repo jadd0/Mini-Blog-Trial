@@ -17,7 +17,7 @@ function protectedRoute(cookieList) {
 
   const jwt = JSON.parse(cookieObj.jwt)
 
-	const auth = login.authenticate(jwt);
+	const auth = login.authenticate(jwt.username, jwt.password);
 
 	if (!auth) {
 		return false
