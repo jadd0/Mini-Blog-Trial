@@ -9,7 +9,18 @@ export const POST = async({ request }) => {
   const username = body.username
   const password = body.password
 
-  return {
-    body:"hello"
+  const res = login.authenticate(username, password)
+  // if successful returns cookie
+
+  if (!res) {
+    return new Response("false")
   }
+
+  const cookie = login.generateCookie()
+  
+  const serverResponse = new Response
+  serverResponse.headers.append('set-cookie', cookie)
+  // Response.headers.set('set-cookie', response)
+
+  return serverResponse
 }
