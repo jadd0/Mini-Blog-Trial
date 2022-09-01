@@ -3,4 +3,4 @@
   console.log(data)
 </script>
 
-<h1>{data.body}</h1>
+<h1>{data.user}</h1>
