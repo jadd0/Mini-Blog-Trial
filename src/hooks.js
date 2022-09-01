@@ -41,14 +41,21 @@ export const handle = async ({ event, resolve }) => {
         status: 303,
         headers: { Location: "/protected/login" },
       }); 
-      // return response
     }
-    // return new Response({
-    //   status: 200,
-    //   headers: { Location: "/protected/" },
-    // }); 
-    // return response
 	}
-  // response
   return response
 };
+
+export const getSession = async ({ locals }) => {
+  console.log(locals)
+  console.log("dfdfdf")
+  if (!locals.user) {
+    return {}
+  }
+
+  return {
+    user: {
+      username: locals.user.username
+    }
+  }
+}

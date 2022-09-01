@@ -1,4 +1,4 @@
-<script>
+<script context="module">
   export let data
   console.log(data)
 </script>
