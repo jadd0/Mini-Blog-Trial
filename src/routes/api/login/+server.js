@@ -1,26 +1,40 @@
-import { Login } from '../../../classes/login.js';
+import { Login } from "../../../classes/login.js";
 
-const login = new Login()
+const login = new Login();
 
 /** @type {import('./__types/[id]').RequestHandler} */
-export const POST = async({ request }) => {
-  const body = await request.json()
+export const POST = async ({ request, error }) => {
+	const body = await request.json();
 
-  const username = body.username
-  const password = body.password
-
-  const res = login.authenticate(username, password)
-  // if successful returns cookie
-
-  if (!res) {
-    return new Response("false")
-  }
-
-  const cookie = login.generateCookie()
+	const username = body.username;
+	const password = body.password;
   
-  const serverResponse = new Response
-  serverResponse.headers.append('set-cookie', cookie)
-  // Response.headers.set('set-cookie', response)
+  let serverResponse = new Response
+	const res = login.authenticate(username, password);
+	// if successful returns cookie
 
-  return serverResponse
-}
+	if (!res) {
+    // serverResponse.status.set(406)
+		// return new Response({
+    //   status: 401
+    // });
+    return new Response('Invalid credentials', {status: 406})
+	}
+
+	const cookie = login.generateCookie();
+	console.log("hello");
+	
+	serverResponse.headers.append('set-cookie', cookie)
+
+  
+	// serverResponse.status = 303
+  // console.log(serverResponse.headers);
+	// return new Response("Redirect", {
+  //   cookies: cookie,
+	// 	status: 303,
+	// 	headers: { Location: "/protected" },
+	// });
+	// Response.headers.set('set-cookie', response)
+
+	return serverResponse;
+};
