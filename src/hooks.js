@@ -43,8 +43,12 @@ export const handle = async ({ event, resolve }) => {
       }); 
       // return response
     }
-
-		return response;
+    // return new Response({
+    //   status: 200,
+    //   headers: { Location: "/protected/" },
+    // }); 
+    // return response
 	}
-  return response;
+  // response
+  return response
 };
