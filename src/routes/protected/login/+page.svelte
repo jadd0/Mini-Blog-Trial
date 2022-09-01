@@ -3,7 +3,7 @@
 	let password;
 
 	const submit = async () => {
-		const rawResponse = await fetch("http://localhost:5173/api/login", {
+		const response = await fetch("http://localhost:5173/api/login", {
 			method: "post",
 			headers: {
 				Accept: "application/json",
@@ -14,6 +14,9 @@
 				password: password,
 			}),
 		});
+		if (response.ok) {
+			window.location = '/protected'
+		}
 	};
 </script>
 
