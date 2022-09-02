@@ -2,6 +2,7 @@
   let title;
   let body;
   let description;
+  let data =[];
 
   const submit = async () => {
     const data = {
@@ -21,14 +22,15 @@
 		console.log(await response.json())
 	};
   const submitTWO = async () => {
-		const response = await fetch("/api/getPost", {
+		const res = await fetch("/api/getPost", {
 			method: "post",
 			headers: {
 				Accept: "application/json",
 				"Content-Type": "application/json",
 			},
 		});
-		console.log(await response.json())
+    data = await res.json()
+		console.log(data)
 	};
 </script>
 <input bind:value={title}>
@@ -37,3 +39,9 @@
 
 <button on:click={submit}>SEND</button>
 <button on:click={submitTWO}>GET</button>
+<div>
+  {#each data as d}
+    <h1>{d.title}</h1>
+  {/each}
+</div>
+

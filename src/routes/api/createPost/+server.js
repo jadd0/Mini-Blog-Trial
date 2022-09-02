@@ -12,7 +12,5 @@ export const POST = async ({ request }) => {
 		},
 	]);
 
-	console.log("POST", data, error)
-
 	return new Response("hello");
 };

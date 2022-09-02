@@ -14,6 +14,7 @@
 				password: password,
 			}),
 		});
+		
 		if (response.ok) {
 			window.location = '/protected'
 		}
