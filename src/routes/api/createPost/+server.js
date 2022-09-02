@@ -1,7 +1,7 @@
 import { supabase } from '../../../supabaseClient.js'
 
-export const POST = async (event) => {
-	const userData = await event.json()
+export const POST = async ({ request }) => {
+	const userData = await request.json()
 	const { data, error } = await supabase.from("Posts").insert([
 		{
 			title: userData.title,
