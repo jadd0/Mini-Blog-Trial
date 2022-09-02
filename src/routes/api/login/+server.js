@@ -21,11 +21,11 @@ export const POST = async ({ request, error }) => {
     return new Response('Invalid credentials', {status: 406})
 	}
 
+
 	const cookie = login.generateCookie();
-	console.log("hello");
 	
 	serverResponse.headers.append('set-cookie', cookie)
-
+	console.log(serverResponse.headers)
   
 	// serverResponse.status = 303
   // console.log(serverResponse.headers);

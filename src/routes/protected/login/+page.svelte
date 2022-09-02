@@ -3,7 +3,7 @@
 	let password;
 
 	const submit = async () => {
-		const response = await fetch("http://localhost:5173/api/login", {
+		const response = await fetch("/api/login", {
 			method: "post",
 			headers: {
 				Accept: "application/json",
