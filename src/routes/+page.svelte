@@ -1,15 +1,21 @@
 <script>
 	import { onMount } from "svelte";
 	export let data = [];
-	
 </script>
 
 <body>
-	<div>
-		{#each data.data as d}
-			<a href="/post/{d.id}">{d.title}</a>
-		{/each}
-	</div>
+	{#each data.data as d}
+		<a href="/post/{d.id}">
+			<div id="postContainer">
+				<h1>
+					{d.title}
+				</h1>
+				<h2>
+					{d.metadata.description}
+				</h2>
+			</div>
+		</a>
+	{/each}
 </body>
 
 <style>
@@ -26,6 +32,10 @@
 		width: 100vw;
 		background-color: #141414;
 		overflow: hidden;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		flex-direction: column;
 	}
 
 	* {
@@ -47,6 +57,36 @@
 
 		/* font-family: "fenix";
 		font-weight: 500; */
+	}
+
+	#postContainer {
+		width: 50vw;
+		min-height: 20vh;
+		background: #212121;
+		margin-top: 20px;
+		border-radius: 20px;
+		transition: all 0.2s linear;
+	}
+
+	#postContainer:hover {
+		background: rgb(56, 56, 56);
+	}
+
+	h1 {
+		font-size: 3rem;
+		font-weight: 700;
+		color: white;
+		padding-top: 10px;
+	}
+
+	h2 {
+		font-size: 1.5rem;
+		font-weight: 500;
+		color: white;
+	}
+
+	a {
+		text-decoration: none;
 	}
 
 	p {
