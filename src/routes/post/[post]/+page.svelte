@@ -1,8 +1,14 @@
 <script>
   export let data = [];
+	console.log(data.returnData)
 </script>
 
-<h1>{data.title}</h1>
+<body>
+	<h1>{data.returnData.title}</h1>
+	<h2>At {data.returnData.created_at}</h2>
+	<p>{data.returnData.body}</p>
+</body>
+
 
 
 <style>
@@ -42,7 +48,23 @@
 		font-weight: 500; */
 	}
 
+	h1 {
+		font-size: 5rem;
+		color: white;
+		font-weight: 600;
+		margin-top: 5vh;
+	}
+	
+	h2 {
+		font-size: 5rem;
+		color: white;
+		font-weight: 600;
+		margin-top: 5vh;
+	}
+
 	p {
-		font-weight: 250 !important;
+		font-size: 2.5rem;
+		font-weight: 300 !important;
+		color: white;
 	}
 </style>
