@@ -36,8 +36,8 @@
 
 <body>
 	<input bind:value={title} />
-	<input bind:value={body} />
 	<input bind:value={description} />
+	<input bind:value={body} />
 
 	<button on:click={submit}>SEND</button>
 	<button on:click={submitTWO}>GET</button>

@@ -6,7 +6,13 @@
 <body>
 	<h1>{data.returnData.title}</h1>
 	<h2>At {data.returnData.created_at}</h2>
-	<p>{data.returnData.body}</p>
+	<div id="pHolder">
+		<p>{data.returnData.body}</p>
+	</div>
+	
+	
+	<p>
+	</p>
 </body>
 
 
@@ -56,13 +62,19 @@
 	}
 	
 	h2 {
-		font-size: 5rem;
+		font-size: 2rem;
 		color: white;
 		font-weight: 600;
-		margin-top: 5vh;
+	}
+
+	#pHolder {
+		width: 75vw;
+		margin: 0 auto;
 	}
 
 	p {
+		margin: 0 auto;
+		margin-top: 5vh;
 		font-size: 2.5rem;
 		font-weight: 300 !important;
 		color: white;
