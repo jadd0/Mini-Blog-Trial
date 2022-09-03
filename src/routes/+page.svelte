@@ -53,7 +53,7 @@
 
 		font-variation-settings: 'wght' 500; */
 
-		letter-spacing: -2px;
+		letter-spacing: -2px; 
 
 		/* font-family: "fenix";
 		font-weight: 500; */
