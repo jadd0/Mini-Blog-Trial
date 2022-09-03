@@ -1,8 +1,8 @@
 <script>
-  import { onMount } from 'svelte'
-  let data = []
+	import { onMount } from "svelte";
+	let data = [];
 
-  onMount(async() => {
+	onMount(async () => {
 		const res = await fetch("/api/getPost", {
 			method: "post",
 			headers: {
@@ -10,28 +10,24 @@
 				"Content-Type": "application/json",
 			},
 		});
-    data = await res.json()
-		console.log(data)
-  })
-
+		data = await res.json();
+		console.log(data);
+	});
 </script>
 
 <body>
-  
-  <div>
-  {#each data as d}
-  <a href='/post/{d.id}'>{d.title}</a>
-  {/each}
-</div>
+	<div>
+		{#each data as d}
+			<a href="/post/{d.id}">{d.title}</a>
+		{/each}
+	</div>
 </body>
 
-
-
 <style>
-  @font-face {
-    font-family: 'New-Inter';
-    src: url('/fonts/Inter.ttf');
-  }
+	@font-face {
+		font-family: "New-Inter";
+		src: url("/fonts/Inter.ttf");
+	}
 
 	body {
 		margin: 0;
@@ -58,12 +54,12 @@
 		font-variation-settings: 'wght' 500; */
 
 		letter-spacing: -2px;
-		
+
 		/* font-family: "fenix";
 		font-weight: 500; */
-  }
+	}
 
-  p {
-    font-weight: 250 !important;
-  }
+	p {
+		font-weight: 250 !important;
+	}
 </style>
