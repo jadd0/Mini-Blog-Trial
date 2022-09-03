@@ -15,8 +15,8 @@ export async function load({ params }) {
 	//   throw redirect(307, "/protected/login");
 	// }
 
-	console.log(data);
+	const returnData = data[0]
 	return {
-		data: data,
-	};
+		returnData
+	}
 }
