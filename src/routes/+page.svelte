@@ -1,23 +1,12 @@
 <script>
 	import { onMount } from "svelte";
-	let data = [];
-
-	onMount(async () => {
-		const res = await fetch("/api/getPost", {
-			method: "post",
-			headers: {
-				Accept: "application/json",
-				"Content-Type": "application/json",
-			},
-		});
-		data = await res.json();
-		console.log(data);
-	});
+	export let data = [];
+	
 </script>
 
 <body>
 	<div>
-		{#each data as d}
+		{#each data.data as d}
 			<a href="/post/{d.id}">{d.title}</a>
 		{/each}
 	</div>
@@ -33,9 +22,10 @@
 		margin: 0;
 		padding: 0;
 		border: 0;
-		height: 1000vh;
+		height: 100vh;
 		width: 100vw;
 		background-color: #141414;
+		overflow: hidden;
 	}
 
 	* {
