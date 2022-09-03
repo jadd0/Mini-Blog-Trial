@@ -62,7 +62,7 @@
 	#postContainer {
 		width: 50vw;
 		min-height: 20vh;
-		background: #212121;
+		background: #212121; 
 		margin-top: 20px;
 		border-radius: 20px;
 		transition: all 0.2s linear;
