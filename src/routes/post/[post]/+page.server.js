@@ -1,0 +1,22 @@
+import { error } from "@sveltejs/kit";
+import { supabase } from "../../../supabaseClient.js";
+
+/** @type {import('./$types').Load} */
+export async function load({ params }) {
+	const { data, e } = await supabase
+		.from("Posts")
+		.select("*")
+		.eq("id", params.post);
+
+  if (data.length == 0) {
+    throw error(404, 'No post found');
+  }
+	// if (cookieList.jwt == undefined) {
+	//   throw redirect(307, "/protected/login");
+	// }
+
+	console.log(data);
+	return {
+		data: data,
+	};
+}

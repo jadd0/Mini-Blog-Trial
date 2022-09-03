@@ -50,7 +50,7 @@ export class Login {
 
 	generateCookie() {
 		const jwt = this.generateJWT();
-		console.log(jwt)
+		// console.log(jwt)
 		const cookie = `jwt=${JSON.stringify(jwt)}; path=/; Expires=${this.generateExpiry()}; HostOnly=false; Secure=lax`;
 
 		return cookie;
