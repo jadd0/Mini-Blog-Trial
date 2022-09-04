@@ -4,7 +4,6 @@
 	console.log(data.returnData.title);
 </script>
 
-<h1>Hello</h1>
 <body>
 	<h1>{data.returnData.title}</h1>
 	<h2>At {data.returnData.created_at}</h2>
