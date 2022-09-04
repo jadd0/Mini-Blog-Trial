@@ -8,7 +8,7 @@ export async function load({ params }) {
 		.select("*")
 		.eq("id", params.post);
 
-  if (data.length == 0) {
+  if (data == undefined) {
     throw error(404, 'No post found');
   }
 	// if (cookieList.jwt == undefined) {
