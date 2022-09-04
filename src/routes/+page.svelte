@@ -11,9 +11,10 @@
 					<h1>
 						{d.title}
 					</h1>
-					<h2>
-						{d.metadata.description}
-					</h2>
+
+					<div id="descriptionHolder">
+						<h2>{d.metadata.description}</h2>
+					</div>
 				</div>
 			</a>
 		{/each}
@@ -33,7 +34,6 @@
 		height: 100vh;
 		width: 100vw;
 		background-color: #141414;
-		
 	}
 
 	* {
@@ -45,16 +45,8 @@
 		border: 0;
 		outline: 0;
 		box-sizing: border-box;
-		/* font-family: New-Inter; */
 		font-family: New-Inter;
-		/* font-weight: 500;
-
-		font-variation-settings: 'wght' 500; */
-
-		letter-spacing: -2px;
-
-		/* font-family: "fenix";
-		font-weight: 500; */
+		letter-spacing: -1px;
 	}
 
 	#whole {
@@ -70,6 +62,7 @@
 	#postContainer {
 		width: 50vw;
 		min-height: 20vh;
+		padding-bottom: 20px;
 		background: #212121;
 		margin-top: 20px;
 		border-radius: 20px;
@@ -105,11 +98,12 @@
 		color: white;
 	}
 
-	a {
-		text-decoration: none;
+	#descriptionHolder {
+		width: 80%;
+		margin: 0 auto;
 	}
 
-	p {
-		font-weight: 250 !important;
+	a {
+		text-decoration: none;
 	}
 </style>
