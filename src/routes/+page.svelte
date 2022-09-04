@@ -5,13 +5,12 @@
 
 <body>
 	<div id="whole">
-		{#each data.data as d}
+		{#each (data.data).reverse() as d}
 			<a href="/post/{d.id}">
 				<div id="postContainer">
 					<h1>
 						{d.title}
 					</h1>
-
 					<div id="descriptionHolder">
 						<h2>{d.metadata.description}</h2>
 					</div>
