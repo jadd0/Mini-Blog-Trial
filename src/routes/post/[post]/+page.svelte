@@ -1,21 +1,17 @@
 <script>
-  export let data = [];
-	console.log(data.returnData)
+	import { onMount } from 'svelte';
+	export let data;
+	console.log(data.returnData.title);
 </script>
 
+<h1>Hello</h1>
 <body>
 	<h1>{data.returnData.title}</h1>
 	<h2>At {data.returnData.created_at}</h2>
 	<div id="pHolder">
 		<p>{data.returnData.body}</p>
 	</div>
-	
-	
-	<p>
-	</p>
 </body>
-
-
 
 <style>
 	@font-face {
@@ -30,6 +26,7 @@
 		height: 1000vh;
 		width: 100vw;
 		background-color: #141414;
+		overflow: scroll;
 	}
 
 	* {
@@ -43,7 +40,7 @@
 		box-sizing: border-box;
 		/* font-family: New-Inter; */
 		font-family: New-Inter;
-    font-weight: 300;
+		font-weight: 300;
 		/* font-weight: 500;
 
 		font-variation-settings: 'wght' 500; */
@@ -60,7 +57,7 @@
 		font-weight: 600;
 		margin-top: 5vh;
 	}
-	
+
 	h2 {
 		font-size: 2rem;
 		color: white;

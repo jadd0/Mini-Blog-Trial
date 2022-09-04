@@ -4,18 +4,20 @@
 </script>
 
 <body>
-	{#each data.data as d}
-		<a href="/post/{d.id}">
-			<div id="postContainer">
-				<h1>
-					{d.title}
-				</h1>
-				<h2>
-					{d.metadata.description}
-				</h2>
-			</div>
-		</a>
-	{/each}
+	<div id="whole">
+		{#each data.data as d}
+			<a href="/post/{d.id}">
+				<div id="postContainer">
+					<h1>
+						{d.title}
+					</h1>
+					<h2>
+						{d.metadata.description}
+					</h2>
+				</div>
+			</a>
+		{/each}
+	</div>
 </body>
 
 <style>
@@ -31,11 +33,7 @@
 		height: 100vh;
 		width: 100vw;
 		background-color: #141414;
-		overflow: hidden;
-		display: flex;
-		justify-content: center;
-		align-items: center;
-		flex-direction: column;
+		
 	}
 
 	* {
@@ -53,16 +51,26 @@
 
 		font-variation-settings: 'wght' 500; */
 
-		letter-spacing: -2px; 
+		letter-spacing: -2px;
 
 		/* font-family: "fenix";
 		font-weight: 500; */
 	}
 
+	#whole {
+		width: 100vw;
+		height: 100vh;
+		overflow: hidden;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		flex-direction: column;
+	}
+
 	#postContainer {
 		width: 50vw;
 		min-height: 20vh;
-		background: #212121; 
+		background: #212121;
 		margin-top: 20px;
 		border-radius: 20px;
 		transition: all 0.2s linear;
@@ -70,6 +78,18 @@
 
 	#postContainer:hover {
 		background: rgb(56, 56, 56);
+	}
+
+	@media (max-width: 800px) {
+		#postContainer {
+			width: 75vw;
+		}
+	}
+
+	@media (max-width: 520px) {
+		h1 {
+			font-size: 10vw !important;
+		}
 	}
 
 	h1 {
