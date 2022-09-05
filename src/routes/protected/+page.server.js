@@ -1,26 +1,28 @@
-// import { parseCookie } from "../../cookieParser.js";
-// import { Login } from "../../classes/login.js";
-// import { error, redirect } from "@sveltejs/kit";
+import { parseCookie } from "../../cookieParser.js";
+import { Login } from "../../classes/login.js";
+import { error, redirect } from "@sveltejs/kit";
+import { supabase } from "../../supabaseClient.js";
 
-// const login = new Login();
+const loginClass = new Login();
 
-// /** @type {import('./$types').Load} */
-// export function load({ request }) {
-//   const cookie = request.headers.get("cookie");
-//   const cookieList = parseCookie(cookie);
 
-//   if (cookieList.jwt == undefined) {
-//     throw redirect(307, "/protected/login");
-//   }
+/** @type {import('./$types').Load} */
+export function load({ request }) {
+  const cookie = request.headers.get("cookie");
+  const cookieList = parseCookie(cookie);
 
-//   const jwt = JSON.parse(cookieList.jwt)
-//   const user = login.authenticate(jwt.username, jwt.password)
+  if (cookieList.jwt == undefined) {
+    throw redirect(307, "/protected/login");
+  }
 
-//   if (!user) {
-//     throw redirect(307, '/protected/login');
-//   }
+  const jwt = JSON.parse(cookieList.jwt)
+  const user = loginClass.authenticate(supabase, jwt.username, jwt.password)
 
-//   return {
-//     user: user
-//   }
-// }
+  if (!user) {
+    throw redirect(307, '/protected/login');
+  }
+
+  return {
+    user: user
+  }
+}
