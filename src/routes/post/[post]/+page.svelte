@@ -16,7 +16,7 @@
 	export let data;
 	const date = new Date(data.returnData.created_at);
 	const dateMonth = month[date.getMonth()];
-	const dateDay = date.getDay();
+	const dateDay = date.getDate();
 	const dateYear = date.getFullYear();
 </script>
 

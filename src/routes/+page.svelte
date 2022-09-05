@@ -1,9 +1,13 @@
 <script>
 	import { onMount } from "svelte";
+	// import Nav from './nav/+page.svelte'
 	export let data = [];
+	console.log(data.data)
+
 </script>
 
 <body>
+	<!-- <Nav/> -->
 	<div id="whole">
 		{#each (data.data).reverse() as d}
 			<a href="/post/{d.id}" id="hello">
