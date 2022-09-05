@@ -33,7 +33,7 @@
 		height: 100vh;
 		width: 100vw;
 		background-color: #141414;
-		/* overflow-x: hidden */
+		overflow-x: hidden
 	}
 
 	* {
@@ -50,10 +50,7 @@
 	}
 
 	#whole {
-		/* margin-top: 50px; */
 		width: 100vw;
-		/* height: 100vh; */
-		overflow: hidden;
 		display: flex;
 		justify-content: center;
 		align-items: center;
