@@ -1,13 +1,37 @@
 <script>
+	const month = [
+		"Jan",
+		"Feb",
+		"Mar",
+		"Apr",
+		"May",
+		"Jun",
+		"Jul",
+		"Aug",
+		"Sep",
+		"Oct",
+		"Nov",
+		"Dec",
+	];
 	export let data;
-	console.log(data.returnData.title);
+	const date = new Date(data.returnData.created_at);
+	const dateMonth = month[date.getMonth()];
+	const dateDay = date.getDay();
+	const dateYear = date.getFullYear();
+
+	// console.log(data.returnData.title);
+	// console.log()
+	// console.log(date.toDateString());
 </script>
 
 <body>
-	<h1>{data.returnData.title}</h1>
-	<h2>At {data.returnData.created_at}</h2>
-	<div id="pHolder">
-		<p>{data.returnData.body}</p>
+	<div id="container">
+		<h2>{dateMonth} {dateDay}, {dateYear}</h2>
+		<h1>{data.returnData.title}</h1>
+
+		<div id="pHolder">
+			<p>{data.returnData.body}</p>
+		</div>
 	</div>
 </body>
 
@@ -28,6 +52,7 @@
 	}
 
 	* {
+		text-align: left;
 		font-size: 24px;
 		text-align: center;
 		color: black;
@@ -49,28 +74,50 @@
 		font-weight: 500; */
 	}
 
+	@media (max-width: 800px) {
+		h1 {
+			font-size: 10vw !important;
+		}
+
+		h2 {
+			font-size: 5vw !important;
+		}
+
+		p {
+			font-size: 6vw !important;
+		}
+	}
+
+	#container {
+		width: 60vw;
+		margin: 0 auto;
+		/* display: flex; */
+		/* flex-direction: column; */
+	}
+
 	h1 {
 		font-size: 5rem;
 		color: white;
 		font-weight: 600;
-		margin-top: 5vh;
+		margin-top: 3vh;
 	}
 
 	h2 {
 		font-size: 2rem;
 		color: white;
 		font-weight: 600;
+		/* float: left; */
 	}
 
 	#pHolder {
-		width: 75vw;
+		/* width: 75vw; */
 		margin: 0 auto;
 	}
 
 	p {
 		margin: 0 auto;
 		margin-top: 5vh;
-		font-size: 2.5rem;
+		font-size: 1.75rem;
 		font-weight: 300 !important;
 		color: white;
 	}
