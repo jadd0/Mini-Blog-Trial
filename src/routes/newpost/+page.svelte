@@ -2,6 +2,7 @@
 	let title;
 	let body;
 	let description;
+	let username;
 	let data = [];
 
 	const submit = async () => {
@@ -9,6 +10,7 @@
 			title: title,
 			body: body,
 			description: description,
+			username: username
 		};
 
 		const response = await fetch("/api/createPost", {
@@ -19,7 +21,7 @@
 			},
 			body: JSON.stringify(data),
 		});
-		console.log(await response.json());
+		// console.log(await response.json());
 	};
 	const submitTWO = async () => {
 		const res = await fetch("/api/getPost", {
@@ -38,6 +40,7 @@
 	<input bind:value={title} />
 	<input bind:value={description} />
 	<input bind:value={body} />
+	<input bind:value={username} />
 
 	<button on:click={submit}>SEND</button>
 	<button on:click={submitTWO}>GET</button>

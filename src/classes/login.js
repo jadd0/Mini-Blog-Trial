@@ -21,9 +21,9 @@ export class Login {
 			.select("*")
 			.eq("username", username);
 
-		if (data.length == 0) {
-			return false;
-		}
+		// if (data.length == 0) {
+		// 	return false;
+		// }
 		
 		if (data[0].password !== password) {
 			return false;

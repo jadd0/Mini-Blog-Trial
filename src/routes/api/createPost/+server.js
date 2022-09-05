@@ -8,6 +8,7 @@ export const POST = async ({ request }) => {
 			body: userData.body,
 			metadata: {
 				description: userData.description,
+				username: userData.username
 			},
 		},
 	]);
