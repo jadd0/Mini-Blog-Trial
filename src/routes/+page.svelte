@@ -33,7 +33,7 @@
 		height: 100vh;
 		width: 100vw;
 		background-color: #141414;
-		overflow-x: hidden;
+		/* overflow-x: hidden */
 	}
 
 	* {
@@ -46,7 +46,7 @@
 		outline: 0;
 		box-sizing: border-box;
 		font-family: New-Inter;
-		letter-spacing: -1px;
+		letter-spacing: -1px !important;
 	}
 
 	#whole {
@@ -63,7 +63,7 @@
 
 	#postContainer {
 		width: 50vw;
-		min-height: 20vh;
+		/* min-height: 20vh; */
 		padding-bottom: 20px;
 		background: #212121;
 		margin-top: 20px;
@@ -107,6 +107,8 @@
 	#descriptionHolder {
 		width: 80%;
 		margin: 0 auto;
+		font-size: 1.5rem;
+		margin-left: 5vw !important;
 	}
 
 	a {
