@@ -79,7 +79,14 @@
 		}
 
 		p {
-			font-size: 6vw !important;
+			width: 85vw;
+			margin-top: 1vh !important;
+		}
+	}
+
+	@media (max-width: 600px) {
+		p {
+			font-size: 5vw !important;
 		}
 	}
 
@@ -99,6 +106,7 @@
 		font-weight: 600;
 		margin-top: 3vh;
 		text-align: left;
+		margin-left: -10vw;
 	}
 
 	h2 {
@@ -108,6 +116,7 @@
 		font-weight: 600;
 		float: left;
 		text-align: left;
+		margin-left: -10vw;
 	}
 
 
@@ -118,5 +127,6 @@
 		font-weight: 300 !important;
 		color: white;
 		text-align: left;
+		margin-left: -10vw;
 	}
 </style>
