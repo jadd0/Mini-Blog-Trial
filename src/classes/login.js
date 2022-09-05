@@ -1,12 +1,6 @@
 export class Login {
 	// Whenever you log into a new device, a new safeCode is generated to prevent authentication issues
 	// TODO implement safeCode into JWT
-	constructor() {
-		this.username = "jadd";
-		this.password = "jadd";
-		this.safeCode = null;
-	}
-
 	generateSafeCode() {
 		const alphNumString =
 			"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
@@ -21,14 +15,21 @@ export class Login {
 		return key;
 	}
 
-	authenticate(username, password) {
-		if (
-			username != this.username ||
-			password != this.password
-		) {
+	async authenticate(supabase, username, password) {
+		const { data, e } = await supabase
+			.from("Users")
+			.select("*")
+			.eq("username", username);
+
+		if (data.length == 0) {
 			return false;
 		}
-		return true
+		
+		if (data[0].password !== password) {
+			return false;
+		}
+
+		return true;
 	}
 
 	generateExpiry() {
@@ -39,19 +40,22 @@ export class Login {
 		return date;
 	}
 
-	generateJWT() {
+	generateJWT(username, password) {
 		const data = {
-			username: this.username,
-			password: this.password
-		}
+			username: username,
+			password: password,
+		};
 
-		return data
+		return data;
 	}
 
-	generateCookie() {
+	generateCookie(username, password) {
 		const jwt = this.generateJWT();
 		// console.log(jwt)
-		const cookie = `jwt=${JSON.stringify(jwt)}; path=/; Expires=${this.generateExpiry()}; HostOnly=false; Secure=lax`;
+		const cookie = `jwt=${JSON.stringify(
+			username,
+			password
+		)}; path=/; Expires=${this.generateExpiry()}; HostOnly=false; Secure=lax`;
 
 		return cookie;
 	}

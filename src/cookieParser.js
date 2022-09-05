@@ -8,7 +8,7 @@ export function parseCookie(cookieList) {
 			const cur = cookieList[i].split("=");
 			result[cur[0]] = cur[1];
 		}
-    console.log(result)
+    // console.log(result)
 		// jwt = JSON.parse(result.jwt);
     if (result.jwt == undefined) {
       return false
