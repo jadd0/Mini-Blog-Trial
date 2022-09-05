@@ -92,12 +92,16 @@
 		font-weight: 700;
 		color: white;
 		padding-top: 10px;
+		text-align: left;
+		margin-left: 5vw;
 	}
 
 	h2 {
 		font-size: 1.5rem;
 		font-weight: 500;
 		color: white;
+		text-align: left;
+		/* margin-left: 1vw; */
 	}
 
 	#descriptionHolder {
