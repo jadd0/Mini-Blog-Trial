@@ -5,12 +5,8 @@ export const load = async ({ params }) => {
 			.from("Posts")
 			.select('*')
 			.eq('a', params.username)
-			// .eq('jadd')
-			// .eq("metadata", '20');
 
-  console.log(data)
-
-	// return {
-	// 	data: data,
-	// };
+	return {
+		data: data,
+	};
 };
