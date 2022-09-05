@@ -12,7 +12,7 @@ export async function load({ params }) {
     throw error(404, 'No post found');
   }
 	// if (cookieList.jwt == undefined) {
-	//   throw redirect(307, "/protected/login");
+	//   throw redirect(307, "/newpost/login");
 	// }
 
 	const returnData = data[0]

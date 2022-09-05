@@ -27,7 +27,7 @@ export const POST = async ({ request, error }) => {
 	return new Response("Redirect", {
 	  cookies: cookie,
 		status: 303,
-		headers: { Location: "/protected" },
+		headers: { Location: "/newpost" },
 	});
 	// Response.headers.set('set-cookie', response)
 

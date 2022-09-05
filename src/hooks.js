@@ -2,7 +2,7 @@
 
 // const login = new Login();
 
-// function protectedRoute(cookieList) {
+// function newpostRoute(cookieList) {
 	
 // 	// console.log(cookie)
 // 	const cookieObj = parseCookie(cookieList);
@@ -27,15 +27,15 @@
 // 	const response = await resolve(event);
 //   // console.log(response)
 //   // console.log(await resolve(event))
-// 	// if (url[3] === "protected" && url[4] !== "login") {
+// 	// if (url[3] === "newpost" && url[4] !== "login") {
 //   //   const cookieList = event.request.headers.get("cookie");
 //   //   // console.log(cookieList)
-//   //   const res = protectedRoute(cookieList)
+//   //   const res = newpostRoute(cookieList)
 //   //   console.log(res)
 //   //   if (!res) {
 //   //     return new Response("Redirect", {
 //   //       status: 303,
-//   //       headers: { Location: "/protected/login" },
+//   //       headers: { Location: "/newpost/login" },
 //   //     }); 
 //   //   }
 // 	// }

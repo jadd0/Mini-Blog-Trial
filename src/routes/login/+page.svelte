@@ -16,7 +16,7 @@
 		});
 		
 		if (response.ok) {
-			window.location = '/protected'
+			window.location = '/newpost'
 		}
 	};
 </script>
