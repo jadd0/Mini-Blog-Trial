@@ -67,7 +67,7 @@
 		padding-bottom: 20px;
 		background: #212121;
 		margin-top: 20px;
-		border-radius: 20px;
+		border-radius: 10px;
 		transition: all 0.2s linear;
 	}	
 
