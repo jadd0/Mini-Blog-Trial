@@ -6,8 +6,8 @@
 <body>
 	<div id="whole">
 		{#each (data.data).reverse() as d}
-			<a href="/post/{d.id}">
-				<div id="postContainer">
+			<a href="/post/{d.id}" id="hello">
+				<div id="postContainer" class="postContainer">
 					<h1>
 						{d.title}
 					</h1>
@@ -33,6 +33,7 @@
 		height: 100vh;
 		width: 100vw;
 		background-color: #141414;
+		overflow-x: hidden;
 	}
 
 	* {
@@ -49,8 +50,9 @@
 	}
 
 	#whole {
+		/* margin-top: 50px; */
 		width: 100vw;
-		height: 100vh;
+		/* height: 100vh; */
 		overflow: hidden;
 		display: flex;
 		justify-content: center;
@@ -62,11 +64,11 @@
 		width: 50vw;
 		min-height: 20vh;
 		padding-bottom: 20px;
-		background: #212121;
+		background:'' #212121;
 		margin-top: 20px;
 		border-radius: 20px;
 		transition: all 0.2s linear;
-	}
+	}	
 
 	#postContainer:hover {
 		background: rgb(56, 56, 56);
