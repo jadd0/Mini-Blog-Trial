@@ -18,17 +18,12 @@
 	const dateMonth = month[date.getMonth()];
 	const dateDay = date.getDay();
 	const dateYear = date.getFullYear();
-
-	// console.log(data.returnData.title);
-	// console.log()
-	// console.log(date.toDateString());
 </script>
 
 <body>
 	<div id="container">
-		<h2>{dateMonth} {dateDay}, {dateYear}</h2>
 		<h1>{data.returnData.title}</h1>
-
+		<h2>{dateMonth} {dateDay}, {dateYear}</h2>
 		<div id="pHolder">
 			<p>{data.returnData.body}</p>
 		</div>
@@ -91,8 +86,11 @@
 	#container {
 		width: 60vw;
 		margin: 0 auto;
-		/* display: flex; */
-		/* flex-direction: column; */
+
+		display: flex;
+		flex-direction: column;
+		/* align-items: left; */
+		justify-content: flex-start;
 	}
 
 	h1 {
@@ -100,25 +98,25 @@
 		color: white;
 		font-weight: 600;
 		margin-top: 3vh;
+		text-align: left;
 	}
 
 	h2 {
+		/* position: absolute; */
 		font-size: 2rem;
 		color: white;
 		font-weight: 600;
-		/* float: left; */
+		float: left;
+		text-align: left;
 	}
 
-	#pHolder {
-		/* width: 75vw; */
-		margin: 0 auto;
-	}
 
 	p {
-		margin: 0 auto;
+		/* margin: 0 auto; */
 		margin-top: 5vh;
 		font-size: 1.75rem;
 		font-weight: 300 !important;
 		color: white;
+		text-align: left;
 	}
 </style>
