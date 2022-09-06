@@ -26,9 +26,9 @@ export const load = async ({ params }) => {
 		.select("*")
 		.eq("a", params.username);
 
-	if (data.length == 0) {
-		throw error(404, "No posts found");
-	}
+	// if (data.length == 0) {
+	// 	throw error(404, "No posts found");
+	// }
 
 	return {
 		data: (data.reverse()),

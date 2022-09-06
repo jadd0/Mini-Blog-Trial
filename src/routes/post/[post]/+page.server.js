@@ -8,9 +8,11 @@ export async function load({ params }) {
 		.select("*")
 		.eq("id", params.post);
 
-  if (data == undefined) {
+  if (data == undefined || data.length == 0) {
     throw error(404, 'No post found');
   }
+
+
 	// if (cookieList.jwt == undefined) {
 	//   throw redirect(307, "/newpost/login");
 	// }
