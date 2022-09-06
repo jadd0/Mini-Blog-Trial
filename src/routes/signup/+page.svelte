@@ -224,7 +224,7 @@
 		min-height: 680px;
 		padding-bottom: 20px;
 		border-radius: 15px;
-		margin-top: 10vh;
+		margin-top: 5vh;
 	}
 
 	input {
