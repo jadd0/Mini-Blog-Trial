@@ -4,6 +4,7 @@
 
 	let username = "";
 	let password = "";
+	let wrong = false;
 
 	const submit = async () => {
 		const response = await fetch("/api/login", {
@@ -17,16 +18,24 @@
 				password: password,
 			}),
 		});
+
+		console.log(response)
 		
 		if (response.ok) {
 			window.location = '/newpost'
 		}
+
+		if (response.ok == false) {
+			wrong = true
+			console.log(wrong)
+		}	
 	};
 </script>
 
 <body>
 	<!-- <Nav /> -->
 	<div id="loginForm">
+		<h1>Login</h1>
 		<div class="inputDiv">
 			<input
 				type="username"
@@ -44,9 +53,12 @@
 			/>
 		</div>
 		<button on:click={submit} id="loginButton">Login</button>
-		<h1 id="incorrect">
-			Your email/password is incorrect. Please try again
-		</h1>
+		{#if wrong == true}
+			<h2 id="incorrect">
+				Your email/password is incorrect. Please try again
+			</h2>
+		{/if}
+		
 	</div>
 </body>
 
@@ -80,13 +92,19 @@
 		border: 0;
 		outline: 0;
 		box-sizing: border-box;
-		/* font-family: "fenix";
-		font-weight: 500; */
+		font-family: New-Inter;
+    font-weight: 300;
 	}
 
 	h1 {
+		font-size: 1.75em;
+		font-weight: 800;
+		margin-top: 20px;
+	}
+
+	#incorrect {
 		color: black;
-		display: none;
+		/* display: none; */
 	}
 
 	#loginForm {
@@ -96,6 +114,7 @@
 		width: 400px;
 		height: 400px;
 		border-radius: 15px;
+		margin-top: 20vh;
 	}
 
 	input {
