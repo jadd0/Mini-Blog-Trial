@@ -6,24 +6,22 @@ import { supabase } from "../../supabaseClient.js";
 const loginClass = new Login();
 
 /** @type {import('./$types').Load} */
-export async function load({ request }) {
-	const cookie = request.headers.get("cookie");
-	const cookieList = parseCookie(cookie);
+export function load({ request }) {
+  const cookie = request.headers.get("cookie");
+  const cookieList = parseCookie(cookie);
 
-	if (cookieList.jwt == undefined) {
-		throw redirect(307, "/newpost/login");
-	}
+  if (cookieList.jwt == undefined) {
+    throw redirect(307, "/newpost/login");
+  }
 
-	const jwt = JSON.parse(cookieList.jwt);
-	const user = loginClass.authenticate(supabase, jwt.username, jwt.password);
+  const jwt = JSON.parse(cookieList.jwt)
+  const user = loginClass.authenticate(supabase, jwt.username, jwt.password)
 
-	if (!user) {
-		throw redirect(307, "/newpost/login");
-	}
+  if (!user) {
+    throw redirect(307, '/newpost/login');
+  }
 
-	const { data, error } = await supabase.from("Posts").select("*").eq("uuid");
-
-	return {
-		data: data.reverse(),
-	};
+  return {
+    user: user
+  }
 }
