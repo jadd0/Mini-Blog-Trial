@@ -158,7 +158,7 @@
 
 	#userInput {
 		/* width: 264px; */
-		width: 80%;
+		width: 87.5%;
 		height: 40px;
 		margin-left: 19px;
 		background: #212121;
