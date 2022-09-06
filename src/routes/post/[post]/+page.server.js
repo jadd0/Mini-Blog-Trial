@@ -12,11 +12,6 @@ export async function load({ params }) {
     throw error(404, 'No post found');
   }
 
-
-	// if (cookieList.jwt == undefined) {
-	//   throw redirect(307, "/newpost/login");
-	// }
-
 	const returnData = data[0]
 	return {
 		returnData

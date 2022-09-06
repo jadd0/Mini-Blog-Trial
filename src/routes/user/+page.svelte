@@ -40,7 +40,9 @@
 	<div id="all">
     <div id="container">
       <h1>Add Friend</h1>
-      <input id="userInput" type="text" />
+			<div id="inputHolder">
+				<input id="userInput" type="text" />
+			</div> 
       <div id="friendContainer">
         {#each users as user}
           <div id="friend">
@@ -83,40 +85,6 @@
 		letter-spacing: -1px !important;
 	}
 
-	#whole {
-		width: 100vw;
-		display: flex;
-		justify-content: center;
-		align-items: center;
-		flex-direction: column;
-		padding-bottom: 20px;
-	}
-
-	#postContainer {
-		width: 50vw;
-		/* min-height: 20vh; */
-		padding-bottom: 20px;
-		background: #212121;
-		margin-top: 20px;
-		border-radius: 10px;
-		transition: all 0.2s linear;
-	}	
-
-	#postContainer:hover {
-		background: rgb(56, 56, 56);
-	}
-
-	@media (max-width: 800px) {
-		#postContainer {
-			width: 75vw;
-		}
-	}
-
-	@media (max-width: 520px) {
-		h1 {
-			font-size: 10vw !important;
-		}
-	}
 
 	h1 {
 		font-size: 3rem;
@@ -127,50 +95,28 @@
 		margin-left: 5vw;
 	}
 
-	h2 {
-		font-size: 1.5rem;
-		font-weight: 500;
-		color: white;
-		text-align: left;
-		/* margin-left: 1vw; */
-	}
-
-	#descriptionHolder {
-		width: 80%;
-		margin: 0 auto;
-		font-size: 1.5rem;
-		margin-left: 5vw !important;
-	}
-
 	a {
 		text-decoration: none;
 	}
 
-  #wholePage {
+	#all {
 		width: 100vw;
 		height: 100vh;
-		/* position: absolute; */
 		display: flex;
 		justify-content: center;
 		align-items: center;
-		background: #141414;
-		opacity: 0.7;
-		position: absolute;
-		z-index: 0;
-		margin-top: -27.33px;
 	}
 
 	#container {
-		/* background-color: #393939; */
 		background: #1b1b1b;
 		width: 400px;
 		height: 80vh;
 		display: grid;
 		overflow: hidden;
-		position: absolute;
+		/* position: absolute; */
 		/* margin: 0 auto; */
-		top: 10%;
-		left: 35%;
+		/* top: 10%;
+		left: 35%; */
 		z-index: 1;
 		/* align-items: center; */
 	}
@@ -183,11 +129,24 @@
 		margin-top: 20px;
 	}
 
-	input {
+	#userInput {
+		width: 264px;
+		height: 40px;
+		margin-left: 19px;
+		background: #212121;
+		color: white;
+		text-align: left;
+	}
+
+	#inputHolder {
 		width: 300px;
-		height: 20px;
+		height: 40px;
 		margin: 0 auto;
 		margin-top: 10px;
+		background: #212121;
+		border-radius: 20px;
+		color: white;
+		text-align: left;
 		/* position: absolute;
 		top: 30%;
 		left: 26%; */
