@@ -167,7 +167,7 @@
 	}
 
 	#passwordInfo {
-		margin-top: 20px;
+		margin-top: 10px;
 	}
 
 	#passwordInfo h2 {
@@ -179,6 +179,7 @@
 		margin-bottom: 10px;
 		font-weight: 700;
 		padding: 10px;
+		margin-bottom: -5px;
 	}
 
 	li {
