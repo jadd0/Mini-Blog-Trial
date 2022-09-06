@@ -19,7 +19,7 @@ async function checkUser(username) {
 }
 
 /** @type {import('./$types').Load} */
-export async function load({ request }) {
+export async function load({ request, params }) {
   const cookie = request.headers.get("cookie");
   const cookieList = parseCookie(cookie);
 
@@ -44,10 +44,6 @@ export async function load({ request }) {
 		.from("Posts")
 		.select("*")
 		.eq("a", params.username);
-
-	// if (data.length == 0) {
-	// 	throw error(404, "No posts found");
-	// }
 
 	return {
 		data: (data.reverse()),
