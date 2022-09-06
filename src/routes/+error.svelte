@@ -1,14 +1,17 @@
 <script>
   import { page } from '$app/stores';
+  let message = ''
+  if(($page.error.message).includes('Not found: /')) {
+    message = 'Page not found'
+  }
 </script>
 
 <body>
   <h1>404</h1>
-  <h2>{$page.error.message}</h2>
+  <h2>{message || $page.error.message}</h2>
   <div id="homeButton">
-    <a href='/'>Go back home</a>
+    <a href='/' id="homeText">Go back home</a>
   </div>
-  
 </body>
 
 
@@ -76,10 +79,15 @@
 
 	#homeButton {
     background-color: white;
-    margin-top: 20px;
+    margin-top: 30px;
     height: 10vh;
     width: 350px;
     line-height: 10vh;
     border-radius: 20px;
+  }
+
+  #homeText {
+    font-size: 40px !important;
+    font-weight: 1000;
   }
 </style>
