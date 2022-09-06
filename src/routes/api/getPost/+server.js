@@ -2,7 +2,7 @@ import { parseCookie } from "../../../cookieParser.js";
 import { Login } from "../../../classes/login.js";
 import { error, redirect } from "@sveltejs/kit";
 import { supabase } from "../../../supabaseClient.js";
-import { checkAuth } from "../../checkAuth.js";
+import { checkAuth } from "../../../checkAuth.js";
 
 const loginClass = new Login();
 
@@ -16,7 +16,7 @@ export async function POST({ request }) {
 	if (!auth) {
 		throw redirect(307, "/login");
 	}	
-	
+
 	const { data, error } = await supabase.from("Posts").select("*");
 
 	return new Response(JSON.stringify(data))

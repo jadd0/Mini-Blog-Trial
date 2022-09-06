@@ -2,26 +2,16 @@ import { parseCookie } from "../../cookieParser.js";
 import { Login } from "../../classes/login.js";
 import { error, redirect } from "@sveltejs/kit";
 import { supabase } from "../../supabaseClient.js";
+import { checkAuth } from "../../checkAuth.js";
 
 const loginClass = new Login();
 
 /** @type {import('./$types').Load} */
-export function load({ request }) {
+export async function load({ request }) {
   const cookie = request.headers.get("cookie");
-  const cookieList = parseCookie(cookie);
+	const auth = await checkAuth(parseCookie, loginClass, cookie, supabase)
 
-  if (cookieList.jwt == undefined) {
-    throw redirect(307, "/login");
-  }
-
-  const jwt = JSON.parse(cookieList.jwt)
-  const user = loginClass.authenticate(supabase, jwt.username, jwt.password)
-
-  if (!user) {
-    throw redirect(307, '/login');
-  }
-
-  return {
-    user: user
-  }
+	if (!auth) {
+		throw redirect(307, "/login");
+	}
 }
