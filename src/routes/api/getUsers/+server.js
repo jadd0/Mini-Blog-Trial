@@ -16,6 +16,5 @@ export async function POST({ request }) {
 		.map((a) => a.username);
 	// console.log(items)
 
- 
 	return new Response(JSON.stringify({data: items}));
 }
