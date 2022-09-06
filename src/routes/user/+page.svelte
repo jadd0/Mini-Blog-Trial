@@ -113,12 +113,14 @@
 		height: 80vh;
 		display: grid;
 		overflow: hidden;
-		/* position: absolute; */
-		/* margin: 0 auto; */
-		/* top: 10%;
-		left: 35%; */
+		border-radius: 20px;
 		z-index: 1;
-		/* align-items: center; */
+	}
+
+	@media (max-width: 460px) {
+		#container {
+			width: 325px !important;
+		}
 	}
 
 	h1 {
