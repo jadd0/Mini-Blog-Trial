@@ -11,7 +11,7 @@ const loginClass = new Login();
 export async function load({ request, params }) {
   const cookie = request.headers.get("cookie");
 
-	const auth = await checkAuth(parseCookie, loginClass, cookie)
+	const auth = await checkAuth(parseCookie, loginClass, cookie, supabase)
 
 	if (!auth) {
 		throw redirect(307, "/login");

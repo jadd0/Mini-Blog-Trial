@@ -4,9 +4,13 @@ import { supabase } from "../../../supabaseClient.js";
 const loginClass = new Login();
 
 async function login(username, password) {
-	const authBool = await loginClass.authenticate(supabase, username, password)
-	
-	return authBool
+	const authBool = await loginClass.authenticate(
+		supabase,
+		username,
+		password
+	);
+
+	return authBool;
 }
 
 /** @type {import('./__types/[id]').RequestHandler} */
@@ -16,23 +20,29 @@ export const POST = async ({ request, error }) => {
 	const username = body.username;
 	const password = body.password;
 
-	console.log(username, password)
+	console.log(username, password);
 
-	const auth = await login(username, password)
-
+	const auth = await login(username, password);
+	// console.log(auth)
 	if (!auth) {
-		return new Response('Invalid credentials', {status: 406})
+		return new Response("Invalid credentials", { status: 406 });
 	}
 
 	const cookie = loginClass.generateCookie(username, password);
 
-	return new Response("Redirect", {
-	  cookies: cookie,
-		status: 303,
-		headers: { Location: "/newpost" },
+	console.log(cookie);
+
+	// const h = new Response()
+
+	// console.log(h.cookies)
+
+	return new Response('Redirect', {
+		// cookies: cookie,
+		status: 200,
+		headers: { 'set-cookie': cookie,
+		Location: "/newpost" },
 	});
 	// Response.headers.set('set-cookie', response)
 
-	
 	// return serverResponse;
 };

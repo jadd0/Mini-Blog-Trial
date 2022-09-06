@@ -1,6 +1,6 @@
-export async function checkAuth(parseCookie, loginClass, cookie) {
+export async function checkAuth(parseCookie, loginClass, cookie, supabase) {
 	const cookieList = parseCookie(cookie);
-
+  
   if (cookieList.jwt == undefined) {
     return false
   }
@@ -11,4 +11,6 @@ export async function checkAuth(parseCookie, loginClass, cookie) {
   if (!user) {
 		return false
   }
+
+  return true
 }
