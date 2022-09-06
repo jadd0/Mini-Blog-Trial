@@ -1,6 +1,6 @@
 <script>
 	import { onMount } from "svelte";
-	// import Nav from './nav/+page.svelte'
+	import Nav from '../nav/+page.svelte'
 	let data = ''
   let users = []
   let value = []
@@ -36,7 +36,7 @@
 <svelte:window on:keyup={postQuery} />
 
 <body>
-	<!-- <Nav/> -->
+	<Nav/>
 	<div id="all">
     <div id="container">
       <h1>Search...</h1>

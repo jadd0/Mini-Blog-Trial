@@ -1,7 +1,7 @@
 <script>
 	// import Nav from "../../components/nav.svelte";
 	import { onMount } from "svelte";
-
+	import Nav from '../nav/+page.svelte'
 	let username = "";
 	let password = "";
 	let wrong = false;
@@ -52,7 +52,7 @@
 <svelte:window on:keyup={enterQuery} />
 
 <body>
-	<!-- <Nav /> -->
+	<Nav />
 	<div id="loginForm">
 		<h1>Login</h1>
 		<div id="inputHolder" class:shake1={wrong}>

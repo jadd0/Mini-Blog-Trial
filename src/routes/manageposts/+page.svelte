@@ -1,6 +1,6 @@
 <script>
 	import { onMount } from "svelte";
-	// import Nav from './nav/+page.svelte'
+	import Nav from '../nav/+page.svelte'
 	export let data = [];
 
   function remove() {
@@ -9,7 +9,7 @@
 </script>
 
 <body>
-
+	<Nav/>
   <div id="warning">
     <h1>Delete this post?</h1>
     <button>Yes</button>

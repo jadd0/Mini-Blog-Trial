@@ -1,5 +1,5 @@
 <script>
-	// import Nav from "../../components/nav.svelte";
+	import Nav from "../nav/+page.svelte";
 	import { onMount } from "svelte";
 
 	let username = "";
@@ -73,7 +73,7 @@
 <svelte:window on:keyup={enterQuery} />
 
 <body>
-	<!-- <Nav /> -->
+	<Nav />
 	<div id="loginForm">
 		<h1>Sign Up</h1>
 		<div id="inputHolder">

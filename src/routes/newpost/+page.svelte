@@ -1,5 +1,5 @@
 <script>
-	// import Nav from "../../components/nav.svelte";
+	import Nav from "../../components/nav.svelte";
 	import { onMount } from "svelte";
 
 	let title = "";
@@ -51,7 +51,7 @@
 </script>
 
 <body>
-	<!-- <Nav /> -->
+	<Nav />
 	<div id="form">
 		<h1>New Post</h1>
 
