@@ -2,25 +2,26 @@
 	import { page } from "$app/stores";
 	import { onMount } from "svelte";
 	onMount(() => {
-		const color = "rgb(255, 112, 17)";
-		console.log("hello");
-		switch ($page.url.pathname) {
-			case "/about":
-				console.log("about");
-				// document.getElementById("line1").style.display = "block";
-				document.getElementById("about").style.color = color;
-				break;
-			case "/":
-				console.log("home");
-				document.getElementById("home").style.color = color;
+		b()
+	// 	const color = "rgb(255, 112, 17)";
+	// 	console.log("hello");
+	// 	switch ($page.url.pathname) {
+	// 		case "/about":
+	// 			console.log("about");
+	// 			// document.getElementById("line1").style.display = "block";
+	// 			document.getElementById("about").style.color = color;
+	// 			break;
+	// 		case "/":
+	// 			console.log("home");
+	// 			document.getElementById("home").style.color = color;
 
-				break;
-			case "/login":
-				console.log("login");
-				document.getElementById("login").style.color = color;
+	// 			break;
+	// 		case "/login":
+	// 			console.log("login");
+	// 			document.getElementById("login").style.color = color;
 
-				break;
-		}
+	// 			break;
+	// 	}
 	});
 	function b() {
 		const nav = document.getElementById("navbar");
@@ -32,16 +33,20 @@
 	}
 </script>
 
-<div id="navbar">
-	<div id="left">
+	<div id="navbar">
 		<a href="/" id="other">
 			<div class="nav" id="home">Home</div>
 		</a>
+		<a href="/" id="other">
+			<div class="nav" id="home">Search</div>
+		</a>
 		<div>
-			<input />
-		</div>
+			<!-- <input /> -->
+
 	</div>
 </div>
+
+
 
 <!-- <div id="lines">
 	<div class="line" id="line1" />
@@ -63,6 +68,18 @@
 		box-sizing: border-box;
 		font-family: "inter";
 		font-weight: 600;
+		position: sticky;
+		top: 0;
+	}
+
+	body {
+		height: 1000vh;
+	}
+
+	@media (max-width: 1000px) {
+		#other {
+			display: none;
+		}
 	}
 
 	#navbar {
@@ -75,24 +92,8 @@
 		transition: all 0.4s 0.1s ease-in-out;
 	}
 
-	.nav {
-		width: 10%;
-		margin: 0 auto;
-		display: inline-block;
-		/* transition: all 0.2s ease-out; */
-	}
 
-	#left {
-		width: 80vw;
-		max-height: 60px;
-		padding: 0;
-		/* background-color: #141414; */
-		position: sticky;
-		top: 0;
-		transition: all 0.4s ease-in-out;
-	}
-
-	#left div {
+	#navbar div {
 		min-width: 10%;
 		height: 100%;
 		margin: 0 auto;
@@ -100,10 +101,6 @@
 		vertical-align: middle;
 		line-height: 60px;
 		color: white;
-	}
-
-	#left,
-	#left div {
 		float: right;
 	}
 
@@ -112,6 +109,6 @@
 	}
 
 	#home:hover {
-		color: rgb(255, 112, 17);
+		color: rgb(153, 153, 153);
 	}
 </style>

@@ -1,12 +1,12 @@
 <script>
 	import { onMount } from "svelte";
-	// import Nav from './nav/+page.svelte'
+	import Nav from '../../nav/+page.svelte'
 	export let data = [];
 
 </script>
 
 <body>
-	<!-- <Nav/> -->
+	<Nav/>
 	<div id="whole">
 		{#each (data.data) as d}
 			<a href="/post/{d.id}" id="hello">

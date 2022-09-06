@@ -1,4 +1,5 @@
 <script>
+	import Nav from "../../nav/+page.svelte";
 	const month = [
 		"Jan",
 		"Feb",
@@ -19,13 +20,16 @@
 	const dateDay = date.getDate();
 	const dateYear = date.getFullYear();
 </script>
-
+<Nav />
 <body>
-	<div id="container">
-		<h1>{data.returnData.title}</h1>
-		<h2>{dateMonth} {dateDay}, {dateYear}</h2>
-		<div id="pHolder">
-			<p>{data.returnData.body}</p>
+	
+	<div id="whole">
+		<div id="container">
+			<h1>{data.returnData.title}</h1>
+			<h2>{dateMonth} {dateDay}, {dateYear}</h2>
+			<div id="pHolder">
+				<p>{data.returnData.body}</p>
+			</div>
 		</div>
 	</div>
 </body>
@@ -59,6 +63,12 @@
 		font-family: New-Inter;
 		font-weight: 300;
 		letter-spacing: -1px !important;
+	}
+
+	#whole {
+		width: 100vw;
+		height: auto;
+		overflow-x: hidden;
 	}
 
 	@media (max-width: 800px) {
@@ -110,7 +120,6 @@
 		text-align: left;
 		margin-left: -10vw;
 	}
-
 
 	p {
 		/* margin: 0 auto; */

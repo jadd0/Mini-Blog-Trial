@@ -132,15 +132,15 @@
 	}
 
 	p {
-		position: absolute;
-		top: 55vh;
+		/* position: absolute;
+		top: 90%;
 		left: 0;
 		right: 0;
 
 		margin-left: 0 auto;
-		margin-right: 0 auto;
+		margin-right: 0 auto; */
 
-		/* margin: 0 auto; */
+		margin-top: 20px;
 		color: rgb(255, 255, 255);
 		font-size: 30px;
 		font-weight: 700;
