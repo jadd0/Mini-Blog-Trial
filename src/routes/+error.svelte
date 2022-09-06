@@ -1,6 +1,10 @@
+<script>
+  import { page } from '$app/stores';
+</script>
+
 <body>
   <h1>404</h1>
-  <h2>No post found</h2>
+  <h2>{$page.error.message}</h2>
   <div id="homeButton">
     <a href='/'>Go back home</a>
   </div>
