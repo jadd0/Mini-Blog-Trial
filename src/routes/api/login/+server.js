@@ -16,6 +16,8 @@ export const POST = async ({ request, error }) => {
 	const username = body.username;
 	const password = body.password;
 
+	console.log(username, password)
+
 	const auth = await login(username, password)
 
 	if (!auth) {
