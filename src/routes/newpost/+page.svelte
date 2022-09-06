@@ -1,5 +1,5 @@
 <script>
-	import Nav from "../../components/nav.svelte";
+	import Nav from "../nav/+page.svelte";
 	import { onMount } from "svelte";
 
 	let title = "";
