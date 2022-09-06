@@ -39,7 +39,7 @@
 	<!-- <Nav/> -->
 	<div id="all">
     <div id="container">
-      <h1>Add Friend</h1>
+      <h1>Search...</h1>
 			<div id="inputHolder">
 				<input id="userInput" type="text" />
 			</div> 
@@ -155,7 +155,7 @@
 	#friendContainer {
 		/* width: 20vw; */
 		position: relative;
-		top: 16.5%;
+		top: 2.5%;
 		height: 70vh;
 		/* background-color: #393939; */
 		overflow: scroll;
