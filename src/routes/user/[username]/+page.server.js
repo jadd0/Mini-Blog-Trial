@@ -1,5 +1,9 @@
 import { supabase } from "../../../supabaseClient.js";
-import { error } from "@sveltejs/kit";
+import { parseCookie } from "../../../cookieParser.js";
+import { Login } from "../../../classes/login.js";
+import { error, redirect } from "@sveltejs/kit";
+
+const loginClass = new Login();
 
 async function checkUser(username) {
 	const { data, e } = await supabase
@@ -14,8 +18,23 @@ async function checkUser(username) {
 	return true
 }
 
-export const load = async ({ params }) => {
-	const user = await checkUser(params.username)
+/** @type {import('./$types').Load} */
+export async function load({ request }) {
+  const cookie = request.headers.get("cookie");
+  const cookieList = parseCookie(cookie);
+
+  if (cookieList.jwt == undefined) {
+    throw redirect(307, "/login");
+  }
+
+  const jwt = JSON.parse(cookieList.jwt)
+  const userLoggedIn = loginClass.authenticate(supabase, jwt.username, jwt.password)
+
+  if (!userLoggedIn) {
+    throw redirect(307, '/login');
+  }
+
+  const user = await checkUser(params.username)
 	
 	if (!user) {
 		throw error(404, "No user found");
@@ -33,4 +52,4 @@ export const load = async ({ params }) => {
 	return {
 		data: (data.reverse()),
 	};
-};
+}

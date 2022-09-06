@@ -35,7 +35,7 @@
 //   //   if (!res) {
 //   //     return new Response("Redirect", {
 //   //       status: 303,
-//   //       headers: { Location: "/newpost/login" },
+//   //       headers: { Location: "/login" },
 //   //     }); 
 //   //   }
 // 	// }

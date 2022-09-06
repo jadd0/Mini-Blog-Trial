@@ -11,14 +11,14 @@ export function load({ request }) {
   const cookieList = parseCookie(cookie);
 
   if (cookieList.jwt == undefined) {
-    throw redirect(307, "/newpost/login");
+    throw redirect(307, "/login");
   }
 
   const jwt = JSON.parse(cookieList.jwt)
   const user = loginClass.authenticate(supabase, jwt.username, jwt.password)
 
   if (!user) {
-    throw redirect(307, '/newpost/login');
+    throw redirect(307, '/login');
   }
 
   return {
