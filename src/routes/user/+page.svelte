@@ -14,7 +14,7 @@
 		}
 
 		const rawResponse = await self.fetch(
-			"http://localhost:5173/api/getUsers",
+			"/api/getUsers",
 			{
 				method: "post",
 				headers: {
