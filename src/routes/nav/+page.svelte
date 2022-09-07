@@ -55,6 +55,11 @@
 
 
 <style>
+	@font-face {
+		font-family: "New-Inter";
+		src: url("/fonts/Inter.ttf");
+	}
+
 	* {
 		font-size: 24px;
 		text-align: center;
@@ -64,7 +69,7 @@
 		border: 0;
 		outline: 0;
 		box-sizing: border-box;
-		font-family: "inter";
+		font-family: "New-Inter";
 		font-weight: 600;
 	}
 

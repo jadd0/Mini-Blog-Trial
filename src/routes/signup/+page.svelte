@@ -58,9 +58,9 @@
 
 		console.log(response);
 
-		// if (response.ok) {
-		// 	window.location = "/newpost";
-		// }
+		if (response.ok) {
+			window.location = "/newpost";
+		}
 
 		if (response.status == 401) {
 			wrongMessage = 'That email/username is already in use. Please try again';
