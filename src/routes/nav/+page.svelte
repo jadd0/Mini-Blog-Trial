@@ -1,28 +1,4 @@
 <script>
-	import { page } from "$app/stores";
-	import { onMount } from "svelte";
-	onMount(() => {
-		b();
-		// 	const color = "rgb(255, 112, 17)";
-		// 	console.log("hello");
-		// 	switch ($page.url.pathname) {
-		// 		case "/about":
-		// 			console.log("about");
-		// 			// document.getElementById("line1").style.display = "block";
-		// 			document.getElementById("about").style.color = color;
-		// 			break;
-		// 		case "/":
-		// 			console.log("home");
-		// 			document.getElementById("home").style.color = color;
-
-		// 			break;
-		// 		case "/login":
-		// 			console.log("login");
-		// 			document.getElementById("login").style.color = color;
-
-		// 			break;
-		// 	}
-	});
 	function b() {
 		const nav = document.getElementById("navbar");
 		if (nav.offsetTop >= 80) {
@@ -31,19 +7,26 @@
 			document.getElementById("navbar").style.backgroundColor = "#141414";
 		}
 	}
+	function h() {
+		console.log("hello")
+	}
 </script>
+
+
 
 <div id="navbar">
 	<a href="/" id="other">
 		<div class="nav" id="home">Home</div>
 	</a>
-	<a href="/" id="other">
+	<a href="/user" id="other">
 		<div class="nav" id="home">Search</div>
 	</a>
 	<div>
 	
 	</div>
 </div>
+
+<svelte:window on:scroll={b} />
 
 <div id="navbarMobile">
 	<section class="p-menu1">
@@ -63,13 +46,13 @@
 	</section>
 </div>
 
-<!-- <div id="lines">
+<div id="lines">
 	<div class="line" id="line1" />
 	<div class="line not" id="line2" />
 	<div class="line not" id="line3" />
-</div> -->
+</div>
 
-<svelte:window on:scroll={b} />
+
 
 <style>
 	* {
@@ -172,7 +155,7 @@
 	}
 
 	#toggle1:checked ~ .menu1 {
-		height: 15vh;
+		min-height: 15vh;
 	}
 
 	/* Menu */
@@ -207,6 +190,6 @@
 	}
 
 	.menu1 a:last-child {
-		/* margin-bottom: 40px; */
+		padding-bottom: 80px;
 	}
 </style>

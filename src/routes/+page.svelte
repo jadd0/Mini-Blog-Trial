@@ -1,9 +1,10 @@
 <script>
-	import { onMount } from "svelte";
+	// import { onMount } from "svelte";
 	import Nav from './nav/+page.svelte'
 	export let data = [];
 
 </script>
+
 
 <body>
 	<Nav/>
@@ -33,10 +34,10 @@
 		margin: 0;
 		padding: 0;
 		border: 0;
-		height: 100vh;
+		height: 1000vh;
 		width: 100vw;
 		background-color: #141414;
-		overflow-x: hidden
+		/* overflow-x: hidden */
 	}
 
 	* {
