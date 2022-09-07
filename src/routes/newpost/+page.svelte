@@ -18,6 +18,8 @@
 	// }
 
 	const submit = async () => {
+		if (title.length == 0 || description.length == 0 || body.length == 0) return
+
 		const response = await fetch("/api/createPost", {
 			method: "post",
 			headers: {
@@ -70,7 +72,7 @@
 				name="text"
 				id="userInput"
 				maxlength="100"
-				placeholder="Title (0-100 chars)"
+				placeholder="Description (0-100 chars)"
 				bind:value={description}
 				oninput='this.style.height = "";this.style.height = this.scrollHeight + "px"'
 			/>
@@ -80,7 +82,7 @@
 				name="text"
 				id="userInput"
 				maxlength="2000"
-				placeholder="Title (0-2000 chars)"
+				placeholder="Body (0-2000 chars)"
 				bind:value={body}
 				oninput='this.style.height = "";this.style.height = this.scrollHeight + "px"'
 			/>
