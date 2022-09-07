@@ -21,6 +21,9 @@
 	<a href="/user" id="other">
 		<div class="nav" id="home">Search</div>
 	</a>
+	<a href="/newpost" id="other">
+		<div class="nav" id="home">New Post</div>
+	</a>
 	<div>
 	
 	</div>
@@ -41,6 +44,7 @@
 			<nav class="menu1">
 				<a href="/">Home</a>
 				<a href="/user">Search</a>
+				<a href="/newpost">New Post</a>
 			</nav>
 		</nav>
 	</section>

@@ -118,7 +118,7 @@
 				<li>Be between 10-50 characters</li>
 		</div>
 
-		<button on:click={submit} id="loginButton">Login</button>
+		<button on:click={submit} id="loginButton">Sign Up</button>
 		{#if wrong == true}
 			<h2 id="incorrect">
 				{wrongMessage}
@@ -185,7 +185,8 @@
 	li {
 		color: white;
 		text-align: left;
-		margin-left: 20px;
+		margin-left: 40px;
+		/* padding-left: 20px; */
 		padding-right: 20px;
 	}
 
