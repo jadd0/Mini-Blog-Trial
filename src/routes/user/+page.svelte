@@ -1,10 +1,12 @@
 <script>
 	import { onMount } from "svelte";
 	import Nav from '../nav/+page.svelte'
-	let data = ''
+
+	export let data;
   let users = []
   let value = []
 
+	
   const postQuery = async () => {
 		const val = document.getElementById("userInput").value;
 
@@ -36,7 +38,7 @@
 <svelte:window on:keyup={postQuery} />
 
 <body>
-	<Nav/>
+	<Nav username={data.username}/>
 	<div id="all">
     <div id="container">
       <h1>Search...</h1>
@@ -69,7 +71,7 @@
 		height: 100vh;
 		width: 100vw;
 		background-color: #141414;
-		overflow-x: hidden
+		overflow-x: hidden;
 	}
 
 	* {
@@ -105,6 +107,7 @@
 		display: flex;
 		justify-content: center;
 		align-items: center;
+		z-index: -1;
 	}
 
 	#container {
@@ -114,7 +117,8 @@
 		display: grid;
 		overflow: hidden;
 		border-radius: 20px;
-		z-index: 1;
+		z-index: 0;
+		margin-top: -10vh;
 	}
 
 	@media (max-width: 460px) {

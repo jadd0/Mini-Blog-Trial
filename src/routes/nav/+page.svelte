@@ -1,4 +1,6 @@
 <script>
+	export let username;
+	console.log(username);
 	function b() {
 		const nav = document.getElementById("navbar");
 		if (nav.offsetTop >= 80) {
@@ -8,25 +10,33 @@
 		}
 	}
 	function h() {
-		console.log("hello")
+		console.log("hello");
 	}
 </script>
-
-
 
 <div id="navbar">
 	<a href="/" id="other">
 		<div class="nav" id="home">Home</div>
 	</a>
-	<a href="/user" id="other">
-		<div class="nav" id="home">Search</div>
-	</a>
-	<a href="/newpost" id="other">
-		<div class="nav" id="home">New Post</div>
-	</a>
-	<div>
-	
-	</div>
+
+	{#if username == undefined}
+		<a href="/login" id="other">
+			<div class="nav" id="home">Login</div>
+		</a>
+	{/if}
+	{#if username != undefined}
+		<a href="/user/{username}" id="other">
+			<div class="nav" id="home">{username}</div>
+		</a>
+		<a href="/user" id="other">
+			<div class="nav" id="home">Search</div>
+		</a>
+		<a href="/newpost" id="other">
+			<div class="nav" id="home">New Post</div>
+		</a>
+	{/if}
+
+	<div />
 </div>
 
 <svelte:window on:scroll={b} />
@@ -36,16 +46,28 @@
 		<nav id="navbarMobileNav" class="navigation" role="navigation">
 			<input id="toggle1" type="checkbox" />
 			<label class="hamburger1" for="toggle1">
-				<div class="top"></div>
-				<div class="meat"></div>
-				<div class="bottom"></div>
+				<div class="top" />
+				<div class="meat" />
+				<div class="bottom" />
 			</label>
+			{#if username == undefined}
+				<nav class="menu1">
+					<a href="/">Home</a>
 
-			<nav class="menu1">
-				<a href="/">Home</a>
-				<a href="/user">Search</a>
-				<a href="/newpost">New Post</a>
-			</nav>
+					<a href="/login">Login</a>
+
+					<!-- <div id="big"></div> -->
+				</nav>
+			{/if}
+			{#if username != undefined}
+				<nav class="menu2">
+					<a href="/user/{username}"
+						>{username}</a
+					>
+					<a href="/user">Search</a>
+					<a href="/newpost">New Post</a>
+				</nav>
+			{/if}
 		</nav>
 	</section>
 </div>
@@ -55,8 +77,6 @@
 	<div class="line not" id="line2" />
 	<div class="line not" id="line3" />
 </div>
-
-
 
 <style>
 	@font-face {
@@ -100,6 +120,7 @@
 		position: sticky;
 		top: 0;
 		transition: all 0.4s 0.1s ease-in-out;
+		z-index: 200;
 	}
 
 	#navbar div {
@@ -164,11 +185,32 @@
 	}
 
 	#toggle1:checked ~ .menu1 {
-		min-height: 15vh;
+		min-height: 100px;
+		overflow: hidden;
+		/* min-height: 15vh; */
+		/* height: auto; */
+		/* margin-bottom: -200px; */
+	}
+
+	#toggle1:checked ~ .menu2 {
+		min-height: 160px;
+		overflow: hidden;
+		/* min-height: 15vh; */
+		/* height: auto; */
+		/* margin-bottom: -200px; */
+	}
+
+	#small {
+		width: 100vw;
+		height: 100px;
+	}
+
+	#big {
+		padding-bottom: 100px !important;
 	}
 
 	/* Menu */
-	.menu1 {
+	.menu1, .menu2 {
 		width: 100%;
 		margin: 0;
 		display: -ms-grid;
@@ -188,17 +230,17 @@
 		transition: all 0.3s ease;
 	}
 
-	.menu1 a:first-child {
+	.menu1 a:first-child, .menu2 a:first-child {
 		margin-top: 10px;
 	}
 
-	.menu1 a {
+	.menu1 a, .menu2 a {
 		color: white;
 		font-weight: bold;
 		text-decoration: none;
 	}
 
 	.menu1 a:last-child {
-		padding-bottom: 80px;
+		/* padding-bottom: 80px; */
 	}
 </style>
