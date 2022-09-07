@@ -5,12 +5,14 @@
 	let username = "";
 	let password = "";
 	let wrong = false;
+	let shake = false
 
 	function enterQuery(event) {
 		if (event.key == "Enter") {
 			submit();
 		}
 		wrong = false
+
 	}
 
 	// function wrongDetails() {
@@ -45,7 +47,11 @@
 
 		if (response.ok == false) {
 			wrong = true;
+			shake = true
 		}
+		setTimeout(() => {
+			shake = false
+		}, 300);		
 	};
 </script>
 
@@ -55,7 +61,7 @@
 	<Nav />
 	<div id="loginForm">
 		<h1>Login</h1>
-		<div id="inputHolder" class:shake1={wrong}>
+		<div id="inputHolder" class:wrong={wrong} class:shake={shake}>
 			<input
 				type="username"
 				id="userInput"
@@ -63,7 +69,7 @@
 				bind:value={username}
 			/>
 		</div>
-		<div id="inputHolder" class:shake1={wrong}>
+		<div id="inputHolder" class:wrong={wrong} class:shake={shake}>
 			<input
 				type="password"
 				id="userInput"
@@ -108,9 +114,12 @@
 		}
 	}
 
-	.shake1 {
-		border: 2px solid red;
+	.shake {
 		animation: shake2 0.2s linear;
+	}
+
+	.wrong {
+		border: 2px solid red;
 	}
 
 	@keyframes shake2 {
