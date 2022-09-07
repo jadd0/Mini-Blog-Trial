@@ -61,6 +61,7 @@
 			{/if}
 			{#if username != undefined}
 				<nav class="menu2">
+					<a href="/">Home</a>
 					<a href="/user/{username}"
 						>{username}</a
 					>
@@ -193,7 +194,7 @@
 	}
 
 	#toggle1:checked ~ .menu2 {
-		min-height: 160px;
+		min-height: 210px;
 		overflow: hidden;
 		/* min-height: 15vh; */
 		/* height: auto; */

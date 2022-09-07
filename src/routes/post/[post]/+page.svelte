@@ -20,7 +20,7 @@
 	const dateDay = date.getDate();
 	const dateYear = date.getFullYear();
 </script>
-<Nav />
+<Nav username={data.username}/>
 <body>
 	
 	<div id="whole">

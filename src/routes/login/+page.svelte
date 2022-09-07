@@ -58,7 +58,7 @@
 <svelte:window on:keyup={enterQuery} />
 
 <body>
-	<Nav />
+	<Nav username={data.username}/>
 	<div id="loginForm">
 		<h1>Login</h1>
 		<div id="inputHolder" class:wrong={wrong} class:shake={shake}>

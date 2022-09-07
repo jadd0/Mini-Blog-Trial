@@ -19,7 +19,6 @@ export async function load({ request }) {
 	const username = jwtName.replaceAll('"','')
 
 	// console.log(username)
-	console.log("hello")
 	return {
 		username: username
 	}

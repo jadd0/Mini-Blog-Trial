@@ -27,7 +27,13 @@ export async function load({ request, params }) {
   }
 
 	const returnData = data[0]
+
+	const jwtName = parseCookie(cookie).jwt
+	const username = jwtName.replaceAll('"','')
+
+
 	return {
-		returnData
+		returnData,
+		username
 	}
 }

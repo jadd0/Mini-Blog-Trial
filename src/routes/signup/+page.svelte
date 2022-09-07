@@ -73,7 +73,7 @@
 <svelte:window on:keyup={enterQuery} />
 
 <body>
-	<Nav />
+	<Nav username={data.username}/>
 	<div id="loginForm">
 		<h1>Sign Up</h1>
 		<div id="inputHolder">

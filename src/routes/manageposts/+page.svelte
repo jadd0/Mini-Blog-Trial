@@ -9,14 +9,14 @@
 </script>
 
 <body>
-	<Nav/>
+	<Nav username={data.username}/>
   <div id="warning">
     <h1>Delete this post?</h1>
     <button>Yes</button>
     <button>No</button>
   </div>
 
-	<!-- <Nav/> -->
+	<!-- <Nav username={data.username}/> -->
 	<div id="whole">
 		{#each (data.data) as d}
 			<a on:click={remove} id="hello">

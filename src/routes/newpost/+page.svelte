@@ -2,6 +2,8 @@
 	import Nav from "../nav/+page.svelte"
 	import { onMount } from "svelte";
 
+	export let data;
+
 	let title = "";
 	let description = "";
 	let body = "";
@@ -53,7 +55,7 @@
 </script>
 
 <body>
-	<Nav />
+	<Nav username={data.username}/>
 	<div id="form">
 		<h1>New Post</h1>
 

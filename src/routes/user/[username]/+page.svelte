@@ -6,7 +6,7 @@
 </script>
 
 <body>
-	<Nav/>
+	<Nav username={data.username}/>
 	<div id="whole">
 		{#each (data.data) as d}
 			<a href="/post/{d.id}" id="hello">
