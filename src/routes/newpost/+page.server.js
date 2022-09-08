@@ -20,6 +20,6 @@ export async function load({ request }) {
 
 	// console.log(username)
 	return {
-		username: username
+		username: auth
 	}
 }

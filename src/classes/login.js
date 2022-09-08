@@ -25,7 +25,7 @@ export class Login {
 		// if (data.length == 0) {
 		// 	return false;
 		// }
-		if (password == undefined) return false
+		if (password == undefined) return false;
 		try {
 			if (data[0].password !== password) {
 				return false;
@@ -55,10 +55,11 @@ export class Login {
 	}
 
 	generateCookie(username, password) {
-		console.log(password)
 		const jwt = this.generateJWT();
-		console.log(password)
-		const cookie = `jwt=${JSON.stringify({username: username, password: password})}; path=/; Expires=${this.generateExpiry()}; HostOnly=false; Secure=lax`;
+		const cookie = `jwt=${JSON.stringify({
+			username: username,
+			password: password,
+		})}; path=/; Expires=${this.generateExpiry()}; HostOnly=false; Secure=lax`;
 
 		return cookie;
 	}

@@ -6,15 +6,18 @@ export const load = async({ request }) => {
 	const { data, error } = await supabase.from("Posts").select("*");
   
   const jwtName = parseCookie(cookie)
-  console.log(jwtName)
+
   let username = ''
-
-	if (jwtName.jwt != undefined) {
-    username = jwtName.jwt.replaceAll('"','')
+  try {
+    const jwt = JSON.parse(jwtName.jwt)
+    username = jwt.username
   }
+  catch {
+    username = ''
+  } 
 
 
-	console.log(username)
+	// console.log(jwt)
   
 	return {
     data: data.reverse(),

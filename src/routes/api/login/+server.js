@@ -23,28 +23,19 @@ export const POST = async ({ request, error }) => {
 	// console.log(username, password);
 
 	const auth = await login(username, password);
-	// console.log(auth)
+
 	if (!auth) {
 		return new Response("Invalid credentials", { status: 406 });
 	}
+
 
 	const cookie = loginClass.generateCookie(username, password);
 
 	console.log("cookie", cookie)
 
-	// console.log(cookie);
-
-	// const h = new Response()
-
-	// console.log(h.cookies)
-
 	return new Response('Redirect', {
-		// cookies: cookie,
 		status: 200,
 		headers: { 'set-cookie': cookie,
 		Location: "/newpost" },
 	});
-	// Response.headers.set('set-cookie', response)
-
-	// return serverResponse;
-};
+}

@@ -15,11 +15,7 @@ export async function load({ request }) {
 		throw redirect(307, "/login");
 	}
 
-	const jwtName = parseCookie(cookie).jwt
-	const username = jwtName.replaceAll('"','')
-
-	// console.log(username)
 	return {
-		username: username
+		username: auth
 	}
 }
