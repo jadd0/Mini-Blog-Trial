@@ -30,6 +30,8 @@ export const POST = async ({ request, error }) => {
 
 	const cookie = loginClass.generateCookie(username, password);
 
+	console.log("cookie", cookie)
+
 	// console.log(cookie);
 
 	// const h = new Response()
