@@ -172,7 +172,7 @@
 		min-height: 400px;
 		padding-bottom: 30px;
 		border-radius: 15px;
-		margin-top: 10vh;
+		margin-top: 5vh;
 	}
 
 	input {
