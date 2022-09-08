@@ -1,11 +1,13 @@
 <script>
-	// import Nav from "../../components/nav.svelte";
+	export let data;
 	import { onMount } from "svelte";
 	import Nav from '../nav/+page.svelte'
 	let username = "";
 	let password = "";
 	let wrong = false;
 	let shake = false
+
+	
 
 	function enterQuery(event) {
 		if (event.key == "Enter") {
@@ -39,7 +41,7 @@
 			}),
 		});
 
-		console.log(response);
+		// console.log(response);
 
 		if (response.ok) {
 			window.location = "/newpost";

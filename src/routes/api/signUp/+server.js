@@ -7,7 +7,7 @@ async function checkAvailability(username, email) {
 
 	const emailAvailability = data.find((user) => user.email === email);
 
-	console.log(usernameAvailability, emailAvailability)
+	// console.log(usernameAvailability, emailAvailability)
 
 
 	const userBool = usernameAvailability == undefined
@@ -18,7 +18,7 @@ async function checkAvailability(username, email) {
 }
 
 async function signUp(req) {
-	console.log(req)
+	// console.log(req)
 	const { data, error } = await supabase.from("Users").insert([
 		{
 			name: req.name,
@@ -36,10 +36,10 @@ export async function POST({ request }) {
 
 	const availability = await checkAvailability(req.username, req.email)
 
-	console.log(availability)
+	// console.log(availability)
 
 	if ((availability.emailBool == false) || (availability.userBool == false)) {
-		console.log("it is not available")
+		// console.log("it is not available")
 		return new Response('User with email/username already exists', {status: 401})
 	}
 	// console.log(req)

@@ -35,7 +35,7 @@
 			}),
 		});
 
-		console.log(response);
+		// console.log(response);
 
 		if (response.ok) {
 			window.location = "/newpost";
@@ -48,7 +48,7 @@
 
 	function changeHeight() {
 		let scrollHeight = document.getElementById("new").scrollHeight;
-		console.log(scrollHeight);
+		// console.log(scrollHeight);
 		document.getElementById("new").style.height = scrollHeight + "px";
 		// $("#message-box").css('height', scroll_height + 'px');
 	}

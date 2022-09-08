@@ -4,12 +4,17 @@ import { parseCookie } from "../cookieParser.js";
 export const load = async({ request }) => {
   const cookie = request.headers.get("cookie");
 	const { data, error } = await supabase.from("Posts").select("*");
-  console.log(data)
+  
+  const jwtName = parseCookie(cookie)
+  console.log(jwtName)
+  let username = ''
 
-  const jwtName = parseCookie(cookie).jwt
-	const username = jwtName.replaceAll('"','')
+	if (jwtName.jwt != undefined) {
+    username = jwtName.jwt.replaceAll('"','')
+  }
 
-	// console.log(username)
+
+	console.log(username)
   
 	return {
     data: data.reverse(),

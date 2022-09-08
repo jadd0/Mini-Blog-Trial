@@ -20,7 +20,7 @@ export const POST = async ({ request, error }) => {
 	const username = body.username;
 	const password = body.password;
 
-	console.log(username, password);
+	// console.log(username, password);
 
 	const auth = await login(username, password);
 	// console.log(auth)
@@ -30,7 +30,7 @@ export const POST = async ({ request, error }) => {
 
 	const cookie = loginClass.generateCookie(username, password);
 
-	console.log(cookie);
+	// console.log(cookie);
 
 	// const h = new Response()
 

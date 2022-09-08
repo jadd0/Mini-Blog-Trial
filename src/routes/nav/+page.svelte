@@ -1,6 +1,11 @@
 <script>
 	export let username;
-	console.log(username);
+
+	if (username == '') {
+		username = undefined
+	}
+
+	// console.log(username);
 	function b() {
 		const nav = document.getElementById("navbar");
 		if (nav.offsetTop >= 80) {
@@ -10,7 +15,7 @@
 		}
 	}
 	function h() {
-		console.log("hello");
+		// console.log("hello");
 	}
 </script>
 
