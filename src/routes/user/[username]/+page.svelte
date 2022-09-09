@@ -4,8 +4,6 @@
 	import Nav from '../../nav/+page.svelte'
 	export let data = [];
 
-
-
 	const submit = async () => {
 		const response = await fetch("/api/follow", {
 			method: "post",
@@ -29,7 +27,7 @@
 	<div id="whole">
 
 		{#if data.bool == false}
-			<button on:click={submit}>Follow</button>
+			<button on:click={submit} id="followButton">Follow</button>
 		{/if}
 		{#each (data.data) as d}
 			<a href="/post/{d.id}" id="hello">
@@ -132,6 +130,23 @@
 		margin: 0 auto;
 		font-size: 1.5rem;
 		margin-left: 5vw !important;
+	}
+
+	#followButton {
+		margin: 0 auto;
+		margin-top: 40px;
+		width: 300px;
+		height: 50px;
+		color: white;
+		font-weight: 600;
+		background-color: #212121;
+		border-radius: 20px;
+		cursor: pointer;
+		transition: all 0.2s linear;
+	}
+
+	#followButton:hover {
+		background: rgb(56, 56, 56);
 	}
 
 	a {
