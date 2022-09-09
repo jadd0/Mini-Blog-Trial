@@ -16,9 +16,6 @@ export async function POST({ request }) {
 	if (!auth) {
 		throw redirect(307, "/login");
 	}	
-	
-	const jwtName = parseCookie(cookie).jwt
-	const username = jwtName.replaceAll('"','')
 
 	const userData = await request.json()
 	const { data, error } = await supabase.from("Posts").insert([
@@ -28,7 +25,7 @@ export async function POST({ request }) {
 			metadata: {
 				description: userData.description,
 			},
-			a: username
+			a: auth
 		},
 	]);
 
