@@ -79,7 +79,6 @@
 	}
 
 	#name {
-		font-size: 20px;
 		color: rgb(159, 159, 159);
 		overflow: hidden;
 		margin-top: 5px;
