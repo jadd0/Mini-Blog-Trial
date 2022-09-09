@@ -6,9 +6,24 @@ import { checkAuth } from "../../../checkAuth.js";
 
 const loginClass = new Login();
 
+async function getUsers() {
+	const { data, e } = await supabase
+		.from("Users")
+		.select("username")
+
+	return data;
+}
+
+async function getFollowList() {
+	const { data, e } = await supabase
+		.from("Users")
+		.select("*")
+
+	return data;
+}
+
 /** @type {import('./$types').Load} */
 export async function POST({ request }) {
-	console.log("hello");
 	const cookie = request.headers.get("cookie");
 	const auth = await checkAuth(parseCookie, loginClass, cookie, supabase);
 
@@ -16,15 +31,30 @@ export async function POST({ request }) {
 		throw error("Not authorised");
 	}
 
-	const userData = await request.json() //userToFollow
-  console.log(userData.username)
+	const userData = await request.json()
+	const username = userData.username
+
+	const d1 = await getUsers()
+
+	const user = d1.find((user) => user.username === username) || false;
+
+	if (!user) {
+		throw error(404, `${username} not found`)
+	}
 
 	const { data, e } = await supabase
 		.from("Users")
 		.select("*")
-		.eq("username", auth)
+		.eq("username", auth);
 
-  let followingList = data[0].followingList
+  let followingList = data[0].followingList;
+
+	const bool = followingList.includes(username)
+
+	if(bool) {
+		throw error(404, `${username} already followed`)
+	}
+
   followingList.push(userData.username)
 
 	const { d, error } = await supabase
