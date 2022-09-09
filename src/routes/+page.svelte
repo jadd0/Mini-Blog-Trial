@@ -1,8 +1,18 @@
 <script>
 	// import { onMount } from "svelte";
+	import Page from "./nav/+page.svelte";
 	import Nav from "./nav/+page.svelte";
 	export let data = [];
-	console.log(data);
+
+	function date(isoDate) {
+		const date = new Date(isoDate);
+		const newDate = `${date.getDate()}/${
+			date.getMonth() + 1
+		}/${date.getFullYear()}`;
+
+		return newDate
+	}
+
 </script>
 
 <body>
@@ -17,8 +27,14 @@
 							{d.title}
 						</h1>
 						<div id="descriptionHolder">
-						<h2>{d.metadata.description}</h2>
-					</div>
+							<h2>{d.metadata.description}</h2>
+							<a href="/@{d.a}">
+								<h2 id="name">@{d.a}</h2>
+							</a>
+							<h2>
+								{date(new Date(d.created_at))}
+							</h2>
+						</div>
 					</div>
 				</a>
 			{/each}
@@ -53,6 +69,13 @@
 		box-sizing: border-box;
 		font-family: New-Inter;
 		letter-spacing: -1px !important;
+	}
+
+	#name {
+		font-size: 20px;
+		color: rgb(159, 159, 159);
+		overflow: hidden;
+		margin-top: 5px;
 	}
 
 	#whole {
@@ -104,6 +127,7 @@
 		font-weight: 500;
 		color: white;
 		text-align: left;
+		/* text-overflow: ellipsis; */
 		/* margin-left: 1vw; */
 	}
 
