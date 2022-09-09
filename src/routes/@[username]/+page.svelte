@@ -1,10 +1,19 @@
 <script>
-	import { page } from '$app/stores';
+	import { page } from "$app/stores";
 	import { onMount } from "svelte";
-	import Nav from '../nav/+page.svelte'
+	import Nav from "../nav/+page.svelte";
 	export let data = [];
 
-	console.log(data.user[0])
+	console.log(data.user[0]);
+
+	function date(isoDate) {
+		const date = new Date(isoDate);
+		const newDate = `${date.getDate()}/${
+			date.getMonth() + 1
+		}/${date.getFullYear()}`;
+
+		return newDate;
+	}
 
 	const submit = async () => {
 		const response = await fetch("/api/follow", {
@@ -14,25 +23,25 @@
 				"Content-Type": "application/json",
 			},
 			body: JSON.stringify({
-				username: $page.params.username
+				username: $page.params.username,
 			}),
 		});
 
 		if (response.ok) {
-			location.reload()
+			location.reload();
 		}
-	}
+	};
 </script>
 
 <body>
 	<div id="whole">
-		<Nav username={data.username}/>
+		<Nav username={data.username} />
 		<h1 id="username">@{data.user[0].username}</h1>
 		<h2 id="name">{data.user[0].name}</h2>
 		{#if data.bool == false}
 			<button on:click={submit} id="followButton">Follow</button>
 		{/if}
-		{#each (data.data) as d}
+		{#each data.data as d}
 			<a href="/post/{d.id}" id="hello">
 				<div id="postContainer" class="postContainer">
 					<h1>
@@ -40,6 +49,12 @@
 					</h1>
 					<div id="descriptionHolder">
 						<h2>{d.metadata.description}</h2>
+						<a href="/@{d.a}">
+							<h2 id="name">@{d.a}</h2>
+						</a>
+						<h2>
+							{date(new Date(d.created_at))}
+						</h2>
 					</div>
 				</div>
 			</a>
@@ -106,7 +121,7 @@
 		border-radius: 10px;
 		transition: all 0.2s linear;
 		/* margin: auto; */
-	}	
+	}
 
 	#postContainer:hover {
 		background: rgb(56, 56, 56);
