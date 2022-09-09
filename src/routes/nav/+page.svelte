@@ -20,27 +20,26 @@
 </script>
 
 <div id="navbar">
-	<a href="/" id="other">
-		<div class="nav" id="home">Home</div>
-	</a>
-
 	{#if username == undefined}
 		<a href="/login" id="other">
 			<div class="nav" id="home">Login</div>
 		</a>
 	{/if}
 	{#if username != undefined}
-		<a href="/@{username}" id="other">
-			<div class="nav" id="home">@{username}</div>
-		</a>
 		<a href="/search" id="other">
 			<div class="nav" id="home">Search</div>
 		</a>
 		<a href="/newpost" id="other">
 			<div class="nav" id="home">New Post</div>
 		</a>
+		<a href="/@{username}" id="other">
+			<div class="nav" id="home">@{username}</div>
+		</a>
 	{/if}
 
+	<a href="/" id="other">
+		<div class="nav" id="home">Home</div>
+	</a>
 	<div />
 </div>
 
@@ -69,8 +68,9 @@
 					<a href="/">Home</a>
 					<a href="/@{username}"
 						>@{username}</a>
-					<a href="/search">Search</a>
 					<a href="/newpost">New Post</a>
+					<a href="/search">Search</a>
+					
 				</nav>
 			{/if}
 		</nav>
@@ -129,7 +129,8 @@
 	}
 
 	#navbar div {
-		min-width: 10%;
+		/* min-width: 10%; */
+		padding: 0 30px 0 0px;
 		height: 100%;
 		margin: 0 auto;
 		text-align: center;
