@@ -19,11 +19,22 @@ async function checkUser(username) {
 	return true
 }
 
+async function isFollowed(username) {
+	const { data, e } = await supabase
+		.from("Users")
+		.select("*")
+		.eq("username", username)
+	
+	const followingList = data[0].followingList
+
+	return followingList
+}
+
 /** @type {import('./$types').Load} */
 export async function load({ request, params }) {
   const cookie = request.headers.get("cookie");
 	const auth = await checkAuth(parseCookie, loginClass, cookie, supabase)
-
+	
 	if (!auth) {
 		throw redirect(307, "/login");
 	}
@@ -34,6 +45,10 @@ export async function load({ request, params }) {
 		throw error(404, "No user found");
 	}
 
+	const followList = await isFollowed(auth)
+	
+	const bool = followList.includes(params.username)
+
 	const { data, e } = await supabase
 		.from("Posts")
 		.select("*")
@@ -41,6 +56,7 @@ export async function load({ request, params }) {
 
 	return {
 		data: (data.reverse()),
-		username: auth
+		username: auth,
+		bool: bool
 	};
 }

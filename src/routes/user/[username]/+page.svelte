@@ -1,13 +1,36 @@
 <script>
+	import { page } from '$app/stores';
 	import { onMount } from "svelte";
 	import Nav from '../../nav/+page.svelte'
 	export let data = [];
 
+
+
+	const submit = async () => {
+		const response = await fetch("/api/follow", {
+			method: "post",
+			headers: {
+				Accept: "application/json",
+				"Content-Type": "application/json",
+			},
+			body: JSON.stringify({
+				username: $page.params.username
+			}),
+		});
+
+		if (response.ok) {
+			location.reload()
+		}
+	}
 </script>
 
 <body>
 	<Nav username={data.username}/>
 	<div id="whole">
+
+		{#if data.bool == false}
+			<button on:click={submit}>Follow</button>
+		{/if}
 		{#each (data.data) as d}
 			<a href="/post/{d.id}" id="hello">
 				<div id="postContainer" class="postContainer">
