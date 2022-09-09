@@ -60,7 +60,7 @@
 		height: 100vh;
 		width: 100vw;
 		background-color: #141414;
-		overflow-x: hidden
+		/* overflow-x: hidden */
 	}
 
 	* {
@@ -88,11 +88,12 @@
 
 	#whole {
 		width: 100vw;
+		height: auto;
 		display: flex;
 		justify-content: center;
 		align-items: center;
 		flex-direction: column;
-		padding-bottom: 20px;
+		/* padding-bottom: 20px; */
 	}
 
 	#postContainer {
@@ -103,6 +104,7 @@
 		margin-top: 20px;
 		border-radius: 10px;
 		transition: all 0.2s linear;
+		/* margin: auto; */
 	}	
 
 	#postContainer:hover {
