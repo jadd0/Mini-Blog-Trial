@@ -31,7 +31,7 @@
 							<a href="/@{d.a}">
 								<h2 id="name">@{d.a}</h2>
 							</a>
-							<h2>
+							<h2 id="date">
 								{date(new Date(d.created_at))}
 							</h2>
 						</div>
@@ -69,6 +69,13 @@
 		box-sizing: border-box;
 		font-family: New-Inter;
 		letter-spacing: -1px !important;
+	}
+
+	#date {
+		margin: 0 auto;
+		font-weight: 600;
+		color: rgb(136, 136, 136);
+		font-size: 20px;
 	}
 
 	#name {

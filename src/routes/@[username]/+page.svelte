@@ -52,7 +52,7 @@
 						<a href="/@{d.a}">
 							<h2 id="name">@{d.a}</h2>
 						</a>
-						<h2>
+						<h2 id="date">
 							{date(new Date(d.created_at))}
 						</h2>
 					</div>
@@ -100,6 +100,13 @@
 		margin: 0 auto;
 		font-weight: 600;
 		color: rgb(136, 136, 136);
+	}
+
+	#date {
+		margin: 0 auto;
+		font-weight: 600;
+		color: rgb(136, 136, 136);
+		font-size: 20px;
 	}
 
 	#whole {
