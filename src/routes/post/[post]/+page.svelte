@@ -27,6 +27,9 @@
 		<div id="container">
 			<h1>{data.returnData.title}</h1>
 			<h2>{dateMonth} {dateDay}, {dateYear}</h2>
+			<a href="/@{data.returnData.a}">
+				<h2 id="name">@{data.returnData.a}</h2>
+			</a>
 			<div id="pHolder">
 				<p>{data.returnData.body}</p>
 			</div>
@@ -63,6 +66,11 @@
 		font-family: New-Inter;
 		font-weight: 300;
 		letter-spacing: -1px !important;
+	}
+
+	#name {
+		font-size: 20px;
+		margin-top: 5px;
 	}
 
 	#whole {
