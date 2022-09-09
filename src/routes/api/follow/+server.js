@@ -28,7 +28,7 @@ export async function POST({ request }) {
 	const auth = await checkAuth(parseCookie, loginClass, cookie, supabase);
 
 	if (!auth) {
-		throw error("Not authorised");
+		throw error(401, "Not authorised")
 	}
 
 	const userData = await request.json()
