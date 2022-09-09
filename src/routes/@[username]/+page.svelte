@@ -25,8 +25,8 @@
 </script>
 
 <body>
-	<Nav username={data.username}/>
 	<div id="whole">
+		<Nav username={data.username}/>
 		<h1 id="username">@{data.user[0].username}</h1>
 		<h2 id="name">{data.user[0].name}</h2>
 		{#if data.bool == false}
@@ -94,7 +94,7 @@
 		justify-content: center;
 		align-items: center;
 		flex-direction: column;
-		/* padding-bottom: 20px; */
+		padding-bottom: 20px;
 	}
 
 	#postContainer {
