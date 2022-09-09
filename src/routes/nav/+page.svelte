@@ -30,10 +30,10 @@
 		</a>
 	{/if}
 	{#if username != undefined}
-		<a href="/user/{username}" id="other">
-			<div class="nav" id="home">{username}</div>
+		<a href="/@{username}" id="other">
+			<div class="nav" id="home">@{username}</div>
 		</a>
-		<a href="/user" id="other">
+		<a href="/search" id="other">
 			<div class="nav" id="home">Search</div>
 		</a>
 		<a href="/newpost" id="other">
@@ -67,10 +67,9 @@
 			{#if username != undefined}
 				<nav class="menu2">
 					<a href="/">Home</a>
-					<a href="/user/{username}"
-						>{username}</a
-					>
-					<a href="/user">Search</a>
+					<a href="/@{username}"
+						>@{username}</a>
+					<a href="/search">Search</a>
 					<a href="/newpost">New Post</a>
 				</nav>
 			{/if}

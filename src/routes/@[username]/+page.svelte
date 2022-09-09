@@ -1,7 +1,7 @@
 <script>
 	import { page } from '$app/stores';
 	import { onMount } from "svelte";
-	import Nav from '../../nav/+page.svelte'
+	import Nav from '../nav/+page.svelte'
 	export let data = [];
 
 	console.log(data.user[0])
@@ -27,7 +27,7 @@
 <body>
 	<Nav username={data.username}/>
 	<div id="whole">
-		<h1 id="username">{data.user[0].username}</h1>
+		<h1 id="username">@{data.user[0].username}</h1>
 		<h2 id="name">{data.user[0].name}</h2>
 		{#if data.bool == false}
 			<button on:click={submit} id="followButton">Follow</button>
@@ -83,7 +83,8 @@
 
 	#name {
 		margin: 0 auto;
-		font-weight: 6	00;
+		font-weight: 600;
+		color: rgb(136, 136, 136);
 	}
 
 	#whole {

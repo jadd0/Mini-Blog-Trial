@@ -65,7 +65,7 @@
 		}
 
 		if (response.status == 401) {
-			wrongMessage = 'That email/username is already in use. Please try again';
+			wrongMessage = 'That email/searchname is already in use. Please try again';
 			wrong = true
 			// console.log(wrong);
 		}

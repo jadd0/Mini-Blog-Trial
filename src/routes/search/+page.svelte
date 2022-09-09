@@ -48,7 +48,7 @@
       <div id="friendContainer">
         {#each users as user}
           <div id="friend">
-            <a href="/user/{user}">
+            <a href="/@{user}">
               <span>{user}</span>
             </a>
           </div>
