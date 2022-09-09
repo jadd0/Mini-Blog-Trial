@@ -1,25 +1,27 @@
 <script>
 	// import { onMount } from "svelte";
-	import Nav from './nav/+page.svelte'
+	import Nav from "./nav/+page.svelte";
 	export let data = [];
-	// console.log(data)
+	console.log(data);
 </script>
 
-
 <body>
-	<Nav username={data.username}/>
+	<Nav username={data.username} />
 	<div id="whole">
-		{#each (data.data) as d}
-			<a href="/post/{d.id}" id="hello">
-				<div id="postContainer" class="postContainer">
-					<h1>
-						{d.title}
-					</h1>
-					<div id="descriptionHolder">
+		<h1>Home</h1>
+		{#each data.data as d1}
+			{#each d1 as d}
+				<a href="/post/{d.id}" id="hello">
+					<div id="postContainer" class="postContainer">
+						<h1>
+							{d.title}
+						</h1>
+						<div id="descriptionHolder">
 						<h2>{d.metadata.description}</h2>
 					</div>
-				</div>
-			</a>
+					</div>
+				</a>
+			{/each}
 		{/each}
 	</div>
 </body>
@@ -70,7 +72,7 @@
 		margin-top: 20px;
 		border-radius: 10px;
 		transition: all 0.2s linear;
-	}	
+	}
 
 	#postContainer:hover {
 		background: rgb(56, 56, 56);
