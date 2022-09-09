@@ -16,7 +16,7 @@ async function checkUser(username) {
 		return false
 	}
 
-	return true
+	return data
 }
 
 async function isFollowed(username) {
@@ -40,7 +40,7 @@ export async function load({ request, params }) {
 	}
 
   const user = await checkUser(params.username)
-	
+
 	if (!user) {
 		throw error(404, "No user found");
 	}
@@ -55,6 +55,7 @@ export async function load({ request, params }) {
 		.eq("a", params.username);
 
 	return {
+		user: user,
 		data: (data.reverse()),
 		username: auth,
 		bool: bool

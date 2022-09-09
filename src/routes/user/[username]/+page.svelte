@@ -4,6 +4,8 @@
 	import Nav from '../../nav/+page.svelte'
 	export let data = [];
 
+	console.log(data.user[0])
+
 	const submit = async () => {
 		const response = await fetch("/api/follow", {
 			method: "post",
@@ -25,7 +27,8 @@
 <body>
 	<Nav username={data.username}/>
 	<div id="whole">
-
+		<h1 id="username">{data.user[0].username}</h1>
+		<h2 id="name">{data.user[0].name}</h2>
 		{#if data.bool == false}
 			<button on:click={submit} id="followButton">Follow</button>
 		{/if}
@@ -71,6 +74,16 @@
 		box-sizing: border-box;
 		font-family: New-Inter;
 		letter-spacing: -1px !important;
+	}
+
+	#username {
+		margin: 0 auto;
+		font-weight: 600;
+	}
+
+	#name {
+		margin: 0 auto;
+		font-weight: 6	00;
 	}
 
 	#whole {
@@ -134,7 +147,8 @@
 
 	#followButton {
 		margin: 0 auto;
-		margin-top: 40px;
+		margin-top: 20px;
+		margin-bottom: 20px;
 		width: 300px;
 		height: 50px;
 		color: white;
