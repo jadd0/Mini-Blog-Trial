@@ -72,10 +72,10 @@
 		margin: 0;
 		padding: 0;
 		border: 0;
-		height: 100vh;
+		/* height: 100vh; */
 		width: 100vw;
 		background-color: #141414;
-		overflow-x: hidden
+		/* overflow-x: hidden */
 	}
 
 	* {

@@ -79,6 +79,7 @@
 		color: rgb(159, 159, 159);
 		overflow: hidden;
 		margin-top: 5px;
+		font-weight: 800;
 	}
 
 	#whole {
