@@ -67,7 +67,7 @@
 		margin: 0;
 		padding: 0;
 		border: 0;
-		height: 100vh;
+		height: auto;
 		width: 100vw;
 		background-color: #141414;
 		overflow-x: hidden;
@@ -101,11 +101,11 @@
 
 	#all {
 		width: 100vw;
-		height: 100vh;
+		height: auto;
 		display: flex;
 		justify-content: center;
 		align-items: center;
-		z-index: -1;
+		z-index: 150;
 	}
 
 	#container {
@@ -116,7 +116,7 @@
 		overflow: hidden;
 		border-radius: 20px;
 		z-index: 0;
-		margin-top: -10vh;
+		margin-top: 3vh;
 	}
 
 	#searchedFriendName {

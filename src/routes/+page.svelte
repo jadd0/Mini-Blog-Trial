@@ -49,7 +49,7 @@
 		margin: 0;
 		padding: 0;
 		border: 0;
-		height: auto;
+		/* height: auto; */
 		width: 100vw;
 		background-color: #141414;
 		/* overflow-x:hidden; */
@@ -87,6 +87,7 @@
 		align-items: center;
 		flex-direction: column;
 		padding-bottom: 20px;	
+		height: auto;
 	}
 
 	#description, #title {

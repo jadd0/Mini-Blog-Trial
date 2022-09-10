@@ -42,6 +42,7 @@
 	</a>
 	<div />
 </div>
+<div id="underNav"></div>
 
 <svelte:window on:scroll={b} />
 
@@ -127,6 +128,19 @@
 		transition: all 0.4s 0.1s ease-in-out;
 		z-index: 200;
 		overflow-x: hidden;
+		opacity: 0.9;
+	}
+
+	#underNav {
+		position: sticky;
+		top: 0;
+		width: 100vw;
+		height: 60px;
+		/* background-color: white; */
+		margin-top: -60px;
+		position: sticky;
+		top: 0;
+		backdrop-filter: blur(17px);
 	}
 
 	#navbar div {
