@@ -7,7 +7,7 @@ const features = new Features();
 
 export async function POST({ request }) {
 	const req = await request.json();
-	console.log(req)
+	(req)
 	const res = await supabaseClass.signUp(req)
 
 	if (!res) {

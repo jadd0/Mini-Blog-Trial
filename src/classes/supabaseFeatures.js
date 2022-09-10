@@ -99,7 +99,7 @@ export class SupabaseFeatures {
 	}
 
 	async signUp(userDetails) {
-		// console.log
+		// 
 		const result = await this.checkAvailability(
 			userDetails.username,
 			userDetails.email
@@ -141,7 +141,7 @@ export class SupabaseFeatures {
 
 	async authenticate(username, password) {
 		if (password == undefined) return false;
-		console.log(username, password);
+		(username, password);
 		const user = await this.getUser(username);
 
 		try {
