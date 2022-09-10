@@ -1,18 +1,25 @@
+import { supabase } from "../../supabaseClient.js";
 import { parseCookie } from "../../cookieParser.js";
 
-/** @type {import('./$types').Load} */
-export async function load({ request }) {
+export const load = async({ request }) => {
   const cookie = request.headers.get("cookie");
+	const { data, error } = await supabase.from("Posts").select("*");
+  
+  const jwtName = parseCookie(cookie)
 
-	const jwtName = parseCookie(cookie)
-  const username = ''
+  let username = ''
 
-	if (jwtName.jwt != undefined) {
-    jwtName.jwt.replaceAll('"','')
+  try {
+    const jwt = JSON.parse(jwtName.jwt)
+    username = jwt.username
   }
+  catch {
+    username = ''
+  } 
 
-	// (username)
+  
 	return {
-		username: auth
-	}
-}
+    data: data.reverse(),
+    username: username
+  }
+};

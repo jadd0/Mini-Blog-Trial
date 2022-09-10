@@ -17,17 +17,6 @@
 
 	}
 
-	// function wrongDetails() {
-	// 	const uId = document.getElementsByClassName("username")[0]
-	// 	const pId = document.getElementsByClassName("password")[0]
-
-	// 	uId.style.border = "2px solid red"
-	// 	pId.style.border = "2px solid red"
-
-	// 	uId.classList.add("hello")
-	// 	(uId.classList)
-	// }
-
 	const submit = async () => {
 		const response = await fetch("/api/login", {
 			method: "post",
@@ -40,8 +29,6 @@
 				password: password,
 			}),
 		});
-
-		// (response);
 
 		if (response.ok) {
 			window.location = "/newpost";
@@ -95,6 +82,7 @@
 		height: 1000vh;
 		width: 100vw;
 		background-color: #141414;
+		/* overflow: hidden; */
 	}
 
 	* {
@@ -138,19 +126,7 @@
 		}
 	}
 
-	.wrong {
-		
-	}
-
 	p {
-		/* position: absolute;
-		top: 90%;
-		left: 0;
-		right: 0;
-
-		margin-left: 0 auto;
-		margin-right: 0 auto; */
-
 		margin-top: 20px;
 		color: rgb(255, 255, 255);
 		font-size: 30px;
@@ -191,21 +167,13 @@
 		color: white;
 	}
 
-	#incorrect {
-		/* position: absolute;
-		top: 0vw; */
-		margin-top: 20px;
-		color: white;
-		/* display: none; */
-	}
-
 	#loginForm {
 		margin: 0 auto;
 		background: #1b1b1b;
 		width: 400px;
 		height: 350px;
 		border-radius: 15px;
-		margin-top: 20vh;
+		margin-top: 10vh;
 	}
 
 	input {

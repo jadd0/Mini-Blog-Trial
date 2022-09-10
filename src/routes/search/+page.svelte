@@ -1,13 +1,12 @@
 <script>
 	import { onMount } from "svelte";
-	import Nav from '../nav/+page.svelte'
+	import Nav from "../nav/+page.svelte";
 
 	export let data;
-  let users = []
-  let value = []
+	let users = [];
+	let value = [];
 
-	
-  const postQuery = async () => {
+	const postQuery = async () => {
 		const val = document.getElementById("userInput").value;
 
 		if (val == "") {
@@ -15,47 +14,47 @@
 			return;
 		}
 
-		const rawResponse = await self.fetch(
-			"/api/getUsers",
-			{
-				method: "post",
-				headers: {
-					Accept: "application/json",
-					"Content-Type": "application/json",
-				},
-				body: JSON.stringify({ query: val }),
-			}
-		);
+		const rawResponse = await self.fetch("/api/getUsers", {
+			method: "post",
+			headers: {
+				Accept: "application/json",
+				"Content-Type": "application/json",
+			},
+			body: JSON.stringify({ query: val }),
+		});
 		const h = await rawResponse.json();
 		users = h.data;
 
-    // (users)
+		// (users)
 	};
-
-
 </script>
 
 <svelte:window on:keyup={postQuery} />
 
 <body>
-	<Nav username={data.username}/>
+	<Nav username={data.username} />
 	<div id="all">
-    <div id="container">
-      <h1>Search...</h1>
+		<div id="container">
+			<h1>Search...</h1>
 			<div id="inputHolder">
 				<input id="userInput" type="text" />
-			</div> 
-      <div id="friendContainer">
-        {#each users as user}
-          <div id="friend">
-            <a href="/@{user}">
-              <span>{user}</span>
-            </a>
-          </div>
-        {/each}
-      </div>
-    </div>
-  </div>
+			</div>
+			<div id="friendContainer">
+				{#each users as user}
+				<a href="/@{user}">
+					<div id="searchedFriend">
+						<h1 id="searchedFriendName">@{user}</h1>
+					</div>
+				</a>
+				{/each}
+				{#if users.length == 0}
+					<h1 id="nothingDisplay">
+						Nothing to display
+					</h1>
+				{/if}
+			</div>
+		</div>
+	</div>
 </body>
 
 <style>
@@ -87,12 +86,11 @@
 		letter-spacing: -1px !important;
 	}
 
-
 	h1 {
 		font-size: 3rem;
 		font-weight: 700;
 		color: white;
-		padding-top: 10px;
+		/* padding-top: 10px; */
 		text-align: left;
 		margin-left: 5vw;
 	}
@@ -121,6 +119,25 @@
 		margin-top: -10vh;
 	}
 
+	#searchedFriendName {
+		font-size: 25px;
+		color: rgb(206, 206, 206);
+		margin: 0 auto;
+	}
+
+	#searchedFriend {
+		line-height: 65px;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		height: 55px;
+		border-bottom: solid 2px rgb(92, 92, 92);
+	}
+
+	#nothingDisplay {
+		font-size: 30px;
+	}
+
 	@media (max-width: 460px) {
 		#container {
 			width: 325px !important;
@@ -130,7 +147,6 @@
 	h1 {
 		font-size: 50px;
 		color: white;
-		/* min-width: 500px; */
 		margin: 0 auto;
 		margin-top: 20px;
 	}
@@ -153,35 +169,18 @@
 		border-radius: 20px;
 		color: white;
 		text-align: left;
-		/* position: absolute;
-		top: 30%;
-		left: 26%; */
 	}
 
 	#friendContainer {
-		/* width: 20vw; */
 		position: relative;
 		top: 2.5%;
 		height: 70vh;
-		/* background-color: #393939; */
 		overflow: scroll;
+		display: flex;
+		flex-direction: column;
 	}
 
 	a {
 		text-decoration: none;
-	}
-
-	#friend {
-		text-align: center;
-		line-height: 5vh;
-		width: 100%;
-		height: 5vh;
-		color: white;
-		font-size: 30px;
-		/* background: #1b1b1b; */
-	}
-
-	#friend:nth-child(2n) {
-		background-color: #333 !important;
 	}
 </style>
