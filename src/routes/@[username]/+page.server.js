@@ -1,31 +1,26 @@
 import { supabase } from "../../supabaseClient.js";
-import { parseCookie } from "../../cookieParser.js";
-import { Login } from "../../classes/login.js";
+import { SupabaseFeatures } from "../../classes/supabaseFeatures.js";
+import { Features } from "../../classes/usefulFeatures.js";
 import { error, redirect } from "@sveltejs/kit";
-import { checkAuth } from "../../checkAuth.js";
 
-const loginClass = new Login();
+const features = new Features();
+const supabaseClass = new SupabaseFeatures(supabase);
 
-async function checkUser(username) {
-	const { data, e } = await supabase
-		.from("Users")
-		.select("*")
-		.eq("username", username);
+// async function checkUser(username) {
+// 	const { data, e } = await supabase
+// 		.from("Users")
+// 		.select("*")
+// 		.eq("username", username);
 	
-	if (data.length == 0) {
-		return false
-	}
+// 	if (data.length == 0) {
+// 		return false
+// 	}
 
-	return data
-}
+// 	return data
+// }
 
-async function isFollowed(username) {
-	const { data, e } = await supabase
-		.from("Users")
-		.select("*")
-		.eq("username", username)
+async function isFollowed(auth, username) {
 	
-	const followingList = data[0].followingList
 
 	return followingList
 }
@@ -33,30 +28,26 @@ async function isFollowed(username) {
 /** @type {import('./$types').Load} */
 export async function load({ request, params }) {
   const cookie = request.headers.get("cookie");
-	const auth = await checkAuth(parseCookie, loginClass, cookie, supabase)
+	const auth = await features.checkAuth(supabaseClass, cookie)
 	
 	if (!auth) {
 		throw redirect(307, "/login");
 	}
 
-  const user = await checkUser(params.username)
+  const user = await supabaseClass.getUser(params.username)
 
 	if (!user) {
 		throw error(404, "No user found");
 	}
 
-	const followList = await isFollowed(auth)
-	
-	const bool = followList.includes(params.username)
+	const followingList = await supabaseClass.getUser(auth)
 
-	const { data, e } = await supabase
-		.from("Posts")
-		.select("*")
-		.eq("a", params.username);
+	const bool = followingList.followingList.includes(params.username)
+	const posts = await supabaseClass.getPosts(auth)
 
 	return {
 		user: user,
-		data: (data.reverse()),
+		data: (posts.reverse()),
 		username: auth,
 		bool: bool
 	};

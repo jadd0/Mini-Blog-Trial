@@ -5,15 +5,6 @@ import { supabase } from "../../../supabaseClient.js";
 const supabaseClass = new SupabaseFeatures(supabase);
 const features = new Features();
 
-async function login(username, password) {
-	const authBool = await loginClass.authenticate(
-		supabase,
-		username,
-		password
-	);
-
-	return authBool;
-}
 
 /** @type {import('./__types/[id]').RequestHandler} */
 export const POST = async ({ request }) => {

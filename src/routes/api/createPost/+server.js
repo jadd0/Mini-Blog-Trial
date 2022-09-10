@@ -12,7 +12,7 @@ const features = new Features()
 export async function POST({ request }) {
 	const cookie = request.headers.get("cookie");
 
-	const auth = await features.checkAuth(supabaseClass.authenticate, cookie);
+	const auth = await features.checkAuth(supabaseClass, cookie);
 
 	if (!auth) {
 		throw error(401, "Not authorised");
@@ -21,4 +21,6 @@ export async function POST({ request }) {
 	const userData = await request.json();
 
 	const res = await supabaseClass.createPost(userData, auth);
+
+	return new Response("Posted successfully")
 }

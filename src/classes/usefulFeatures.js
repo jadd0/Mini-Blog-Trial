@@ -1,5 +1,5 @@
 export class Features {
-  async checkAuth(authenticate, cookie) {
+  async checkAuth(supabaseClass, cookie) {
     const cookieList = this.parseCookie(cookie);
   
     if (cookieList.jwt == undefined) {
@@ -7,7 +7,7 @@ export class Features {
     }
   
     const jwt = JSON.parse(cookieList.jwt)
-    const user = await authenticate(jwt.username, jwt.password)
+    const user = await supabaseClass.authenticate(jwt.username, jwt.password)
   
     if (!user) {
       return false

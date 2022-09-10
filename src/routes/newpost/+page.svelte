@@ -1,6 +1,5 @@
 <script>
 	import Nav from "../nav/+page.svelte"
-	import { onMount } from "svelte";
 
 	export let data;
 
@@ -10,7 +9,6 @@
 
 	const submit = async () => {
 		if (title.length == 0 || description.length == 0 || body.length == 0) return
-
 		const response = await fetch("/api/createPost", {
 			method: "post",
 			headers: {
@@ -23,6 +21,8 @@
 				body: body
 			}),
 		});
+
+		console.log(response)
 
 		// (response);
 

@@ -1,15 +1,15 @@
-import { parseCookie } from "../../cookieParser.js";
-import { Login } from "../../classes/login.js";
+import { SupabaseFeatures } from "../../classes/supabaseFeatures.js";
+import { Features } from "../../classes/usefulFeatures.js";
 import { error, redirect } from "@sveltejs/kit";
 import { supabase } from "../../supabaseClient.js";
-import { checkAuth } from "../../checkAuth.js";
 
-const loginClass = new Login();
+const supabaseClass = new SupabaseFeatures(supabase);
+const features = new Features();
 
 /** @type {import('./$types').Load} */
 export async function load({ request }) {
   const cookie = request.headers.get("cookie");
-	const auth = await checkAuth(parseCookie, loginClass, cookie, supabase)
+	const auth = await features.checkAuth(supabaseClass, cookie)
 
 	if (!auth) {
 		throw redirect(307, "/login");

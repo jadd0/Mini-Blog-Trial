@@ -1,25 +1,24 @@
 import { supabase } from "../../supabaseClient.js";
-import { parseCookie } from "../../cookieParser.js";
+import { SupabaseFeatures } from "../../classes/supabaseFeatures.js";
+import { Features } from "../../classes/usefulFeatures.js";
+
+const supabaseClass = new SupabaseFeatures(supabase);
+const features = new Features()
 
 export const load = async({ request }) => {
-  const cookie = request.headers.get("cookie");
-	const { data, error } = await supabase.from("Posts").select("*");
-  
-  const jwtName = parseCookie(cookie)
+  const cookie = request.headers.get("cookie");  
+  const auth = features.checkAuth(supabaseClass, cookie)
 
   let username = ''
 
-  try {
-    const jwt = JSON.parse(jwtName.jwt)
-    username = jwt.username
-  }
-  catch {
+  if (!auth) {
     username = ''
-  } 
+  }
+  else {
+    username = auth
+  }
 
-  
 	return {
-    data: data.reverse(),
     username: username
   }
 };

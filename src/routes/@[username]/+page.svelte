@@ -36,8 +36,8 @@
 <body>
 	<Nav username={data.username} />
 	<div id="whole">
-		<h1 id="username">@{data.user[0].username}</h1>
-		<h2 id="name">{data.user[0].name}</h2>
+		<h1 id="username">@{data.user.username}</h1>
+		<h2 id="name">{data.user.name}</h2>
 		{#if data.bool == false}
 			<button on:click={submit} id="followButton">Follow</button>
 		{/if}

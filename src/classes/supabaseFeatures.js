@@ -5,20 +5,18 @@ export class SupabaseFeatures {
 
 	async unfollow() {}
 
-  async checkUserExists()
+	async checkUserExists() {}
 
-  async checkAlreadyFollowed(user, userToFollow) {
-
-  }
+	async checkAlreadyFollowed(user, userToFollow) {}
 
 	async follow(username, userToFollow) {
-		const user2 = await this.getUser(userToFollow)
+		const user2 = await this.getUser(userToFollow);
 
 		if (!user2) {
 			return false;
 		}
 
-    const user = await this.getUser(username)
+		const user = await this.getUser(username);
 		let followingList = user.followingList;
 		const bool = followingList.includes(user2.username);
 
@@ -67,11 +65,11 @@ export class SupabaseFeatures {
 		return data;
 	}
 
-  async getAllUsers() {
-    const { data, error } = await supabase.from("Users").select("*");
+	async getAllUsers() {
+		const { data, error } = await this.supabase.from("Users").select("*");
 
-    return data
-  }
+		return data;
+	}
 
 	async getUser(username) {
 		const { data, e } = await this.supabase
@@ -79,52 +77,73 @@ export class SupabaseFeatures {
 			.select("*")
 			.eq("username", username);
 
-		if (data.length == 0) return false
-    return data[0]
+		if (data.length == 0) return false;
+		return data[0];
 	}
 
-	async getPosts(username) {}
+	async getPosts(username) {
+		const { data, e } = await this.supabase
+			.from("Posts")
+			.select("*")
+			.eq("a", username);
+		return data;
+	}
 
-	async signUp({ userDetails }) {
-    const result = await this.checkAvailability(userDetails.username, userDetails.email)
+	async getPost(id) {
+		const { data, e } = await this.supabase
+			.from("Posts")
+			.select("*")
+			.eq("id", id);
+		
+		return data[0]
+	}
 
-    if (!result) {
-      return false
-    }
+	async signUp(userDetails) {
+		// console.log
+		const result = await this.checkAvailability(
+			userDetails.username,
+			userDetails.email
+		);
 
-    const { data, error } = await supabase.from("Users").insert([
-      {
-        name: userDetails.name,
-        email: userDetails.email,
-        password: userDetails.password,
-        username: userDetails.username
-      }
-    ]);
+		if (!result) {
+			return false;
+		}
 
-    if (error == undefined) return true
-    return false
-  }
+		const { data, error } = await this.supabase.from("Users").insert([
+			{
+				name: userDetails.name,
+				email: userDetails.email,
+				password: userDetails.password,
+				username: userDetails.username,
+			},
+		]);
 
-  async checkAvailability(username, email) {
-    const userList = await this.getAllUsers()
-  
-    const usernameAvailability = userList.find((user) => user.username == username);
-    const emailAvailability = userList.find((user) => user.email === email);
-    
-    //true if undefined, false otherwise
-    const userBool = usernameAvailability == undefined
-    const emailBool = emailAvailability == undefined
+		if (error == undefined) return true;
+		return false;
+	}
 
-    if (!userBool || !emailBool) return false
+	async checkAvailability(username, email) {
+		const userList = await this.getAllUsers();
 
-    return true
-  }
+		const usernameAvailability = userList.find(
+			(user) => user.username == username
+		);
+		const emailAvailability = userList.find((user) => user.email === email);
 
-  async authenticate(username, password) {
+		//true if undefined, false otherwise
+		const userBool = usernameAvailability == undefined;
+		const emailBool = emailAvailability == undefined;
+
+		if (!userBool || !emailBool) return false;
+
+		return true;
+	}
+
+	async authenticate(username, password) {
 		if (password == undefined) return false;
+		console.log(username, password);
+		const user = await this.getUser(username);
 
-		const user = await this.getUser(username)
-	
 		try {
 			if (user.password !== password) {
 				return false;
