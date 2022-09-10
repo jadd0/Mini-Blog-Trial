@@ -227,6 +227,7 @@
 		width: 400px;
 		min-height: 680px;
 		padding-bottom: 20px;
+		margin-bottom: 30px;
 		border-radius: 15px;
 		margin-top: 5vh;
 	}

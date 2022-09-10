@@ -8,17 +8,6 @@
 	let description = "";
 	let body = "";
 
-	// function wrongDetails() {
-	// 	const uId = document.getElementsByClassName("username")[0]
-	// 	const pId = document.getElementsByClassName("password")[0]
-
-	// 	uId.style.border = "2px solid red"
-	// 	pId.style.border = "2px solid red"
-
-	// 	uId.classList.add("hello")
-	// 	(uId.classList)
-	// }
-
 	const submit = async () => {
 		if (title.length == 0 || description.length == 0 || body.length == 0) return
 
@@ -48,9 +37,7 @@
 
 	function changeHeight() {
 		let scrollHeight = document.getElementById("new").scrollHeight;
-		// (scrollHeight);
 		document.getElementById("new").style.height = scrollHeight + "px";
-		// $("#message-box").css('height', scroll_height + 'px');
 	}
 </script>
 
@@ -171,6 +158,7 @@
 		width: 40vw;
 		min-height: 400px;
 		padding-bottom: 30px;
+		margin-bottom: 30px;	
 		border-radius: 15px;
 		margin-top: 5vh;
 	}
