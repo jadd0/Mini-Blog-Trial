@@ -163,8 +163,14 @@
 	#inputHolder {
 		width: 300px;
 		height: 40px;
-		margin: 0 auto;
-		margin-top: 10px;
+		/* margin: 0 auto; */
+		position: absolute;
+		left:0;
+		right: 0;
+		margin-left: auto;
+		margin-right: auto;
+		top: 30%;
+		/* margin-top: 10px; */
 		background: #212121;
 		border-radius: 20px;
 		color: white;
@@ -173,11 +179,12 @@
 
 	#friendContainer {
 		position: relative;
-		top: 2.5%;
-		height: 70vh;
+		top: 15%;
+		height: 80%;
 		overflow: scroll;
 		display: flex;
 		flex-direction: column;
+		padding-bottom: 80px;
 	}
 
 	a {

@@ -12,17 +12,18 @@ const features = new Features()
 export async function POST({ request }) {
 	const cookie = request.headers.get("cookie");
 
-	const auth = await features.checkAuth(supabaseClass.authenticate, cookie);
+	const auth = await features.checkAuth(supabaseClass, cookie);
 
 
 	if (!auth) {
 		throw error(401, "Not authorised");
 	}
 
-	let users = supabaseClass.getAllUsernames();
+	let users = await supabaseClass.getAllUsernames();
 	const req = await request.json();
-
-	const items = users.filter((user) => user.indexOf(req.query) !== -1);
+	console.log(users)
+	const items = users.filter((user) => user.username.indexOf(req.query) !== -1)
+	.map((a) => a.username)
 
 	return new Response(JSON.stringify({ data: items }));
 }
