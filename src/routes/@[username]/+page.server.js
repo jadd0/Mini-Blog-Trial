@@ -6,19 +6,6 @@ import { error, redirect } from "@sveltejs/kit";
 const features = new Features();
 const supabaseClass = new SupabaseFeatures(supabase);
 
-// async function checkUser(username) {
-// 	const { data, e } = await supabase
-// 		.from("Users")
-// 		.select("*")
-// 		.eq("username", username);
-	
-// 	if (data.length == 0) {
-// 		return false
-// 	}
-
-// 	return data
-// }
-
 async function isFollowed(auth, username) {
 	
 

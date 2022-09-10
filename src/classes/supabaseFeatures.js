@@ -1,6 +1,34 @@
+import { time_ranges_to_array } from "svelte/internal";
+
 export class SupabaseFeatures {
 	constructor(supabase) {
 		this.supabase = supabase;
+	}
+
+	async newComment(data, username) {
+		const post = await this.getPost(data.id);
+		if (post == undefined) return false;
+
+		let comments = post.comments;
+
+		if (comments == null) {
+			comments = [];
+		}
+
+		comments.push({
+			id: comments.length,
+			body: data.commentBody,
+			created_at: new Date(),
+			username: username,
+		});
+
+		const { d, error } = await this.supabase
+			.from("Posts")
+			.update({ comments: comments })
+			.match({ id: data.id });
+
+		if (error == undefined) return true
+		return false
 	}
 
 	async unfollow() {}
@@ -94,12 +122,12 @@ export class SupabaseFeatures {
 			.from("Posts")
 			.select("*")
 			.eq("id", id);
-		
-		return data[0]
+
+		return data[0];
 	}
 
 	async signUp(userDetails) {
-		// 
+		//
 		const result = await this.checkAvailability(
 			userDetails.username,
 			userDetails.email
@@ -141,7 +169,7 @@ export class SupabaseFeatures {
 
 	async authenticate(username, password) {
 		if (password == undefined) return false;
-		(username, password);
+		username, password;
 		const user = await this.getUser(username);
 
 		try {
