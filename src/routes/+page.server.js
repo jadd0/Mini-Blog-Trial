@@ -1,37 +1,8 @@
-// import { supabase } from "../supabaseClient.js";
-// import { parseCookie } from "../cookieParser.js";
-
-// export const load = async({ request }) => {
-//   const cookie = request.headers.get("cookie");
-// 	const { data, error } = await supabase.from("Posts").select("*");
-  
-//   const jwtName = parseCookie(cookie)
-
-//   let username = ''
-//   try {
-//     const jwt = JSON.parse(jwtName.jwt)
-//     username = jwt.username
-//   }
-//   catch {
-//     username = ''
-//   } 
-
-
-// 	// (jwt)
-  
-// 	return {
-//     data: data.reverse(),
-//     username: username
-//   }
-// };
-
-
 import { supabase } from "../supabaseClient.js";
 import { parseCookie } from "../cookieParser.js";
 import { Login } from "../classes/login.js";
-import { error, redirect } from "@sveltejs/kit";
+import { redirect } from "@sveltejs/kit";
 import { checkAuth } from "../checkAuth.js";
-import { each } from "svelte/internal";
 
 const loginClass = new Login();
 
@@ -68,10 +39,14 @@ export async function load({ request, params }) {
     posts.push(await getPosts(followingList[i]))
   }
 
-  (posts)
-  
+  let newPosts = [].concat(...posts);
+
+	newPosts.sort(function(a, b) {
+    return (a.created_at < b.created_at) ? -1 : ((a.created_at > b.created_at) ? 1 : 0);
+	});
+
 	return {
-		data: (posts.reverse()),
+		data: (newPosts.reverse()),
 		username: auth,
 	};
 }

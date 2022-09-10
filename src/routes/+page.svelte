@@ -17,8 +17,8 @@
 	<Nav username={data.username} />
 	<div id="whole">
 		<h1>Home</h1>
-		{#each data.data as d1}
-			{#each d1 as d}
+		{#each data.data as d}
+			<!-- {#each d1 as d} -->
 				<a href="/post/{d.id}" id="hello">
 					<div id="postContainer" class="postContainer">
 						<h1 id="title">
@@ -35,7 +35,7 @@
 						</div>
 					</div>
 				</a>
-			{/each}
+			<!-- {/each} -->
 		{/each}
 	</div>
 </body>
