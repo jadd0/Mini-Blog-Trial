@@ -22,7 +22,12 @@ export async function load({ request, params }) {
   }
 
 	const returnData = data
-	const comments = data.comments
+	let comments = data.comments
+	
+	if (comments == null) {
+		comments = []
+	}
+
 	return {
 		returnData,
 		username: auth,

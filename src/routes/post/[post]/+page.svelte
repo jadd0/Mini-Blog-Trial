@@ -20,15 +20,8 @@
 	let commentBody = ''
 
 
-	let comments = [
-		{
-			username: "jadd28",
-			body: "fsdhfjoshdpuhfsdiuhdiuhfisudxguisdhguihfguihsuoghuidhguihdfgh  gfoup gurd giury gur ygi yrg yr7g y7rd gy79rdy g79d ryg7 yrg79dgr97 ",
-			created_at: new Date(),
-		},
-	];
-
 	const submit = async () => {
+		if (commentBody.length < 5) return
 		const response = await fetch("/api/newComment", {
 			method: "post",
 			headers: {
@@ -66,14 +59,14 @@
 			</div>
 
 			<div id="comments">
-				<h3 id="commentHeader">Comments</h3>
+				<h1 id="commentHeader">Comments</h1>
 				<div id="commentInputHolder">
 					<div id="inputHolder">
 						<textarea
 							name="text"
 							id="userInput"
 							maxlength="200"
-							placeholder="(0-200 chars)"
+							placeholder="(5-200 chars)"
 							bind:value={commentBody}
 							oninput='this.style.height = "";this.style.height = this.scrollHeight + "px"'
 						/>
@@ -148,10 +141,10 @@
 	}
 
 	#postButton {
-		margin: 0 auto;
 		margin-top: 10px;
-		margin-left: -20vw;
+		margin-left: 0vw;
 		width: 60%;
+		min-width: 200px;
 		height: 50px;
 		color: white;
 		font-weight: 600;
@@ -164,27 +157,38 @@
 	#postButton:hover {
 		background: rgb(56, 56, 56);
 	}
+
+	#commentInputHolder {
+		display: flex;
+		flex-direction: column;
+
+	}
+
 	#commentHeader {
-		font-size: 3rem;
+		font-size: 3rem !important;
 		color: white;
 		font-weight: 600;
 		margin-top: 3vh;
 		text-align: left;
-		/* margin-left: -10vw; */
+		margin-left: -0vw;
 	}
 
 	#userInput {
-		width: 87.5%;
-		min-height: 36px;
-		margin-left: 19px;
-		margin-top: 4px;
+		width: 83.5%;
+		min-height: 32px;
+		margin-left: 8%;
+		/* margin: 0 auto; */
+		margin-top: 0%;
+		border-radius: 10px;
 		background: #212121;
 		color: white;
 		text-align: left;
+		font-size: 1.25rem;
 	}
 
 	#inputHolder {
 		width: 60%;
+		min-width: 200px;
 		min-height: 40px;
 		/* margin: 0 auto; */
 		margin-top: 10px;
@@ -207,7 +211,6 @@
 	#comments {
 		margin-top: 20px;
 		width: 50vw;
-		height: 400px;
 		margin-left: -10vw;
 	}
 
@@ -233,7 +236,11 @@
 			font-size: 10vw !important;
 		}
 
-		h2 {
+		#commentHeader {
+			font-size: 7vw !important;
+		}
+
+		h2, h4 {
 			font-size: 5vw !important;
 		}
 
@@ -243,9 +250,13 @@
 		}
 	}
 
-	@media (max-width: 600px) {
-		p {
+	@media (max-width: 400px) {
+		p, h5 {
 			font-size: 5vw !important;
+		}
+
+		#userInput {
+			font-size: 4vw !important;
 		}
 	}
 
