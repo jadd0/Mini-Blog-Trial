@@ -43,7 +43,7 @@ export async function load({ request, params }) {
 	const followingList = await supabaseClass.getUser(auth)
 
 	const bool = followingList.followingList.includes(params.username)
-	const posts = await supabaseClass.getPosts(auth)
+	const posts = await supabaseClass.getPosts(params.username)
 
 	return {
 		user: user,

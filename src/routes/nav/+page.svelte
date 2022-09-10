@@ -113,7 +113,7 @@
 		}
 	}
 	@media (max-width: 900px) {
-		#navbar {
+		#navbar, #underNav {
 			display: none;
 		}
 	}

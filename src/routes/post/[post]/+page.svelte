@@ -20,7 +20,8 @@
 	const dateDay = date.getDate();
 	const dateYear = date.getFullYear();
 </script>
-<Nav username={data.username}/>
+
+<Nav username={data.username} />
 <body>
 	<div id="whole">
 		<div id="container">
@@ -32,6 +33,15 @@
 			<div id="pHolder">
 				<p>{data.returnData.body}</p>
 			</div>
+		</div>
+	</div>
+
+	<div id="comments">
+		<div id="addComment">
+			
+		</div>
+		<div id="commentBox">
+			
 		</div>
 	</div>
 </body>

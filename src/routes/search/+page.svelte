@@ -123,6 +123,9 @@
 		font-size: 25px;
 		color: rgb(206, 206, 206);
 		margin: 0 auto;
+		overflow: hidden;	
+		text-overflow: ellipsis;
+		padding: 10px 10px 10px 10px;
 	}
 
 	#searchedFriend {
@@ -136,10 +139,12 @@
 
 	#nothingDisplay {
 		font-size: 30px;
+	
+
 	}
 
 	@media (max-width: 460px) {
-		#container {
+		#container, #friendContainer {
 			width: 325px !important;
 		}
 	}
@@ -163,14 +168,12 @@
 	#inputHolder {
 		width: 300px;
 		height: 40px;
-		/* margin: 0 auto; */
 		position: absolute;
 		left:0;
 		right: 0;
 		margin-left: auto;
 		margin-right: auto;
 		top: 30%;
-		/* margin-top: 10px; */
 		background: #212121;
 		border-radius: 20px;
 		color: white;
@@ -178,9 +181,10 @@
 	}
 
 	#friendContainer {
-		position: relative;
-		top: 15%;
-		height: 80%;
+		position: absolute;
+		top: 40vh;
+		height: 50vh;
+		width: 400px;
 		overflow: scroll;
 		display: flex;
 		flex-direction: column;
