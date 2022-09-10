@@ -20,7 +20,7 @@ export const POST = async ({ request, error }) => {
 	const username = body.username;
 	const password = body.password;
 
-	// console.log(username, password);
+	// (username, password);
 
 	const auth = await login(username, password);
 
@@ -31,7 +31,7 @@ export const POST = async ({ request, error }) => {
 
 	const cookie = loginClass.generateCookie(username, password);
 
-	console.log("cookie", cookie)
+	("cookie", cookie)
 
 	return new Response('Redirect', {
 		status: 200,

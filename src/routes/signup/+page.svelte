@@ -28,13 +28,13 @@
 			/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[#@$!%*?&])[A-Za-z\d#@$!%*?&]{10,50}$/;
 
 		if (regex.test(password)) {
-			// console.log("yEs")
+			// ("yEs")
 			wrong = false
 			passwordBool = true
 			return
 		}
 
-		// console.log("no")
+		// ("no")
 		wrong = true
 		passwordBool = false
 		wrongMessage = 'Password did not pass the test'
@@ -58,7 +58,7 @@
 			}),
 		});
 
-		// console.log(response);
+		// (response);
 
 		if (response.ok) {
 			window.location = "/newpost";
@@ -67,7 +67,7 @@
 		if (response.status == 401) {
 			wrongMessage = 'That email/searchname is already in use. Please try again';
 			wrong = true
-			// console.log(wrong);
+			// (wrong);
 		}
 	};
 </script>

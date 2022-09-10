@@ -16,7 +16,7 @@ export class Login {
 	}
 
 	async authenticate(supabase, username, password) {
-		// console.log(username, password);
+		// (username, password);
 		const { data, e } = await supabase
 			.from("Users")
 			.select("*")

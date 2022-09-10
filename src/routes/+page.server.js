@@ -17,7 +17,7 @@
 //   } 
 
 
-// 	// console.log(jwt)
+// 	// (jwt)
   
 // 	return {
 //     data: data.reverse(),
@@ -41,7 +41,7 @@ async function getPosts(username) {
 		.select("*")
 		.eq("a", username);
 	
-	console.log(data)
+	(data)
 
 	return data
 }
@@ -68,7 +68,7 @@ export async function load({ request, params }) {
     posts.push(await getPosts(followingList[i]))
   }
 
-  console.log(posts)
+  (posts)
   
 	return {
 		data: (posts.reverse()),

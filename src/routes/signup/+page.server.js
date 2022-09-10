@@ -11,7 +11,7 @@ export async function load({ request }) {
     jwtName.jwt.replaceAll('"','')
   }
 
-	// console.log(username)
+	// (username)
 	return {
 		username: auth
 	}

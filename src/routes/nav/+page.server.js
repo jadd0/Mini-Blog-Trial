@@ -9,7 +9,7 @@
 
 // /** @type {import('./$types').Load} */
 // export async function load({ request, params }) {
-//   console.log("GEKKFUHFU")
+//   ("GEKKFUHFU")
 //   const cookie = request.headers.get("cookie");
 
 // 	const auth = await checkAuth(parseCookie, loginClass, cookie, supabase)
@@ -21,7 +21,7 @@
 //   const jwtName = parseCookie(cookie).jwt
 // 	const username = jwtName.replaceAll('"','')
 
-//   console.log(auth)
+//   (auth)
 
 // 	return {
 // 		username: username

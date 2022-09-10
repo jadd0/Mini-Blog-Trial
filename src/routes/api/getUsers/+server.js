@@ -20,16 +20,16 @@ export async function POST({ request }) {
 
   const req = await request.json()
 
-  // console.log(req)
+  // (req)
 
-	// console.log(data);
+	// (data);
 
   let copy = [...data]
 
 	const items = copy
 		.filter((user) => user.username.indexOf(req.query) !== -1)
 		.map((a) => a.username);
-	// console.log(items)
+	// (items)
 
 	return new Response(JSON.stringify({data: items}));
 }

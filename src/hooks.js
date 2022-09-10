@@ -4,9 +4,9 @@
 
 // function newpostRoute(cookieList) {
 	
-// 	// console.log(cookie)
+// 	// (cookie)
 // 	const cookieObj = parseCookie(cookieList);
-//   console.log(cookieObj.jwt)
+//   (cookieObj.jwt)
 // 	if (!cookieObj) {
 // 		return false
 // 	}
@@ -25,13 +25,13 @@
 // export const handle = async ({ event, resolve }) => {
 // 	const url = event.request.url.split("/");
 // 	const response = await resolve(event);
-//   // console.log(response)
-//   // console.log(await resolve(event))
+//   // (response)
+//   // (await resolve(event))
 // 	// if (url[3] === "newpost" && url[4] !== "login") {
 //   //   const cookieList = event.request.headers.get("cookie");
-//   //   // console.log(cookieList)
+//   //   // (cookieList)
 //   //   const res = newpostRoute(cookieList)
-//   //   console.log(res)
+//   //   (res)
 //   //   if (!res) {
 //   //     return new Response("Redirect", {
 //   //       status: 303,
@@ -43,8 +43,8 @@
 // };
 
 // export const getSession = async ({ locals }) => {
-//   console.log("locals: ",locals)
-//   console.log("dfdfdf")
+//   ("locals: ",locals)
+//   ("dfdfdf")
 //   if (!locals.user) {
 //     return {}
 //   }

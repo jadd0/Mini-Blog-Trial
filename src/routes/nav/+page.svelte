@@ -5,7 +5,7 @@
 		username = undefined
 	}
 
-	// console.log(username);
+	// (username);
 	function b() {
 		const nav = document.getElementById("navbar");
 		if (nav.offsetTop >= 80) {
@@ -15,7 +15,7 @@
 		}
 	}
 	function h() {
-		// console.log("hello");
+		// ("hello");
 	}
 </script>
 

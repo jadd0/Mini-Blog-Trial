@@ -25,7 +25,7 @@
 	// 	pId.style.border = "2px solid red"
 
 	// 	uId.classList.add("hello")
-	// 	console.log(uId.classList)
+	// 	(uId.classList)
 	// }
 
 	const submit = async () => {
@@ -41,7 +41,7 @@
 			}),
 		});
 
-		// console.log(response);
+		// (response);
 
 		if (response.ok) {
 			window.location = "/newpost";
