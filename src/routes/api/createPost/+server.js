@@ -1,37 +1,24 @@
-import { parseCookie } from "../../../cookieParser.js";
-import { Login } from "../../../classes/login.js";
+import { SupabaseFeatures } from "../../../classes/supabaseFeatures.js";
+import { Features } from "../../../classes/usefulFeatures.js";
 import { error, redirect } from "@sveltejs/kit";
 import { supabase } from "../../../supabaseClient.js";
-import { checkAuth } from "../../../checkAuth.js";
 
-const loginClass = new Login();
+
+const supabaseClass = new SupabaseFeatures(supabase);
+const features = new Features()
 
 
 /** @type {import('./$types').Load} */
 export async function POST({ request }) {
-  const cookie = request.headers.get("cookie");
+	const cookie = request.headers.get("cookie");
 
-	const auth = await checkAuth(parseCookie, loginClass, cookie, supabase)
+	const auth = await features.checkAuth(supabaseClass.authenticate, cookie);
 
 	if (!auth) {
-		throw error(401, "Not authorised")
-	}	
-
-	const userData = await request.json()
-	const { data, error } = await supabase.from("Posts").insert([
-		{
-			title: userData.title,
-			body: userData.body,
-			metadata: {
-				description: userData.description,
-			},
-			a: auth
-		},
-	]);
-
-	if(error == undefined) {
-		return new Response({status: 200})
+		throw error(401, "Not authorised");
 	}
 
-	return new Response({status: 404})
+	const userData = await request.json();
+
+	const res = await supabaseClass.createPost(userData, auth);
 }

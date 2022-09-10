@@ -1,7 +1,9 @@
-import { Login } from "../../../classes/login.js";
+import { SupabaseFeatures } from "../../../classes/supabaseFeatures.js";
+import { Features } from "../../../classes/usefulFeatures.js";
 import { supabase } from "../../../supabaseClient.js";
 
-const loginClass = new Login();
+const supabaseClass = new SupabaseFeatures(supabase);
+const features = new Features();
 
 async function login(username, password) {
 	const authBool = await loginClass.authenticate(
@@ -14,24 +16,18 @@ async function login(username, password) {
 }
 
 /** @type {import('./__types/[id]').RequestHandler} */
-export const POST = async ({ request, error }) => {
+export const POST = async ({ request }) => {
 	const body = await request.json();
-
 	const username = body.username;
 	const password = body.password;
 
-	// (username, password);
-
-	const auth = await login(username, password);
+	const auth = await supabaseClass.authenticate(username, password);
 
 	if (!auth) {
 		return new Response("Invalid credentials", { status: 406 });
 	}
 
-
-	const cookie = loginClass.generateCookie(username, password);
-
-	("cookie", cookie)
+	const cookie = features.generateCookie(username, password);
 
 	return new Response('Redirect', {
 		status: 200,

@@ -1,51 +1,17 @@
 import { supabase } from "../../../supabaseClient.js";
+import { SupabaseFeatures } from '../../../classes/supabaseFeatures.js'
 
-async function checkAvailability(username, email) {
-	const { data, error } = await supabase.from("Users").select("*");
-
-	const usernameAvailability = data.find((user) => user.username == username);
-
-	const emailAvailability = data.find((user) => user.email === email);
-
-	// (usernameAvailability, emailAvailability)
-
-
-	const userBool = usernameAvailability == undefined
-	const emailBool = emailAvailability == undefined
-
-
-	return {userBool, emailBool}
-}
-
-async function signUp(req) {
-	// (req)
-	const { data, error } = await supabase.from("Users").insert([
-		{
-			name: req.name,
-			email: req.email,
-			password: req.password,
-			username: req.username
-		}
-	]);
-}
+const supabaseClass = new SupabaseFeatures(supabase);
 
 
 export async function POST({ request }) {
-	// ("WHdjbfjdb")
 	const req = await request.json();
 
-	const availability = await checkAvailability(req.username, req.email)
+	const res = await supabaseClass.signUp(req)
 
-	// (availability)
-
-	if ((availability.emailBool == false) || (availability.userBool == false)) {
-		// ("it is not available")
+	if (!res) {
 		return new Response('User with email/username already exists', {status: 401})
 	}
-	// (req)
-	signUp(req)
 
 	return new Response("Success, user created")
-
-  // (checkAvailability()
 }
