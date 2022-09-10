@@ -9,7 +9,7 @@
 	function b() {
 		const nav = document.getElementById("navbar");
 		if (nav.offsetTop >= 80) {
-			document.getElementById("navbar").style.backgroundColor = "#1b1b1b";
+			document.getElementById("navbar").style.backgroundColor = "#212121";
 		} else {
 			document.getElementById("navbar").style.backgroundColor = "#141414";
 		}

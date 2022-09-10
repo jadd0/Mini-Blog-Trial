@@ -22,7 +22,6 @@
 </script>
 <Nav username={data.username}/>
 <body>
-	
 	<div id="whole">
 		<div id="container">
 			<h1>{data.returnData.title}</h1>

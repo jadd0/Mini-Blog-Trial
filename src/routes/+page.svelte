@@ -12,7 +12,6 @@
 	}
 
 </script>
-
 <body>
 	<Nav username={data.username} />
 	<div id="whole">
@@ -50,10 +49,10 @@
 		margin: 0;
 		padding: 0;
 		border: 0;
-		height: 100vh;
+		height: auto;
 		width: 100vw;
 		background-color: #141414;
-		overflow-x:hidden;
+		/* overflow-x:hidden; */
 	}
 
 	* {
