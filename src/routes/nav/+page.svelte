@@ -126,6 +126,7 @@
 		top: 0;
 		transition: all 0.4s 0.1s ease-in-out;
 		z-index: 200;
+		overflow-x: hidden;
 	}
 
 	#navbar div {

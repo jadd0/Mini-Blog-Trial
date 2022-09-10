@@ -4,7 +4,7 @@
 	import Nav from "../nav/+page.svelte";
 	export let data = [];
 
-	(data.user[0]);
+	console.log(data.user[0]);
 
 	function date(isoDate) {
 		const date = new Date(isoDate);
@@ -34,8 +34,8 @@
 </script>
 
 <body>
+	<Nav username={data.username} />
 	<div id="whole">
-		<Nav username={data.username} />
 		<h1 id="username">@{data.user[0].username}</h1>
 		<h2 id="name">{data.user[0].name}</h2>
 		{#if data.bool == false}
@@ -44,11 +44,11 @@
 		{#each data.data as d}
 			<a href="/post/{d.id}" id="hello">
 				<div id="postContainer" class="postContainer">
-					<h1>
+					<h1 id="title">
 						{d.title}
 					</h1>
 					<div id="descriptionHolder">
-						<h2>{d.metadata.description}</h2>
+						<h2 id="description">{d.metadata.description}</h2>
 						<a href="/@{d.a}">
 							<h2 id="name">@{d.a}</h2>
 						</a>
@@ -75,7 +75,7 @@
 		height: 100vh;
 		width: 100vw;
 		background-color: #141414;
-		/* overflow-x: hidden */
+		overflow-x: hidden
 	}
 
 	* {
@@ -117,6 +117,10 @@
 		align-items: center;
 		flex-direction: column;
 		padding-bottom: 20px;
+	}
+
+	#description, #title {
+		word-break: break-word;
 	}
 
 	#postContainer {

@@ -1,6 +1,4 @@
 <script>
-	// import { onMount } from "svelte";
-	import Page from "./nav/+page.svelte";
 	import Nav from "./nav/+page.svelte";
 	export let data = [];
 
@@ -23,11 +21,11 @@
 			{#each d1 as d}
 				<a href="/post/{d.id}" id="hello">
 					<div id="postContainer" class="postContainer">
-						<h1>
+						<h1 id="title">
 							{d.title}
 						</h1>
 						<div id="descriptionHolder">
-							<h2>{d.metadata.description}</h2>
+							<h2 id="description">{d.metadata.description}</h2>
 							<a href="/@{d.a}">
 								<h2 id="name">@{d.a}</h2>
 							</a>
@@ -52,10 +50,10 @@
 		margin: 0;
 		padding: 0;
 		border: 0;
-		height: 1000vh;
+		height: 100vh;
 		width: 100vw;
 		background-color: #141414;
-		/* overflow-x: hidden */
+		overflow-x:hidden;
 	}
 
 	* {
@@ -85,12 +83,15 @@
 	}
 
 	#whole {
-		width: 100vw;
 		display: flex;
 		justify-content: center;
 		align-items: center;
 		flex-direction: column;
-		padding-bottom: 20px;
+		padding-bottom: 20px;	
+	}
+
+	#description, #title {
+		word-break: break-word;
 	}
 
 	#postContainer {
