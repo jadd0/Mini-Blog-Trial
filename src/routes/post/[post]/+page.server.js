@@ -32,16 +32,16 @@ export async function load({ request, params }) {
   }
 
 	const returnData = data
-	let comments = data.comments
-	
-	if (comments == null) {
-		comments = []
-	}
+	let comments = data.comments || []
+
+	comments.sort(function(a, b) {
+    return (a.created_at < b.created_at) ? -1 : ((a.created_at > b.created_at) ? 1 : 0);
+	});
 
 	return {
 		returnData,
 		username: auth,
 		id: params.post,
-		comments: comments
+		comments: (comments.reverse())
 	}
 }
