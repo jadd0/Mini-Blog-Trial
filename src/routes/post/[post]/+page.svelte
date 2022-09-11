@@ -99,7 +99,7 @@
 		margin: 0;
 		padding: 0;
 		border: 0;
-		height: 1000vh;
+		/* height: 1000vh; */
 		width: 100vw;
 		background-color: #141414;
 		overflow-x: hidden;
@@ -212,6 +212,7 @@
 		margin-top: 20px;
 		width: 50vw;
 		margin-left: -10vw;
+		padding-bottom: 30px;
 	}
 
 	#addComment {
