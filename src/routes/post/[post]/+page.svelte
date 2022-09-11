@@ -178,7 +178,8 @@
 		min-height: 32px;
 		margin-left: 8%;
 		/* margin: 0 auto; */
-		margin-top: 0%;
+		margin-top: 1%;
+		margin-bottom: 0.5%;
 		border-radius: 10px;
 		background: #212121;
 		color: white;
