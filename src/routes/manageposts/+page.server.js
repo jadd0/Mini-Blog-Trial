@@ -1,41 +1,38 @@
-import { parseCookie } from "../../cookieParser.js";
-import { Login } from "../../classes/login.js";
 import { error, redirect } from "@sveltejs/kit";
-import { checkAuth } from "../../checkAuth.js";
-import { supabase } from "../../supabaseClient.js";
+// import { supabase } from "../../supabaseClient.js";
 
-const loginClass = new Login();
+// const loginClass = new Login();
 
-async function getPosts(username) {
-	const { data, e } = await supabase
-		.from("Posts")
-		.select("*")
-		.eq("a", username);
+// async function getPosts(username) {
+// 	const { data, e } = await supabase
+// 		.from("Posts")
+// 		.select("*")
+// 		.eq("a", username);
 	
-	return data
-}
+// 	return data
+// }
 
-/** @type {import('./$types').Load} */
+// /** @type {import('./$types').Load} */
 export async function load({ request }) {
-  const cookie = request.headers.get("cookie");
+//   const cookie = request.headers.get("cookie");
 
-	const auth = await checkAuth(parseCookie, loginClass, cookie, supabase)
-
-
-	if (!auth) {
-		throw redirect(307, "/login");
-	}
+// 	const auth = await checkAuth(parseCookie, loginClass, cookie, supabase)
 
 
+// 	if (!auth) {
+// 		throw redirect(307, "/login");
+// 	}
 
-	const jwtName = parseCookie(cookie).jwt
-	const username = jwtName.replaceAll('"','')
+
+
+// 	const jwtName = parseCookie(cookie).jwt
+// 	const username = jwtName.replaceAll('"','')
 	
-	throw redirect(307, `/user/${username}`)
+	throw redirect(307, `/newpost`)
 
-	const data = (await getPosts(username)).reverse()
+// 	const data = (await getPosts(username)).reverse()
 
-	return {
-		data: data
-	}
+// 	return {
+// 		data: data
+// 	}
 }
