@@ -54,10 +54,10 @@ export class SupabaseFeatures {
 
 		followingList.push(userToFollow);
 
-		const { data, error } = await supabase
+		const { data, error } = await this.supabase
 			.from("Users")
 			.update({ followingList: followingList })
-			.match({ username: auth });
+			.match({ username: username });
 
 		if (error == undefined) return true;
 

@@ -18,8 +18,7 @@ export async function load({ request, params }) {
 	const user = await supabaseClass.getUser(auth)
 
   let posts = []
-  const followingList = user.followingList
-
+  const followingList = user.followingList || []
 
   for(let i = 0; i < followingList.length; i++) {
     posts.push(await supabaseClass.getPosts(followingList[i]))

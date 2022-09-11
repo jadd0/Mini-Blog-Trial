@@ -26,10 +26,14 @@ export async function load({ request, params }) {
 	if (!user) {
 		throw error(404, "No user found");
 	}
-
+	let bool = false
 	const followingList = await supabaseClass.getUser(auth)
-
-	const bool = followingList.followingList.includes(params.username)
+	try {
+		const bool = followingList.followingList.includes(params.username)
+	}
+	catch {
+		bool = false
+	}
 	const posts = await supabaseClass.getPosts(params.username)
 
 	return {
