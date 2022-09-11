@@ -28,8 +28,9 @@ export async function load({ request, params }) {
 	}
 	let bool = false
 	const followingList = await supabaseClass.getUser(auth)
+
 	try {
-		const bool = followingList.followingList.includes(params.username)
+		bool = followingList.followingList.includes(params.username)
 	}
 	catch {
 		bool = false

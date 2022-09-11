@@ -45,7 +45,8 @@ export class SupabaseFeatures {
 		}
 
 		const user = await this.getUser(username);
-		let followingList = user.followingList;
+		let followingList = user.followingList || [];
+
 		const bool = followingList.includes(user2.username);
 
 		if (bool) {
@@ -53,7 +54,7 @@ export class SupabaseFeatures {
 		}
 
 		followingList.push(userToFollow);
-
+		console.log(followingList)
 		const { data, error } = await this.supabase
 			.from("Users")
 			.update({ followingList: followingList })
@@ -146,7 +147,11 @@ export class SupabaseFeatures {
 			},
 		]);
 
-		if (error == undefined) return true;
+		if (error == undefined) {
+			this.follow(userDetails.username, userDetails.username)
+			return true
+		}
+
 		return false;
 	}
 
