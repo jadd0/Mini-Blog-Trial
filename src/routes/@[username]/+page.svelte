@@ -36,6 +36,11 @@
 	<div id="whole">
 		<h1 id="username">@{data.user.username}</h1>
 		<h2 id="name">{data.user.name}</h2>
+		{#if data.bool == "self"}
+			{#if (data.data).length == 0}
+				<a href="/newpost" id="bland">Looking very bland here...<br>Why you post your first blog today?</a>
+			{/if}
+		{/if}
 		{#if data.bool == false}
 			<button on:click={submit} id="followButton">Follow</button>
 		{/if}
@@ -90,6 +95,18 @@
 		box-sizing: border-box;
 		font-family: New-Inter;
 		letter-spacing: -1px !important;
+	}
+
+	#bland {
+		font-size: 3rem;
+		font-weight: 700;
+		color: white;
+		text-align: left;
+		margin-left: 5vw;
+		font-size: 30px !important;
+		position: absolute;
+		top: 37.5%;
+		padding-right: 20px;
 	}
 
 	#title {
