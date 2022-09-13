@@ -1,8 +1,8 @@
 <script>
 	export let username;
 
-	if (username == '') {
-		username = undefined
+	if (username == "") {
+		username = undefined;
 	}
 
 	// (username);
@@ -14,6 +14,20 @@
 			document.getElementById("navbar").style.backgroundColor = "#141414";
 		}
 	}
+
+	const logout = async () => {
+		console.log("loigut");
+		const response = await fetch("/api/logout", {
+			method: "post",
+			headers: {
+				Accept: "application/json",
+				"Content-Type": "application/json",
+			},
+		});
+		if (response.ok) {
+			location.reload();
+		}
+	};
 	function h() {
 		// ("hello");
 	}
@@ -26,6 +40,9 @@
 		</a>
 	{/if}
 	{#if username != undefined}
+		<a on:click={logout} id="other" style="cursor:pointer">
+			<div class="nav" id="home">Logout</div>
+		</a>
 		<a href="/search" id="other">
 			<div class="nav" id="home">Search</div>
 		</a>
@@ -42,7 +59,7 @@
 	</a>
 	<div />
 </div>
-<div id="underNav"></div>
+<div id="underNav" />
 
 <svelte:window on:scroll={b} />
 
@@ -58,20 +75,16 @@
 			{#if username == undefined}
 				<nav class="menu1">
 					<a href="/">Home</a>
-
 					<a href="/login">Login</a>
-
-					<!-- <div id="big"></div> -->
 				</nav>
 			{/if}
 			{#if username != undefined}
 				<nav class="menu2">
 					<a href="/">Home</a>
-					<a href="/@{username}"
-						>@{username}</a>
+					<a href="/@{username}">@{username}</a>
 					<a href="/newpost">New Post</a>
 					<a href="/search">Search</a>
-					
+					<a on:click={logout} style="cursor:pointer">Logout</a>
 				</nav>
 			{/if}
 		</nav>
@@ -113,7 +126,8 @@
 		}
 	}
 	@media (max-width: 900px) {
-		#navbar, #underNav {
+		#navbar,
+		#underNav {
 			display: none;
 		}
 	}
@@ -214,24 +228,16 @@
 	}
 
 	#toggle1:checked ~ .menu2 {
-		min-height: 210px;
+		min-height: 265px;
 		overflow: hidden;
 		/* min-height: 15vh; */
 		/* height: auto; */
 		/* margin-bottom: -200px; */
 	}
 
-	#small {
-		width: 100vw;
-		height: 100px;
-	}
-
-	#big {
-		padding-bottom: 100px !important;
-	}
-
 	/* Menu */
-	.menu1, .menu2 {
+	.menu1,
+	.menu2 {
 		width: 100%;
 		margin: 0;
 		display: -ms-grid;
@@ -251,11 +257,13 @@
 		transition: all 0.3s ease;
 	}
 
-	.menu1 a:first-child, .menu2 a:first-child {
+	.menu1 a:first-child,
+	.menu2 a:first-child {
 		margin-top: 10px;
 	}
 
-	.menu1 a, .menu2 a {
+	.menu1 a,
+	.menu2 a {
 		color: white;
 		font-weight: bold;
 		text-decoration: none;

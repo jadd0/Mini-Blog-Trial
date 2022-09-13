@@ -23,10 +23,10 @@ export async function POST({ request }) {
 	}
 
 	const res = await supabaseClass.logout(auth)
-  
+
 	if (!res) {
 		return new Response({ status: 404 });
 	}
 
-	throw redirect(307, "/login");
+	return new Response({ status: 200 });
 }
