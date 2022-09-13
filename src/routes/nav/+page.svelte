@@ -1,4 +1,5 @@
 <script>
+	import { onMount } from 'svelte'
 	export let username;
 
 	if (username == "") {
@@ -27,9 +28,10 @@
 			location.reload();
 		}
 	};
-	function h() {
-		// ("hello");
-	}
+	
+	onMount(() => {
+		b()
+	})
 </script>
 
 <div id="navbar">
