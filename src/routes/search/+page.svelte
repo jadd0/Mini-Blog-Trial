@@ -139,8 +139,6 @@
 
 	#nothingDisplay {
 		font-size: 30px;
-	
-
 	}
 
 	@media (max-width: 460px) {
@@ -167,7 +165,7 @@
 
 	#inputHolder {
 		width: 300px;
-		height: 40px;
+		height: 42px;
 		position: absolute;
 		left:0;
 		right: 0;
