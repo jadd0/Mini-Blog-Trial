@@ -14,7 +14,7 @@
 	}
 
 	const submit = async () => {
-		const response = await fetch("/api/follow", {
+		const response = await fetch(`/api/${data.bool === true ? 'unfollow' : 'follow'}`, {
 			method: "post",
 			headers: {
 				Accept: "application/json",
