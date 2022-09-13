@@ -16,8 +16,8 @@
 	<Nav username={data.username} />
 	<div id="whole">
 		<h1>Home</h1>
-		{#if (data.data).length == 0}
-		<h1 id="lonely">It's looking empty here...<br>Go follow some people!<br></h1>
+		{#if data.data.length == 0}
+			<a href="/search" id="empty">It's looking empty here...<br />Go follow some people!</a>
 		{/if}
 		{#each data.data as d}
 			<a href="/post/{d.id}" id="hello">
@@ -69,11 +69,16 @@
 		letter-spacing: -1px !important;
 	}
 
-	#lonely {
+	#empty {
+		font-size: 3rem;
+		font-weight: 700;
+		color: white;
+		text-align: left;
+		margin-left: 5vw;
 		font-size: 30px !important;
-		/* margin-top: 50px; */
 		position: absolute;
-		top: 35%;
+		top: 37.5%;
+		padding-right: 20px;
 	}
 
 	#date {
