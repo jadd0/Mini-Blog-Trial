@@ -31,8 +31,6 @@ export class SupabaseFeatures {
 
 	async unfollow() {}
 
-	async checkUserExists() {}
-
 	async checkAlreadyFollowed(user, userToFollow) {}
 
 	async changeKey(username, key) {
@@ -148,9 +146,9 @@ export class SupabaseFeatures {
 		const { data, error } = await this.supabase.from("Users").insert([
 			{
 				name: userDetails.name,
-				email: userDetails.email,
+				email: (userDetails.email).toLowerCase(),
 				password: userDetails.password,
-				username: userDetails.username,
+				username: (userDetails.username).toLowerCase(),
 			},
 		]);
 
@@ -165,10 +163,11 @@ export class SupabaseFeatures {
 	async checkAvailability(username, email) {
 		const userList = await this.getAllUsers();
 
-		const usernameAvailability = userList.find(
-			(user) => user.username == username
-		);
-		const emailAvailability = userList.find((user) => user.email === email);
+		const usernameAvailability = userList.find((user) => user.username === (username.toLowerCase()));
+
+		const emailAvailability = userList.find((user) => user.email === (email.toLowerCase()));
+
+		console.log({usernameAvailability, emailAvailability})
 
 		//true if undefined, false otherwise
 		const userBool = usernameAvailability == undefined;

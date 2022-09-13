@@ -13,10 +13,15 @@ export async function POST({ request }) {
 	if (!res) {
 		return new Response('User with email/username already exists', {status: 401})
 	}
-
 	
-	const cookie = features.generateCookie(req.username, req.password);
+	const key = features.genetateToken()
+	const keyRes = await supabaseClass.changeKey(req.username, key)
 
+	if (!res) {
+		return new Response("Invalid credentials", { status: 406 });
+	}
+	
+	const cookie = features.generateCookie(key);
 	return new Response('Redirect', {
 		status: 200,
 		headers: { 'set-cookie': cookie,
