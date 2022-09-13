@@ -24,8 +24,9 @@ export async function POST({ request }) {
 
 	let users = await supabaseClass.getAllUsernames();
 	const req = await request.json();
+	const lowerQuery = (req.query).toLowerCase();
 
-	const items = users.filter((user) => user.username.indexOf(req.query) !== -1)
+	const items = users.filter((user) => ((user.username).toLowerCase()).indexOf(lowerQuery) !== -1)
 	.map((a) => a.username)
 
 	return new Response(JSON.stringify({ data: items }));
