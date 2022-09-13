@@ -7,8 +7,7 @@ const features = new Features();
 const supabaseClass = new SupabaseFeatures(supabase);
 
 /** @type {import('./$types').Load} */
-export async function load({ request, params }) {
-	console.log("GHdfjebdhfbdfhb")
+export async function load({ request }) {
   const cookie = features.parseCookie(request.headers.get("cookie"));
 	console.log({cookie})
 	if (cookie.key == undefined) {
@@ -16,8 +15,7 @@ export async function load({ request, params }) {
 	}
 
 	const auth = await supabaseClass.checkKey(cookie.key)
-	console.log({auth})
-	
+
 	if (!auth) {
 		throw redirect(307, "/login");
 	}

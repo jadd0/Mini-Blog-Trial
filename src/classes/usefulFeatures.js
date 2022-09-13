@@ -9,8 +9,6 @@ export class Features {
         const cur = cookieList[i].split("=");
         result[cur[0]] = cur[1];
       }
-      // (result)
-      // jwt = JSON.parse(result.jwt);
     } catch {
       return false;
     }
