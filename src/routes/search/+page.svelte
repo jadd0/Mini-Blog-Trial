@@ -171,7 +171,7 @@
 		right: 0;
 		margin-left: auto;
 		margin-right: auto;
-		top: 30%;
+		top: 31%;
 		background: #212121;
 		border-radius: 20px;
 		color: white;
