@@ -1,21 +1,4 @@
 export class Features {
-  async checkAuth(supabaseClass, cookie) {
-    const cookieList = this.parseCookie(cookie);
-  
-    if (cookieList.jwt == undefined) {
-      return false
-    }
-  
-    const jwt = JSON.parse(cookieList.jwt)
-    const user = await supabaseClass.authenticate(key)
-  
-    if (!user) {
-      return false
-    }
-  
-    return jwt.username
-  }
-
   parseCookie(cookieList) {
     const result = {};
     let jwt = "";
@@ -38,13 +21,17 @@ export class Features {
   genetateToken() {
 		const alphNumString =
 			"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
-
+    // 1.5 days
+    const days = 129600000
+    const expire = new Date().getTime() + days
 		let key = "";
 
 		for (let i = 0; i < 40; i++) {
 			key +=
 				alphNumString[Math.floor(Math.random() * alphNumString.length)];
 		}
+
+    key = `${expire}.${key}`
 
 		return key;
 	}

@@ -15,8 +15,6 @@
 		"Dec",
 	];
 	export let data;
-
-	console.log(data.comments)
 	let commentBody = ''
 
 

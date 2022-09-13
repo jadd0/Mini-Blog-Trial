@@ -13,7 +13,6 @@ export const POST = async ({ request }) => {
 
 	const auth = await supabaseClass.authenticate(username, password);
 
-	console.log(auth)
 
 	if (!auth) {
 		return new Response("Invalid credentials", { status: 406 });

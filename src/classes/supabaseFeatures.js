@@ -36,7 +36,6 @@ export class SupabaseFeatures {
 	async checkAlreadyFollowed(user, userToFollow) {}
 
 	async changeKey(username, key) {
-		console.log(username, key);
 		const { data, error } = await this.supabase
 			.from("Users")
 			.update({ key: key })
@@ -196,11 +195,26 @@ export class SupabaseFeatures {
 		return user.username;
 	}
 
-	async checkKey(key) {
+	checkDate(expiry) {
+		const dateNow = new Date().getTime()
+
+		if (dateNow >= expiry) return false
+		return true
+	}
+
+	async checkKey(token) {
+		const splitToken = token.split('.')
+		const date = splitToken[0]
+		const key = splitToken[1] 
+
+		const res = this.checkDate(date)
+		if (!res) return false
+
 		const { data, e } = await this.supabase
 			.from("Users")
 			.select("*")
-			.eq("key", key);
+			.eq("key", token);
+
 		if (data.length == 0) return false;
 		return data[0].username;
 	}
