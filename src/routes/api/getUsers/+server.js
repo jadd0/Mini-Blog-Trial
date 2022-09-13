@@ -28,6 +28,7 @@ export async function POST({ request }) {
 
 	const items = users.filter((user) => ((user.username).toLowerCase()).indexOf(lowerQuery) !== -1)
 	.map((a) => a.username)
+	.slice(0, 15)
 
-	return new Response(JSON.stringify({ data: items }));
+	return new Response(JSON.stringify({ data: returnItems }));
 }
