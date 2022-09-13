@@ -160,6 +160,16 @@ export class SupabaseFeatures {
 		return false;
 	}
 
+	async logout(username) {
+		const { data, error } = await this.supabase
+			.from("Users")
+			.update({ key: '' })
+			.match({ username: username });
+
+		if (error != undefined) return false;
+		return true;
+	}
+
 	async checkAvailability(username, email) {
 		const userList = await this.getAllUsers();
 
