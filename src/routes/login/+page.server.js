@@ -6,10 +6,14 @@ const supabaseClass = new SupabaseFeatures(supabase);
 const features = new Features()
 
 export const load = async({ request }) => {
-  const cookie = request.headers.get("cookie");  
-  const auth = features.checkAuth(supabaseClass, cookie)
+  const cookie = features.parseCookie(request.headers.get("cookie"));
 
   let username = ''
+  let auth = ''
+
+	if (cookie.key != undefined) {
+    auth = await supabaseClass.checkKey(cookie.key)
+	}
 
   if (!auth) {
     username = ''

@@ -10,18 +10,21 @@ const features = new Features()
 
 /** @type {import('./$types').Load} */
 export async function POST({ request }) {
-	const cookie = request.headers.get("cookie");
+	const cookie = features.parseCookie(request.headers.get("cookie"));
 
-	const auth = await features.checkAuth(supabaseClass, cookie);
+	if (cookie.key == undefined) {
+		throw error(401, "Not authorised")
+	}
 
-
+	const auth = await supabaseClass.checkKey(cookie.key)
+	
 	if (!auth) {
-		throw error(401, "Not authorised");
+		throw error(401, "Not authorised")
 	}
 
 	let users = await supabaseClass.getAllUsernames();
 	const req = await request.json();
-	console.log(users)
+
 	const items = users.filter((user) => user.username.indexOf(req.query) !== -1)
 	.map((a) => a.username)
 

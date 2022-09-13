@@ -7,7 +7,7 @@ export class Features {
     }
   
     const jwt = JSON.parse(cookieList.jwt)
-    const user = await supabaseClass.authenticate(jwt.username, jwt.password)
+    const user = await supabaseClass.authenticate(key)
   
     if (!user) {
       return false
@@ -28,9 +28,6 @@ export class Features {
       }
       // (result)
       // jwt = JSON.parse(result.jwt);
-      if (result.jwt == undefined) {
-        return false
-      }
     } catch {
       return false;
     }
@@ -38,7 +35,7 @@ export class Features {
     return result;
   }
 
-  generateSafeCode() {
+  genetateToken() {
 		const alphNumString =
 			"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
 
@@ -52,29 +49,27 @@ export class Features {
 		return key;
 	}
 
+  //expires in 2 days
 	generateExpiry() {
 		const date = new Date();
-		const days = 5;
-		date.setTime(date.getTime() + days * 24 * 60 * 60 * 1000);
+    const days = 2
+		date.setTime(date.getTime() * days * 24 * 60 * 60 * 1000);
 
 		return date;
 	}
 
-	generateJWT(username, password) {
+  //every request, change token
+	generateJWT(username) {
 		const data = {
 			username: username,
-			password: password,
+			token: this.genetateToken()
 		};
 
 		return data;
 	}
 
-	generateCookie(username, password) {
-		const jwt = this.generateJWT();
-		const cookie = `jwt=${JSON.stringify({
-			username: username,
-			password: password,
-		})}; path=/; Expires=${this.generateExpiry()}; HostOnly=false; Secure=lax`;
+	generateCookie(key) {
+		const cookie = `key=${key}; path=/; Expires=${this.generateExpiry()}; HostOnly=false; Secure=lax; httpOnly=true; SameSite=Strict;`;
 
 		return cookie;
 	}

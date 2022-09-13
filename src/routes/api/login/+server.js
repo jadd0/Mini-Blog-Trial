@@ -5,7 +5,6 @@ import { supabase } from "../../../supabaseClient.js";
 const supabaseClass = new SupabaseFeatures(supabase);
 const features = new Features();
 
-
 /** @type {import('./__types/[id]').RequestHandler} */
 export const POST = async ({ request }) => {
 	const body = await request.json();
@@ -14,12 +13,21 @@ export const POST = async ({ request }) => {
 
 	const auth = await supabaseClass.authenticate(username, password);
 
+	console.log(auth)
+
 	if (!auth) {
 		return new Response("Invalid credentials", { status: 406 });
 	}
 
-	const cookie = features.generateCookie(username, password);
+	const key = features.genetateToken()
+	
+	const res = await supabaseClass.changeKey(auth, key)
 
+	if (!res) {
+		return new Response("Invalid credentials", { status: 406 });
+	}
+	
+	const cookie = features.generateCookie(key);
 	return new Response('Redirect', {
 		status: 200,
 		headers: { 'set-cookie': cookie,

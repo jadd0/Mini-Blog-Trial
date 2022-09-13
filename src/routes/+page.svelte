@@ -8,33 +8,31 @@
 			date.getMonth() + 1
 		}/${date.getFullYear()}`;
 
-		return newDate
+		return newDate;
 	}
-
 </script>
+
 <body>
 	<Nav username={data.username} />
 	<div id="whole">
 		<h1>Home</h1>
 		{#each data.data as d}
-			<!-- {#each d1 as d} -->
-				<a href="/post/{d.id}" id="hello">
-					<div id="postContainer" class="postContainer">
-						<h1 id="title">
-							{d.title}
-						</h1>
-						<div id="descriptionHolder">
-							<h2 id="description">{d.metadata.description}</h2>
-							<a href="/@{d.a}">
-								<h2 id="name">@{d.a}</h2>
-							</a>
-							<h2 id="date">
-								{date(new Date(d.created_at))}
-							</h2>
-						</div>
+			<a href="/post/{d.id}" id="hello">
+				<div id="postContainer" class="postContainer">
+					<h1 id="title">
+						{d.title}
+					</h1>
+					<div id="descriptionHolder">
+						<h2 id="description">{d.metadata.description}</h2>
+						<a href="/@{d.a}">
+							<h2 id="name">@{d.a}</h2>
+						</a>
+						<h2 id="date">
+							{date(new Date(d.created_at))}
+						</h2>
 					</div>
-				</a>
-			<!-- {/each} -->
+				</div>
+			</a>
 		{/each}
 	</div>
 </body>
@@ -87,11 +85,12 @@
 		justify-content: center;
 		align-items: center;
 		flex-direction: column;
-		padding-bottom: 20px;	
+		padding-bottom: 20px;
 		height: auto;
 	}
 
-	#description, #title {
+	#description,
+	#title {
 		word-break: break-word;
 	}
 

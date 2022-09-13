@@ -1,5 +1,3 @@
-import { time_ranges_to_array } from "svelte/internal";
-
 export class SupabaseFeatures {
 	constructor(supabase) {
 		this.supabase = supabase;
@@ -27,8 +25,8 @@ export class SupabaseFeatures {
 			.update({ comments: comments })
 			.match({ id: data.id });
 
-		if (error == undefined) return true
-		return false
+		if (error == undefined) return true;
+		return false;
 	}
 
 	async unfollow() {}
@@ -36,6 +34,17 @@ export class SupabaseFeatures {
 	async checkUserExists() {}
 
 	async checkAlreadyFollowed(user, userToFollow) {}
+
+	async changeKey(username, key) {
+		console.log(username, key);
+		const { data, error } = await this.supabase
+			.from("Users")
+			.update({ key: key })
+			.match({ username: username });
+
+		if (error != undefined) return false;
+		return true;
+	}
 
 	async follow(username, userToFollow) {
 		const user2 = await this.getUser(userToFollow);
@@ -54,7 +63,6 @@ export class SupabaseFeatures {
 		}
 
 		followingList.push(userToFollow);
-		console.log(followingList)
 		const { data, error } = await this.supabase
 			.from("Users")
 			.update({ followingList: followingList })
@@ -148,8 +156,8 @@ export class SupabaseFeatures {
 		]);
 
 		if (error == undefined) {
-			this.follow(userDetails.username, userDetails.username)
-			return true
+			this.follow(userDetails.username, userDetails.username);
+			return true;
 		}
 
 		return false;
@@ -185,6 +193,15 @@ export class SupabaseFeatures {
 			return false;
 		}
 
-		return true;
+		return user.username;
+	}
+
+	async checkKey(key) {
+		const { data, e } = await this.supabase
+			.from("Users")
+			.select("*")
+			.eq("key", key);
+		if (data.length == 0) return false;
+		return data[0].username;
 	}
 }
