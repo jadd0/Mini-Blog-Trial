@@ -225,7 +225,6 @@ export class SupabaseFeatures {
 
 	async authenticate(func, username, password) {
 		if (password == undefined) return false;
-		username, password;
 		const user = await this.getUser(username);
 		const res = await this.comparePassword(func, password, user.password);
 		if (!res) return false;
