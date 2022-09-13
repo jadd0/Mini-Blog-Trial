@@ -252,6 +252,6 @@ export class SupabaseFeatures {
 			.eq("key", token);
 
 		if (data.length == 0) return false;
-		return data[0].username;
+		return data[0].username
 	}
 }
