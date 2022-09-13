@@ -30,7 +30,7 @@
 		});
 
 		if (response.ok) {
-			location.reload();
+			location.replace(`/@${data.returnData.a}`);
 		}	
 	};
 
@@ -64,7 +64,7 @@
 	<div id="whole">
 		<div id="container">
 			{#if data.bool}
-				<button on:click={deletePost}>Delete Post</button>
+				<button on:click={deletePost} id="deletePost">Delete Post</button>
 			{/if}
 			<h1>{data.returnData.title}</h1>
 			<h2>{dateMonth} {dateDay}, {dateYear}</h2>
@@ -135,6 +135,25 @@
 		font-family: New-Inter;
 		font-weight: 300;
 		letter-spacing: -1px !important;
+	}
+
+	#deletePost {
+		margin-top: 10px;
+		margin-left: 0vw;
+		width: 90%;
+		min-width: 200px;
+		height: 50px;
+		color: rgb(255, 0, 0);
+		font-weight: 600;
+		background-color: #212121;
+		border-radius: 20px;
+		cursor: pointer;
+		transition: all 0.2s linear;
+	}
+
+	#deletePost:hover {
+		background-color: red;
+		color: white;
 	}
 
 	#commentHolder {
