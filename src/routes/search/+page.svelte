@@ -121,11 +121,16 @@
 
 	#searchedFriendName {
 		font-size: 25px;
-		color: rgb(206, 206, 206);
+		color: rgb(255, 255, 255);
 		margin: 0 auto;
 		overflow: hidden;	
 		text-overflow: ellipsis;
 		padding: 10px 10px 10px 10px;
+		transition: all 0.2s linear;
+	}
+
+	#searchedFriendName:hover {
+		color: rgb(175, 175, 175);
 	}
 
 	#searchedFriend {
@@ -184,6 +189,7 @@
 		height: 50vh;
 		width: 400px;
 		overflow: scroll;
+		overflow-x: hidden;
 		display: flex;
 		flex-direction: column;
 		padding-bottom: 80px;
