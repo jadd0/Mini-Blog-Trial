@@ -17,6 +17,22 @@
 	export let data;
 	let commentBody = ''
 
+	const deletePost = async () => {
+		const response = await fetch("/api/deletePost", {
+			method: "post",
+			headers: {
+				Accept: "application/json",
+				"Content-Type": "application/json",
+			},
+			body: JSON.stringify({
+				id: data.id
+			}),
+		});
+
+		if (response.ok) {
+			location.reload();
+		}	
+	};
 
 	const submit = async () => {
 		if (commentBody.length < 5) return
@@ -47,6 +63,9 @@
 <body>
 	<div id="whole">
 		<div id="container">
+			{#if data.bool}
+				<button on:click={deletePost}>Delete Post</button>
+			{/if}
 			<h1>{data.returnData.title}</h1>
 			<h2>{dateMonth} {dateDay}, {dateYear}</h2>
 			<a href="/@{data.returnData.a}">

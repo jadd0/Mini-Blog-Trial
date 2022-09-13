@@ -1,7 +1,7 @@
 import { supabase } from "../../../supabaseClient.js";
 import { SupabaseFeatures } from "../../../classes/supabaseFeatures.js"
 import { Features } from "../../../classes/usefulFeatures.js";
-import { redirect } from "@sveltejs/kit";
+import { error, redirect } from "@sveltejs/kit";
 
 const features = new Features();
 const supabaseClass = new SupabaseFeatures(supabase);
@@ -21,6 +21,14 @@ export async function load({ request, params }) {
 	}
 
 	const data = await supabaseClass.getPost(params.post)
+	
+	if (!data) {
+		throw error(404, "No post found");
+	}
+	let bool = false
+	if (auth == data.a) {
+		bool = true
+	}
 
   if (data == undefined || data.length == 0) {
     throw error(404, 'No post found');
@@ -34,6 +42,7 @@ export async function load({ request, params }) {
 	});
 
 	return {
+		bool,
 		returnData,
 		username: auth,
 		id: params.post,

@@ -30,8 +30,8 @@ export class SupabaseFeatures {
 	}
 
 	async unfollow(username, userToUnfollow) {
-		if (username == userToUnfollow) return false
-		const user = await this.getUser(username)
+		if (username == userToUnfollow) return false;
+		const user = await this.getUser(username);
 		let followingList = user.followingList || [];
 
 		const bool = followingList.includes(userToUnfollow);
@@ -40,7 +40,7 @@ export class SupabaseFeatures {
 			return false;
 		}
 
-		followingList = followingList.filter(item => item !== userToUnfollow)
+		followingList = followingList.filter((item) => item !== userToUnfollow);
 
 		const { data, error } = await this.supabase
 			.from("Users")
@@ -89,7 +89,15 @@ export class SupabaseFeatures {
 		return false;
 	}
 
-	async deletePost() {}
+	async deletePost(id) {
+		const { data, error } = await this.supabase
+			.from("Posts")
+			.delete()
+			.match({ id: id });
+		
+		if (error == undefined) return true;
+		return false;
+	}
 
 	async createPost(userData, username) {
 		const { data, error } = await this.supabase.from("Posts").insert([
@@ -147,12 +155,13 @@ export class SupabaseFeatures {
 			.from("Posts")
 			.select("*")
 			.eq("id", id);
-
+	
+		if (data == undefined || data.length == 0 || error != undefined) return false;
 		return data[0];
 	}
 
 	async signUp(userDetails) {
-		console.log({userDetails});
+		console.log({ userDetails });
 		const result = await this.checkAvailability(
 			userDetails.username,
 			userDetails.email
@@ -165,9 +174,9 @@ export class SupabaseFeatures {
 		const { data, error } = await this.supabase.from("Users").insert([
 			{
 				name: userDetails.name,
-				email: (userDetails.email).toLowerCase(),
+				email: userDetails.email.toLowerCase(),
 				password: userDetails.password,
-				username: (userDetails.username).toLowerCase(),
+				username: userDetails.username.toLowerCase(),
 			},
 		]);
 
@@ -182,7 +191,7 @@ export class SupabaseFeatures {
 	async logout(username) {
 		const { data, error } = await this.supabase
 			.from("Users")
-			.update({ key: '' })
+			.update({ key: "" })
 			.match({ username: username });
 
 		if (error != undefined) return false;
@@ -192,9 +201,13 @@ export class SupabaseFeatures {
 	async checkAvailability(username, email) {
 		const userList = await this.getAllUsers();
 
-		const usernameAvailability = userList.find((user) => user.username === (username.toLowerCase()));
+		const usernameAvailability = userList.find(
+			(user) => user.username === username.toLowerCase()
+		);
 
-		const emailAvailability = userList.find((user) => user.email === (email.toLowerCase()));
+		const emailAvailability = userList.find(
+			(user) => user.email === email.toLowerCase()
+		);
 
 		//true if undefined, false otherwise
 		const userBool = usernameAvailability == undefined;
@@ -219,31 +232,31 @@ export class SupabaseFeatures {
 		// 	// if (user.password !== password) {
 		// 	// 	return false;
 		// 	// }
-			
+
 		// } catch {
 		// 	return false;
 		// }
 
 		const res = await this.comparePassword(func, password, user.password);
-		console.log(res)
-		if (!res) return false
+		console.log(res);
+		if (!res) return false;
 		return user.username;
 	}
 
 	checkDate(expiry) {
-		const dateNow = new Date().getTime()
+		const dateNow = new Date().getTime();
 
-		if (dateNow >= expiry) return false
-		return true
+		if (dateNow >= expiry) return false;
+		return true;
 	}
 
 	async checkKey(token) {
-		const splitToken = token.split('.')
-		const date = splitToken[0]
-		const key = splitToken[1] 
+		const splitToken = token.split(".");
+		const date = splitToken[0];
+		const key = splitToken[1];
 
-		const res = this.checkDate(date)
-		if (!res) return false
+		const res = this.checkDate(date);
+		if (!res) return false;
 
 		const { data, e } = await this.supabase
 			.from("Users")
