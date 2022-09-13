@@ -29,9 +29,28 @@ export class SupabaseFeatures {
 		return false;
 	}
 
-	async unfollow() {}
+	async unfollow(username, userToUnfollow) {
+		if (username == userToUnfollow) return false
+		const user = await this.getUser(username)
+		let followingList = user.followingList || [];
 
-	async checkAlreadyFollowed(user, userToFollow) {}
+		const bool = followingList.includes(userToUnfollow);
+
+		if (!bool) {
+			return false;
+		}
+
+		followingList = followingList.filter(item => item !== userToUnfollow)
+
+		const { data, error } = await this.supabase
+			.from("Users")
+			.update({ followingList: followingList })
+			.match({ username: username });
+
+		if (error == undefined) return true;
+
+		return false;
+	}
 
 	async changeKey(username, key) {
 		const { data, error } = await this.supabase
@@ -133,7 +152,7 @@ export class SupabaseFeatures {
 	}
 
 	async signUp(userDetails) {
-		//
+		console.log({userDetails});
 		const result = await this.checkAvailability(
 			userDetails.username,
 			userDetails.email
@@ -186,19 +205,28 @@ export class SupabaseFeatures {
 		return true;
 	}
 
-	async authenticate(username, password) {
+	async comparePassword(func, plaintextPassword, hash) {
+		const result = await func(plaintextPassword, hash);
+		return result;
+	}
+
+	async authenticate(func, username, password) {
 		if (password == undefined) return false;
 		username, password;
 		const user = await this.getUser(username);
 
-		try {
-			if (user.password !== password) {
-				return false;
-			}
-		} catch {
-			return false;
-		}
+		// try {
+		// 	// if (user.password !== password) {
+		// 	// 	return false;
+		// 	// }
+			
+		// } catch {
+		// 	return false;
+		// }
 
+		const res = await this.comparePassword(func, password, user.password);
+		console.log(res)
+		if (!res) return false
 		return user.username;
 	}
 

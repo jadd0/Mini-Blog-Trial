@@ -34,6 +34,11 @@ export async function load({ request, params }) {
 	catch {
 		bool = false
 	}
+
+	if (auth == params.username) {
+		bool = 'self'
+	}
+
 	const posts = await supabaseClass.getPosts(params.username)
 
 	return {
