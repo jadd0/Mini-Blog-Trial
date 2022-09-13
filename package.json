@@ -19,6 +19,7 @@
 		"bcrypt": "^5.0.1",
 		"crypto-js": "^4.1.1",
 		"dotenv": "^16.0.2",
-		"mapbox": "^1.0.0-beta10"
+		"mapbox": "^1.0.0-beta10",
+		"supabase": "^1.4.5"
 	}
 }
