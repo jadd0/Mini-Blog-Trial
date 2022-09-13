@@ -227,18 +227,7 @@ export class SupabaseFeatures {
 		if (password == undefined) return false;
 		username, password;
 		const user = await this.getUser(username);
-
-		// try {
-		// 	// if (user.password !== password) {
-		// 	// 	return false;
-		// 	// }
-
-		// } catch {
-		// 	return false;
-		// }
-
 		const res = await this.comparePassword(func, password, user.password);
-		console.log(res);
 		if (!res) return false;
 		return user.username;
 	}
