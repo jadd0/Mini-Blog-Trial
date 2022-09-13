@@ -38,7 +38,7 @@
 		<h2 id="name">{data.user.name}</h2>
 		{#if data.bool == "self"}
 			{#if (data.data).length == 0}
-				<a href="/newpost" id="bland">Looking very bland here...<br>Why you post your first blog today?</a>
+				<a href="/newpost" id="bland">Looking very bland here...<br>Why not post your first blog today?</a>
 			{/if}
 		{/if}
 		{#if data.bool == false}
