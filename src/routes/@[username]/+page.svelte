@@ -89,6 +89,10 @@
 		letter-spacing: -1px !important;
 	}
 
+	#title {
+		padding-right: 20px;
+	}
+
 	#username {
 		margin: 0 auto;
 		font-weight: 600;

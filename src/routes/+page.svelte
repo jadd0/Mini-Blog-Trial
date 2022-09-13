@@ -94,6 +94,10 @@
 		word-break: break-word;
 	}
 
+	#title {
+		padding-right: 20px;
+	}
+
 	#postContainer {
 		width: 50vw;
 		/* min-height: 20vh; */
@@ -116,7 +120,7 @@
 
 	@media (max-width: 520px) {
 		h1 {
-			font-size: 10vw !important;
+			font-size: 9vw !important;
 		}
 	}
 
