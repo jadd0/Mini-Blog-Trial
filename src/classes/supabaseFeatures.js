@@ -151,7 +151,7 @@ export class SupabaseFeatures {
 	}
 
 	async getPost(id) {
-		const { data, e } = await this.supabase
+		const { data, error } = await this.supabase
 			.from("Posts")
 			.select("*")
 			.eq("id", id);
