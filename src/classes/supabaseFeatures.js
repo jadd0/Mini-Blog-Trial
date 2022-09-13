@@ -177,8 +177,6 @@ export class SupabaseFeatures {
 
 		const emailAvailability = userList.find((user) => user.email === (email.toLowerCase()));
 
-		console.log({usernameAvailability, emailAvailability})
-
 		//true if undefined, false otherwise
 		const userBool = usernameAvailability == undefined;
 		const emailBool = emailAvailability == undefined;

@@ -9,7 +9,7 @@ const supabaseClass = new SupabaseFeatures(supabase);
 /** @type {import('./$types').Load} */
 export async function load({ request }) {
   const cookie = features.parseCookie(request.headers.get("cookie"));
-	console.log({cookie})
+	
 	if (cookie.key == undefined) {
 		throw redirect(307, "/login");
 	}

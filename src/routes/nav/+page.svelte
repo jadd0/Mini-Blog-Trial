@@ -16,7 +16,6 @@
 	}
 
 	const logout = async () => {
-		console.log("loigut");
 		const response = await fetch("/api/logout", {
 			method: "post",
 			headers: {
