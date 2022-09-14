@@ -3,7 +3,7 @@ import { Features } from "../../../classes/usefulFeatures.js";
 import { supabase } from "../../../supabaseClient.js";
 import bcryptjs from 'bcryptjs';
 
-const supabaseClass = new SupabaseFeatures(supabase);
+const supabaseClass = new SupabaseFeatures(supabase, bcryptjs);
 const features = new Features();
 
 /** @type {import('./__types/[id]').RequestHandler} */
@@ -12,7 +12,7 @@ export const POST = async ({ request }) => {
 	const username = body.username;
 	const password = body.password;
 
-	const auth = await supabaseClass.authenticate(bcryptjs.compare, (username).toLowerCase(), password);
+	const auth = await supabaseClass.authenticate((username).toLowerCase(), password);
 
 	if (!auth) {
 		return new Response("Invalid credentials", { status: 406 });

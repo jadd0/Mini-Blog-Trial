@@ -162,7 +162,6 @@ export class SupabaseFeatures {
 	}
 
 	async signUp(userDetails) {
-		console.log({ userDetails });
 		const result = await this.checkAvailability(
 			userDetails.username,
 			userDetails.email
@@ -224,10 +223,10 @@ export class SupabaseFeatures {
 		return result;
 	}
 
-	async authenticate(func, username, password) {
+	async authenticate(username, password) {
 		if (password == undefined) return false;
 		const user = await this.getUser(username);
-		const res = await this.comparePassword(func, password, user.password);
+		const res = await this.comparePassword(password, user.password);
 		if (!res) return false;
 		return user.username;
 	}
