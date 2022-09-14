@@ -35,7 +35,7 @@
 	};
 
 	const submit = async () => {
-		if (commentBody.length < 5) return
+		if (commentBody.length < 3) return
 		const response = await fetch("/api/newComment", {
 			method: "post",
 			headers: {
@@ -83,7 +83,7 @@
 							name="text"
 							id="userInput"
 							maxlength="200"
-							placeholder="(5-200 chars)"
+							placeholder="(3-200 chars)"
 							bind:value={commentBody}
 							oninput='this.style.height = "";this.style.height = this.scrollHeight + "px"'
 						/>
