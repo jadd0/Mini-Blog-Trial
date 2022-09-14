@@ -1,6 +1,7 @@
 export class SupabaseFeatures {
-	constructor(supabase) {
+	constructor(supabase, bcrypt) {
 		this.supabase = supabase;
+		this.bcrypt = bcrypt;
 	}
 
 	async newComment(data, username) {
@@ -218,8 +219,8 @@ export class SupabaseFeatures {
 		return true;
 	}
 
-	async comparePassword(func, plaintextPassword, hash) {
-		const result = await func(plaintextPassword, hash);
+	async comparePassword(plaintextPassword, hash) {
+		const result = await this.bcrypt.compare(plaintextPassword, hash);
 		return result;
 	}
 

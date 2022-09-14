@@ -1,15 +1,15 @@
 import { supabase } from "../../../supabaseClient.js";
 import { SupabaseFeatures } from '../../../classes/supabaseFeatures.js'
 import { Features } from '../../../classes/usefulFeatures.js'
-import bcrypt from 'bcrypt';
+import bcryptjs from 'bcryptjs';
 
 const supabaseClass = new SupabaseFeatures(supabase);
 const features = new Features();
 
 export async function POST({ request }) {
 	const req = await request.json();
-	req.password = await features.hashPassword(bcrypt, req.password);
-	req.email = await features.hashPassword(bcrypt, req.email);
+	req.password = await features.hashPassword(bcryptjs, req.password);
+	req.email = await features.hashPassword(bcryptjs, req.email);
 
 	const res = await supabaseClass.signUp(req)
 

@@ -1,7 +1,6 @@
 import { supabase } from "../../supabaseClient.js";
 import { SupabaseFeatures } from "../../classes/supabaseFeatures.js";
 import { Features } from "../../classes/usefulFeatures.js";
-import bcrypt from 'bcrypt';
 
 const supabaseClass = new SupabaseFeatures(supabase);
 const features = new Features()
