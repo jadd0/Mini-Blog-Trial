@@ -7,42 +7,48 @@
 	let name = "";
 	let email = "";
 
-	export let data
+	export let data;
 
 	let wrong = false;
-	let wrongMessage = ''
-	let passwordBool = false
+	let wrongMessage = "";
+	let passwordBool = false;
 
 	function enterQuery(event) {
 		if (event.key == "Enter") {
-			submit()
+			submit();
 		}
 
 		if (password.length != 0) {
-			passwordChecker(password)
+			passwordChecker(password);
 		}
 	}
 
 	function passwordChecker(password) {
 		const regex =
-			/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[#@$!%*?&])[A-Za-z\d#@$!%*?&]{10,50}$/;
+			/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[#@$!%*?&])[A-Za-z\d#@$!%*?&]{6,51}$/;
 
 		if (regex.test(password)) {
 			// ("yEs")
-			wrong = false
-			passwordBool = true
-			return
+			wrong = false;
+			passwordBool = true;
+			return;
 		}
 
 		// ("no")
-		wrong = true
-		passwordBool = false
-		wrongMessage = 'Password did not pass the test'
+		wrong = true;
+		passwordBool = false;
+		wrongMessage = "Password did not pass the test";
 	}
 
 	const submit = async () => {
-		if (!passwordBool || (email.length == 0) || (username.length == 0) || (name.length == 0) || (password.length == 0)) {
-			return
+		if (
+			!passwordBool ||
+			email.length == 0 ||
+			username.length == 0 ||
+			name.length == 0 ||
+			password.length == 0
+		) {
+			return;
 		}
 		const response = await fetch("/api/signUp", {
 			method: "post",
@@ -54,7 +60,7 @@
 				username: username,
 				password: password,
 				email: email,
-				name: name
+				name: name,
 			}),
 		});
 
@@ -65,8 +71,9 @@
 		}
 
 		if (response.status == 401) {
-			wrongMessage = 'That email/searchname is already in use. Please try again';
-			wrong = true
+			wrongMessage =
+				"That email/searchname is already in use. Please try again";
+			wrong = true;
 			// (wrong);
 		}
 	};
@@ -79,7 +86,7 @@
 <svelte:window on:keyup={enterQuery} />
 
 <body>
-	<Nav username={data.username}/>
+	<Nav username={data.username} />
 	<div id="loginForm">
 		<h1>Sign Up</h1>
 		<div id="inputHolder">
@@ -106,7 +113,7 @@
 				bind:value={name}
 			/>
 		</div>
-		
+
 		<div id="inputHolder" class="password">
 			<input
 				type="password"
@@ -117,19 +124,17 @@
 		</div>
 		<div id="passwordInfo">
 			<h2>Password must contain:</h2>
-				<li>One upper-case character</li>
-				<li>One lower-case character</li>
-				<li>One of these special character (#, @, $, !, %, *, ?, &)</li>
-				<li>One number</li>
-				<li>Be between 10-50 characters</li>
+			<li>One upper and lower case character</li>
+			<li>One of these special character (#, @, $, !, %, *, ?, &)</li>
+			<li>One number</li>
+			<li>Be between 6-50 characters</li>
 		</div>
-
-		<button on:click={submit} id="loginButton">Sign Up</button>
 		{#if wrong == true}
 			<h2 id="incorrect">
 				{wrongMessage}
 			</h2>
 		{/if}
+		<button on:click={submit} id="loginButton">Sign Up</button>
 	</div>
 </body>
 
@@ -220,8 +225,8 @@
 	}
 
 	#incorrect {
-		margin-top: 20px;
-		color: white;
+		margin-top: 10px;
+		color: red;
 		/* display: none; */
 	}
 
@@ -243,7 +248,7 @@
 
 	#loginButton {
 		margin: 0 auto;
-		margin-top: 40px;
+		margin-top: 20px;
 		width: 75%;
 		height: 50px;
 		color: white;
