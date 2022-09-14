@@ -30,5 +30,5 @@ export async function POST({ request }) {
 	.map((a) => a.username)
 	.slice(0, 15)
 
-	return new Response(JSON.stringify({ data: returnItems }));
+	return new Response(JSON.stringify({ data: items }));
 }
