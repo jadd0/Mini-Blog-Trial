@@ -31,6 +31,10 @@
 
 <svelte:window on:keyup={postQuery} />
 
+<svelte:head>
+	<title>Search</title>
+</svelte:head>
+
 <body>
 	<Nav username={data.username} />
 	<div id="all">

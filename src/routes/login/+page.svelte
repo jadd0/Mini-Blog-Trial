@@ -46,6 +46,10 @@
 
 <svelte:window on:keyup={enterQuery} />
 
+<svelte:head>
+	<title>Login</title>
+</svelte:head>
+
 <body>
 	<Nav username={data.username}/>
 	<div id="loginForm">
@@ -141,9 +145,10 @@
 	#userInput {
 		/* width: 264px; */
 		width: 87.5%;
-		height: 36px;
+		height: 36px !important;
 		margin-left: 19px;
-		background: #212121;
+		margin-top: 2px;
+		background: #212121 !important;
 		color: white;
 		text-align: left;
 	}

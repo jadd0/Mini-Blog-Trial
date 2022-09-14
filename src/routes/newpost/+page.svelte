@@ -41,6 +41,10 @@
 	}
 </script>
 
+<svelte:head>
+	<title>New Post</title>
+</svelte:head>
+
 <body>
 	<Nav username={data.username}/>
 	<div id="form">

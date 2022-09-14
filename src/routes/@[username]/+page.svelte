@@ -31,6 +31,10 @@
 	};
 </script>
 
+<svelte:head>
+	<title>@{$page.params.username}</title>
+</svelte:head>
+
 <body>
 	<Nav username={data.username} />
 	<div id="whole">

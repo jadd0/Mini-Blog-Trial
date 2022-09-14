@@ -72,6 +72,10 @@
 	};
 </script>
 
+<svelte:head>
+	<title>Sign Up</title>
+</svelte:head>
+
 <svelte:window on:keyup={enterQuery} />
 
 <body>

@@ -12,6 +12,10 @@
 	}
 </script>
 
+<svelte:head>
+	<title>Home</title>
+</svelte:head>
+
 <body>
 	<Nav username={data.username} />
 	<div id="whole">
