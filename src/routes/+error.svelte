@@ -6,6 +6,10 @@
   }
 </script>
 
+<svelte:head>
+	<title>Error</title>
+</svelte:head>
+
 <body>
   <h1>404</h1>
   <h2>{message || $page.error.message}</h2>
