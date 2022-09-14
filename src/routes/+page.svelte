@@ -76,9 +76,7 @@
 		text-align: left;
 		margin-left: 5vw;
 		font-size: 30px !important;
-		position: absolute;
-		top: 37.5%;
-		padding-right: 20px;
+		margin-top: 20vh;
 	}
 
 	#date {
