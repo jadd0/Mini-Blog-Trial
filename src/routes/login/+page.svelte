@@ -6,6 +6,7 @@
 	let password = "";
 	let wrong = false;
 	let shake = false
+	let loading = false
 
 	
 
@@ -18,6 +19,7 @@
 	}
 
 	const submit = async () => {
+		loading = true
 		const response = await fetch("/api/login", {
 			method: "post",
 			headers: {
@@ -35,6 +37,7 @@
 		}
 
 		if (response.ok == false) {
+			loading = false
 			wrong = true;
 			shake = true
 		}
@@ -71,7 +74,7 @@
 			/>
 		</div>
 
-		<button on:click={submit} id="loginButton">Login</button>
+		<button on:click={submit} id="loginButton">{loading === true ? "Loading..." : "Sign Up"}</button>
 		<a href="/signup">
 			<p>Sign up here</p>
 		</a>
@@ -145,7 +148,7 @@
 	#userInput {
 		/* width: 264px; */
 		width: 87.5%;
-		height: 36px !important;
+		height: 34px !important;
 		margin-left: 19px;
 		margin-top: 2px;
 		background: #212121 !important;
