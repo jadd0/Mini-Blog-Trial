@@ -30,6 +30,6 @@ export const POST = async ({ request }) => {
 	return new Response('Redirect', {
 		status: 200,
 		headers: { 'set-cookie': cookie,
-		Location: "/newpost" },
+		Location: "/" },
 	});
 }

@@ -28,6 +28,6 @@ export async function POST({ request }) {
 	return new Response('Redirect', {
 		status: 200,
 		headers: { 'set-cookie': cookie,
-		Location: "/newpost" },
+		Location: "/" },
 	});
 }
