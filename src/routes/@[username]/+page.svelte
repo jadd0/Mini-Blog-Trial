@@ -4,6 +4,8 @@
 	import Nav from "../nav/+page.svelte";
 	export let data = [];
 
+	console.log(data.user);
+
 	function date(isoDate) {
 		const date = new Date(isoDate);
 		const newDate = `${date.getDate()}/${
@@ -14,16 +16,19 @@
 	}
 
 	const submit = async () => {
-		const response = await fetch(`/api/${data.bool === true ? 'unfollow' : 'follow'}`, {
-			method: "post",
-			headers: {
-				Accept: "application/json",
-				"Content-Type": "application/json",
-			},
-			body: JSON.stringify({
-				username: $page.params.username,
-			}),
-		});
+		const response = await fetch(
+			`/api/${data.bool === true ? "unfollow" : "follow"}`,
+			{
+				method: "post",
+				headers: {
+					Accept: "application/json",
+					"Content-Type": "application/json",
+				},
+				body: JSON.stringify({
+					username: $page.params.username,
+				}),
+			}
+		);
 
 		if (response.ok) {
 			location.reload();
@@ -40,9 +45,21 @@
 	<div id="whole">
 		<h1 id="username">@{data.user.username}</h1>
 		<h2 id="name">{data.user.name}</h2>
+		<div id="followerContainer">
+			<a href="/@{data.user.username}/following">
+				<div id="button">Following</div>
+			</a>
+			<a href="/@{data.user.username}/followers">
+				<div id="button">Followers</div></a
+			>
+		</div>
+
 		{#if data.bool == "self"}
-			{#if (data.data).length == 0}
-				<a href="/newpost" id="bland">Looking very bland here...<br>Why not post your first blog today?</a>
+			{#if data.data.length == 0}
+				<a href="/newpost" id="bland"
+					>Looking very bland here...<br />Why not post your first
+					blog today?</a
+				>
 			{/if}
 		{/if}
 		{#if data.bool == false}
@@ -101,6 +118,35 @@
 		letter-spacing: -1px !important;
 	}
 
+	#followerContainer {
+		display: flex;
+		flex-direction: row;
+		gap: 10px;
+		margin-top: 20px;
+	}
+
+	#button {
+		width: 200px;
+		height: 45px;
+		line-height: 45px;
+		font-weight: 600;
+		color: white;
+		background: #212121;
+		border-radius: 40px;
+		transition: all 0.2s linear;
+	}
+
+	#button:hover {
+		background: rgb(56, 56, 56);
+	}
+
+	@media (max-width: 500px) {
+		#button {
+			width: 150px;
+			font-size: 20px;
+		}
+	}
+
 	#bland {
 		font-size: 3rem;
 		font-weight: 700;
@@ -143,7 +189,8 @@
 		padding-bottom: 20px;
 	}
 
-	#description, #title {
+	#description,
+	#title {
 		word-break: break-word;
 	}
 
