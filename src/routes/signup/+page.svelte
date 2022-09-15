@@ -12,6 +12,7 @@
 	let wrong = false;
 	let wrongMessage = "";
 	let passwordBool = false;
+	let usernameBool = false
 
 	function enterQuery(event) {
 		if (event.key == "Enter") {
@@ -23,33 +24,44 @@
 		}
 	}
 
+	function usernameChecker() {
+		const usernameRegex = /^(?!\s)[a-z\d{._}]{1,10}$/
+
+		if (!usernameRegex.test(username)) {
+			console.log("true")
+			usernameBool = true;
+			return;
+		}
+		usernameBool = false;
+	}
+
 	function passwordChecker(password) {
 		const regex =
 			/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[#@$!%*?&])[A-Za-z\d#@$!%*?&]{6,51}$/;
 
 		if (regex.test(password)) {
-			// ("yEs")
-			wrong = false;
-			passwordBool = true;
+			console.log("ttrue!!!")
+			wrong=false
+			passwordBool = false;
 			return;
 		}
 
-		// ("no")
 		wrong = true;
-		passwordBool = false;
+		passwordBool = true;
 		wrongMessage = "Password did not pass the test";
 	}
 
 	const submit = async () => {
+		console.log("sub")
 		if (
-			!passwordBool ||
+			passwordBool ||
+			usernameBool ||
 			email.length == 0 ||
-			username.length == 0 ||
-			name.length == 0 ||
-			password.length == 0
+			name.length == 0
 		) {
 			return;
 		}
+		console.log("true")
 		const response = await fetch("/api/signUp", {
 			method: "post",
 			headers: {
@@ -103,8 +115,21 @@
 				id="userInput"
 				placeholder="username"
 				bind:value={username}
+				on:input={usernameChecker}
 			/>
 		</div>
+
+		<div id="passwordInfo">
+			<h2>Username Rules:</h2>
+			<li>1-10 characters</li>
+			<li>Alpha-numeric</li>
+			<li>Can contain DOT and UNDERSCORE</li>
+		</div>
+		{#if usernameBool}
+			<h2 id="incorrect">
+				Username did not pass the test
+			</h2>
+		{/if}
 		<div id="inputHolder">
 			<input
 				type="text"
@@ -113,12 +138,12 @@
 				bind:value={name}
 			/>
 		</div>
-
 		<div id="inputHolder" class="password">
 			<input
 				type="password"
 				id="userInput"
 				placeholder="password"
+				on:input={passwordChecker}
 				bind:value={password}
 			/>
 		</div>
