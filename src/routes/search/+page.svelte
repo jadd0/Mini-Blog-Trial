@@ -180,7 +180,7 @@
 		right: 0;
 		margin-left: auto;
 		margin-right: auto;
-		top: 31%;
+		top: 175px;
 		background: #212121;
 		border-radius: 20px;
 		color: white;
@@ -189,7 +189,7 @@
 
 	#friendContainer {
 		position: absolute;
-		top: 40vh;
+		top: 225px;
 		height: 50vh;
 		width: 400px;
 		overflow: scroll;
