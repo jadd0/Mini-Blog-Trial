@@ -91,7 +91,7 @@
 	}
 
   #name {
-    font-size: 25px;
+    font-size: 25px !important;
 		color: rgb(255, 255, 255);
 		margin: 0 auto;
 		overflow: hidden;	
@@ -120,6 +120,12 @@
 		padding-bottom: 30px;
     border: 5px solid #212121;
     border-radius: 20px;
+	}
+
+	@media (max-width: 460px) {
+		#container {
+			width: 325px !important;
+		}
 	}
 
 	#whole {

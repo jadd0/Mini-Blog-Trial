@@ -175,12 +175,12 @@
 	#inputHolder {
 		width: 300px;
 		height: 42px;
-		position: absolute;
+		position: relative;
 		left:0;
 		right: 0;
 		margin-left: auto;
 		margin-right: auto;
-		top: 175px;
+		/* top: -11%; */
 		background: #212121;
 		border-radius: 20px;
 		color: white;
@@ -188,8 +188,8 @@
 	}
 
 	#friendContainer {
-		position: absolute;
-		top: 225px;
+		position: relative;
+		top: -1%;
 		height: 50vh;
 		width: 400px;
 		overflow: scroll;
