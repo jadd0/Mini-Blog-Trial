@@ -30,6 +30,34 @@ export class SupabaseFeatures {
 		return false;
 	}
 
+	async removeFollower(myUsername, user2) {
+		console.log(myUsername)
+		if (!user2) {
+			return false;
+		}
+
+		let followersList = user2.followersList || [];
+		console.log({followersList})
+		const bool = followersList.includes(myUsername);
+
+		if (!bool) {
+			return false;
+		}
+
+		followersList = followersList.filter((item) => item !== myUsername);
+		console.log("hwrfhoeuhfouewhfoeuhwuhguo")
+		console.log("NEW FOLLOWERS LIST", followersList);
+
+		const { data, error } = await this.supabase
+			.from("Users")
+			.update({ followersList: followersList })
+			.match({ username: user2.username });
+
+		if (error == undefined) return true;
+
+		return false;
+	}	
+
 	async unfollow(username, userToUnfollow) {
 		if (username == userToUnfollow) return false;
 		const user = await this.getUser(username);
@@ -43,12 +71,15 @@ export class SupabaseFeatures {
 
 		followingList = followingList.filter((item) => item !== userToUnfollow);
 
+		console.log(followingList)
 		const { data, error } = await this.supabase
 			.from("Users")
 			.update({ followingList: followingList })
 			.match({ username: username });
 
-		if (error == undefined) return true;
+		const res = await this.removeFollower(username, await this.getUser(userToUnfollow))
+
+		if (error == undefined && res) return true;
 
 		return false;
 	}
@@ -61,6 +92,30 @@ export class SupabaseFeatures {
 
 		if (error != undefined) return false;
 		return true;
+	}
+
+	async addToFollowingList(myUsername, user2) {
+		if (!user2) {
+			return false;
+		}
+
+		let followersList = user2.followersList || [];
+
+		const bool = followersList.includes(myUsername);
+
+		if (bool) {
+			return false;
+		}
+
+		followersList.push(myUsername);
+		const { data, error } = await this.supabase
+			.from("Users")
+			.update({ followersList: followersList })
+			.match({ username: user2.username });
+
+		if (error == undefined) return true;
+
+		return false;
 	}
 
 	async follow(username, userToFollow) {
@@ -85,7 +140,9 @@ export class SupabaseFeatures {
 			.update({ followingList: followingList })
 			.match({ username: username });
 
-		if (error == undefined) return true;
+		const res = this.addToFollowingList(username, user2)
+
+		if (error == undefined && res) return true;
 
 		return false;
 	}

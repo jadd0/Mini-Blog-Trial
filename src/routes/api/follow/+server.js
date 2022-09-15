@@ -23,7 +23,7 @@ export async function POST({ request }) {
 	}
 
 	const userData = await request.json()
-	const username = userData.username //usertofollow
+	const username = userData.username 
 
 	const res = await supabaseClass.follow(auth, username)
 	
