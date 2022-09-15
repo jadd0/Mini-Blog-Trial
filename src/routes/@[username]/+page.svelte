@@ -45,6 +45,12 @@
 	<div id="whole">
 		<h1 id="username">@{data.user.username}</h1>
 		<h2 id="name">{data.user.name}</h2>
+		{#if data.bool == false}
+			<button on:click={submit} id="followButton">Follow</button>
+		{/if}
+		{#if data.bool == true}
+			<button on:click={submit} id="followButton">Unfollow</button>
+		{/if}
 		<div id="followerContainer">
 			<a href="/@{data.user.username}/following">
 				<div id="button">Following</div>
@@ -61,12 +67,6 @@
 					blog today?</a
 				>
 			{/if}
-		{/if}
-		{#if data.bool == false}
-			<button on:click={submit} id="followButton">Follow</button>
-		{/if}
-		{#if data.bool == true}
-			<button on:click={submit} id="followButton">Unfollow</button>
 		{/if}
 		{#each data.data as d}
 			<a href="/post/{d.id}" id="hello">
