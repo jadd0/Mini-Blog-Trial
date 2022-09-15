@@ -125,6 +125,7 @@
 			<li>1-10 characters</li>
 			<li>Alpha-numeric</li>
 			<li>Can contain DOT and UNDERSCORE</li>
+			<li>No uppercase</li>
 		</div>
 		{#if usernameBool}
 			<h2 id="incorrect">
