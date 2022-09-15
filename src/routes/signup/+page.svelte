@@ -13,6 +13,7 @@
 	let wrongMessage = "";
 	let passwordBool = false;
 	let usernameBool = false
+	let loading = false
 
 	function enterQuery(event) {
 		if (event.key == "Enter") {
@@ -62,7 +63,7 @@
 		) {
 			return;
 		}
-		console.log("true")
+		loading = true
 		const response = await fetch("/api/signUp", {
 			method: "post",
 			headers: {
@@ -87,6 +88,7 @@
 			wrongMessage =
 				"That email/username is already in use. Please try again";
 			wrong = true;
+			loading = false
 			// (wrong);
 		}
 	};
@@ -122,7 +124,7 @@
 
 		<div id="passwordInfo">
 			<h2>Username Rules:</h2>
-			<li>1-7 characters</li>
+			<li>1-17 characters</li>
 			<li>Alpha-numeric</li>
 			<li>Can contain DOT and UNDERSCORE</li>
 			<li>No uppercase</li>
@@ -161,7 +163,7 @@
 				{wrongMessage}
 			</h2>
 		{/if}
-		<button on:click={submit} id="loginButton">Sign Up</button>
+		<button on:click={submit} id="loginButton">{loading === true ? "Loading..." : "Sign Up"}</button>
 	</div>
 </body>
 
