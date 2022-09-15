@@ -74,7 +74,7 @@
 			/>
 		</div>
 
-		<button on:click={submit} id="loginButton">{loading === true ? "Loading..." : "Sign Up"}</button>
+		<button on:click={submit} id="loginButton">{loading === true ? "Loading..." : "Log in"}</button>
 		<a href="/signup">
 			<p>Sign up here</p>
 		</a>

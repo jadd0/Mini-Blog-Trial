@@ -6,9 +6,11 @@
 	let title = "";
 	let description = "";
 	let body = "";
+	let loading = false
 
 	const submit = async () => {
 		if (title.length == 0 || description.length == 0 || body.length == 0) return
+		loading = true
 		const response = await fetch("/api/createPost", {
 			method: "post",
 			headers: {
@@ -22,15 +24,12 @@
 			}),
 		});
 
-		(response)
-
-		// (response);
-
 		if (response.ok) {
 			window.location = "/newpost";
 		}
 
 		if (response.ok == false) {
+			loading = false
 			wrong = true;
 		}
 	};
@@ -81,7 +80,7 @@
 			/>
 		</div>
 
-		<button on:click={submit} id="loginButton">Send</button>
+		<button on:click={submit} id="loginButton">{loading === true ? "Loading..." : "Send"}</button>
 	</div>
 </body>
 <style>
