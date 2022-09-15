@@ -28,6 +28,7 @@ export async function load({ request, params }) {
 
 	return {
 		data: user.followingList,
+		
 		username: auth
 	};
 }

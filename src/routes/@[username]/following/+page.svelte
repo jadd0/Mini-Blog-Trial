@@ -43,7 +43,7 @@
 <body>
 	<Nav username={data.username} />
 	<div id="whole">
-		<h1 id="username">@{data.username}'s following</h1>
+		<h1 id="username">@{$page.params.username}'s following</h1>
 		<div id="container">
 			{#each data.data as username}
 				<a href="/@{username}">
