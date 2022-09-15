@@ -29,7 +29,6 @@
 		const usernameRegex = /^(?!\s)[a-z\d{._}]{1,17}$/
 
 		if (!usernameRegex.test(username)) {
-			console.log("true")
 			usernameBool = true;
 			return;
 		}
@@ -41,7 +40,6 @@
 			/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[#@$!%*?&])[A-Za-z\d#@$!%*?&]{6,51}$/;
 
 		if (regex.test(password)) {
-			console.log("ttrue!!!")
 			wrong=false
 			passwordBool = false;
 			return;
@@ -53,7 +51,6 @@
 	}
 
 	const submit = async () => {
-		console.log("sub")
 		if (
 			passwordBool ||
 			usernameBool ||

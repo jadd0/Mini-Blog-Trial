@@ -31,13 +31,11 @@ export class SupabaseFeatures {
 	}
 
 	async removeFollower(myUsername, user2) {
-		console.log(myUsername)
 		if (!user2) {
 			return false;
 		}
 
 		let followersList = user2.followersList || [];
-		console.log({followersList})
 		const bool = followersList.includes(myUsername);
 
 		if (!bool) {
@@ -45,8 +43,7 @@ export class SupabaseFeatures {
 		}
 
 		followersList = followersList.filter((item) => item !== myUsername);
-		console.log("hwrfhoeuhfouewhfoeuhwuhguo")
-		console.log("NEW FOLLOWERS LIST", followersList);
+
 
 		const { data, error } = await this.supabase
 			.from("Users")
@@ -70,8 +67,6 @@ export class SupabaseFeatures {
 		}
 
 		followingList = followingList.filter((item) => item !== userToUnfollow);
-
-		console.log(followingList)
 		const { data, error } = await this.supabase
 			.from("Users")
 			.update({ followingList: followingList })
