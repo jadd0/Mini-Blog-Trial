@@ -248,7 +248,7 @@
 	#followButton {
 		margin: 0 auto;
 		margin-top: 20px;
-		margin-bottom: 20px;
+		margin-bottom: 0px;
 		width: 300px;
 		height: 50px;
 		color: white;
