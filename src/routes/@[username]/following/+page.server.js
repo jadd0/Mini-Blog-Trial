@@ -26,9 +26,9 @@ export async function load({ request, params }) {
 		throw error(404, "No user found");
 	}
 
+	let followingList = user.followingList || ["Noone yet!"]
 	return {
-		data: user.followingList,
-		
+		data: followingList,
 		username: auth
 	};
 }

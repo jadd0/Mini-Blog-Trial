@@ -26,8 +26,10 @@ export async function load({ request, params }) {
 		throw error(404, "No user found");
 	}
 
+	let followersList = user.followersList || ["Noone yet!"]
+
 	return {
-		data: user.followersList,
+		data: followersList,
 		username: auth
 	};
 }
