@@ -57,7 +57,8 @@
 			passwordBool ||
 			usernameBool ||
 			email.length == 0 ||
-			name.length == 0
+			name.length == 0 ||
+			name.length > 10
 		) {
 			return;
 		}
@@ -134,7 +135,7 @@
 			<input
 				type="text"
 				id="userInput"
-				placeholder="name"
+				placeholder="name (max length 10)"
 				bind:value={name}
 			/>
 		</div>
