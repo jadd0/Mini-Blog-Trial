@@ -25,7 +25,7 @@
 	}
 
 	function usernameChecker() {
-		const usernameRegex = /^(?!\s)[a-z\d{._}]{1,10}$/
+		const usernameRegex = /^(?!\s)[a-z\d{._}]{1,17}$/
 
 		if (!usernameRegex.test(username)) {
 			console.log("true")
@@ -122,7 +122,7 @@
 
 		<div id="passwordInfo">
 			<h2>Username Rules:</h2>
-			<li>1-10 characters</li>
+			<li>1-7 characters</li>
 			<li>Alpha-numeric</li>
 			<li>Can contain DOT and UNDERSCORE</li>
 			<li>No uppercase</li>
