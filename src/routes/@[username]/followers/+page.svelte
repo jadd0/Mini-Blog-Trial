@@ -89,13 +89,19 @@
 	}
 
   #name {
-    font-size: 25px;
+    font-size: 25px !important;
 		color: rgb(255, 255, 255);
 		margin: 0 auto;
 		overflow: hidden;	
 		text-overflow: ellipsis;
 		padding: 10px 10px 10px 10px;
 		transition: all 0.2s linear;
+		font-size: 3rem;
+		font-weight: 700;
+		color: white;
+		padding-top: 10px;
+		text-align: left;
+		/* margin-left: 5vw; */
   }
 
   #userHolder {
@@ -133,6 +139,10 @@
 	@media (max-width: 520px) {
 		h1 {
 			font-size: 10vw !important;
+		}
+
+		#container {
+			width: 300px !important;
 		}
 	}
 
