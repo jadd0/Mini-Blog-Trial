@@ -137,7 +137,7 @@
 		margin-top: 20px;
 		color: rgb(255, 255, 255);
 		font-size: 30px;
-		font-weight: 700;
+		font-weight: 400;
 		transition: all 0.2s linear;
 	}
 
@@ -169,7 +169,7 @@
 
 	h1 {
 		font-size: 1.75em;
-		font-weight: 800;
+		font-weight: 600;
 		padding-top: 20px;
 		padding-bottom: 20px;
 		color: white;
