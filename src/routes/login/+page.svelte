@@ -33,7 +33,7 @@
 		});
 
 		if (response.ok) {
-			window.location = "/newpost";
+			window.location = "/";
 		}
 
 		if (response.ok == false) {

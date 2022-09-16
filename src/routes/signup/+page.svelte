@@ -78,7 +78,7 @@
 		// (response);
 
 		if (response.ok) {
-			window.location = "/newpost";
+			window.location = "/";
 		}
 
 		if (response.status == 401) {
