@@ -38,7 +38,6 @@ export async function POST({ request }) {
     },
   });
 
-	console.log("created");
 	await transporter.sendMail({
 		from: "jaddblog@zohomail.eu",
 		to: "jaddalkhabbaz@gmail.com",

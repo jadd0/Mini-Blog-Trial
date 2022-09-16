@@ -4,8 +4,6 @@
 	import Nav from "../../nav/+page.svelte";
 	export let data = [];
 
-	console.log(data);
-
 	function date(isoDate) {
 		const date = new Date(isoDate);
 		const newDate = `${date.getDate()}/${
