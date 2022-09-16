@@ -22,10 +22,10 @@ export async function POST({ request }) {
 		throw error(401, "Not authorised")
 	}
 
-	const userData = await request.json();
+	const req = await request.json();
+	const res = await supabaseClass.dislikePost(req.id, auth);
 
-	const res = await supabaseClass.likePost(id, auth);
+  if (!res) throw error(404, `There has been an error disliking post ${req.id}. This post may not exist or may already be disliked by @${auth}. Please try again later.`)
 
-
-	return new Response(`Post number ${id} liked successfully`)
+	return new Response(`Post number ${req.id} liked successfully`)
 }

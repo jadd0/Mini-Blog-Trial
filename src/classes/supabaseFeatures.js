@@ -4,6 +4,34 @@ export class SupabaseFeatures {
 		this.bcrypt = bcrypt;
 	}
 
+	async dislikePost(id, username) {
+		const post = await this.getPost(id);
+
+		if (!post) return false
+
+		let dislikes = post.dislikes || []
+		let res = false
+
+		if (dislikes.length !== 0) {
+			res = dislikes.find((user) => user.username === username);
+		}
+
+		if (res != false) return false
+
+		dislikes.push({
+			username: username,
+			time: new Date().getTime()
+		})
+
+		const { data, error } = await this.supabase
+			.from("Posts")
+			.update({ dislikes: dislikes })
+			.match({ id: id });
+
+		if (error == undefined) return true
+		return false
+	}
+
 	async likePost(id, username) {
 		const post = await this.getPost(id);
 
