@@ -92,7 +92,7 @@
 
 	h1 {
 		font-size: 3rem;
-		font-weight: 700;
+		font-weight: 600;
 		color: white;
 		/* padding-top: 10px; */
 		text-align: left;
@@ -126,6 +126,7 @@
 	#searchedFriendName {
 		font-size: 25px;
 		color: rgb(255, 255, 255);
+		font-weight: 500 !important;
 		margin: 0 auto;
 		overflow: hidden;	
 		text-overflow: ellipsis;
