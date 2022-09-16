@@ -1,4 +1,5 @@
 <script>
+	import { page } from "$app/stores";
 	import Nav from "../../nav/+page.svelte";
  	const month = [
 		"Jan",
@@ -58,6 +59,10 @@
 	const dateDay = date.getDate();
 	const dateYear = date.getFullYear();
 </script>
+
+<svelte:head>
+	<title>Post {$page.params.post}</title>
+</svelte:head>
 
 <Nav username={data.username} />
 <body>
