@@ -26,7 +26,7 @@
 	}
 
 	function usernameChecker() {
-		const usernameRegex = /^(?!\s)[a-z\d{._}]{1,17}$/
+		const usernameRegex = /^(?!\s)[a-zA-Z\d{._}]{1,17}$/
 
 		if (!usernameRegex.test(username)) {
 			usernameBool = true;
@@ -124,7 +124,6 @@
 			<li>1-17 characters</li>
 			<li>Alpha-numeric</li>
 			<li>Can contain DOT and UNDERSCORE</li>
-			<li>No uppercase</li>
 		</div>
 		{#if usernameBool}
 			<h2 id="incorrect">
