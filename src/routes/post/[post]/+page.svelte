@@ -61,7 +61,7 @@
 </script>
 
 <svelte:head>
-	<title>Post {$page.params.post}</title>
+	<title>Post {$page.params.post} - {data.returnData.title}</title>
 </svelte:head>
 
 <Nav username={data.username} />
