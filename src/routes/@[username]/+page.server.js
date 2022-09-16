@@ -42,7 +42,10 @@ export async function load({ request, params }) {
 	const posts = await supabaseClass.getPosts(params.username)
 
 	return {
-		user: user,
+		user: {
+			username: user.username,
+			name: user.name
+		},
 		data: (posts.reverse()),
 		username: auth,
 		bool: bool
