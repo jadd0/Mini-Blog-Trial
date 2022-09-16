@@ -10,10 +10,9 @@
     }
   ],
   "background_color": "#141414",
-  "theme-color": "#141414",
+  "theme_color": "#141414",
   "display": "standalone",
   "scope": "/",
-  "theme_color": "#3367D6",
   "shortcuts": [
     {
       "name": "Login",
