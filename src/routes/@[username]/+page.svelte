@@ -1,8 +1,10 @@
 <script>
-	import { page } from "$app/stores";
-	import { onMount } from "svelte";
 	import Nav from "../nav/+page.svelte";
-	export let data = [];
+	import { onMount } from "svelte";
+	import { page } from "$app/stores";
+	export let data;
+	let posts = [];
+	let loading = true;
 
 	function date(isoDate) {
 		const date = new Date(isoDate);
@@ -12,6 +14,14 @@
 
 		return newDate;
 	}
+
+	onMount(async () => {
+		const res = await fetch(`/api/getUserPosts?user=${$page.params.username}`);
+		const resJson = await res.json();
+		posts = resJson.data;
+		console.log(posts)
+		loading = false;
+	});
 
 	const submit = async () => {
 		const response = await fetch(
@@ -41,7 +51,7 @@
 <body>
 	<Nav username={data.username} />
 	<div id="whole">
-		<h1 id="username">@{data.user.username}</h1>
+		<h1 id="username">@{$page.params.username}</h1>
 		<h2 id="name">{data.user.name}</h2>
 		{#if data.bool == false}
 			<button on:click={submit} id="followButton">Follow</button>
@@ -59,26 +69,37 @@
 		</div>
 
 		{#if data.bool == "self"}
-			{#if data.data.length == 0}
+			{#if posts.length == 0 && !loading}
 				<a href="/newpost" id="bland"
 					>Looking very bland here...<br />Why not post your first
 					blog today?</a
 				>
 			{/if}
 		{/if}
-		{#each data.data as d}
-			<a href="/post/{d.id}" id="hello">
+		{#if loading}
+			<div class="css-spinner clickable">
+				<div class="lds-ring">
+					<div />
+					<div />
+					<div />
+					<div />
+				</div>
+			</div>
+		{/if}
+
+		{#each posts as post}
+			<a href="/post/{post.id}" id="hello">
 				<div id="postContainer" class="postContainer">
 					<h1 id="title">
-						{d.title}
+						{post.title}
 					</h1>
 					<div id="descriptionHolder">
-						<h2 id="description">{d.metadata.description}</h2>
-						<a href="/@{d.a}">
-							<h2 id="name">@{d.a}</h2>
+						<h2 id="description">{post.metadata.description}</h2>
+						<a href="/@{post.a}">
+							<h2 id="name">@{post.a}</h2>
 						</a>
 						<h2 id="date">
-							{date(new Date(d.created_at))}
+							{date(new Date(post.created_at))}
 						</h2>
 					</div>
 				</div>
@@ -115,6 +136,43 @@
 		font-family: New-Inter;
 		letter-spacing: -1px !important;
 	}
+
+	.lds-ring {
+  display: inline-block;
+  position: relative;
+  width: 80px;
+  height: 80px;
+	margin-top: 20vh;
+}
+.lds-ring div {
+  box-sizing: border-box;
+  display: block;
+  position: absolute;
+  width: 64px;
+  height: 64px;
+  margin: 8px;
+  border: 8px solid #323232;
+  border-radius: 50%;
+  animation: lds-ring 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+  border-color: #323232 transparent transparent transparent;
+}
+.lds-ring div:nth-child(1) {
+  animation-delay: -0.45s;
+}
+.lds-ring div:nth-child(2) {
+  animation-delay: -0.3s;
+}
+.lds-ring div:nth-child(3) {
+  animation-delay: -0.15s;
+}
+@keyframes lds-ring {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
 
 	#followerContainer {
 		display: flex;

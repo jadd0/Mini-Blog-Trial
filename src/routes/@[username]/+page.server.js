@@ -39,14 +39,8 @@ export async function load({ request, params }) {
 		bool = 'self'
 	}
 
-	const posts = await supabaseClass.getPosts(params.username)
-
 	return {
-		user: {
-			username: user.username,
-			name: user.name
-		},
-		data: (posts.reverse()),
+		user: user,
 		username: auth,
 		bool: bool
 	};
