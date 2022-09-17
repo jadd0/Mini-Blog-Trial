@@ -1,7 +1,8 @@
 <script>
 	import { page } from "$app/stores";
 	import Nav from "../../nav/+page.svelte";
- 	const month = [
+	import Icon from "@iconify/svelte";
+	const month = [
 		"Jan",
 		"Feb",
 		"Mar",
@@ -16,7 +17,58 @@
 		"Dec",
 	];
 	export let data;
-	let commentBody = ''
+
+	let isLiked = data.isLiked;
+	let isDisliked = data.isDisliked;
+	let likeCount = data.likeCount;
+	let dislikeCount = data.dislikeCount;
+
+	let likeHover = false;
+	let dislikeHover = false;
+
+	let commentBody = "";
+
+	async function like() {
+		if (isLiked) return;
+		if (isDisliked) {
+			isDisliked = false;
+			dislikeCount--;
+		}
+		isLiked = true;
+		likeCount++;
+
+		const res = await fetch("/api/likePost", {
+			method: "post",
+			headers: {
+				Accept: "application/json",
+				"Content-Type": "application/json",
+			},
+			body: JSON.stringify({
+				id: $page.params.post,
+			}),
+		});
+	}
+
+	async function dislike() {
+		if (isDisliked) return;
+		if (isLiked) {
+			isLiked = false;
+			likeCount--;
+		}
+		isDisliked = true;
+		dislikeCount++;
+
+		const res = await fetch("/api/dislikePost", {
+			method: "post",
+			headers: {
+				Accept: "application/json",
+				"Content-Type": "application/json",
+			},
+			body: JSON.stringify({
+				id: $page.params.post,
+			}),
+		});
+	}
 
 	const deletePost = async () => {
 		const response = await fetch("/api/deletePost", {
@@ -26,17 +78,17 @@
 				"Content-Type": "application/json",
 			},
 			body: JSON.stringify({
-				id: data.id
+				id: data.id,
 			}),
 		});
 
 		if (response.ok) {
 			location.replace(`/@${data.returnData.a}`);
-		}	
+		}
 	};
 
 	const submit = async () => {
-		if (commentBody.length < 3) return
+		if (commentBody.length < 3) return;
 		const response = await fetch("/api/newComment", {
 			method: "post",
 			headers: {
@@ -45,19 +97,29 @@
 			},
 			body: JSON.stringify({
 				id: data.id,
-				commentBody: commentBody
+				commentBody: commentBody,
 			}),
 		});
 
 		if (response.ok) {
 			location.reload();
-		}	
+		}
 	};
 
 	const date = new Date(data.returnData.created_at);
 	const dateMonth = month[date.getMonth()];
 	const dateDay = date.getDate();
 	const dateYear = date.getFullYear();
+
+	function enter() {
+		console.log("enter");
+		dislikeHover = true;
+	}
+
+	function leave() {
+		console.log("leave");
+		dislikeHover = false;
+	}
 </script>
 
 <svelte:head>
@@ -69,7 +131,9 @@
 	<div id="whole">
 		<div id="container">
 			{#if data.bool}
-				<button on:click={deletePost} id="deletePost">Delete Post</button>
+				<button on:click={deletePost} id="deletePost"
+					>Delete Post</button
+				>
 			{/if}
 			<h1>{data.returnData.title}</h1>
 			<h2>{dateMonth} {dateDay}, {dateYear}</h2>
@@ -78,6 +142,65 @@
 			</a>
 			<div id="pHolder">
 				<p>{data.returnData.body}</p>
+			</div>
+			<div id="buttonHolder">
+				<button on:click={like} id="likeButton">
+				<div
+					on:mouseenter={() => {
+						likeHover = true;
+					}}
+					on:mouseleave={() => {
+						likeHover = false;
+					}}
+				>
+					{#if likeHover}
+						<Icon
+							icon="akar-icons:arrow-up"
+							color="green"
+							width="60"
+							height="60"
+						/>
+					{/if}
+					{#if !likeHover}
+						<Icon
+							icon="akar-icons:arrow-up"
+							color="white"
+							width="60"
+							height="60"
+						/>
+					{/if}
+				</div>
+			</button>
+
+				<h5>{likeCount - dislikeCount}</h5>
+
+				<button on:click={dislike} id="likeButton">
+					<div
+						on:mouseenter={() => {
+							dislikeHover = true;
+						}}
+						on:mouseleave={() => {
+							dislikeHover = false;
+						}}
+					>
+						{#if dislikeHover}
+							<Icon
+								icon="akar-icons:arrow-down"
+								color="red"
+								width="60"
+								height="60"
+							/>
+						{/if}
+						{#if !dislikeHover}
+							<Icon
+								icon="akar-icons:arrow-down"
+								color="white"
+								width="60"
+								height="60"
+							/>
+						{/if}
+					</div>
+				</button>
 			</div>
 
 			<div id="comments">
@@ -97,19 +220,18 @@
 				</div>
 				<div id="commentBox">
 					{#each data.comments as comment}
-					<div id="commentHolder">
-						<a href="/@{comment.username}">
-							<h4>{comment.username}</h4>
-						</a>
-						<h5>{comment.body}</h5>
-						<!-- <h5>{comment.created_at}</h5> -->
-					</div>
-						
+						<div id="commentHolder">
+							<a href="/@{comment.username}">
+								<h4>{comment.username}</h4>
+							</a>
+							<h5>{comment.body}</h5>
+						</div>
 					{/each}
 				</div>
 			</div>
 		</div>
-	</div></body>
+	</div></body
+>
 
 <style>
 	@font-face {
@@ -140,6 +262,29 @@
 		font-family: New-Inter;
 		font-weight: 300;
 		letter-spacing: -1px !important;
+	}
+
+	h5 {
+		/* width: 20px; */
+		margin: 0 auto;
+		text-align: center;
+	}
+
+	#buttonHolder {
+		margin-top: 20px;
+		margin-left: -11vw;
+		width: 160px;
+		height: 60px !important;
+		line-height: 70px;
+		display: flex;
+		flex-direction: row;
+	}
+
+	#likeButton {
+		width: 60px;
+		height: 60px;
+		border-radius: 100px;
+		background: none;
 	}
 
 	#deletePost {
@@ -202,7 +347,6 @@
 	#commentInputHolder {
 		display: flex;
 		flex-direction: column;
-
 	}
 
 	#commentHeader {
@@ -283,7 +427,8 @@
 			font-size: 7vw !important;
 		}
 
-		h2, h4 {
+		h2,
+		h4 {
 			font-size: 5vw !important;
 		}
 
@@ -294,7 +439,8 @@
 	}
 
 	@media (max-width: 400px) {
-		p, h5 {
+		p,
+		h5 {
 			font-size: 5vw !important;
 		}
 
