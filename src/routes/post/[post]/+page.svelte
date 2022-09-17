@@ -17,6 +17,7 @@
 		"Dec",
 	];
 	export let data;
+	console.log(data);
 
 	let isLiked = data.isLiked;
 	let isDisliked = data.isDisliked;
@@ -29,7 +30,22 @@
 	let commentBody = "";
 
 	async function like() {
-		if (isLiked) return;
+		if (isLiked) {
+			isLiked = false;
+			likeCount--;
+
+			const res = await fetch("/api/removeLike", {
+				method: "post",
+				headers: {
+					Accept: "application/json",
+					"Content-Type": "application/json",
+				},
+				body: JSON.stringify({
+					id: $page.params.post,
+				}),
+			});
+			return
+		}
 		if (isDisliked) {
 			isDisliked = false;
 			dislikeCount--;
@@ -50,7 +66,22 @@
 	}
 
 	async function dislike() {
-		if (isDisliked) return;
+		if (isDisliked) {
+			isDisliked = false;
+			dislikeCount--;
+
+			const res = await fetch("/api/removeDislike", {
+				method: "post",
+				headers: {
+					Accept: "application/json",
+					"Content-Type": "application/json",
+				},
+				body: JSON.stringify({
+					id: $page.params.post,
+				}),
+			});
+			return
+		}
 		if (isLiked) {
 			isLiked = false;
 			likeCount--;
@@ -145,32 +176,31 @@
 			</div>
 			<div id="buttonHolder">
 				<button on:click={like} id="likeButton">
-				<div
-					on:mouseenter={() => {
-						likeHover = true;
-					}}
-					on:mouseleave={() => {
-						likeHover = false;
-					}}
-				>
-					{#if likeHover || isLiked}
-						<Icon
-							icon="akar-icons:arrow-up"
-							color="green"
-							width="60"
-							height="60"
-						/>
-					
-					{:else}
-						<Icon
-							icon="akar-icons:arrow-up"
-							color="white"
-							width="60"
-							height="60"
-						/>
-					{/if}
-				</div>
-			</button>
+					<div
+						on:mouseenter={() => {
+							likeHover = true;
+						}}
+						on:mouseleave={() => {
+							likeHover = false;
+						}}
+					>
+						{#if likeHover || isLiked}
+							<Icon
+								icon="akar-icons:arrow-up"
+								color="green"
+								width="60"
+								height="60"
+							/>
+						{:else}
+							<Icon
+								icon="akar-icons:arrow-up"
+								color="white"
+								width="60"
+								height="60"
+							/>
+						{/if}
+					</div>
+				</button>
 
 				<h5>{likeCount - dislikeCount}</h5>
 
@@ -190,7 +220,6 @@
 								width="60"
 								height="60"
 							/>
-						
 						{:else}
 							<Icon
 								icon="akar-icons:arrow-down"
