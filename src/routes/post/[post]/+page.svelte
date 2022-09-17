@@ -141,16 +141,6 @@
 	const dateMonth = month[date.getMonth()];
 	const dateDay = date.getDate();
 	const dateYear = date.getFullYear();
-
-	function enter() {
-		console.log("enter");
-		dislikeHover = true;
-	}
-
-	function leave() {
-		console.log("leave");
-		dislikeHover = false;
-	}
 </script>
 
 <svelte:head>
@@ -314,6 +304,7 @@
 		height: 60px;
 		border-radius: 100px;
 		background: none;
+		cursor: pointer;
 	}
 
 	#deletePost {
