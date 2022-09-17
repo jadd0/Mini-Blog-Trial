@@ -41,9 +41,25 @@ export async function load({ request, params }) {
     return (a.created_at < b.created_at) ? -1 : ((a.created_at > b.created_at) ? 1 : 0);
 	});
 
+	const likes = data.likes || []
+	const dislikes = data.dislikes || []
+
+	const isLiked = !(likes.find(
+		(user) => user.username === auth
+	) === undefined);
+	const isDisliked = !(dislikes.find(
+		(user) => user.username === auth
+	) === undefined);
+
+	console.log({ isLiked, isDisliked })
+
 	return {
 		bool,
 		returnData,
+		likeCount: likes.length,
+		dislikeCount: dislikes.length,
+		isLiked,
+		isDisliked,
 		username: auth,
 		id: params.post,
 		comments: (comments.reverse())

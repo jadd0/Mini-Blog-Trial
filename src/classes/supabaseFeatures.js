@@ -4,6 +4,38 @@ export class SupabaseFeatures {
 		this.bcrypt = bcrypt;
 	}
 
+	async removeDislike(id, username) {
+		const post = await this.getPost(id)
+		if (!post) return false
+		let dislikes = post.dislikes || []
+
+		dislikes = dislikes.filter((item) => item.username !== username);
+
+		const { data, error } = await this.supabase
+			.from("Posts")
+			.update({ dislikes: dislikes })
+			.match({ id: id });
+
+		if (error == undefined) return true
+		return false
+	}
+
+	async removeLike(id, username) {
+		const post = await this.getPost(id)
+		if (!post) return false
+		let likes = post.likes || []
+
+		likes = likes.filter((item) => item.username !== username);
+
+		const { data, error } = await this.supabase
+			.from("Posts")
+			.update({ likes: likes })
+			.match({ id: id });
+
+		if (error == undefined) return true
+		return false
+	}
+
 	async dislikePost(id, username) {
 		const post = await this.getPost(id);
 
@@ -28,7 +60,9 @@ export class SupabaseFeatures {
 			.update({ dislikes: dislikes })
 			.match({ id: id });
 
-		if (error == undefined) return true
+		
+		const errorTwo = await this.removeLike(id, username)
+		if (error == undefined && errorTwo) return true
 		return false
 	}
 
@@ -56,7 +90,8 @@ export class SupabaseFeatures {
 			.update({ likes: likes })
 			.match({ id: id });
 
-		if (error == undefined) return true
+			const errorTwo = await this.removeDislike(id, username)
+			if (error == undefined && errorTwo) return true
 		return false
 	}		
 
