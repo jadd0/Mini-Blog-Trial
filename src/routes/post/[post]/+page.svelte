@@ -153,15 +153,15 @@
 						likeHover = false;
 					}}
 				>
-					{#if likeHover}
+					{#if likeHover || isLiked}
 						<Icon
 							icon="akar-icons:arrow-up"
 							color="green"
 							width="60"
 							height="60"
 						/>
-					{/if}
-					{#if !likeHover}
+					
+					{:else}
 						<Icon
 							icon="akar-icons:arrow-up"
 							color="white"
@@ -183,15 +183,15 @@
 							dislikeHover = false;
 						}}
 					>
-						{#if dislikeHover}
+						{#if dislikeHover || isDisliked}
 							<Icon
 								icon="akar-icons:arrow-down"
 								color="red"
 								width="60"
 								height="60"
 							/>
-						{/if}
-						{#if !dislikeHover}
+						
+						{:else}
 							<Icon
 								icon="akar-icons:arrow-down"
 								color="white"
