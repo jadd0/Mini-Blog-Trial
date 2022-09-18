@@ -114,7 +114,7 @@
 		});
 
 		if (response.ok) {
-			location.replace(`/@${data.returnData.a}`);
+			location.replace(`/@${data.returnData.username}`);
 		}
 	};
 
@@ -158,8 +158,8 @@
 			{/if}
 			<h1>{data.returnData.title}</h1>
 			<h2>{dateMonth} {dateDay}, {dateYear}</h2>
-			<a href="/@{data.returnData.a}">
-				<h2 id="name">@{data.returnData.a}</h2>
+			<a href="/@{data.returnData.username}">
+				<h2 id="name">@{data.returnData.username}</h2>
 			</a>
 			<div id="pHolder">
 				<p>{data.returnData.body}</p>

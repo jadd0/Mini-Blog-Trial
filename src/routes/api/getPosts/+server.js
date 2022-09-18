@@ -9,7 +9,7 @@ const features = new Features()
 
 
 /** @type {import('./$types').Load} */
-export async function POST({ request }) {
+export async function GET({ request, url }) {
 	const cookie = features.parseCookie(request.headers.get("cookie"));
 
 	if (cookie.key == undefined) {
@@ -22,22 +22,24 @@ export async function POST({ request }) {
 		throw error(401, "Not authorised")
 	}
 
-  const req = await request.json()
+	const user = await supabaseClass.getUser(auth)
+  const postCount = url.searchParams.get("postCount")
 
-  const post = await supabaseClass.getPost(req.id)
 
-  if (!post) {
-    throw error(404, "No post with id", req.id)
+  let posts = []
+  const followingList = user.followingList || []
+
+  for(let i = 0; i < followingList.length; i++) {
+    posts.push(await supabaseClass.getPosts(followingList[i]))
   }
 
-  if (post.username != auth) {
-    throw error(403, "Not authorised to delete post with id", post.id)
-  }
+  let newPosts = [].concat(...posts);
 
-	const res = await supabaseClass.deletePost(req.id);
+	newPosts.sort(function(a, b) {
+    return (a.created_at < b.created_at) ? -1 : ((a.created_at > b.created_at) ? 1 : 0);
+	});	
 
-  if (!res) {
-    throw error(500, 'Server error, please try again later')
-  }
-	return new Response("Deleted successfully")
+
+
+	return new Response(JSON.stringify({ data: newPosts.reverse() }));
 }

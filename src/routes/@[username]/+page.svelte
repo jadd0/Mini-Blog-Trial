@@ -95,8 +95,8 @@
 					</h1>
 					<div id="descriptionHolder">
 						<h2 id="description">{post.metadata.description}</h2>
-						<a href="/@{post.a}">
-							<h2 id="name">@{post.a}</h2>
+						<a href="/@{post.username}">
+							<h2 id="name">@{post.username}</h2>
 						</a>
 						<h2 id="date">
 							{date(new Date(post.created_at))}

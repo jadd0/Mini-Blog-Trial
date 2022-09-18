@@ -23,10 +23,11 @@ export async function GET({ request }) {
 	}
 
 	const user = await supabaseClass.getUser(auth)
+	// let user = await supabaseClass.getPosts(auth)
 
-  let posts = []
   const followingList = user.followingList || []
 
+	let posts = []
   for(let i = 0; i < followingList.length; i++) {
     posts.push(await supabaseClass.getPosts(followingList[i]))
   }
@@ -38,4 +39,5 @@ export async function GET({ request }) {
 	});	
 
 	return new Response(JSON.stringify({ data: newPosts.reverse() }));
+	// return new Response(JSON.stringify({ data: user }));
 }

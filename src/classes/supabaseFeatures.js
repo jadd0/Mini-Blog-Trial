@@ -12,7 +12,7 @@ export class SupabaseFeatures {
 		dislikes = dislikes.filter((item) => item.username !== username);
 
 		const { data, error } = await this.supabase
-			.from("Posts")
+			.from("posts")
 			.update({ dislikes: dislikes })
 			.match({ id: id });
 
@@ -28,7 +28,7 @@ export class SupabaseFeatures {
 		likes = likes.filter((item) => item.username !== username);
 
 		const { data, error } = await this.supabase
-			.from("Posts")
+			.from("posts")
 			.update({ likes: likes })
 			.match({ id: id });
 
@@ -56,7 +56,7 @@ export class SupabaseFeatures {
 		})
 
 		const { data, error } = await this.supabase
-			.from("Posts")
+			.from("posts")
 			.update({ dislikes: dislikes })
 			.match({ id: id });
 
@@ -86,7 +86,7 @@ export class SupabaseFeatures {
 		})
 
 		const { data, error } = await this.supabase
-			.from("Posts")
+			.from("posts")
 			.update({ likes: likes })
 			.match({ id: id });
 
@@ -113,7 +113,7 @@ export class SupabaseFeatures {
 		});
 
 		const { d, error } = await this.supabase
-			.from("Posts")
+			.from("posts")
 			.update({ comments: comments })
 			.match({ id: data.id });
 
@@ -137,7 +137,7 @@ export class SupabaseFeatures {
 
 
 		const { data, error } = await this.supabase
-			.from("Users")
+			.from("users")
 			.update({ followersList: followersList })
 			.match({ username: user2.username });
 
@@ -159,7 +159,7 @@ export class SupabaseFeatures {
 
 		followingList = followingList.filter((item) => item !== userToUnfollow);
 		const { data, error } = await this.supabase
-			.from("Users")
+			.from("users")
 			.update({ followingList: followingList })
 			.match({ username: username });
 
@@ -172,7 +172,7 @@ export class SupabaseFeatures {
 
 	async changeKey(username, key) {
 		const { data, error } = await this.supabase
-			.from("Users")
+			.from("users")
 			.update({ key: key })
 			.match({ username: username });
 
@@ -195,7 +195,7 @@ export class SupabaseFeatures {
 
 		followersList.push(myUsername);
 		const { data, error } = await this.supabase
-			.from("Users")
+			.from("users")
 			.update({ followersList: followersList })
 			.match({ username: user2.username });
 
@@ -222,7 +222,7 @@ export class SupabaseFeatures {
 
 		followingList.push(userToFollow);
 		const { data, error } = await this.supabase
-			.from("Users")
+			.from("users")
 			.update({ followingList: followingList })
 			.match({ username: username });
 
@@ -235,7 +235,7 @@ export class SupabaseFeatures {
 
 	async deletePost(id) {
 		const { data, error } = await this.supabase
-			.from("Posts")
+			.from("posts")
 			.delete()
 			.match({ id: id });
 		
@@ -244,7 +244,7 @@ export class SupabaseFeatures {
 	}
 
 	async createPost(userData, username) {
-		const { data, error } = await this.supabase.from("Posts").insert([
+		const { data, error } = await this.supabase.from("posts").insert([
 			{
 				title: userData.title,
 				body: userData.body,
@@ -264,21 +264,21 @@ export class SupabaseFeatures {
 
 	async getAllUsernames() {
 		const { data, e } = await this.supabase
-			.from("Users")
+			.from("users")
 			.select("username");
 
 		return data;
 	}
 
 	async getAllUsers() {
-		const { data, error } = await this.supabase.from("Users").select("*");
+		const { data, error } = await this.supabase.from("users").select("*");
 
 		return data;
 	}
 
 	async getUser(username) {
 		const { data, e } = await this.supabase
-			.from("Users")
+			.from("users")
 			.select("*")
 			.eq("username", username);
 
@@ -288,18 +288,19 @@ export class SupabaseFeatures {
 
 	async getPosts(username) {
 		const { data, e } = await this.supabase
-			.from("Posts")
+			.from("posts")
 			.select("*")
-			.eq("a", username);
+			.eq("username", username);
+			
 		return data;
 	}
 
 	async getPost(id) {
 		const { data, error } = await this.supabase
-			.from("Posts")
+			.from("posts")
 			.select("*")
 			.eq("id", id);
-	
+		console.log(data)
 		if (data == undefined || data.length == 0 || error != undefined) return false;
 		return data[0];
 	}
@@ -390,7 +391,7 @@ export class SupabaseFeatures {
 		if (!res) return false;
 
 		const { data, e } = await this.supabase
-			.from("Users")
+			.from("users")
 			.select("*")
 			.eq("key", token);
 

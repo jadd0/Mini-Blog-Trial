@@ -26,7 +26,7 @@ export async function load({ request, params }) {
 		throw error(404, "No post found");
 	}
 	let bool = false
-	if (auth == data.a) {
+	if (auth == data.username) {
 		bool = true
 	}
 
