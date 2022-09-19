@@ -252,7 +252,7 @@ export class SupabaseFeatures {
 				metadata: {
 					description: userData.description,
 				},
-				a: username,
+				username: username,
 			},
 		]);
 
