@@ -59,8 +59,6 @@ export class SupabaseFeatures {
 			.update({ dislikes: dislikes })
 			.match({ id: id });
 
-		console.log(error)
-
 		const errorTwo = await this.removeLike(id, username);
 		if (error == undefined && errorTwo) return true;
 		return false;
