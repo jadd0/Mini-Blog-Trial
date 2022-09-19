@@ -38,7 +38,6 @@ export class SupabaseFeatures {
 
 	async dislikePost(id, username) {
 		const post = await this.getPost(id);
-
 		if (!post) return false;
 
 		let dislikes = post.dislikes || [];
@@ -48,8 +47,8 @@ export class SupabaseFeatures {
 			res = dislikes.find((user) => user.username === username);
 		}
 
-		if (res != undefined) return false;
-
+		if (res) return false;
+		
 		dislikes.push({
 			username: username,
 			time: new Date().getTime(),
@@ -59,6 +58,8 @@ export class SupabaseFeatures {
 			.from("posts")
 			.update({ dislikes: dislikes })
 			.match({ id: id });
+
+		console.log(error)
 
 		const errorTwo = await this.removeLike(id, username);
 		if (error == undefined && errorTwo) return true;
@@ -76,7 +77,7 @@ export class SupabaseFeatures {
 			res = likes.find((user) => user.username === username);
 		}
 
-		if (res != undefined) return false;
+		if (res) return false;
 
 		likes.push({
 			username: username,
