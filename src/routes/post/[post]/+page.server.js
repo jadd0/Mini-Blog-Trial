@@ -51,7 +51,6 @@ export async function load({ request, params }) {
 		(user) => user.username === auth
 	) === undefined);
 
-	console.log({ isLiked, isDisliked })
 
 	return {
 		bool,

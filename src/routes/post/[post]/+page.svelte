@@ -17,7 +17,6 @@
 		"Dec",
 	];
 	export let data;
-	console.log(data);
 
 	let isLiked = data.isLiked;
 	let isDisliked = data.isDisliked;

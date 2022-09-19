@@ -19,7 +19,6 @@
 		const res = await fetch(`/api/getUserPosts?user=${$page.params.username}`);
 		const resJson = await res.json();
 		posts = resJson.data;
-		console.log(posts)
 		loading = false;
 	});
 

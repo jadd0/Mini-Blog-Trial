@@ -15,7 +15,7 @@ export class SupabaseFeatures {
 			.from("posts")
 			.update({ dislikes: dislikes })
 			.match({ id: id });
-
+		
 		if (error == undefined) return true;
 		return false;
 	}
@@ -48,7 +48,7 @@ export class SupabaseFeatures {
 			res = dislikes.find((user) => user.username === username);
 		}
 
-		if (res != false) return false;
+		if (res != undefined) return false;
 
 		dislikes.push({
 			username: username,
@@ -67,7 +67,6 @@ export class SupabaseFeatures {
 
 	async likePost(id, username) {
 		const post = await this.getPost(id);
-
 		if (!post) return false;
 
 		let likes = post.likes || [];
@@ -77,7 +76,7 @@ export class SupabaseFeatures {
 			res = likes.find((user) => user.username === username);
 		}
 
-		if (res != false) return false;
+		if (res != undefined) return false;
 
 		likes.push({
 			username: username,
@@ -324,7 +323,6 @@ export class SupabaseFeatures {
 			.from("posts")
 			.select("*")
 			.eq("id", id);
-		console.log(data);
 		if (data == undefined || data.length == 0 || error != undefined)
 			return false;
 		return data[0];

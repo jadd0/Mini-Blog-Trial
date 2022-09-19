@@ -37,7 +37,7 @@
 
 	function passwordChecker(password) {
 		const regex =
-			/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[#@$!%*?&])[A-Za-z\d#@$!%*?&]{6,51}$/;
+			/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[#@$!%*?&])[A-Za-z\d#@$!%*?&]{6,}$/;
 
 		if (regex.test(password)) {
 			wrong=false
