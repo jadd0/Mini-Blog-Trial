@@ -5,9 +5,9 @@ export class SupabaseFeatures {
 	}
 
 	async removeDislike(id, username) {
-		const post = await this.getPost(id)
-		if (!post) return false
-		let dislikes = post.dislikes || []
+		const post = await this.getPost(id);
+		if (!post) return false;
+		let dislikes = post.dislikes || [];
 
 		dislikes = dislikes.filter((item) => item.username !== username);
 
@@ -16,14 +16,14 @@ export class SupabaseFeatures {
 			.update({ dislikes: dislikes })
 			.match({ id: id });
 
-		if (error == undefined) return true
-		return false
+		if (error == undefined) return true;
+		return false;
 	}
 
 	async removeLike(id, username) {
-		const post = await this.getPost(id)
-		if (!post) return false
-		let likes = post.likes || []
+		const post = await this.getPost(id);
+		if (!post) return false;
+		let likes = post.likes || [];
 
 		likes = likes.filter((item) => item.username !== username);
 
@@ -32,68 +32,67 @@ export class SupabaseFeatures {
 			.update({ likes: likes })
 			.match({ id: id });
 
-		if (error == undefined) return true
-		return false
+		if (error == undefined) return true;
+		return false;
 	}
 
 	async dislikePost(id, username) {
 		const post = await this.getPost(id);
 
-		if (!post) return false
+		if (!post) return false;
 
-		let dislikes = post.dislikes || []
-		let res = false
+		let dislikes = post.dislikes || [];
+		let res = false;
 
 		if (dislikes.length !== 0) {
 			res = dislikes.find((user) => user.username === username);
 		}
 
-		if (res != false) return false
+		if (res != false) return false;
 
 		dislikes.push({
 			username: username,
-			time: new Date().getTime()
-		})
+			time: new Date().getTime(),
+		});
 
 		const { data, error } = await this.supabase
 			.from("posts")
 			.update({ dislikes: dislikes })
 			.match({ id: id });
 
-		
-		const errorTwo = await this.removeLike(id, username)
-		if (error == undefined && errorTwo) return true
-		return false
+		const errorTwo = await this.removeLike(id, username);
+		if (error == undefined && errorTwo) return true;
+		return false;
 	}
 
 	async likePost(id, username) {
 		const post = await this.getPost(id);
 
-		if (!post) return false
+		if (!post) return false;
 
-		let likes = post.likes || []
-		let res = false
+		let likes = post.likes || [];
+		let res = false;
 
 		if (likes.length !== 0) {
 			res = likes.find((user) => user.username === username);
 		}
 
-		if (res != false) return false
+		if (res != false) return false;
 
 		likes.push({
 			username: username,
-			time: new Date().getTime()
-		})
+			time: new Date().getTime(),
+		});
 
 		const { data, error } = await this.supabase
 			.from("posts")
 			.update({ likes: likes })
 			.match({ id: id });
 
-			const errorTwo = await this.removeDislike(id, username)
-			if (error == undefined && errorTwo) return true
-		return false
-	}		
+		const errorTwo = await this.removeDislike(id, username);
+		if (error == undefined && errorTwo) return true;
+		return false;
+	}
 
 	async newComment(data, username) {
 		const post = await this.getPost(data.id);
@@ -135,7 +134,6 @@ export class SupabaseFeatures {
 
 		followersList = followersList.filter((item) => item !== myUsername);
 
-
 		const { data, error } = await this.supabase
 			.from("users")
 			.update({ followersList: followersList })
@@ -144,7 +142,7 @@ export class SupabaseFeatures {
 		if (error == undefined) return true;
 
 		return false;
-	}	
+	}
 
 	async unfollow(username, userToUnfollow) {
 		if (username == userToUnfollow) return false;
@@ -163,7 +161,10 @@ export class SupabaseFeatures {
 			.update({ followingList: followingList })
 			.match({ username: username });
 
-		const res = await this.removeFollower(username, await this.getUser(userToUnfollow))
+		const res = await this.removeFollower(
+			username,
+			await this.getUser(userToUnfollow)
+		);
 
 		if (error == undefined && res) return true;
 
@@ -226,7 +227,7 @@ export class SupabaseFeatures {
 			.update({ followingList: followingList })
 			.match({ username: username });
 
-		const res = this.addToFollowingList(username, user2)
+		const res = this.addToFollowingList(username, user2);
 
 		if (error == undefined && res) return true;
 
@@ -238,7 +239,7 @@ export class SupabaseFeatures {
 			.from("posts")
 			.delete()
 			.match({ id: id });
-		
+
 		if (error == undefined) return true;
 		return false;
 	}
@@ -291,8 +292,31 @@ export class SupabaseFeatures {
 			.from("posts")
 			.select("*")
 			.eq("username", username);
-			
+
 		return data;
+	}
+
+	async getPostsFromList(arr) {
+		let list = "";
+		for (let i of arr) {
+			list += `"${i}",`;
+		}
+
+		const { data, error } = await this.supabase
+			.from("posts")
+			.select("*")
+			.filter("username", "in", `(${list})`);
+
+		data.sort(function (a, b) {
+			return a.created_at < b.created_at
+				? -1
+				: a.created_at > b.created_at
+				? 1
+				: 0;
+		});
+
+		if (error == undefined) return data
+		return false
 	}
 
 	async getPost(id) {
@@ -300,8 +324,9 @@ export class SupabaseFeatures {
 			.from("posts")
 			.select("*")
 			.eq("id", id);
-		console.log(data)
-		if (data == undefined || data.length == 0 || error != undefined) return false;
+		console.log(data);
+		if (data == undefined || data.length == 0 || error != undefined)
+			return false;
 		return data[0];
 	}
 
@@ -396,6 +421,6 @@ export class SupabaseFeatures {
 			.eq("key", token);
 
 		if (data.length == 0) return false;
-		return data[0].username
+		return data[0].username;
 	}
 }

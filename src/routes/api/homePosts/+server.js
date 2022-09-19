@@ -22,22 +22,14 @@ export async function GET({ request }) {
 		throw error(401, "Not authorised")
 	}
 
-	const user = await supabaseClass.getUser(auth)
-	// let user = await supabaseClass.getPosts(auth)
+  const user = await supabaseClass.getUser(auth)
+  const followingList = user.followingList || []	
 
-  const followingList = user.followingList || []
+  const data = await supabaseClass.getPostsFromList(followingList)
 
-	let posts = []
-  for(let i = 0; i < followingList.length; i++) {
-    posts.push(await supabaseClass.getPosts(followingList[i]))
+  if (!data) {
+    throw error(500, `There has been an issue fetching posts from followed users of ${auth}. Please try again later`)
   }
 
-  let newPosts = [].concat(...posts);
-
-	newPosts.sort(function(a, b) {
-    return (a.created_at < b.created_at) ? -1 : ((a.created_at > b.created_at) ? 1 : 0);
-	});	
-
-	return new Response(JSON.stringify({ data: newPosts.reverse() }));
-	// return new Response(JSON.stringify({ data: user }));
+	return new Response(JSON.stringify({ data: data.reverse() }));
 }
