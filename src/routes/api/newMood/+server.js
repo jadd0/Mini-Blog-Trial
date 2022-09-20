@@ -23,14 +23,9 @@ export async function POST({ request }) {
 	}
 
 	const req = await request.json();
-	const res = await supabaseClass.likePost(req.id, auth);
+	const res = await supabaseClass.newMood(req.mood, req.text, auth);
+	
+  if (!res) throw error(500, `There has been an error posting this mood. Please try again later. If this issue persists, please email jaddalkwork@gmail.com`)
 
-	try {
-		if (!res) throw error(404, `There has been an error liking post ${req.id}. This post may not exist or may already be liked by @${auth}. Please try again later.`)
-
-		return new Response(`Post number ${req.id} liked successfully`)
-	}
-	catch(e){
-		console.log(e)
-	}
+	return new Response(`Mood posted successfully`)
 }

@@ -4,6 +4,79 @@ export class SupabaseFeatures {
 		this.bcrypt = bcrypt;
 	}
 
+	async deleteData(table, column, opt) {
+		console.log(table, column, opt)
+		const { data, error } = await this.supabase
+			.from(table)
+			.delete()
+			.match({ [column]: opt });
+		console.log({data, error})
+		if (error == undefined) return true
+		return false
+	}
+
+	async checkIfMoodPresent(username) {
+		const date = this.getDate();
+
+		const { data, error } = await this.supabase
+			.from("moods")
+			.select("*")
+			.eq("username", username);
+
+		const res = data.find((item) => item.date === date);
+
+		if (res == undefined) return true;
+
+		const del = await this.deleteData('moods', 'id', res.id)
+
+		if (del) return true
+		return false
+	}
+
+	async getMoods(username) {
+		const { data, error } = await this.supabase
+			.from("moods")
+			.select("*")
+			.eq("username", username);
+
+		if (error == undefined) return data;
+		return false;
+	}
+
+	padTo2Digits(num) {
+		return num.toString().padStart(2, "0");
+	}
+
+	getDate() {
+		const date = new Date();
+
+		const day = this.padTo2Digits(date.getDate());
+		const month = this.padTo2Digits(date.getMonth() + 1);
+		const year = this.padTo2Digits(date.getFullYear());
+
+		const newDate = `${year}-${month}-${day}`;
+		return newDate;
+	}
+
+	async newMood(mood, text, username) {
+		const date = this.getDate();
+		const res = await this.checkIfMoodPresent(username);
+
+		if (!res) return false
+
+		const { data, error } = await this.supabase.from("moods").insert([
+			{
+				mood,
+				text,
+				username,
+				date,
+			},
+		]);
+
+		if (error == undefined) return true;
+		return false;
+	}
+
 	async removeDislike(id, username) {
 		const post = await this.getPost(id);
 		if (!post) return false;
@@ -15,7 +88,7 @@ export class SupabaseFeatures {
 			.from("posts")
 			.update({ dislikes: dislikes })
 			.match({ id: id });
-		
+
 		if (error == undefined) return true;
 		return false;
 	}
@@ -48,7 +121,7 @@ export class SupabaseFeatures {
 		}
 
 		if (res) return false;
-		
+
 		dislikes.push({
 			username: username,
 			time: new Date().getTime(),
@@ -313,8 +386,8 @@ export class SupabaseFeatures {
 				: 0;
 		});
 
-		if (error == undefined) return data
-		return false
+		if (error == undefined) return data;
+		return false;
 	}
 
 	async getPost(id) {
@@ -337,7 +410,7 @@ export class SupabaseFeatures {
 			return false;
 		}
 
-		const { data, error } = await this.supabase.from("Users").insert([
+		const { data, error } = await this.supabase.from("users").insert([
 			{
 				name: userDetails.name,
 				email: userDetails.email.toLowerCase(),
@@ -356,7 +429,7 @@ export class SupabaseFeatures {
 
 	async logout(username) {
 		const { data, error } = await this.supabase
-			.from("Users")
+			.from("users")
 			.update({ key: "" })
 			.match({ username: username });
 

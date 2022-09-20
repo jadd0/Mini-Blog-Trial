@@ -58,6 +58,12 @@
 		{#if data.bool == true}
 			<button on:click={submit} id="followButton">Unfollow</button>
 		{/if}
+
+		{#if data.bool == 'self'}
+			<button on:click={() => {
+				location.href = "/moods"
+			}} id="followButton">Moods</button>
+		{/if}
 		<div id="followerContainer">
 			<a href="/@{data.user.username}/following">
 				<div id="button">Following</div>

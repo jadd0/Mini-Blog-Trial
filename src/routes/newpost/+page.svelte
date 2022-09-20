@@ -1,43 +1,31 @@
 <script>
 	import Nav from "../nav/+page.svelte"
-
+	import Blog from './components/__blog/+page.svelte'
+	import Day from './components/day/+page.svelte'
+	import Text from './components/text/+page.svelte'
+	import { fade } from 'svelte/transition'
+	import { onMount } from 'svelte'
 	export let data;
 
-	let title = "";
-	let description = "";
-	let body = "";
-	let loading = false
+	let option;
 
-	const submit = async () => {
-		if (title.length == 0 || description.length == 0 || body.length == 0) return
-		loading = true
-		const response = await fetch("/api/createPost", {
-			method: "post",
-			headers: {
-				Accept: "application/json",
-				"Content-Type": "application/json",
-			},
-			body: JSON.stringify({
-				title: title,
-				description: description,
-				body: body
-			}),
-		});
-
-		if (response.ok) {
-			window.location = "/newpost";
-		}
-
-		if (response.ok == false) {
-			loading = false
-			wrong = true;
-		}
-	};
-
-	function changeHeight() {
-		let scrollHeight = document.getElementById("new").scrollHeight;
-		document.getElementById("new").style.height = scrollHeight + "px";
+	function day() {
+		option = "day";
+		const day1 = document.getElementById("day")
+		document.getElementById("blog").style.borderBottom = "3px solid #1b1b1b"
+		day1.style.borderBottom = "3px solid white"
 	}
+
+	function blog() {
+		option = "blog";
+		const blog1 = document.getElementById("blog")
+		document.getElementById("day").style.borderBottom = "3px solid #1b1b1b"
+		blog1.style.borderBottom = "3px solid white"
+	}
+
+	onMount(() => {
+		blog()
+	})
 </script>
 
 <svelte:head>
@@ -47,40 +35,39 @@
 <body>
 	<Nav username={data.username}/>
 	<div id="form">
-		<h1>New Post</h1>
-
-		<div id="inputHolder">
-			<textarea
-				name="text"
-				id="userInput"
-				maxlength="50"
-				placeholder="Title (0-50 chars)"
-				bind:value={title}
-				oninput='this.style.height = "";this.style.height = this.scrollHeight + "px"'
-			/>
-		</div>
-		<div id="inputHolder">
-			<textarea
-				name="text"
-				id="userInput"
-				maxlength="100"
-				placeholder="Description (0-100 chars)"
-				bind:value={description}
-				oninput='this.style.height = "";this.style.height = this.scrollHeight + "px"'
-			/>
-		</div>
-		<div id="inputHolder">
-			<textarea
-				name="text"
-				id="userInput"
-				maxlength="2000"
-				placeholder="Body (0-2000 chars)"
-				bind:value={body}
-				oninput='this.style.height = "";this.style.height = this.scrollHeight + "px"'
-			/>
+		<div id="optionHolder">
+			<button id="option" on:click={day}><h2 id="day">SDay</h2></button>
+			<button id="option" on:click={blog}><h2 id="blog">Blog</h2></button>
+			<!-- <button on:click={() => {option = "text"}}>Text</button> -->
 		</div>
 
-		<button on:click={submit} id="loginButton">{loading === true ? "Loading..." : "Send"}</button>
+		{#if option == "day"}
+			<div
+			in:fade={{ duration: 200 }}
+			>
+				<Day />
+			</div>
+			
+		{/if}
+
+		{#if option == "blog"}
+			<div
+			in:fade={{ duration: 200 }}
+			>
+				<Blog />
+			</div>
+			
+		{/if}
+
+		{#if option == "text"}
+			<div
+			in:fade={{ duration: 300 }}
+			>
+				<Text />
+			</div>
+			
+		{/if}
+		
 	</div>
 </body>
 <style>
@@ -106,45 +93,32 @@
 		font-weight: 300;
 	}
 
+	#option {
+		background: none;
+		cursor: pointer;
+	}
+
+	#optionHolder {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		gap: 20px;
+		margin: 0 auto;
+		padding-top: 20px !important;
+		padding-bottom: 10px;
+	}
+	
+	h2 {
+		font-size: 30px;
+		font-weight: 500;
+		color: white;
+		border-bottom: 3px solid #1b1b1b;
+	}
+
 	@media (max-width: 930px) {
 		#form {
 			width: 340px !important;
 		}
-
-		#inputHolder {
-			width: 90% !important;
-		}
-	}
-
-	#userInput {
-		width: 87.5%;
-		min-height: 36px;
-		margin-left: 19px;
-		margin-top: 4px;
-		background: #212121;
-		color: white;
-		text-align: left;
-	}
-
-	#inputHolder {
-		width: 75%;
-		min-height: 40px;
-		margin: 0 auto;
-		margin-top: 10px;
-		background: #212121;
-		border-radius: 20px;
-		color: white;
-		text-align: left;
-	}
-
-	textarea {
-		resize: none;
-		width: 400px;
-		min-height: 100px;
-		height: auto;
-		padding: 5px;
-		overflow: hidden;
-		box-sizing: border-box;
 	}
 
 	h1 {
@@ -164,31 +138,5 @@
 		margin-bottom: 30px;	
 		border-radius: 15px;
 		margin-top: 5vh;
-	}
-
-	input {
-		margin: 0 auto;
-		line-height: 16px;
-	}
-
-	a {
-		text-decoration: none;
-	}
-
-	#loginButton {
-		margin: 0 auto;
-		margin-top: 30px;
-		width: 75%;
-		height: 50px;
-		color: white;
-		font-weight: 600;
-		background-color: #212121;
-		border-radius: 20px;
-		cursor: pointer;
-		transition: all 0.2s linear;
-	}
-
-	#loginButton:hover {
-		background: rgb(56, 56, 56);
 	}
 </style>
