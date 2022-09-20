@@ -156,6 +156,8 @@
 				</button>
 			</div>
 
+			<h2>{yearNum}</h2>
+
 			<div id="month" bind:this={container}>
 				<!-- <div id="box"> -->
 				<h3>MON</h3>
