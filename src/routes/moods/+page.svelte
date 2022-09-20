@@ -1,13 +1,18 @@
 <script>
 	import { onMount } from "svelte";
-	import { check_outros } from "svelte/internal";
 	import Nav from "../nav/+page.svelte";
 
+	import Content from './components/content/+page.svelte';
+  import Modal from 'svelte-simple-modal';
+	import New from './components/new/+page.svelte';
+
+
 	export let data;
-	console.log(data.data)
+
 	let users = [];
 	let value = [];
 	let container;
+	let div;
 
 	let monthNum;
 	let yearNum;
@@ -29,8 +34,9 @@
 	}
 
 	function date() {
+		div.svelteHTML = '<svelte:component this={Modal}/>'
 		const res = checkMoods()
-		console.log(res)
+		
 		container.innerHTML = '';
 
 		for (let i = 0; i < days.length; i++) {
@@ -70,16 +76,12 @@
 
 			const data = res.find(
 			(user) => user.newDate === i);
-			console.log(data)
+
 			if (data != undefined) {
-				box.style.backgroundColor = moodColours[data.mood]
-				box.innerHTML = `<h4 style="color: white; font-size: 30px; margin-top: 17px;">${moods[data.mood]}</h4>`
+				// box.style.backgroundColor = moodColours[data.mood]
+				box.innerHTML = `<New/>`
+				console.log(box.innerHTML)
 			}
-			
-
-			
-			// console.log(i)
-
 			container.appendChild(box)
 		}
 	}
@@ -97,6 +99,8 @@
 <body>
 	<Nav username={data.username} />
 	<div id="all">
+		
+		<!-- <Modal><Content message={"test"}/></Modal> -->
 		<div id="container">
 			<div id="monthHolder">
 				<button on:click={() => {
@@ -106,11 +110,12 @@
 						monthNum = 11
 						yearNum -= 1
 					}
-					console.log({monthNum, yearNum})
 					date()
 				}}> 
 					<h2>&#10094;</h2>
 				</button>
+			<div bind:this={div}>
+			</div>
 			
 			<div id="monthTextHolder">
 				<h1>{months[monthNum]}</h1>
@@ -124,7 +129,6 @@
 						yearNum += 1
 						monthNum = 0
 					}
-					console.log({monthNum, yearNum})
 				date()
 			}}> 
 				<h2 id="right">&#10095;</h2>
@@ -280,3 +284,9 @@
 		padding: 0;
 	}
 </style>
+
+<!-- <script>
+  
+</script>
+
+<Modal><Content /></Modal> -->
