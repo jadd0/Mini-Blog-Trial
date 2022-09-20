@@ -158,15 +158,13 @@
 
 			<div id="month" bind:this={container}>
 				<!-- <div id="box"> -->
-				<h2>MON</h2>
-				<!-- </div> -->
-
-				<h2>TUE</h2>
-				<h2>WED</h2>
-				<h2>THU</h2>
-				<h2>FRI</h2>
-				<h2>SAT</h2>
-				<h2>SUN</h2>
+				<h3>MON</h3>
+				<h3>TUE</h3>
+				<h3>WED</h3>
+				<h3>THU</h3>
+				<h3>FRI</h3>
+				<h3>SAT</h3>
+				<h3>SUN</h3>
 				{#each emptys as empty}
 					<div id="empty" />
 				{/each}
@@ -222,12 +220,12 @@
 	}
 
 	#box {
-		width: 76px !important;
+		/* width: 76px !important; */
 		padding: 0px;
 		display: flex;
 		justify-content: center;
 		align-items: center;
-		outline: 1px solid rgb(77, 77, 77);
+		/* outline: 1px solid rgb(77, 77, 77); */
 	}
 
 	#right {
@@ -245,7 +243,7 @@
 		align-items: center;
 		flex-direction: row;
 		width: 90%;
-		gap: 10%;
+		/* gap: 10%; */
 		margin: 0 auto;
 	}
 
@@ -254,12 +252,6 @@
 		font-size: 25px;
 		text-align: center;
 		/* width: auto; */
-	}
-
-	h5 {
-		color: white;
-		font-size: 25px;
-		width: auto;
 	}
 
 	button {
@@ -280,25 +272,14 @@
 		background: #353535;
 	}
 
-	#dates {
-		width: 100%;
-		height: 100%;
-	}
-
-	#month * {
-		/* padding: 20px; */
-		/* font-size: 30px; */
-		/* text-align: center; */
-		/* width: 70px; */
-	}
 
 	#month {
 		/* margin-top: 25px; */
 		margin: 0 auto;
 		height: 500px;
 		display: grid;
-		grid-template-rows: 60px 70px 70px 70px 70px 70px 70px 70px 70px 70px;
-		grid-template-columns: 76px 76px 76px 76px 76px 76px 76px;
+		grid-template-rows: 5vh 70px 70px 70px 70px 70px 70px 70px 70px 70px;
+		grid-template-columns: 14.4% 14.4% 14.4% 14.4% 14.4% 14.4% 14.4%;
 		/* row-gap: -10px; */
 		padding: 35px;
 	}
@@ -309,12 +290,10 @@
 		color: white;
 	}
 
-	h2 {
+	h2, h3 {
 		font-size: 25px;
 		font-weight: 600;
 		color: white;
-		/* margin-left: -10px; */
-		/* margin-top: 20px; */
 	}
 
 	#all {
@@ -326,10 +305,28 @@
 		z-index: 150;
 	}
 
+	@media (max-width: 650px) {
+		#container {
+			width: 90vw !important;
+		}
+
+		h1 {
+			font-size: 5.5vw;
+		}
+
+		h2 {
+			font-size: 5vw;
+		}
+
+		h3 {
+			font-size: 4vw;
+		}
+	}
+
 	#container {
 		background: #1b1b1b;
 		width: 600px;
-		height: 80vh;
+		height: auto;
 		/* display: inline-block; */
 		overflow: hidden;
 		border-radius: 20px;
