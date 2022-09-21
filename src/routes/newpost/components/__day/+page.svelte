@@ -27,7 +27,7 @@
 		});
 
 		if (response.ok) {
-			window.location = "/newpost";
+			window.location = "/moods";
 		}
 
 		if (response.ok == false) {

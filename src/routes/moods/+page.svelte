@@ -6,6 +6,7 @@
 	import Modal from "svelte-simple-modal";
 
 	export let data;
+	
 
 	let users = [];
 	let value = [];
@@ -34,6 +35,22 @@
 		"DECEMBER",
 	];
 
+	function padTo2Digits(num) {
+		return num.toString().padStart(2, "0");
+	}
+
+	function getDate(day, month, year) {
+		console.log({day, month, year})
+		const date = new Date(year, month, day);
+		console.log(date)
+		const newDay = padTo2Digits(date.getDate());
+		const newMonth = padTo2Digits(date.getMonth() + 1);
+		const newYear = padTo2Digits(date.getFullYear());
+
+		const newDate = `${newYear}-${newMonth}-${newDay}`;
+		return newDate;
+	}
+
 	function checkMoods() {
 		let arr = [];
 		for (let i of data.data) {
@@ -51,16 +68,6 @@
 		boxes = [];
 		emptys = [];
 
-		// container.innerHTML = '';
-
-		// for (let i = 0; i < days.length; i++) {
-		// 	const day = document.createElement('h2');
-		// 	day.style.color = "white"
-		// 	day.style.fontSize = "25px";
-		// 	day.innerHTML = days[i]
-		// 	container.appendChild(day)
-		// }
-
 		var month = monthNum;
 		var year = yearNum;
 
@@ -75,41 +82,30 @@
 		var last_date = dt.getDate();
 
 		for (let i = 0; i < first_day - 1; i++) {
-			// const emptyDiv = document.createElement('div');
-			// emptyDiv.setAttribute("id", "emptyBox");
-			// container.appendChild(emptyDiv)
 			emptys.push(0);
-			emptys = emptys;
 		}
-
+		emptys = emptys;
+		const date = getDate()
 		for (let i = 0; i < last_date; i++) {
-			// const box = document.createElement('div');
-			// box.setAttribute("id", "box");
-			// box.style.width = "73px"
-			// box.style.outline = "1px solid rgb(77, 77, 77)"
-			// box.innerHTML = `<h4 style="margin-top: 20px; left: 0; color:white">${i+1}</h4>`
 
 			let box = 0;
-			const data = res.find((user) => user.newDate === i);
+			console.log({i})
+			const data = res.find((user) => user.date === getDate(i+1, monthNum, yearNum));
 
 			if (data != undefined) {
 				box = {
 					mood: data.mood,
 					message: data.text,
 				};
-				// box.style.backgroundColor = moodColours[data.mood]
-				// box.innerHTML
 			}
 			boxes.push(box);
-			boxes = boxes;
-			// container.appendChild(box)
 		}
+		boxes = boxes;
 	}
-	onMount(() => {
-		monthNum = new Date().getMonth();
-		yearNum = new Date().getFullYear();
-		date();
-	});
+
+	monthNum = new Date().getMonth();
+	yearNum = new Date().getFullYear();
+	date();
 </script>
 
 <svelte:head>
