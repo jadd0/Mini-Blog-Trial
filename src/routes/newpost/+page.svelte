@@ -1,8 +1,8 @@
 <script>
-	import Nav from "../nav/+page.svelte"
+	import Nav from "../__nav/+page.svelte"
 	import Blog from './components/__blog/+page.svelte'
-	import Day from './components/day/+page.svelte'
-	import Text from './components/text/+page.svelte'
+	import Day from './components/__day/+page.svelte'
+	import Text from './components/__text/+page.svelte'
 	import { fade } from 'svelte/transition'
 	import { onMount } from 'svelte'
 	export let data;

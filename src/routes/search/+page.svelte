@@ -1,6 +1,6 @@
 <script>
 	import { onMount } from "svelte";
-	import Nav from "../nav/+page.svelte";
+	import Nav from "../__nav/+page.svelte";
 
 	export let data;
 	let users = [];

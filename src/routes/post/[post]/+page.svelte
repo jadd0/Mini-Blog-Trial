@@ -1,6 +1,6 @@
 <script>
 	import { page } from "$app/stores";
-	import Nav from "../../nav/+page.svelte";
+	import Nav from "../../__nav/+page.svelte";
 	import Icon from "@iconify/svelte";
 	const month = [
 		"Jan",

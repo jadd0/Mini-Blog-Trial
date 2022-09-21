@@ -1,7 +1,7 @@
 <script>
 	export let data;
 	import { onMount } from "svelte";
-	import Nav from '../nav/+page.svelte'
+	import Nav from '../__nav/+page.svelte'
 	let username = "";
 	let password = "";
 	let wrong = false;
