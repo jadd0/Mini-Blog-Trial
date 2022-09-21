@@ -173,6 +173,7 @@
 				{#each boxes as box, b}
 					{#if box != 0}
 						<Modal
+							style="cursor: pointer;"
 							styleWindow={{
 								backgroundColor: "#1b1b1b",
 								color: "white",
@@ -275,7 +276,6 @@
 		background: #353535;
 	}
 
-
 	#month {
 		/* margin-top: 25px; */
 		margin: 0 auto;
@@ -293,7 +293,8 @@
 		color: white;
 	}
 
-	h2, h3 {
+	h2,
+	h3 {
 		font-size: 25px;
 		font-weight: 600;
 		color: white;
