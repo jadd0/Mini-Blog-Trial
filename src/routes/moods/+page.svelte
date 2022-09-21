@@ -40,9 +40,8 @@
 	}
 
 	function getDate(day, month, year) {
-		console.log({day, month, year})
 		const date = new Date(year, month, day);
-		console.log(date)
+
 		const newDay = padTo2Digits(date.getDate());
 		const newMonth = padTo2Digits(date.getMonth() + 1);
 		const newYear = padTo2Digits(date.getFullYear());
@@ -68,28 +67,26 @@
 		boxes = [];
 		emptys = [];
 
-		var month = monthNum;
-		var year = yearNum;
+		let month = monthNum;
+		let year = yearNum;
 
 		const dt = new Date(year, month, 1);
 
-		var first_day = dt.getDay();
-		if (first_day == 0) {
-			first_day = 7;
+		let firstDay = dt.getDay();
+		if (firstDay == 0) {
+			firstDay = 7;
 		}
 
 		dt.setMonth(month + 1, 0);
-		var last_date = dt.getDate();
+		let lastDate = dt.getDate();
 
-		for (let i = 0; i < first_day - 1; i++) {
+		for (let i = 0; i < firstDay - 1; i++) {
 			emptys.push(0);
 		}
 		emptys = emptys;
-		const date = getDate()
-		for (let i = 0; i < last_date; i++) {
+		for (let i = 0; i < lastDate; i++) {
 
 			let box = 0;
-			console.log({i})
 			const data = res.find((user) => user.date === getDate(i+1, monthNum, yearNum));
 
 			if (data != undefined) {
