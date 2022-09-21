@@ -72,6 +72,8 @@
 </body>
 <style>
 	body {
+		padding-top: 60px;
+		overflow-x: hidden;
 		margin: 0;
 		padding: 0;
 		border: 0;
@@ -137,6 +139,6 @@
 		padding-bottom: 30px;
 		margin-bottom: 30px;	
 		border-radius: 15px;
-		margin-top: 5vh;
+		margin-top: 14vh;
 	}
 </style>

@@ -61,6 +61,8 @@
 	}
 
 	body {
+		padding-top: 60px;
+		overflow-x: hidden;
 		margin: 0;
 		padding: 0;
 		border: 0;
@@ -127,6 +129,7 @@
 	}
 
 	#whole {
+		padding-top: 60px;
 		width: 100vw;
 		height: auto;
 		display: flex;

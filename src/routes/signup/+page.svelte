@@ -165,12 +165,14 @@
 
 <style>
 	body {
+		overflow-x: hidden;
 		margin: 0;
 		padding: 0;
 		border: 0;
 		/* height: 1000vh; */
 		width: 100vw;
 		background-color: #141414;
+		
 	}
 
 	* {
@@ -263,7 +265,7 @@
 		padding-bottom: 20px;
 		margin-bottom: 30px;
 		border-radius: 15px;
-		margin-top: 5vh;
+		margin-top: 15vh;
 	}
 
 	input {

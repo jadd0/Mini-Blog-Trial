@@ -199,10 +199,11 @@
 	}
 
 	body {
+		overflow-x: hidden;
 		margin: 0;
 		padding: 0;
 		border: 0;
-		height: auto;
+		/* height: 1000vh; */
 		width: 100vw;
 		background-color: #141414;
 		overflow-x: hidden;
@@ -299,12 +300,14 @@
 	}
 
 	#all {
+		padding-top: 60px;
+		padding-bottom: 60px;
 		width: 100vw;
 		height: auto;
 		display: flex;
 		justify-content: center;
 		align-items: center;
-		z-index: 150;
+		z-index: -10;
 	}
 
 	@media (max-width: 650px) {

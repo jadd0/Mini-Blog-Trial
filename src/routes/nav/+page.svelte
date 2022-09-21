@@ -9,7 +9,8 @@
 	// (username);
 	function b() {
 		const nav = document.getElementById("navbar");
-		if (nav.offsetTop >= 80) {
+		const top = (window.pageYOffset + nav.getBoundingClientRect().top)
+		if (top >= 80) {
 			document.getElementById("navbar").style.backgroundColor = "#212121";
 		} else {
 			document.getElementById("navbar").style.backgroundColor = "#141414";
@@ -118,6 +119,8 @@
 	}
 
 	body {
+		padding-top: 60px;
+		overflow-x: hidden;
 		height: 1000vh;
 	}
 
@@ -138,23 +141,23 @@
 		height: 60px;
 		padding: 0;
 		background-color: #141414;
-		position: sticky;
+		position: fixed;
 		top: 0;
 		transition: all 0.4s 0.1s ease-in-out;
 		z-index: 200;
 		overflow-x: hidden;
 		opacity: 0.9;
+		/* padding-bottom: 80px; */
 	}
 
 	#underNav {
-		position: sticky;
+		position: fixed;
 		top: 0;
 		width: 100vw;
 		height: 60px;
+		z-index: 150;
 		/* background-color: white; */
-		margin-top: -60px;
-		position: sticky;
-		top: 0;
+		/* margin-top: -60px; */
 		backdrop-filter: blur(17px);
 	}
 

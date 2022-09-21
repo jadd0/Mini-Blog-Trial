@@ -258,6 +258,8 @@
 	}
 
 	body {
+		padding-top: 60px;
+		overflow-x: hidden;
 		margin: 0;
 		padding: 0;
 		border: 0;
@@ -420,18 +422,13 @@
 		padding-bottom: 30px;
 	}
 
-	#addComment {
-	}
-
-	#commentBox {
-	}
-
 	#name {
 		font-size: 20px;
 		margin-top: 5px;
 	}
 
 	#whole {
+		padding-top: 60px;
 		width: 100vw;
 		height: auto;
 		overflow-x: hidden;

@@ -73,13 +73,15 @@
 	}
 
 	body {
+		padding-top: 60px;
+		overflow-x: hidden;
 		margin: 0;
 		padding: 0;
 		border: 0;
 		/* height: auto; */
 		width: 100vw;
 		background-color: #141414;
-		/* overflow-x:hidden; */
+		overflow-x:hidden;
 	}
 
 	* {
@@ -157,11 +159,13 @@
 	}
 
 	#whole {
+		padding-top: 60px;
 		display: flex;
 		justify-content: center;
 		align-items: center;
 		flex-direction: column;
-		padding-bottom: 20px;
+		padding-top: 60px;
+		padding-bottom: 60px;
 		height: auto;
 	}
 
