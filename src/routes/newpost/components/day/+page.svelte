@@ -72,8 +72,8 @@
 	<textarea
 		name="text"
 		id="userInput"
-		maxlength="100"
-		placeholder="(0-100 chars)"
+		maxlength="300"
+		placeholder="(0-300 chars)"
 		bind:value={text}
 		oninput='this.style.height = "";this.style.height = this.scrollHeight + "px"'
 	/>
@@ -191,12 +191,15 @@
 		align-items: center;
 	}
 
+	/* @media (max-width:) */
+
 	#userInput {
 		width: 87.5%;
 		min-height: 36px;
 		margin-left: 19px;
 		margin-top: 4px;
 		background: #212121;
+		font-size: 20px;
 		color: white;
 		text-align: left;
 	}
@@ -204,6 +207,7 @@
 	#inputHolder {
 		width: 75%;
 		min-height: 40px;
+		padding-bottom: 10px;
 		margin: 0 auto;
 		margin-top: 10px;
 		background: #212121;
