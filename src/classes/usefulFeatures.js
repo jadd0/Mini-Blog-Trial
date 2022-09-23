@@ -42,8 +42,8 @@ export class Features {
 	//expires in 2 days
 	generateExpiry() {
 		const date = new Date();
-		const days = 2;
-		date.setTime(date.getTime() * days * 24 * 60 * 60 * 1000);
+		const days = 1.5
+		date.setTime(date.getTime() + (days*24*60*60*1000));
 
 		return date;
 	}
