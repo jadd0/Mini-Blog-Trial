@@ -1,10 +1,11 @@
 <script>
+  import { fade } from 'svelte/transition';
 	let title;
 	let description;
 	let body;
 
 	let value;
-	let options = [];
+	let options = ["",""];
 
 	let loading = false;
 
@@ -36,8 +37,10 @@
 	};
 
 	function addOption() {
-		options = [...options, value];
-		value = "";
+		// options = [...options, value];
+		// value = "";
+		options = [...options, ""];
+		console.log(options);
 	}
 
 	function removeOption(i) {
@@ -46,7 +49,7 @@
 	}
 </script>
 
-<div id="inputHolder">
+<div id="inputHolder" style="margin-top: 10px">
 	<textarea
 		name="text"
 		id="userInput"
@@ -57,23 +60,24 @@
 	/>
 </div>
 
-
 <div id="optionHolder">
-  <h2>Options</h2>
-	<div id="inputHolder">
-		<input id="userInput" type="text" bind:value />
-	</div>
-
-	<button on:click={addOption}>Submit</button>
+	<h2>Options</h2>
 
 	<div id="optionsHolder">
 		{#each options as option, i}
-			<div id="option">
-				<p>{option}</p>
-				<span on:click={() => removeOption(i)}>❌</span>
+			<div id="inputHolder" class="smallHolder" transition:fade="{{ duration: 200 }}">
+				<input id="userInput" 
+        class="small" 
+        type="text"
+        placeholder="Option {i+1} (1-25 chars)"
+        bind:value={option} />
 			</div>
+      <span id="delete" on:click={() => removeOption(i)}>❌</span>
+
 		{/each}
 	</div>
+
+	<button id="addOption" on:click={addOption}><h3>+</h3></button>
 </div>
 
 <button on:click={submit} id="loginButton"
@@ -103,17 +107,72 @@
 		}
 	}
 
-  #option {
-    width: 75%;
-    min-height: 25px;
-    background:rgb(56, 56, 56);
+  h3 {
+		color: white;
+		/* color: white; */
+		font-size: 50px;
+    height: 45px;
+    /* line-height: 10px; */
+    text-align: center;
+		/* width: 40px; */
+		transition: all 0.2s linear;
+	}
+
+  #addOption {
+    width: 80px;
+		height: 45px;
+		margin: 0 auto;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		line-height: 40px;
+		border-radius: 100px;
+    background: none;;
+		transition: all 0.2s linear;
+		cursor: pointer;
+    margin-top: 5px;
   }
+
+  #addOption:hover {
+    background: rgb(71, 71, 71);
+  }
+
+  #optionsHolder {
+    display: flex;
+    flex-direction: column;
+    gap: 0px;
+  }
+
+  .smallHolder {
+    margin-top: 10px !important;
+    margin-bottom: -27px !important;
+  }
+
+  .small {
+    width: 75% !important;
+  }
+
+  #delete {
+    position: relative;
+    top: -13px;
+    right: -78%;
+    width: 30px;
+    height: 30px;
+    text-align: center;
+  }
+
+	#option {
+		width: 75%;
+		min-height: 25px;
+		background: rgb(56, 56, 56);
+	}
 
 	#userInput {
 		width: 87.5%;
 		min-height: 36px;
 		margin-left: 19px;
 		margin-top: 4px;
+    font-size: 19px;
 		background: #212121;
 		color: white;
 		text-align: left;
@@ -122,9 +181,9 @@
 	#inputHolder {
 		width: 75%;
 		min-height: 40px;
-		padding-bottom: 5 px;
+		padding-bottom: 5px;
 		margin: 0 auto;
-		margin-top: 10px;
+		/* margin-top: 10px; */
 		background: #212121;
 		border-radius: 20px;
 		color: white;
@@ -149,11 +208,12 @@
 		color: white;
 	}
 
-  h2 {
+	h2 {
 		font-size: 30px;
 		font-weight: 500;
 		color: white;
 		border-bottom: 3px solid #1b1b1b;
+    margin-top: 15px;
 	}
 
 	#form {
