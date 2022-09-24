@@ -77,7 +77,11 @@
 		{/each}
 	</div>
 
-	<button id="addOption" on:click={addOption}><h3>+</h3></button>
+  {#if options.length < 7}
+    <button id="addOption" on:click={addOption}><h3>+</h3></button>
+  {/if}
+
+	
 </div>
 
 <button on:click={submit} id="loginButton"
