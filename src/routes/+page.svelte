@@ -46,22 +46,25 @@
 			</div>
 		{/if}
 		{#each posts as post}
-			<a href="/post/{post.id}" id="hello">
-				<div id="postContainer" class="postContainer">
-					<h1 id="title">
-						{post.title}
-					</h1>
-					<div id="descriptionHolder">
-						<h2 id="description">{post.metadata.description}</h2>
-						<a href="/@{post.username}">
-							<h2 id="name">@{post.username}</h2>
-						</a>
-						<h2 id="date">
-							{date(new Date(post.created_at))}
-						</h2>
+			{#if post.type == 'blog'}
+				<a href="/post/{post.id}" id="hello">
+					<div id="postContainer" class="postContainer">
+						<h1 id="title">
+							{post.title}
+						</h1>
+						<div id="descriptionHolder">
+							<h2 id="description">{post.metadata.description}</h2>
+							<a href="/@{post.username}">
+								<h2 id="name">@{post.username}</h2>
+							</a>
+							<h2 id="date">
+								{date(new Date(post.created_at))}
+							</h2>
+						</div>
 					</div>
-				</div>
-			</a>
+				</a>
+			{/if}
+			
 		{/each}
 	</div>
 </body>
@@ -73,12 +76,10 @@
 	}
 
 	body {
-		padding-top: 60px;
 		overflow-x: hidden;
 		margin: 0;
 		padding: 0;
 		border: 0;
-		/* height: auto; */
 		width: 100vw;
 		background-color: #141414;
 		overflow-x:hidden;
@@ -159,12 +160,10 @@
 	}
 
 	#whole {
-		padding-top: 60px;
 		display: flex;
 		justify-content: center;
 		align-items: center;
 		flex-direction: column;
-		padding-top: 60px;
 		padding-bottom: 60px;
 		height: auto;
 	}

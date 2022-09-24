@@ -83,7 +83,6 @@
 
 <style>
 	body {
-		padding-top: 60px;
 		overflow-x: hidden;
 		margin: 0;
 		padding: 0;
@@ -183,7 +182,7 @@
 		width: 400px;
 		height: 350px;
 		border-radius: 15px;
-		margin-top: 10vh;
+		margin-top: 7vh;
 	}
 
 	input {

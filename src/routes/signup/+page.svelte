@@ -265,7 +265,7 @@
 		padding-bottom: 20px;
 		margin-bottom: 30px;
 		border-radius: 15px;
-		margin-top: 15vh;
+		margin-top: 5vh;
 	}
 
 	input {

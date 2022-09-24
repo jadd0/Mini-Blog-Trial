@@ -52,6 +52,7 @@
 <body>
 	<Nav username={data.username} />
 	<div id="form">
+		<h1>New Post</h1>
 		<div id="optionHolder">
 			<button id="option" on:click={day}><h2 id="day">SDay</h2></button>
 			<button id="option" on:click={blog}><h2 id="blog">Blog</h2></button>
@@ -80,7 +81,6 @@
 
 <style>
 	body {
-		padding-top: 60px;
 		overflow-x: hidden;
 		margin: 0;
 		padding: 0;
@@ -147,6 +147,6 @@
 		padding-bottom: 30px;
 		margin-bottom: 30px;
 		border-radius: 15px;
-		margin-top: 14vh;
+		margin-top: 4vh;
 	}
 </style>

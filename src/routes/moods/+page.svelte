@@ -294,7 +294,6 @@
 	}
 
 	#all {
-		padding-top: 60px;
 		padding-bottom: 60px;
 		width: 100vw;
 		height: auto;

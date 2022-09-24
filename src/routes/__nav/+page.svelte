@@ -62,6 +62,7 @@
 	<div />
 </div>
 <div id="underNav" />
+<div id="space" />
 
 <svelte:window on:scroll={b} />
 
@@ -119,9 +120,14 @@
 	}
 
 	body {
-		padding-top: 60px;
 		overflow-x: hidden;
 		height: 1000vh;
+	}
+	
+	#space {
+		height: 60px;
+		width: 100vw;
+		background: none;
 	}
 
 	@media (min-width: 900px) {
@@ -131,7 +137,8 @@
 	}
 	@media (max-width: 900px) {
 		#navbar,
-		#underNav {
+		#underNav,
+		#space {
 			display: none;
 		}
 	}
@@ -147,6 +154,7 @@
 		z-index: 200;
 		overflow-x: hidden;
 		opacity: 0.9;
+		/* padding-bottom: 60px; */
 		/* padding-bottom: 80px; */
 	}
 

@@ -86,7 +86,6 @@
 </body>
 <style>
 	body {
-		padding-top: 60px;
 		overflow-x: hidden;
 		margin: 0;
 		padding: 0;

@@ -1,5 +1,6 @@
 <script>
   import { fade } from 'svelte/transition';
+  import { flip } from 'svelte/animate';
 	let title;
 	let description;
 	let body;
@@ -47,6 +48,8 @@
 		options.splice(i, 1);
 		options = options;
 	}
+
+  let items = [1,2,3,4,5,6,7,8,9]
 </script>
 
 <div id="inputHolder" style="margin-top: 10px">
@@ -64,16 +67,16 @@
 	<h2>Options</h2>
 
 	<div id="optionsHolder">
-		{#each options as option, i}
-			<div id="inputHolder" class="smallHolder" transition:fade="{{ duration: 200 }}">
+		{#each options as item, i}
+     <div id="inputHolder"
+      class="smallHolder">
 				<input id="userInput" 
         class="small" 
         type="text"
-        placeholder="Option {i+1} (1-25 chars)"
-        bind:value={option} />
+        placeholder="Option  (1-25 chars)"
+        bind:value={item} />
 			</div>
-      <span id="delete" on:click={() => removeOption(i)}>❌</span>
-
+      <span id="delete" on:click={() => removeOption(i)}>❌</span> 
 		{/each}
 	</div>
 
