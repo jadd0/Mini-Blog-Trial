@@ -1,9 +1,40 @@
 <script>
 	import Nav from "./__nav/+page.svelte";
 	import { onMount } from "svelte";
+
 	export let data;
 	let posts = [];
 	let loading = true;
+
+	function vote(post, option) {
+		const res = post.options.find((item) => item.value === option.value);
+
+		res.votes.push({
+			username: data.username,
+			time: new Date(),
+		});
+
+		let total = 0;
+		let list = {}
+
+		for (let i in post.options) {
+			total += post.options[i].votes.length;
+			list[i] = {
+				total: post.options[i].votes.length,
+				percentage: 0
+			} 
+		}
+
+		for (let i in list) {
+			list[i].percentage = ((list[i].total / total) * 100).toFixed(2)
+		}
+
+		const buttons = document.getElementsByClassName(`POST${post.id}`)
+
+		for (let i = 0; i < buttons.length; i++) {
+			buttons[i].innerHTML = `${list[i].percentage}%`
+		}
+	}
 
 	function date(isoDate) {
 		const date = new Date(isoDate);
@@ -46,14 +77,16 @@
 			</div>
 		{/if}
 		{#each posts as post}
-			{#if post.type == 'blog'}
+			{#if post.type == "blog"}
 				<a href="/post/{post.id}" id="hello">
 					<div id="postContainer" class="postContainer">
 						<h1 id="title">
 							{post.title}
 						</h1>
 						<div id="descriptionHolder">
-							<h2 id="description">{post.metadata.description}</h2>
+							<h2 id="description">
+								{post.metadata.description}
+							</h2>
 							<a href="/@{post.username}">
 								<h2 id="name">@{post.username}</h2>
 							</a>
@@ -63,8 +96,18 @@
 						</div>
 					</div>
 				</a>
+			{:else}
+				<div id="postContainer" class="vote">
+					<h3>{post.body}</h3>
+					{#each post.options as option, i}
+						<button
+							on:click={() => {
+								vote(post, option);
+							}}
+							class="voteButton POST{post.id}">{option.value}</button>
+					{/each}
+				</div>
 			{/if}
-			
 		{/each}
 	</div>
 </body>
@@ -82,7 +125,7 @@
 		border: 0;
 		width: 100vw;
 		background-color: #141414;
-		overflow-x:hidden;
+		overflow-x: hidden;
 	}
 
 	* {
@@ -98,42 +141,75 @@
 		letter-spacing: -1px !important;
 	}
 
+	.vote:hover {
+		background: #212121 !important;
+	}
+
+	.voteButton {
+		width: 80%;
+		min-height: 30px;
+		background: #2a2a2a;
+		border-radius: 10px;
+		color: white;
+		text-align: center;
+		margin-top: 10px;
+		cursor: pointer;
+		transition: all 0.2s linear;
+		border: 2px solid rgb(120, 120, 120);
+	}
+
+	#voteButton:hover {
+		background: #3a3a3a;
+	}
+
+	h3 {
+		font-size: 2rem;
+		font-weight: 400;
+		color: white;
+		text-align: left;
+		margin-left: 5vw;
+		margin-top: 1vw;
+	}
+
+	#optionsHolder {
+	}
+
 	.lds-ring {
-  display: inline-block;
-  position: relative;
-  width: 80px;
-  height: 80px;
-	margin-top: 20vh;
-}
-.lds-ring div {
-  box-sizing: border-box;
-  display: block;
-  position: absolute;
-  width: 64px;
-  height: 64px;
-  margin: 8px;
-  border: 8px solid #323232;
-  border-radius: 50%;
-  animation: lds-ring 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
-  border-color: #323232 transparent transparent transparent;
-}
-.lds-ring div:nth-child(1) {
-  animation-delay: -0.45s;
-}
-.lds-ring div:nth-child(2) {
-  animation-delay: -0.3s;
-}
-.lds-ring div:nth-child(3) {
-  animation-delay: -0.15s;
-}
-@keyframes lds-ring {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(360deg);
-  }
-}
+		display: inline-block;
+		position: relative;
+		width: 80px;
+		height: 80px;
+		margin-top: 20vh;
+	}
+	.lds-ring div {
+		box-sizing: border-box;
+		display: block;
+		position: absolute;
+		width: 64px;
+		height: 64px;
+		margin: 8px;
+		border: 8px solid #323232;
+		border-radius: 50%;
+		animation: lds-ring 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+		border-color: #323232 transparent transparent transparent;
+	}
+	.lds-ring div:nth-child(1) {
+		animation-delay: -0.45s;
+	}
+	.lds-ring div:nth-child(2) {
+		animation-delay: -0.3s;
+	}
+	.lds-ring div:nth-child(3) {
+		animation-delay: -0.15s;
+	}
+	@keyframes lds-ring {
+		0% {
+			transform: rotate(0deg);
+		}
+		100% {
+			transform: rotate(360deg);
+		}
+	}
 
 	#empty {
 		font-size: 3rem;

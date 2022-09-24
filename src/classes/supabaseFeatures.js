@@ -6,6 +6,20 @@ export class SupabaseFeatures {
 
 	// TODO refractor all code to allow for dynamic 'get'
 
+	async createVote(body, options, username) {
+		const { data, error } = await this.supabase.from("posts").insert([
+			{
+				body,
+				username,
+				options,
+				type: 'vote'
+			},
+		]);
+		console.log(data,error)
+		if (error == undefined) return true
+		return false
+	}
+
 	async deleteData(table, column, opt) {
 		const { data, error } = await this.supabase
 			.from(table)
