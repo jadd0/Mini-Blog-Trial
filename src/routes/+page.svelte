@@ -9,7 +9,7 @@
 
 	function vote(post, option) {
 		polls[post.id] = {
-			clicked: false,
+			selected: option,
 		};
 
 		let total = 0;
@@ -25,10 +25,10 @@
 		total += 1;
 
 		for (let i in post.options) {
-			polls[post.id][i].percentage = (
-				(polls[post.id][i].total / total) *
-				100
-			).toFixed(2);
+			Math.round(
+				(polls[post.id][i].percentage =
+					(polls[post.id][i].total / total) * 100)
+			);
 		}
 	}
 
@@ -92,38 +92,41 @@
 						</div>
 					</div>
 				</a>
-			{:else}
-				<button
-					on:click={() => {
-						console.log(polls);
-					}}
-					>JHJJJ
-				</button>
-
-				{#if post.clicked != true}
-					<div id="postContainer" class="vote">
-						<h3>{post.body}</h3>
-						{#each post.options as option, i}
-							{#if polls[post.id] == undefined}
-								<button
-									on:click={() => {
-										vote(post, i);
-									}}
-									class="voteButton POST{post.id}"
-									>{option.value}</button>
-							{:else}
-								<!-- <button class="voteButton POST{post.id} clicked"
+			{:else if post.clicked != true}
+				<div id="postContainer" class="vote">
+					<h3>{post.body}</h3>
+					{#each post.options as option, i}
+						{#if polls[post.id] == undefined}
+							<button
+								on:click={() => {
+									vote(post, i);
+								}}
+								class="voteButton POST{post.id}"
+								>{option.value}</button
+							>
+						{:else}
+							<!-- <button class="voteButton POST{post.id} clicked"
 									>{polls[post.id][i].percentage}%</button> -->
-									<div class="percHolder">
-
-										<div class="percBar" style='min-width: 5%; width: {polls[post.id][i].percentage}%'></div>
-										<h2>{polls[post.id][i].percentage}%</h2>
+							<div class="fullForPerc">
+								<div class="percHolder">
+									<div
+										class="percBar"
+										class:selected={i ==
+											polls[post.id].selected}
+										style="min-width: 13px; width: {polls[
+											post.id
+										][i].percentage}%"
+									>
+										<h5>{option.value}</h5>
 									</div>
-								
-							{/if}
-						{/each}
-					</div>
-				{/if}
+								</div>
+								<h6 class="percNum">
+									{polls[post.id][i].percentage}%
+								</h6>
+							</div>
+						{/if}
+					{/each}
+				</div>
 			{/if}
 		{/each}
 	</div>
@@ -158,18 +161,56 @@
 		letter-spacing: -1px !important;
 	}
 
-	.percHolder {
+	.selected {
+		background-color: #3a3a3a !important;
+	}
+
+	.fullForPerc {
+		width: 95%;
+		display: flex;
+	}
+
+	h5 {
+		color: white;
 		margin-left: 20px;
-		width: 75%;
+		text-align: left;
+		/* position: absolute; */
+		/* top: 10px; */
+		/* left: 32%; */
+		width: 5vw;
+	}
+
+	h6 {
+		position: relative;
+		top: 10px;
+		right: 0;
+		height: 0px;
+		width: 100px;
+		text-align: right !important;
+		color: white;
+		font-size: 20px;
+	}
+
+	.percHolder {
+		height: 35px;
+		margin-left: 20px;
+		margin-top: 5px;
+		width: 90%;
 		min-width: 5% !important;
 		display: flex;
 		flex-direction: row;
 	}
 
 	.percBar {
-		height: 20px;
-		background: blue;
-		/* margin: 0 auto; */
+		height: 35px;
+		background: #2a2a2a;
+		border-radius: 10px;
+		color: white;
+		text-align: center;
+		/* cursor: pointer; */
+		transition: all 0.2s linear;
+		border: 2px solid rgb(55, 55, 55);
+		margin-left: 10%;
 	}
 
 	.vote:hover {
@@ -178,12 +219,12 @@
 
 	.voteButton {
 		width: 80%;
-		min-height: 30px;
+		min-height: 35px;
 		background: #2a2a2a;
 		border-radius: 10px;
 		color: white;
 		text-align: center;
-		margin-top: 10px;
+		margin-top: 5px;
 		cursor: pointer;
 		transition: all 0.2s linear;
 		border: 2px solid rgb(55, 55, 55);
