@@ -4,35 +4,31 @@
 
 	export let data;
 	let posts = [];
+	let polls = {};
 	let loading = true;
 
 	function vote(post, option) {
-		const res = post.options.find((item) => item.value === option.value);
-
-		res.votes.push({
-			username: data.username,
-			time: new Date(),
-		});
+		polls[post.id] = {
+			clicked: false,
+		};
 
 		let total = 0;
-		let list = {}
 
 		for (let i in post.options) {
 			total += post.options[i].votes.length;
-			list[i] = {
+			polls[post.id][i] = {
 				total: post.options[i].votes.length,
-				percentage: 0
-			} 
+				percentage: 0,
+			};
 		}
+		polls[post.id][option].total += 1;
+		total += 1;
 
-		for (let i in list) {
-			list[i].percentage = ((list[i].total / total) * 100).toFixed(2)
-		}
-
-		const buttons = document.getElementsByClassName(`POST${post.id}`)
-
-		for (let i = 0; i < buttons.length; i++) {
-			buttons[i].innerHTML = `${list[i].percentage}%`
+		for (let i in post.options) {
+			polls[post.id][i].percentage = (
+				(polls[post.id][i].total / total) *
+				100
+			).toFixed(2);
 		}
 	}
 
@@ -97,16 +93,37 @@
 					</div>
 				</a>
 			{:else}
-				<div id="postContainer" class="vote">
-					<h3>{post.body}</h3>
-					{#each post.options as option, i}
-						<button
-							on:click={() => {
-								vote(post, option);
-							}}
-							class="voteButton POST{post.id}">{option.value}</button>
-					{/each}
-				</div>
+				<button
+					on:click={() => {
+						console.log(polls);
+					}}
+					>JHJJJ
+				</button>
+
+				{#if post.clicked != true}
+					<div id="postContainer" class="vote">
+						<h3>{post.body}</h3>
+						{#each post.options as option, i}
+							{#if polls[post.id] == undefined}
+								<button
+									on:click={() => {
+										vote(post, i);
+									}}
+									class="voteButton POST{post.id}"
+									>{option.value}</button>
+							{:else}
+								<!-- <button class="voteButton POST{post.id} clicked"
+									>{polls[post.id][i].percentage}%</button> -->
+									<div class="percHolder">
+
+										<div class="percBar" style='min-width: 5%; width: {polls[post.id][i].percentage}%'></div>
+										<h2>{polls[post.id][i].percentage}%</h2>
+									</div>
+								
+							{/if}
+						{/each}
+					</div>
+				{/if}
 			{/if}
 		{/each}
 	</div>
@@ -141,6 +158,20 @@
 		letter-spacing: -1px !important;
 	}
 
+	.percHolder {
+		margin-left: 20px;
+		width: 75%;
+		min-width: 5% !important;
+		display: flex;
+		flex-direction: row;
+	}
+
+	.percBar {
+		height: 20px;
+		background: blue;
+		/* margin: 0 auto; */
+	}
+
 	.vote:hover {
 		background: #212121 !important;
 	}
@@ -155,10 +186,10 @@
 		margin-top: 10px;
 		cursor: pointer;
 		transition: all 0.2s linear;
-		border: 2px solid rgb(120, 120, 120);
+		border: 2px solid rgb(55, 55, 55);
 	}
 
-	#voteButton:hover {
+	.voteButton:hover {
 		background: #3a3a3a;
 	}
 

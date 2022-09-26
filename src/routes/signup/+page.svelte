@@ -124,6 +124,7 @@
 			<li>1-17 characters</li>
 			<li>Alpha-numeric</li>
 			<li>Can contain DOT and UNDERSCORE</li>
+			<li>No capitals</li>
 		</div>
 		{#if usernameBool}
 			<h2 id="incorrect">
