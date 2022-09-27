@@ -419,8 +419,14 @@
 
 	@media (max-width: 500px) {
 		#button {
-			width: 150px;
+			width: 30vw;
 			font-size: 20px;
+			font-size: 4vw;
+		}
+
+		#followButton {
+			width: 60vw !important;
+			font-size: 5vw;
 		}
 	}
 
