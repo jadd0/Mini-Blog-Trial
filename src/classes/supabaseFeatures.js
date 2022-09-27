@@ -1,3 +1,5 @@
+import { options } from "nodemon/lib/config";
+
 export class SupabaseFeatures {
 	constructor(supabase, bcrypt) {
 		this.supabase = supabase;
@@ -5,6 +7,48 @@ export class SupabaseFeatures {
 	}
 
 	// TODO refractor all code to allow for dynamic 'get'
+
+	async voteOnPost(id, option, username) {
+		const post = await this.getPost(id)
+		// console.log(post)
+		if (!post) return false;
+
+		let h;
+		let option1;
+
+		for (let i = 0; i < post.options.length; i++) {
+			if (post.options[i].value == option) {
+				h = i
+				option1 = post.options[i]
+				break
+			}
+		}
+
+		if (option1 == undefined) return false
+
+		for (let i = 0; i < post.options.length; i++) {
+			const res = (post.options[i].votes).find(
+				(item) => item.username === username
+			);
+			if (res != undefined) return false;
+		}
+
+		option1.votes.push(({
+			username,
+			time: new Date()
+		}))
+
+		post.options[h] = option1
+
+
+		const { data, error } = await this.supabase
+			.from("posts")
+			.update({ options: post.options })
+			.match({ id: id });
+
+		if (error == undefined) return false
+		return true
+	}
 
 	async createVote(body, options, username) {
 		const { data, error } = await this.supabase.from("posts").insert([

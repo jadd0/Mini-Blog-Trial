@@ -7,6 +7,20 @@
 	let polls = {};
 	let loading = true;
 
+	async function submit(id, option) {
+		const response = await fetch("/api/voteOption", {
+			method: "post",
+			headers: {
+				Accept: "application/json",
+				"Content-Type": "application/json",
+			},
+			body: JSON.stringify({
+				id,
+				option
+			}),
+		});
+	}
+
 	function vote(post, option) {
 		polls[post.id] = {
 			selected: option,
@@ -23,6 +37,7 @@
 		}
 		polls[post.id][option].total += 1;
 		total += 1;
+		submit(post.id, post.options[option].value)
 
 		for (let i in post.options) {
 			Math.round(
