@@ -1,5 +1,3 @@
-import { options } from "nodemon/lib/config";
-
 export class SupabaseFeatures {
 	constructor(supabase, bcrypt) {
 		this.supabase = supabase;
