@@ -16,9 +16,37 @@
 			},
 			body: JSON.stringify({
 				id,
-				option
+				option,
 			}),
 		});
+	}
+
+	function getStats(post) {
+		if (polls[post.id] != undefined) {
+			return
+		}
+
+		polls[post.id] = {};
+
+		let total = 0;
+
+
+		for (let i in post.options) {
+			total += post.options[i].votes.length;
+			polls[post.id][i] = {
+				total: post.options[i].votes.length,
+				percentage: 0,
+			};
+		}
+
+		for (let i in post.options) {
+			Math.round(
+				(polls[post.id][i].percentage =
+					(polls[post.id][i].total / total) * 100)
+			);
+		}
+
+		console.log(polls[post.id]);
 	}
 
 	function vote(post, option) {
@@ -35,9 +63,16 @@
 				percentage: 0,
 			};
 		}
+
 		polls[post.id][option].total += 1;
 		total += 1;
-		submit(post.id, post.options[option].value)
+		submit(post.id, post.options[option].value);
+
+		console.log("bhll");
+
+		// posts[post.id].options[option].push({
+		// 	username: data.username
+		// })
 
 		for (let i in post.options) {
 			Math.round(
@@ -45,6 +80,8 @@
 					(polls[post.id][i].total / total) * 100)
 			);
 		}
+		console.log("hbdfkbfkhd");
+		console.log(polls[post.id]);
 	}
 
 	function date(isoDate) {
@@ -107,11 +144,15 @@
 						</div>
 					</div>
 				</a>
-			{:else if post.clicked != true}
+			{/if}
+
+			{#if post.type == "vote"}
 				<div id="postContainer" class="vote">
+					<!-- {#if post.options.find((item) => item.username === data.username) != undefined} -->
 					<h3>{post.body}</h3>
+
 					{#each post.options as option, i}
-						{#if polls[post.id] == undefined}
+						{#if option.votes.find((item) => item.username === data.username) == undefined && polls[post.id] == undefined}
 							<button
 								on:click={() => {
 									vote(post, i);
@@ -120,8 +161,12 @@
 								>{option.value}</button
 							>
 						{:else}
-							<!-- <button class="voteButton POST{post.id} clicked"
-									>{polls[post.id][i].percentage}%</button> -->
+						
+							<div id="hidden" style="display: none">
+								{getStats(post)}
+							</div>
+							
+
 							<div class="fullForPerc">
 								<div class="percHolder">
 									<div
@@ -143,6 +188,8 @@
 					{/each}
 				</div>
 			{/if}
+
+			<!-- {console.log(post)} -->
 		{/each}
 	</div>
 </body>
@@ -189,10 +236,11 @@
 		color: white;
 		margin-left: 20px;
 		text-align: left;
+		overflow: visible;
 		/* position: absolute; */
 		/* top: 10px; */
 		/* left: 32%; */
-		width: 5vw;
+		width: 40vw;
 	}
 
 	h6 {

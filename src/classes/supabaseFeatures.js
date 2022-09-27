@@ -10,10 +10,9 @@ export class SupabaseFeatures {
 
 	async voteOnPost(id, option, username) {
 		const post = await this.getPost(id)
-		// console.log(post)
 		if (!post) return false;
 
-		let h;
+		let h;	
 		let option1;
 
 		for (let i = 0; i < post.options.length; i++) {
@@ -45,9 +44,8 @@ export class SupabaseFeatures {
 			.from("posts")
 			.update({ options: post.options })
 			.match({ id: id });
-
-		if (error == undefined) return false
-		return true
+		if (error == undefined) return true
+		return false
 	}
 
 	async createVote(body, options, username) {
