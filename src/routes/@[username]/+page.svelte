@@ -4,7 +4,85 @@
 	import { page } from "$app/stores";
 	export let data;
 	let posts = [];
+	let polls = {};
 	let loading = true;
+
+	async function submit(id, option) {
+		const response = await fetch("/api/voteOption", {
+			method: "post",
+			headers: {
+				Accept: "application/json",
+				"Content-Type": "application/json",
+			},
+			body: JSON.stringify({
+				id,
+				option,
+			}),
+		});
+	}
+
+	function getStats(post) {
+		if (polls[post.id] != undefined) {
+			return
+		}
+
+		polls[post.id] = {};
+
+		let total = 0;
+
+
+		for (let i in post.options) {
+			total += post.options[i].votes.length;
+			polls[post.id][i] = {
+				total: post.options[i].votes.length,
+				percentage: 0,
+			};
+		}
+
+		for (let i in post.options) {
+			Math.round(
+				(polls[post.id][i].percentage =
+					(polls[post.id][i].total / total) * 100)
+			);
+		}
+
+		console.log(polls[post.id]);
+	}
+
+	function vote(post, option) {
+		polls[post.id] = {
+			selected: option,
+		};
+
+		let total = 0;
+
+		for (let i in post.options) {
+			total += post.options[i].votes.length;
+			polls[post.id][i] = {
+				total: post.options[i].votes.length,
+				percentage: 0,
+			};
+		}
+
+		polls[post.id][option].total += 1;
+		total += 1;
+		submit(post.id, post.options[option].value);
+
+		console.log("bhll");
+
+		// posts[post.id].options[option].push({
+		// 	username: data.username
+		// })
+
+		for (let i in post.options) {
+			Math.round(
+				(polls[post.id][i].percentage =
+					(polls[post.id][i].total / total) * 100)
+			);
+		}
+		console.log("hbdfkbfkhd");
+		console.log(polls[post.id]);
+	}
 
 	function date(isoDate) {
 		const date = new Date(isoDate);
@@ -22,7 +100,7 @@
 		loading = false;
 	});
 
-	const submit = async () => {
+	const follow = async () => {
 		const response = await fetch(
 			`/api/${data.bool === true ? "unfollow" : "follow"}`,
 			{
@@ -53,10 +131,10 @@
 		<h1 id="username">@{$page.params.username}</h1>
 		<h2 id="name">{data.user.name}</h2>
 		{#if data.bool == false}
-			<button on:click={submit} id="followButton">Follow</button>
+			<button on:click={follow} id="followButton">Follow</button>
 		{/if}
 		{#if data.bool == true}
-			<button on:click={submit} id="followButton">Unfollow</button>
+			<button on:click={follow} id="followButton">Unfollow</button>
 		{/if}
 
 		{#if data.bool == 'self'}
@@ -93,22 +171,71 @@
 		{/if}
 
 		{#each posts as post}
-			<a href="/post/{post.id}" id="hello">
-				<div id="postContainer" class="postContainer">
-					<h1 id="title">
-						{post.title}
-					</h1>
-					<div id="descriptionHolder">
-						<h2 id="description">{post.metadata.description}</h2>
-						<a href="/@{post.username}">
-							<h2 id="name">@{post.username}</h2>
-						</a>
-						<h2 id="date">
-							{date(new Date(post.created_at))}
-						</h2>
+			{#if post.type == "blog"}
+				<a href="/post/{post.id}" id="hello">
+					<div id="postContainer" class="postContainer">
+						<h1 id="title">
+							{post.title}
+						</h1>
+						<div id="descriptionHolder">
+							<h2 id="description">
+								{post.metadata.description}
+							</h2>
+							<a href="/@{post.username}">
+								<h2 id="name">@{post.username}</h2>
+							</a>
+							<h2 id="date">
+								{date(new Date(post.created_at))}
+							</h2>
+						</div>
 					</div>
+				</a>
+			{/if}
+
+			{#if post.type == "vote"}
+				<div id="postContainer" class="vote">
+					<!-- {#if post.options.find((item) => item.username === data.username) != undefined} -->
+					<h3>{post.body}</h3>
+
+					{#each post.options as option, i}
+						{#if option.votes.find((item) => item.username === data.username) == undefined && polls[post.id] == undefined}
+							<button
+								on:click={() => {
+									vote(post, i);
+								}}
+								class="voteButton POST{post.id}"
+								>{option.value}</button
+							>
+						{:else}
+						
+							<div id="hidden" style="display: none">
+								{getStats(post)}
+							</div>
+							
+
+							<div class="fullForPerc">
+								<div class="percHolder">
+									<div
+										class="percBar"
+										class:selected={i ==
+											polls[post.id].selected}
+										style="min-width: 13px; width: {polls[
+											post.id
+										][i].percentage}%"
+									>
+										<h5>{option.value}</h5>
+									</div>
+								</div>
+								<h6 class="percNum">
+									{polls[post.id][i].percentage}%
+								</h6>
+							</div>
+						{/if}
+					{/each}
 				</div>
-			</a>
+			{/if}
+
+			<!-- {console.log(post)} -->
 		{/each}
 	</div>
 </body>
@@ -141,6 +268,93 @@
 		box-sizing: border-box;
 		font-family: New-Inter;
 		letter-spacing: -1px !important;
+	}
+
+	.selected {
+		background-color: #3a3a3a !important;
+	}
+
+	.fullForPerc {
+		width: 95%;
+		display: flex;
+	}
+
+	h5 {
+		color: white;
+		margin-left: 20px;
+		text-align: left;
+		/* overflow: visible; */
+		/* position: absolute; */
+		/* top: 10px; */
+		/* left: 32%; */
+		width: 60vw;
+		/* margin-top: 2px; */
+		/* position: relative; */
+		/* top: 1.3vw; */
+	}
+
+	h6 {
+		position: relative;
+		top: 10px;
+		right: 0;
+		height: 0px;
+		width: 100px;
+		text-align: right !important;
+		color: white;
+		font-size: 20px;
+	}
+
+	.percHolder {
+		height: 35px;
+		/* margin-left: 20px; */
+		margin-top: 5px;
+		width: 90%;
+		min-width: 5% !important;
+		display: flex;
+		flex-direction: row;
+	}
+
+	.percBar {
+		height: 35px;
+		background: #2a2a2a;
+		border-radius: 10px;
+		color: white;
+		text-align: center;
+		/* cursor: pointer; */
+		transition: all 0.2s linear;
+		border: 2px solid rgb(55, 55, 55);
+		margin-left: 5vw;
+		line-height: 30px;
+	}
+
+	.vote:hover {
+		background: #212121 !important;
+	}
+
+	.voteButton {
+		width: 80%;
+		min-height: 35px;
+		background: #2a2a2a;
+		border-radius: 10px;
+		color: white;
+		text-align: center;
+		margin-top: 5px;
+		cursor: pointer;
+		transition: all 0.2s linear;
+		border: 2px solid rgb(55, 55, 55);
+	}
+
+	.voteButton:hover {
+		background: #3a3a3a;
+	}
+
+	h3 {
+		font-size: 2rem;
+		font-weight: 400;
+		color: white;
+		text-align: left;
+		margin-left: 5vw;
+		margin-top: 1vw;
 	}
 
 	.lds-ring {
@@ -279,12 +493,26 @@
 
 	@media (max-width: 520px) {
 		h1 {
-			font-size: 10vw !important;
+			font-size: 6vw !important;
 		}
+
+		h2 {
+			font-size: 4.5vw !important;
+		}
+
+		h3 {
+			font-size: 5.5vw !important;
+		}
+
+		h5 {
+			font-size: 5vw !important;
+		}
+
+
 	}
 
 	h1 {
-		font-size: 3rem;
+		font-size: 30px;
 		font-weight: 700;
 		color: white;
 		padding-top: 10px;

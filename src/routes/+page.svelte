@@ -256,7 +256,7 @@
 
 	.percHolder {
 		height: 35px;
-		margin-left: 20px;
+		/* margin-left: 20px; */
 		margin-top: 5px;
 		width: 90%;
 		min-width: 5% !important;
@@ -273,7 +273,8 @@
 		/* cursor: pointer; */
 		transition: all 0.2s linear;
 		border: 2px solid rgb(55, 55, 55);
-		margin-left: 10%;
+		margin-left: 5vw;
+		line-height: 30px;
 	}
 
 	.vote:hover {
@@ -410,12 +411,22 @@
 
 	@media (max-width: 520px) {
 		h1 {
-			font-size: 9vw !important;
+			font-size: 6vw !important;
 		}
+
+		h2 {
+			font-size: 4.5vw !important;
+		}
+
+		h5 {
+			font-size: 5vw !important;
+		}
+
+
 	}
 
 	h1 {
-		font-size: 3rem;
+		font-size: 30px;
 		font-weight: 700;
 		color: white;
 		padding-top: 10px;
