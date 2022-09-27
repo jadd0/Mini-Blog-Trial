@@ -240,6 +240,7 @@
 		/* position: absolute; */
 		/* top: 10px; */
 		/* left: 32%; */
+		font-weight: 500;
 		width: 40vw;
 	}
 

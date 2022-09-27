@@ -288,6 +288,7 @@
 		/* top: 10px; */
 		/* left: 32%; */
 		width: 60vw;
+		font-weight: 500;
 		/* margin-top: 2px; */
 		/* position: relative; */
 		/* top: 1.3vw; */
