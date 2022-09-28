@@ -261,7 +261,7 @@
 	}
 
 	.selected {
-		background-color: #3a3a3a !important;
+		background-color: #00B1B1  !important;
 	}
 
 	.fullForPerc {

@@ -5,6 +5,7 @@
 	if (username == "") {
 		username = undefined;
 	}
+	
 
 	// (username);
 	function b() {
@@ -186,7 +187,7 @@
 	}
 
 	#home:hover {
-		color: rgb(153, 153, 153);
+		color: #00dbdb;
 	}
 
 	/* Hamburger */
