@@ -105,13 +105,12 @@
 		color: rgb(112, 112, 112);
 		font-size: 10px;
 		height: 0px;
-		width: 30px;
+		width: 50px;
 		position: relative;
-		/* top:0; */
-		left: 84%;
 		text-align: right;
 		bottom: 20px;
-
+	
+		right: -81%;
 		/* margin-top: 10%; */
 		/* position: sticky; */
 		/* bottom: 0px !important; */
@@ -119,7 +118,7 @@
 	}
 
 	.userInput {
-		width: 79%;
+		width: 80%;
 		min-height: 25px;
 		margin-left: 10px;
 		margin-top: 4px;
@@ -129,7 +128,7 @@
 	}
 
 	.inputHolder {
-		width: 75%;
+		width: 78%;
 		min-height: 30px;
 		padding-bottom: 5px;
 		margin: 0 auto;
