@@ -21,15 +21,18 @@
 		});
 	}
 
+	function roundToTwo(num) {
+    return +(Math.round(num + "e+2")  + "e-2");
+}
+
 	function getStats(post) {
 		if (polls[post.id] != undefined) {
-			return
+			return;
 		}
 
 		polls[post.id] = {};
 
 		let total = 0;
-
 
 		for (let i in post.options) {
 			total += post.options[i].votes.length;
@@ -40,14 +43,13 @@
 		}
 
 		for (let i in post.options) {
-			Math.round(
-				(polls[post.id][i].percentage =
-					(polls[post.id][i].total / total) * 100)
-			);
+			(polls[post.id][i].percentage = roundToTwo(polls[post.id][i].total / total) * 100)
 		}
 
 		console.log(polls[post.id]);
 	}
+
+
 
 	function vote(post, option) {
 		polls[post.id] = {
@@ -75,11 +77,12 @@
 		// })
 
 		for (let i in post.options) {
-			Math.round(
-				(polls[post.id][i].percentage =
-					(polls[post.id][i].total / total) * 100)
-			);
+			for (let i in post.options) {
+			(polls[post.id][i].percentage = roundToTwo(polls[post.id][i].total / total) * 100)
 		}
+		}
+		 
+
 		console.log("hbdfkbfkhd");
 		console.log(polls[post.id]);
 	}
@@ -161,11 +164,9 @@
 								>{option.value}</button
 							>
 						{:else}
-						
 							<div id="hidden" style="display: none">
 								{getStats(post)}
 							</div>
-							
 
 							<div class="fullForPerc">
 								<div class="percHolder">
@@ -422,8 +423,6 @@
 		h5 {
 			font-size: 5vw !important;
 		}
-
-
 	}
 
 	h1 {
