@@ -35,21 +35,6 @@
 		let total = 0;
 
 		for (let i in post.options) {
-			// console.log("bjfdjbf")
-			// console.log(post.options[i].votes.find(
-			// 		(item) => item.username === data.username
-			// 	))
-
-			// if ((post.options[i].votes.find((item) => item.username === data.username)) != undefined) {
-			// 	polls[post.id][i] = {
-			// 		total: post.options[i].votes.length,
-			// 		percentage: 0,
-			// 		selected: true,
-			// 	};
-			// }
-			// else {
-				
-			// }
 			total += post.options[i].votes.length;
 			polls[post.id][i] = {
 				total: post.options[i].votes.length,
@@ -76,20 +61,14 @@
 
 		for (let i in post.options) {
 			total += post.options[i].votes.length;
-			// if (
-			// 	 != undefined
-			// ) {
-			// 	polls[post.id][i] = {
-			// 		total: post.options[i].votes.length,
-			// 		percentage: 0,
-			// 		selected: true,
-			// 	};
-			// }
-			
 			polls[post.id][i] = {
 				total: post.options[i].votes.length,
 				percentage: 0,
 			};
+
+			if((post.options[i].votes.find((item) => item.username === data.username)) != undefined) {
+				polls[post.id][i] = {...polls[post.id][i], clicked: true}
+			}
 		}
 
 		polls[post.id][option].total += 1;
