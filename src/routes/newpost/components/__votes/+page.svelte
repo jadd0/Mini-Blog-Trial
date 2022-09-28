@@ -58,6 +58,7 @@
 	}
 
 	function removeOption(i) {
+		if(options.length < 3) return
 		options.splice(i, 1);
 		options = options;
 	}
