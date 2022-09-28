@@ -21,6 +21,10 @@
 		});
 	}
 
+	function roundToTwo(num) {
+    return +(Math.round(num + "e+2")  + "e-2");
+}
+
 	function getStats(post) {
 		if (polls[post.id] != undefined) {
 			return
@@ -40,10 +44,7 @@
 		}
 
 		for (let i in post.options) {
-			Math.round(
-				(polls[post.id][i].percentage =
-					(polls[post.id][i].total / total) * 100)
-			);
+			(polls[post.id][i].percentage = roundToTwo(polls[post.id][i].total / total) * 100)
 		}
 
 		console.log(polls[post.id]);
@@ -75,10 +76,7 @@
 		// })
 
 		for (let i in post.options) {
-			Math.round(
-				(polls[post.id][i].percentage =
-					(polls[post.id][i].total / total) * 100)
-			);
+			(polls[post.id][i].percentage = roundToTwo(polls[post.id][i].total / total) * 100)
 		}
 		console.log("hbdfkbfkhd");
 		console.log(polls[post.id]);

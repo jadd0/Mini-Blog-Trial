@@ -139,7 +139,6 @@
 
 			{#if post.type == "vote"}
 				<div id="postContainer" class="vote">
-					<!-- {#if post.options.find((item) => item.username === data.username) != undefined} -->
 					<h3>{post.body}</h3>
 
 					{#each post.options as option, i}
