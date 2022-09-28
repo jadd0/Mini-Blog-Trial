@@ -7,6 +7,17 @@
 	let polls = {};
 	let loading = true;
 
+	function getLargestPoll(polls, post) {
+		const max = post.options.reduce((prev, current) =>
+			prev.votes.length > current.votes.length ? prev : current
+		);
+		for (var i = 0; i < post.options.length; i++) {
+			if (polls[post.id][i].value === max.value) {
+				polls[post.id][i].largest = true;
+			}
+		}
+	}
+
 	async function submit(id, option) {
 		const response = await fetch("/api/voteOption", {
 			method: "post",
@@ -39,10 +50,15 @@
 			polls[post.id][i] = {
 				total: post.options[i].votes.length,
 				percentage: 0,
+				value: post.options[i].value,
 			};
 
-			if((post.options[i].votes.find((item) => item.username === data.username)) != undefined) {
-				polls[post.id][i] = {...polls[post.id][i], clicked: true}
+			if (
+				post.options[i].votes.find(
+					(item) => item.username === data.username
+				) != undefined
+			) {
+				polls[post.id][i] = { ...polls[post.id][i], clicked: true };
 			}
 		}
 
@@ -78,7 +94,7 @@
 			}
 		}
 
-		polls[post.id][option] = {...polls[post.id][option], clicked: true}
+		polls[post.id][option] = { ...polls[post.id][option], clicked: true };
 	}
 
 	function date(isoDate) {
@@ -164,7 +180,8 @@
 								<div class="percHolder">
 									<div
 										class="percBar"
-										class:selected={polls[post.id][i].clicked == true}
+										class:selected={polls[post.id][i]
+											.clicked == true}
 										style="min-width: 13px; width: {polls[
 											post.id
 										][i].percentage}%"
@@ -214,7 +231,7 @@
 	}
 
 	.selected {
-		background-color: #00B1B1  !important;
+		background-color: #00b1b1 !important;
 	}
 
 	.fullForPerc {

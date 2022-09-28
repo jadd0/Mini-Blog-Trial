@@ -32,26 +32,7 @@
 	};
 </script>
 
-<div id="inputHolder">
-  <textarea
-    name="text"
-    id="userInput"
-    maxlength="50"
-    placeholder="Title (0-50 chars)"
-    bind:value={title}
-    oninput='this.style.height = "";this.style.height = this.scrollHeight + "px"'
-  />
-</div>
-<div id="inputHolder">
-  <textarea
-    name="text"
-    id="userInput"
-    maxlength="100"
-    placeholder="Description (0-100 chars)"
-    bind:value={description}
-    oninput='this.style.height = "";this.style.height = this.scrollHeight + "px"'
-  />
-</div>
+
 <div id="inputHolder">
   <textarea
     name="text"
