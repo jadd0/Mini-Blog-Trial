@@ -22,8 +22,8 @@
 	}
 
 	function roundToTwo(num) {
-    return +(Math.round(num + "e+2")  + "e-2");
-}
+		return +(Math.round(num + "e+2") + "e-2");
+	}
 
 	function getStats(post) {
 		if (polls[post.id] != undefined) {
@@ -43,13 +43,10 @@
 		}
 
 		for (let i in post.options) {
-			(polls[post.id][i].percentage = roundToTwo(polls[post.id][i].total / total) * 100)
+			polls[post.id][i].percentage =
+				roundToTwo(polls[post.id][i].total / total) * 100;
 		}
-
-		console.log(polls[post.id]);
 	}
-
-
 
 	function vote(post, option) {
 		polls[post.id] = {
@@ -70,21 +67,12 @@
 		total += 1;
 		submit(post.id, post.options[option].value);
 
-		console.log("bhll");
-
-		// posts[post.id].options[option].push({
-		// 	username: data.username
-		// })
-
 		for (let i in post.options) {
 			for (let i in post.options) {
-			(polls[post.id][i].percentage = roundToTwo(polls[post.id][i].total / total) * 100)
+				polls[post.id][i].percentage =
+					roundToTwo(polls[post.id][i].total / total) * 100;
+			}
 		}
-		}
-		 
-
-		console.log("hbdfkbfkhd");
-		console.log(polls[post.id]);
 	}
 
 	function date(isoDate) {
@@ -189,8 +177,6 @@
 					{/each}
 				</div>
 			{/if}
-
-			<!-- {console.log(post)} -->
 		{/each}
 	</div>
 </body>
