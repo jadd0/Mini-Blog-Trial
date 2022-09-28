@@ -192,7 +192,6 @@
 
 			{#if post.type == "vote"}
 				<div id="postContainer" class="vote">
-					<!-- {#if post.options.find((item) => item.username === data.username) != undefined} -->
 					<h3>{post.body}</h3>
 
 					{#each post.options as option, i}
@@ -205,11 +204,9 @@
 								>{option.value}</button
 							>
 						{:else}
-						
 							<div id="hidden" style="display: none">
 								{getStats(post)}
 							</div>
-							
 
 							<div class="fullForPerc">
 								<div class="percHolder">
@@ -232,8 +229,6 @@
 					{/each}
 				</div>
 			{/if}
-
-			<!-- {console.log(post)} -->
 		{/each}
 	</div>
 </body>

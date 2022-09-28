@@ -18,12 +18,17 @@ export async function GET({ request, url }) {
 
 	const auth = await supabaseClass.checkKey(cookie.key)
 	
-	if (!auth) {
+	if (!auth) {	
 		throw error(401, "Not authorised")
 	}
 
   const username = url.searchParams.get("user")
-	const posts = await supabaseClass.getPosts(username)
+	let posts = await supabaseClass.getPosts(username)
+
+
+	posts.sort(function(a, b) {
+    return (a.created_at < b.created_at) ? -1 : ((a.created_at > b.created_at) ? 1 : 0);
+	});	
 
 	return new Response(JSON.stringify({ data: posts.reverse() }));
 }
