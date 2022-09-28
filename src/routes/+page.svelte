@@ -35,11 +35,30 @@
 		let total = 0;
 
 		for (let i in post.options) {
+			// console.log("bjfdjbf")
+			// console.log(post.options[i].votes.find(
+			// 		(item) => item.username === data.username
+			// 	))
+
+			// if ((post.options[i].votes.find((item) => item.username === data.username)) != undefined) {
+			// 	polls[post.id][i] = {
+			// 		total: post.options[i].votes.length,
+			// 		percentage: 0,
+			// 		selected: true,
+			// 	};
+			// }
+			// else {
+				
+			// }
 			total += post.options[i].votes.length;
 			polls[post.id][i] = {
 				total: post.options[i].votes.length,
 				percentage: 0,
 			};
+
+			if((post.options[i].votes.find((item) => item.username === data.username)) != undefined) {
+				polls[post.id][i] = {...polls[post.id][i], clicked: true}
+			}
 		}
 
 		for (let i in post.options) {
@@ -57,6 +76,16 @@
 
 		for (let i in post.options) {
 			total += post.options[i].votes.length;
+			// if (
+			// 	 != undefined
+			// ) {
+			// 	polls[post.id][i] = {
+			// 		total: post.options[i].votes.length,
+			// 		percentage: 0,
+			// 		selected: true,
+			// 	};
+			// }
+			
 			polls[post.id][i] = {
 				total: post.options[i].votes.length,
 				percentage: 0,
@@ -154,13 +183,11 @@
 							<div id="hidden" style="display: none">
 								{getStats(post)}
 							</div>
-
 							<div class="fullForPerc">
 								<div class="percHolder">
 									<div
 										class="percBar"
-										class:selected={i ==
-											polls[post.id].selected}
+										class:selected={polls[post.id][i].clicked == true}
 										style="min-width: 13px; width: {polls[
 											post.id
 										][i].percentage}%"
