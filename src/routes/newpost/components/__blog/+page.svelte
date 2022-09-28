@@ -135,10 +135,15 @@
 		margin: 0 auto;
 		margin-top: 10px;
 		background: #212121;
-		border-radius: 10px;
+		border-radius: 5px;
 		color: white;
 		text-align: left;
-		/* display: flex; */
+		border: 2px solid #333;
+		transition: all 0.2s linear;
+	}
+
+	.inputHolder:focus-within {
+		border: 2px solid rgb(90, 90, 90);
 	}
 
 	textarea {
