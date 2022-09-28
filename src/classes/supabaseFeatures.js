@@ -55,7 +55,6 @@ export class SupabaseFeatures {
 				type: 'vote'
 			},
 		]);
-		console.log(data,error)
 		if (error == undefined) return true
 		return false
 	}

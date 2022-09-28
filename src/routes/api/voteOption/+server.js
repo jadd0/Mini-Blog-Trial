@@ -23,7 +23,6 @@ export async function POST({ request }) {
 	const req = await request.json();
 
 	const res = await supabaseClass.voteOnPost(req.id, req.option, auth);
-	console.log(res)
 	if (!res)
 		throw error(
 			404,

@@ -54,7 +54,6 @@
 		};
 
 		options = [...options, obj];
-		console.log(options);
 	}
 
 	function removeOption(i) {

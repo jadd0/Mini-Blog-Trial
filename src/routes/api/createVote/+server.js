@@ -21,7 +21,6 @@ export async function POST({ request }) {
 	}
 
 	const req = await request.json();
-  console.log(req)
 	const res = await supabaseClass.createVote(req.body, req.options, auth);
 
 	if (res) return new Response("Posted successfully")

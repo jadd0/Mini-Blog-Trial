@@ -50,8 +50,6 @@
 		for (let i in post.options) {
 			(polls[post.id][i].percentage = roundToTwo(polls[post.id][i].total / total) * 100)
 		}
-
-		console.log(polls[post.id]);
 	}
 
 	function vote(post, option) {
@@ -77,17 +75,9 @@
 		total += 1;
 		submit(post.id, post.options[option].value);
 
-		console.log("bhll");
-
-		// posts[post.id].options[option].push({
-		// 	username: data.username
-		// })
-
 		for (let i in post.options) {
 			(polls[post.id][i].percentage = roundToTwo(polls[post.id][i].total / total) * 100)
 		}
-		console.log("hbdfkbfkhd");
-		console.log(polls[post.id]);
 	}
 
 	function date(isoDate) {
