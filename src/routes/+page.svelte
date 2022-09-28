@@ -65,10 +65,6 @@
 				total: post.options[i].votes.length,
 				percentage: 0,
 			};
-
-			if((post.options[i].votes.find((item) => item.username === data.username)) != undefined) {
-				polls[post.id][i] = {...polls[post.id][i], clicked: true}
-			}
 		}
 
 		polls[post.id][option].total += 1;
@@ -81,6 +77,8 @@
 					roundToTwo(polls[post.id][i].total / total) * 100;
 			}
 		}
+
+		polls[post.id][option] = {...polls[post.id][option], clicked: true}
 	}
 
 	function date(isoDate) {
