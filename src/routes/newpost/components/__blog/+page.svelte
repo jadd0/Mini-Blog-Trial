@@ -36,7 +36,7 @@
 	<textarea
 	class="userInput"
 	maxlength="70"
-	placeholder="Title"
+	placeholder="Title (optional)"
 	bind:value={title}
 	use:autoresize
 />
