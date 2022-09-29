@@ -41,14 +41,20 @@
 				percentage: 0,
 			};
 
-			if((post.options[i].votes.find((item) => item.username === data.username)) != undefined) {
-				polls[post.id][i] = {...polls[post.id][i], clicked: true}
+			if (
+				post.options[i].votes.find(
+					(item) => item.username === data.username
+				) != undefined
+			) {
+				polls[post.id][i] = { ...polls[post.id][i], clicked: true };
 			}
 		}
+		polls[post.id].total = total;
 
 		for (let i in post.options) {
-			polls[post.id][i].percentage =
-				roundToTwo(polls[post.id][i].total / total) * 100;
+			polls[post.id][i].percentage = Math.floor(
+				(polls[post.id][i].total / total) * 100
+			);
 		}
 	}
 
@@ -73,12 +79,14 @@
 
 		for (let i in post.options) {
 			for (let i in post.options) {
-				polls[post.id][i].percentage =
-					roundToTwo(polls[post.id][i].total / total) * 100;
+				polls[post.id][i].percentage = Math.floor(
+					(polls[post.id][i].total / total) * 100
+				);
 			}
 		}
 
-		polls[post.id][option] = {...polls[post.id][option], clicked: true}
+		polls[post.id][option] = { ...polls[post.id][option], clicked: true };
+		polls[post.id].total = total;
 	}
 
 	function date(isoDate) {
@@ -144,6 +152,9 @@
 			{/if}
 
 			{#if post.type == "vote"}
+				<div id="hidden" style="display: none">
+					{getStats(post)}
+				</div>
 				<div id="postContainer" class="vote">
 					<h3>{post.body}</h3>
 
@@ -157,14 +168,12 @@
 								>{option.value}</button
 							>
 						{:else}
-							<div id="hidden" style="display: none">
-								{getStats(post)}
-							</div>
 							<div class="fullForPerc">
 								<div class="percHolder">
 									<div
 										class="percBar"
-										class:selected={polls[post.id][i].clicked == true}
+										class:selected={polls[post.id][i]
+											.clicked == true}
 										style="min-width: 13px; width: {polls[
 											post.id
 										][i].percentage}%"
@@ -178,6 +187,7 @@
 							</div>
 						{/if}
 					{/each}
+					<h6 id="total">{polls[post.id].total} votes</h6>
 				</div>
 			{/if}
 		{/each}
@@ -213,8 +223,20 @@
 		letter-spacing: -1px !important;
 	}
 
+	#total {
+		height: 20px;
+		/* float: right;
+		margin-right: 30px; */
+		font-size: 20px;
+		/* margin-top: 5px;
+		margin-bottom: 10px; */
+		font-weight: 700;
+		position: relative;
+		
+	}
+
 	.selected {
-		background-color: #00B1B1  !important;
+		background-color: #00b1b1 !important;
 	}
 
 	.fullForPerc {
