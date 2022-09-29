@@ -64,7 +64,7 @@
 
 		for (let i in post.options) {
 			polls[post.id][i].percentage =
-				roundToTwo(polls[post.id][i].total / total) * 100;
+				Math.round(roundToTwo(polls[post.id][i].total / total) * 100);
 		}
 	}
 
