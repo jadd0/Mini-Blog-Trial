@@ -6,7 +6,7 @@
     let loading = false
 
     const submit = async () => {
-		if (title.length == 0 || description.length == 0 || body.length == 0) return
+		if (body.length == 0) return
 		loading = true
 		const response = await fetch("/api/createPost", {
 			method: "post",
