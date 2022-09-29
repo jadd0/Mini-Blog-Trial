@@ -16,7 +16,6 @@
 			},
 			body: JSON.stringify({
 				title: title,
-				description: description,
 				body: body
 			}),
 		});
