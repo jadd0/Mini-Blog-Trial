@@ -7,17 +7,6 @@
 	let polls = {};
 	let loading = true;
 
-	function getLargestPoll(polls, post) {
-		const max = post.options.reduce((prev, current) =>
-			prev.votes.length > current.votes.length ? prev : current
-		);
-		for (var i = 0; i < post.options.length; i++) {
-			if (polls[post.id][i].value === max.value) {
-				polls[post.id][i].largest = true;
-			}
-		}
-	}
-
 	async function submit(id, option) {
 		const response = await fetch("/api/voteOption", {
 			method: "post",
@@ -50,7 +39,6 @@
 			polls[post.id][i] = {
 				total: post.options[i].votes.length,
 				percentage: 0,
-				value: post.options[i].value,
 			};
 
 			if (
@@ -61,10 +49,12 @@
 				polls[post.id][i] = { ...polls[post.id][i], clicked: true };
 			}
 		}
+		polls[post.id].total = total;
 
 		for (let i in post.options) {
-			polls[post.id][i].percentage =
-				Math.round(roundToTwo(polls[post.id][i].total / total) * 100);
+			polls[post.id][i].percentage = Math.floor(
+				(polls[post.id][i].total / total) * 100
+			);
 		}
 	}
 
@@ -89,12 +79,14 @@
 
 		for (let i in post.options) {
 			for (let i in post.options) {
-				polls[post.id][i].percentage =
-					roundToTwo(polls[post.id][i].total / total) * 100;
+				polls[post.id][i].percentage = Math.floor(
+					(polls[post.id][i].total / total) * 100
+				);
 			}
 		}
 
 		polls[post.id][option] = { ...polls[post.id][option], clicked: true };
+		polls[post.id].total = total;
 	}
 
 	function date(isoDate) {
@@ -160,6 +152,9 @@
 			{/if}
 
 			{#if post.type == "vote"}
+				<div id="hidden" style="display: none">
+					{getStats(post)}
+				</div>
 				<div id="postContainer" class="vote">
 					<h3>{post.body}</h3>
 
@@ -173,9 +168,6 @@
 								>{option.value}</button
 							>
 						{:else}
-							<div id="hidden" style="display: none">
-								{getStats(post)}
-							</div>
 							<div class="fullForPerc">
 								<div class="percHolder">
 									<div
@@ -195,6 +187,7 @@
 							</div>
 						{/if}
 					{/each}
+					<h6 id="total">{polls[post.id].total} votes</h6>
 				</div>
 			{/if}
 		{/each}
@@ -228,6 +221,18 @@
 		box-sizing: border-box;
 		font-family: New-Inter;
 		letter-spacing: -1px !important;
+	}
+
+	#total {
+		font-weight: 600;
+		font-size: 20px;
+		height: 20px;
+		width: 100px;
+		position: relative;
+		text-align: right;
+		bottom: 20px;
+	
+		right: -76.5%;
 	}
 
 	.selected {
