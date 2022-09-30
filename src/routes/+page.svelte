@@ -30,7 +30,9 @@
 			return;
 		}
 
-		polls[post.id] = {};
+		polls[post.id] = {
+			clicked: false,
+		};
 
 		let total = 0;
 
@@ -47,6 +49,7 @@
 				) != undefined
 			) {
 				polls[post.id][i] = { ...polls[post.id][i], clicked: true };
+				polls[post.id].clicked = true;
 			}
 		}
 		polls[post.id].total = total;
@@ -152,12 +155,15 @@
 			{/if}
 
 			{#if post.type == "vote"}
-				
 				<div id="postContainer" class="vote">
 					<h3>{post.body}</h3>
-
-					{#each post.options as option, i}
-						{#if option.votes.find((item) => item.username === data.username) == undefined && polls[post.id] == undefined}
+					<div>
+						<div id="hidden" style="display: none">
+							{getStats(post)}
+						</div>
+					</div>
+					{#if polls[post.id].clicked == false}
+						{#each post.options as option, i}
 							<button
 								on:click={() => {
 									vote(post, i);
@@ -165,10 +171,9 @@
 								class="voteButton POST{post.id}"
 								>{option.value}</button
 							>
-						{:else}
-						<div id="hidden" style="display: none">
-							{getStats(post)}
-						</div>
+						{/each}
+					{:else}
+						{#each post.options as option, i}
 							<div class="fullForPerc">
 								<div class="percHolder">
 									<div
@@ -186,9 +191,9 @@
 									{polls[post.id][i].percentage}%
 								</h6>
 							</div>
-						{/if}
-					{/each}
-					<!-- <h6 id="total">{polls[post.id].total} votes</h6> -->
+						{/each}
+						<h6 id="total">{polls[post.id].total} votes</h6>
+					{/if}
 				</div>
 			{/if}
 		{/each}
@@ -227,13 +232,11 @@
 	#total {
 		font-weight: 600;
 		font-size: 20px;
+
 		height: 20px;
-		width: 100px;
-		position: relative;
-		text-align: right;
-		bottom: 20px;
-	
-		right: -76.5%;
+		float: right;
+		margin-right: 5%;
+		margin-top: 5px;
 	}
 
 	.selected {
