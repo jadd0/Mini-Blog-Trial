@@ -22,18 +22,19 @@
 	}
 
 	function roundToTwo(num) {
-    return +(Math.round(num + "e+2")  + "e-2");
-}
+		return +(Math.round(num + "e+2") + "e-2");
+	}
 
 	function getStats(post) {
 		if (polls[post.id] != undefined) {
-			return
+			return;
 		}
 
-		polls[post.id] = {};
+		polls[post.id] = {
+			clicked: false,
+		};
 
 		let total = 0;
-
 
 		for (let i in post.options) {
 			total += post.options[i].votes.length;
@@ -42,13 +43,21 @@
 				percentage: 0,
 			};
 
-			if((post.options[i].votes.find((item) => item.username === data.username)) != undefined) {
-				polls[post.id][i] = {...polls[post.id][i], clicked: true}
+			if (
+				post.options[i].votes.find(
+					(item) => item.username === data.username
+				) != undefined
+			) {
+				polls[post.id][i] = { ...polls[post.id][i], clicked: true };
+				polls[post.id].clicked = true;
 			}
 		}
+		polls[post.id].total = total;
 
 		for (let i in post.options) {
-			(polls[post.id][i].percentage = roundToTwo(polls[post.id][i].total / total) * 100)
+			polls[post.id][i].percentage = Math.floor(
+				(polls[post.id][i].total / total) * 100
+			);
 		}
 	}
 
@@ -65,10 +74,6 @@
 				total: post.options[i].votes.length,
 				percentage: 0,
 			};
-
-			if((post.options[i].votes.find((item) => item.username === data.username)) != undefined) {
-				polls[post.id][i] = {...polls[post.id][i], clicked: true}
-			}
 		}
 
 		polls[post.id][option].total += 1;
@@ -76,8 +81,15 @@
 		submit(post.id, post.options[option].value);
 
 		for (let i in post.options) {
-			(polls[post.id][i].percentage = roundToTwo(polls[post.id][i].total / total) * 100)
+			for (let i in post.options) {
+				polls[post.id][i].percentage = Math.floor(
+					(polls[post.id][i].total / total) * 100
+				);
+			}
 		}
+
+		polls[post.id][option] = { ...polls[post.id][option], clicked: true };
+		polls[post.id].total = total;
 	}
 
 	function date(isoDate) {
@@ -90,7 +102,9 @@
 	}
 
 	onMount(async () => {
-		const res = await fetch(`/api/getUserPosts?user=${$page.params.username}`);
+		const res = await fetch(
+			`/api/getUserPosts?user=${$page.params.username}`
+		);
 		const resJson = await res.json();
 		posts = resJson.data;
 		loading = false;
@@ -133,10 +147,13 @@
 			<button on:click={follow} id="followButton">Unfollow</button>
 		{/if}
 
-		{#if data.bool == 'self'}
-			<button on:click={() => {
-				location.href = "/moods"
-			}} id="followButton">Moods</button>
+		{#if data.bool == "self"}
+			<button
+				on:click={() => {
+					location.href = "/moods";
+				}}
+				id="followButton">Moods</button
+			>
 		{/if}
 		<div id="followerContainer">
 			<a href="/@{data.user.username}/following">
@@ -191,9 +208,13 @@
 			{#if post.type == "vote"}
 				<div id="postContainer" class="vote">
 					<h3>{post.body}</h3>
-
-					{#each post.options as option, i}
-						{#if option.votes.find((item) => item.username === data.username) == undefined && polls[post.id] == undefined}
+					<div>
+						<div id="hidden" style="display: none">
+							{getStats(post)}
+						</div>
+					</div>
+					{#if polls[post.id].clicked == false}
+						{#each post.options as option, i}
 							<button
 								on:click={() => {
 									vote(post, i);
@@ -201,16 +222,15 @@
 								class="voteButton POST{post.id}"
 								>{option.value}</button
 							>
-						{:else}
-							<div id="hidden" style="display: none">
-								{getStats(post)}
-							</div>
-
+						{/each}
+					{:else}
+						{#each post.options as option, i}
 							<div class="fullForPerc">
 								<div class="percHolder">
 									<div
 										class="percBar"
-										class:selected={polls[post.id][i].clicked == true}
+										class:selected={polls[post.id][i]
+											.clicked == true}
 										style="min-width: 13px; width: {polls[
 											post.id
 										][i].percentage}%"
@@ -222,8 +242,9 @@
 									{polls[post.id][i].percentage}%
 								</h6>
 							</div>
-						{/if}
-					{/each}
+						{/each}
+						<h6 id="total">{polls[post.id].total} votes</h6>
+					{/if}
 				</div>
 			{/if}
 		{/each}
@@ -260,8 +281,17 @@
 		letter-spacing: -1px !important;
 	}
 
+	#total {
+		font-weight: 600;
+		font-size: 20px;
+		height: 20px;
+		float: right;
+		margin-right: 5%;
+		margin-top: 5px;
+	}
+
 	.selected {
-		background-color: #00B1B1  !important;
+		background-color: #00b1b1 !important;
 	}
 
 	.fullForPerc {
@@ -349,41 +379,41 @@
 	}
 
 	.lds-ring {
-  display: inline-block;
-  position: relative;
-  width: 80px;
-  height: 80px;
-	margin-top: 20vh;
-}
-.lds-ring div {
-  box-sizing: border-box;
-  display: block;
-  position: absolute;
-  width: 64px;
-  height: 64px;
-  margin: 8px;
-  border: 8px solid #323232;
-  border-radius: 50%;
-  animation: lds-ring 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
-  border-color: #323232 transparent transparent transparent;
-}
-.lds-ring div:nth-child(1) {
-  animation-delay: -0.45s;
-}
-.lds-ring div:nth-child(2) {
-  animation-delay: -0.3s;
-}
-.lds-ring div:nth-child(3) {
-  animation-delay: -0.15s;
-}
-@keyframes lds-ring {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(360deg);
-  }
-}
+		display: inline-block;
+		position: relative;
+		width: 80px;
+		height: 80px;
+		margin-top: 20vh;
+	}
+	.lds-ring div {
+		box-sizing: border-box;
+		display: block;
+		position: absolute;
+		width: 64px;
+		height: 64px;
+		margin: 8px;
+		border: 8px solid #323232;
+		border-radius: 50%;
+		animation: lds-ring 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+		border-color: #323232 transparent transparent transparent;
+	}
+	.lds-ring div:nth-child(1) {
+		animation-delay: -0.45s;
+	}
+	.lds-ring div:nth-child(2) {
+		animation-delay: -0.3s;
+	}
+	.lds-ring div:nth-child(3) {
+		animation-delay: -0.15s;
+	}
+	@keyframes lds-ring {
+		0% {
+			transform: rotate(0deg);
+		}
+		100% {
+			transform: rotate(360deg);
+		}
+	}
 
 	#followerContainer {
 		display: flex;
@@ -504,8 +534,6 @@
 		h5 {
 			font-size: 5vw !important;
 		}
-
-
 	}
 
 	h1 {
