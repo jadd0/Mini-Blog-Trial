@@ -152,9 +152,7 @@
 			{/if}
 
 			{#if post.type == "vote"}
-				<div id="hidden" style="display: none">
-					{getStats(post)}
-				</div>
+				
 				<div id="postContainer" class="vote">
 					<h3>{post.body}</h3>
 
@@ -168,6 +166,9 @@
 								>{option.value}</button
 							>
 						{:else}
+						<div id="hidden" style="display: none">
+							{getStats(post)}
+						</div>
 							<div class="fullForPerc">
 								<div class="percHolder">
 									<div
@@ -187,7 +188,7 @@
 							</div>
 						{/if}
 					{/each}
-					<h6 id="total">{polls[post.id].total} votes</h6>
+					<!-- <h6 id="total">{polls[post.id].total} votes</h6> -->
 				</div>
 			{/if}
 		{/each}
