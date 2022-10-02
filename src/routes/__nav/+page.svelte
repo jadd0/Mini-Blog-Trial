@@ -188,6 +188,7 @@
 	}
 
 	#loginSignupHolder {
+		height: 80%;
 		width: 100vw;
 		display: flex;
 		flex-direction: row;
