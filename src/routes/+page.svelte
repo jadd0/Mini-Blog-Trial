@@ -153,7 +153,6 @@
 					</div>
 				</a>
 			{/if}
-
 			{#if post.type == "vote"}
 				<div id="postContainer" class="vote">
 					<h3 id="voteTitle">{post.body}</h3>
@@ -164,28 +163,19 @@
 					</div>
 					{#if polls[post.id].clicked == false}
 						{#each post.options as option, i}
-						<!-- <div class="fullForPerc">
-							<div class="percHolder">
-							<button
-								on:click={() => {
-									vote(post, i);
-								}}
-								class="voteButton POST{post.id}"
-								><h5>{option.value}</h5></button
-							>
-							</div>
-						</div> -->
 						<div class="fullForPerc">
 							<div class="percHolder">
-								<div
-									class="percBar"
-									style="min-width: 13px; width: 100%"
+								<button
+									class="percBar button {post.id}{i}"
+									style="transition: all 0.2s linear;min-width: 13px; width: 100%"
+									on:click={() => {
+										vote(post, i);
+									}}
 								>
 									<h5>{option.value}</h5>
-								</div>
+								</button>
 							</div>
 							<h6 class="percNum">
-								
 							</h6>
 						</div>
 						{/each}
@@ -193,16 +183,16 @@
 						{#each post.options as option, i}
 							<div class="fullForPerc">
 								<div class="percHolder">
-									<div
+									<button
 										class="percBar"
 										class:selected={polls[post.id][i]
 											.clicked == true}
-										style="min-width: 13px; width: {polls[
+										style="transition: all 0.2s linear; min-width: 13px; width: {polls[
 											post.id
 										][i].percentage}%"
 									>
 										<h5>{option.value}</h5>
-									</div>
+									</button>
 								</div>
 								<h6 class="percNum">
 									{polls[post.id][i].percentage}%
@@ -261,6 +251,7 @@
 	}
 
 	.fullForPerc {
+		height: 38px !important;
 		width: 95%;
 		display: flex;
 	}
@@ -272,7 +263,7 @@
 		text-align: left;
 		overflow: visible;
 		font-weight: 500;
-		width: 40vw;
+		width: 100vw;
 	}
 
 	h6 {
@@ -306,14 +297,16 @@
 		border: 2px solid rgb(55, 55, 55);
 		margin-left: 5vw;
 		line-height: 30px;
+		transition: all 0.25s linear !important;
 	}
 
 	.vote:hover {
 		background: #212121 !important;
 	}
 
-	.voteButton {
-		width: 74%;
+	.button {
+		cursor: pointer;
+		/* width: 74%;
 		min-height: 35px;
 		background: #2a2a2a;
 		border-radius: 15px;
@@ -324,10 +317,10 @@
 		transition: all 0.2s linear;
 		border: 2px solid rgb(55, 55, 55);
 		float: left;
-		margin-left: 5vw;
+		margin-left: 5vw; */
 	}
 
-	.voteButton:hover {
+	.button:hover {
 		background: #3a3a3a;
 	}
 
@@ -377,6 +370,11 @@
 		}
 	}
 
+	#homeTitle {
+		font-size: 30px;
+		margin-bottom: 30px;
+	}
+
 	#empty {
 		font-size: 3rem;
 		font-weight: 700;
@@ -398,7 +396,7 @@
 		color: rgb(159, 159, 159);
 		overflow: hidden;
 		margin-top: 5px;
-		font-weight: 800;
+		font-weight: 600;
 	}
 
 	#whole {
@@ -473,7 +471,7 @@
 
 	h1 {
 		font-size: 30px;
-		font-weight: 700;
+		font-weight: 600;
 		color: white;
 		padding-top: 10px;
 		text-align: left;

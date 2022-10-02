@@ -145,7 +145,7 @@
 
 	h1 {
 		font-size: 3rem;
-		font-weight: 700;
+		font-weight: 600;
 		color: white;
 		padding-top: 10px;
 		text-align: left;

@@ -452,7 +452,7 @@
 
 	#bland {
 		font-size: 3rem;
-		font-weight: 700;
+		font-weight: 600;
 		color: white;
 		text-align: left;
 		margin-left: 5vw;
