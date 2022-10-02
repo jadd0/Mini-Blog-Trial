@@ -224,7 +224,6 @@
 	}
 
 	#total {
-<<<<<<< HEAD
 		height: 20px;
 		/* float: right;
 		margin-right: 30px; */
@@ -233,8 +232,6 @@
 		margin-bottom: 10px; */
 		font-weight: 700;
 		position: relative;
-		
-=======
 		font-weight: 600;
 		font-size: 20px;
 		height: 20px;
@@ -244,7 +241,6 @@
 		bottom: 20px;
 	
 		right: -76.5%;
->>>>>>> 3bdf994aa6a5439468b8deaffa54e85a7ce71b27
 	}
 
 	.selected {
