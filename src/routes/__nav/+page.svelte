@@ -1,16 +1,15 @@
 <script>
-	import { onMount } from 'svelte'
+	import { onMount } from "svelte";
 	export let username;
 
 	if (username == "") {
 		username = undefined;
 	}
-	
 
 	// (username);
 	function b() {
 		const nav = document.getElementById("navbar");
-		const top = (window.pageYOffset + nav.getBoundingClientRect().top)
+		const top = window.pageYOffset + nav.getBoundingClientRect().top;
 		if (top >= 80) {
 			document.getElementById("navbar").style.backgroundColor = "#212121";
 		} else {
@@ -30,10 +29,10 @@
 			location.reload();
 		}
 	};
-	
+
 	onMount(() => {
-		b()
-	})
+		b();
+	});
 </script>
 
 <div id="navbar">
@@ -96,18 +95,27 @@
 </div> -->
 
 <div id="navbarMobile">
-	<div class="nav home">
-		<img src="/home.png" alt="" class="icon home">
-	</div>
-	<div class="nav search">
-		<img src="/search.png" alt="" class="icon search">
-	</div>
-	<div class="nav newpost">
-		<img src="/new.png" alt="" class="icon new">
-	</div>
-	<div class="nav user">
-		<img src="/user.png" alt="" class="icon user">
-	</div>
+	<a href="/">
+		<div class="nav home">
+			<img src="/home.png" alt="" class="icon home" />
+		</div>
+	</a>
+	<a href="/search">
+		<div class="nav search">
+			<img src="/search.png" alt="" class="icon search" />
+		</div>
+	</a>
+	<a href="/newpost">
+		<div class="nav newpost">
+			<img src="/new.png" alt="" class="icon new" />
+		</div>
+	</a>
+
+	<a href="/@{username}">
+		<div class="nav user">
+			<img src="/user.png" alt="" class="icon user" />
+		</div>
+	</a>
 </div>
 
 <style>
@@ -199,7 +207,7 @@
 		height: 70px;
 		position: fixed;
 		/* top:90vh; */
-		bottom: 0; 
+		bottom: 0;
 		background: #141414;
 		z-index: 400;
 		border-top: 1px solid #585858;
@@ -220,7 +228,7 @@
 		/* position: */
 	}
 
-/* 
+	/* 
 	.hamburger1 {
 		height: 45px;
 		margin: 10px;
