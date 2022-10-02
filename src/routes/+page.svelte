@@ -324,9 +324,6 @@
 		margin-top: 1vw;
 	}
 
-	#optionsHolder {
-	}
-
 	.lds-ring {
 		display: inline-block;
 		position: relative;
