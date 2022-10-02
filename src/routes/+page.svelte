@@ -30,7 +30,9 @@
 			return;
 		}
 
-		polls[post.id] = {};
+		polls[post.id] = {
+			clicked: false,
+		};
 
 		let total = 0;
 
@@ -47,6 +49,7 @@
 				) != undefined
 			) {
 				polls[post.id][i] = { ...polls[post.id][i], clicked: true };
+				polls[post.id].clicked = true;
 			}
 		}
 		polls[post.id].total = total;
@@ -138,7 +141,7 @@
 						</h1>
 						<div id="descriptionHolder">
 							<h2 id="description">
-								{post.metadata.description}
+								{post.body}
 							</h2>
 							<a href="/@{post.username}">
 								<h2 id="name">@{post.username}</h2>
@@ -152,14 +155,15 @@
 			{/if}
 
 			{#if post.type == "vote"}
-				<div id="hidden" style="display: none">
-					{getStats(post)}
-				</div>
 				<div id="postContainer" class="vote">
 					<h3>{post.body}</h3>
-
-					{#each post.options as option, i}
-						{#if option.votes.find((item) => item.username === data.username) == undefined && polls[post.id] == undefined}
+					<div>
+						<div id="hidden" style="display: none">
+							{getStats(post)}
+						</div>
+					</div>
+					{#if polls[post.id].clicked == false}
+						{#each post.options as option, i}
 							<button
 								on:click={() => {
 									vote(post, i);
@@ -167,7 +171,9 @@
 								class="voteButton POST{post.id}"
 								>{option.value}</button
 							>
-						{:else}
+						{/each}
+					{:else}
+						{#each post.options as option, i}
 							<div class="fullForPerc">
 								<div class="percHolder">
 									<div
@@ -185,9 +191,9 @@
 									{polls[post.id][i].percentage}%
 								</h6>
 							</div>
-						{/if}
-					{/each}
-					<h6 id="total">{polls[post.id].total} votes</h6>
+						{/each}
+						<h6 id="total">{polls[post.id].total} votes</h6>
+					{/if}
 				</div>
 			{/if}
 		{/each}
@@ -224,15 +230,13 @@
 	}
 
 	#total {
-		height: 20px;
-		/* float: right;
-		margin-right: 30px; */
+		font-weight: 600;
 		font-size: 20px;
-		/* margin-top: 5px;
-		margin-bottom: 10px; */
-		font-weight: 700;
-		position: relative;
-		
+
+		height: 20px;
+		float: right;
+		margin-right: 5%;
+		margin-top: 5px;
 	}
 
 	.selected {
@@ -393,12 +397,17 @@
 		height: auto;
 	}
 
+	#description {
+		font-size: 17px;
+	}
+
 	#description,
 	#title {
 		word-break: break-word;
 	}
 
 	#title {
+		font-size: 19px;
 		padding-right: 20px;
 	}
 
@@ -407,8 +416,9 @@
 		/* min-height: 20vh; */
 		padding-bottom: 20px;
 		background: #212121;
-		margin-top: 20px;
-		border-radius: 10px;
+		/* margin-top: 20px; */
+		/* border-radius: 5px; */
+		border-bottom: 1px solid black;
 		transition: all 0.2s linear;
 	}
 
@@ -416,9 +426,21 @@
 		background: rgb(56, 56, 56);
 	}
 
+	@media (max-width: 575px) {
+		#postContainer {
+			width: 100vw !important;
+		}
+	}
+
 	@media (max-width: 800px) {
 		#postContainer {
-			width: 75vw;
+			width: 90vw;
+		}
+	}
+
+	@media (min-width: 800px) {
+		#postContainer {
+			width: calc(500px + 20vw) !important;
 		}
 	}
 
