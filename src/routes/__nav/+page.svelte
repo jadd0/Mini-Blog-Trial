@@ -1,12 +1,12 @@
 <script>
 	import { onMount } from "svelte";
-	import { page } from '$app/stores';
+	import { page } from "$app/stores";
 	export let username;
 
-	let homeSrc = '/homeHollow.png';
-	let searchSrc = '/searchHollow.png';
-	let newSrc = '/pencilHollow.png';
-	let userSrc = '/userHollow.png';
+	let homeSrc = "/homeHollow.png";
+	let searchSrc = "/searchHollow.png";
+	let newSrc = "/pencilHollow.png";
+	let userSrc = "/userHollow.png";
 
 	if (username == "") {
 		username = undefined;
@@ -37,32 +37,31 @@
 	};
 
 	function changeImage() {
-		const url = $page.url.pathname
+		const url = $page.url.pathname;
 
-		switch(url) {
-			case '/':
-				homeSrc = '/home.png'
-				break
-			case '/search':
-				searchSrc = '/search.png'
-				break
-			case '/newpost':
-				newSrc = 'pencil.png'
-				break
+		switch (url) {
+			case "/":
+				homeSrc = "/home.png";
+				break;
+			case "/search":
+				searchSrc = "/search.png";
+				break;
+			case "/newpost":
+				newSrc = "pencil.png";
+				break;
 			case `/@${username}`:
-				userSrc = 'user.png'
-				break
+				userSrc = "user.png";
+				break;
 		}
 
-		const brokenUrl = url.split('/')
+		const brokenUrl = url.split("/");
 		if (brokenUrl[1] == `@${username}`) {
-			userSrc = '/user.png'
+			userSrc = "/user.png";
 		}
 	}
 	changeImage();
 	onMount(() => {
 		b();
-		
 	});
 </script>
 
@@ -126,27 +125,43 @@
 </div> -->
 
 <div id="navbarMobile">
-	<a href="/">
-		<div class="nav home" id="home">
-			<img src={homeSrc} alt="" class="icon home" />
-		</div>
-	</a>
-	<a href="/search">
-		<div class="nav search" id="search">
-			<img src={searchSrc} alt="" class="icon search" />
-		</div>
-	</a>
-	<a href="/newpost">
-		<div class="nav newpost" id="newpost">
-			<img src={newSrc} alt="" class="icon new" />
-		</div>
-	</a>
+	{#if username != undefined}
+		<a href="/">
+			<div class="nav1 home" id="home">
+				<img src={homeSrc} alt="" class="icon home" />
+			</div>
+		</a>
+		<a href="/search">
+			<div class="nav1 search" id="search">
+				<img src={searchSrc} alt="" class="icon search" />
+			</div>
+		</a>
+		<a href="/newpost">
+			<div class="nav1 newpost" id="newpost">
+				<img src={newSrc} alt="" class="icon new" />
+			</div>
+		</a>
 
-	<a href="/@{username}">
-		<div class="nav user" id="user">
-			<img src={userSrc} alt="" class="icon user" />
+		<a href="/@{username}">
+			<div class="nav1 user" id="user">
+				<img src={userSrc} alt="" class="icon user" />
+			</div>
+		</a>
+		{:else}
+		<div id="loginSignupHolder">
+			<a href="/login">
+			<div class="nav1 login" id="login">
+				<h2>Login</h2>
+			</div>
+		</a>
+		<a href="/signup">
+			<div class="nav1 signup" id="signup">
+				<h2>Signup</h2>
+			</div>
+		</a>
 		</div>
-	</a>
+		
+	{/if}
 </div>
 
 <style>
@@ -166,6 +181,24 @@
 		box-sizing: border-box;
 		font-family: "New-Inter";
 		font-weight: 600;
+	}
+
+	a {
+		text-decoration: none;
+	}
+
+	#loginSignupHolder {
+		width: 100vw;
+		display: flex;
+		flex-direction: row;
+		justify-content: center;
+		align-items: center;
+		gap: 30px;
+	}
+
+	h2 {
+		color: white;
+		font-size: 30px;
 	}
 
 	#space {
@@ -245,7 +278,7 @@
 		display: flex;
 	}
 
-	.nav {
+	.nav1 {
 		width: 25vw;
 		height: 70%;
 		margin-top: 0px;
