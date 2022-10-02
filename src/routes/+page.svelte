@@ -116,7 +116,7 @@
 <body>
 	<Nav username={data.username} />
 	<div id="whole">
-		<h1 style="margin-left:-0px">Home</h1>
+		<h1 id="homeTitle">Home</h1>
 		{#if posts.length == 0 && !loading}
 			<a href="/search" id="empty"
 				>It's looking empty here...<br />Go follow some people!</a
@@ -156,7 +156,7 @@
 
 			{#if post.type == "vote"}
 				<div id="postContainer" class="vote">
-					<h3>{post.body}</h3>
+					<h3 id="voteTitle">{post.body}</h3>
 					<div>
 						<div id="hidden" style="display: none">
 							{getStats(post)}
@@ -164,13 +164,30 @@
 					</div>
 					{#if polls[post.id].clicked == false}
 						{#each post.options as option, i}
+						<!-- <div class="fullForPerc">
+							<div class="percHolder">
 							<button
 								on:click={() => {
 									vote(post, i);
 								}}
 								class="voteButton POST{post.id}"
-								>{option.value}</button
+								><h5>{option.value}</h5></button
 							>
+							</div>
+						</div> -->
+						<div class="fullForPerc">
+							<div class="percHolder">
+								<div
+									class="percBar"
+									style="min-width: 13px; width: 100%"
+								>
+									<h5>{option.value}</h5>
+								</div>
+							</div>
+							<h6 class="percNum">
+								
+							</h6>
+						</div>
 						{/each}
 					{:else}
 						{#each post.options as option, i}
@@ -232,7 +249,6 @@
 	#total {
 		font-weight: 600;
 		font-size: 20px;
-
 		height: 20px;
 		float: right;
 		margin-right: 5%;
@@ -241,6 +257,7 @@
 
 	.selected {
 		background-color: #00b1b1 !important;
+		border: none !important;
 	}
 
 	.fullForPerc {
@@ -249,13 +266,11 @@
 	}
 
 	h5 {
+		font-size: 17px;
 		color: white;
 		margin-left: 20px;
 		text-align: left;
 		overflow: visible;
-		/* position: absolute; */
-		/* top: 10px; */
-		/* left: 32%; */
 		font-weight: 500;
 		width: 40vw;
 	}
@@ -268,7 +283,7 @@
 		width: 100px;
 		text-align: right !important;
 		color: white;
-		font-size: 20px;
+		font-size: 17px;
 	}
 
 	.percHolder {
@@ -282,12 +297,11 @@
 	}
 
 	.percBar {
-		height: 35px;
+		height: 32px;
 		background: #2a2a2a;
-		border-radius: 10px;
+		border-radius: 15px;
 		color: white;
 		text-align: center;
-		/* cursor: pointer; */
 		transition: all 0.2s linear;
 		border: 2px solid rgb(55, 55, 55);
 		margin-left: 5vw;
@@ -299,16 +313,18 @@
 	}
 
 	.voteButton {
-		width: 80%;
+		width: 74%;
 		min-height: 35px;
 		background: #2a2a2a;
-		border-radius: 10px;
+		border-radius: 15px;
 		color: white;
 		text-align: center;
 		margin-top: 5px;
 		cursor: pointer;
 		transition: all 0.2s linear;
 		border: 2px solid rgb(55, 55, 55);
+		float: left;
+		margin-left: 5vw;
 	}
 
 	.voteButton:hover {
@@ -316,15 +332,12 @@
 	}
 
 	h3 {
-		font-size: 2rem;
+		font-size: 20px;
 		font-weight: 400;
 		color: white;
 		text-align: left;
 		margin-left: 5vw;
 		margin-top: 1vw;
-	}
-
-	#optionsHolder {
 	}
 
 	.lds-ring {
@@ -406,7 +419,7 @@
 		word-break: break-word;
 	}
 
-	#title {
+	#title, #voteTitle {
 		font-size: 19px;
 		padding-right: 20px;
 	}
@@ -444,7 +457,7 @@
 		}
 	}
 
-	@media (max-width: 520px) {
+	/* @media (max-width: 520px) {
 		h1 {
 			font-size: 6vw !important;
 		}
@@ -456,7 +469,7 @@
 		h5 {
 			font-size: 5vw !important;
 		}
-	}
+	} */
 
 	h1 {
 		font-size: 30px;
@@ -468,13 +481,15 @@
 	}
 
 	h2 {
-		font-size: 1.5rem;
+		font-size: 17px;
 		font-weight: 500;
 		color: white;
 		text-align: left;
 		/* text-overflow: ellipsis; */
 		/* margin-left: 1vw; */
 	}
+
+
 
 	#descriptionHolder {
 		width: 80%;
