@@ -235,7 +235,7 @@
 
 	#navbarMobile {
 		width: 100vw;
-		height: 70px;
+		height: 85px;
 		position: fixed;
 		/* top:90vh; */
 		bottom: 0;
@@ -247,7 +247,8 @@
 
 	.nav {
 		width: 25vw;
-		height: 80%;
+		height: 70%;
+		margin-top: 0px;
 		display: flex;
 		justify-content: center;
 		align-items: center;
