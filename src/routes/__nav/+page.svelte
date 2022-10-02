@@ -176,7 +176,7 @@
 
 	@media (min-width: 900px) {
 		#navbarMobile {
-			display: none;
+			display: none !important;
 		}
 	}
 	@media (max-width: 900px) {
@@ -256,6 +256,7 @@
 
 	.icon {
 		width: 7.5vw;
+		max-width: 30px;
 		/* position: */
 	}
 
