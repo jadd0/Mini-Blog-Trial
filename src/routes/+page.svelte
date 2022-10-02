@@ -232,15 +232,7 @@
 		margin-bottom: 10px; */
 		font-weight: 700;
 		position: relative;
-		font-weight: 600;
-		font-size: 20px;
-		height: 20px;
-		width: 100px;
-		position: relative;
-		text-align: right;
-		bottom: 20px;
-	
-		right: -76.5%;
+		
 	}
 
 	.selected {
