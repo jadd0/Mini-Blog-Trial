@@ -101,6 +101,27 @@
 		return newDate;
 	}
 
+function timeAgo(input) {
+  const date = (input instanceof Date) ? input : new Date(input);
+  const formatter = new Intl.RelativeTimeFormat('en');
+  const ranges = {
+    years: 3600 * 24 * 365,
+    months: 3600 * 24 * 30,
+    weeks: 3600 * 24 * 7,
+    days: 3600 * 24,
+    hours: 3600,
+    minutes: 60,
+    seconds: 1
+  };
+  const secondsElapsed = (date.getTime() - Date.now()) / 1000;
+  for (let key in ranges) {
+    if (ranges[key] < Math.abs(secondsElapsed)) {
+      const delta = secondsElapsed / ranges[key];
+      return formatter.format(Math.round(delta), key);
+    }
+  }
+}
+
 	onMount(async () => {
 		const res = await fetch(`/api/homePosts`);
 		const resJson = await res.json();
@@ -147,7 +168,7 @@
 								<h2 id="name">@{post.username}</h2>
 							</a>
 							<h2 id="date">
-								{date(new Date(post.created_at))}
+								{timeAgo(post.created_at)}
 							</h2>
 						</div>
 					</div>
@@ -163,21 +184,20 @@
 					</div>
 					{#if polls[post.id].clicked == false}
 						{#each post.options as option, i}
-						<div class="fullForPerc">
-							<div class="percHolder">
-								<button
-									class="percBar button {post.id}{i}"
-									style="transition: all 0.2s linear;min-width: 13px; width: 100%"
-									on:click={() => {
-										vote(post, i);
-									}}
-								>
-									<h5>{option.value}</h5>
-								</button>
+							<div class="fullForPerc">
+								<div class="percHolder">
+									<button
+										class="percBar button {post.id}{i}"
+										style="transition: all 0.2s linear;min-width: 13px; width: 100%"
+										on:click={() => {
+											vote(post, i);
+										}}
+									>
+										<h5>{option.value}</h5>
+									</button>
+								</div>
+								<h6 class="percNum" />
 							</div>
-							<h6 class="percNum">
-							</h6>
-						</div>
 						{/each}
 					{:else}
 						{#each post.options as option, i}
@@ -389,7 +409,6 @@
 		margin: 0 auto;
 		font-weight: 600;
 		color: rgb(136, 136, 136);
-		font-size: 20px;
 	}
 
 	#name {
@@ -417,7 +436,8 @@
 		word-break: break-word;
 	}
 
-	#title, #voteTitle {
+	#title,
+	#voteTitle {
 		font-size: 19px;
 		padding-right: 20px;
 	}
@@ -486,8 +506,6 @@
 		/* text-overflow: ellipsis; */
 		/* margin-left: 1vw; */
 	}
-
-
 
 	#descriptionHolder {
 		width: 80%;
