@@ -67,7 +67,7 @@
 
 <svelte:window on:scroll={b} />
 
-<div id="navbarMobile">
+<!-- <div id="navbarMobile">
 	<section class="p-menu1">
 		<nav id="navbarMobileNav" class="navigation" role="navigation">
 			<input id="toggle1" type="checkbox" />
@@ -93,12 +93,21 @@
 			{/if}
 		</nav>
 	</section>
-</div>
+</div> -->
 
-<div id="lines">
-	<div class="line" id="line1" />
-	<div class="line not" id="line2" />
-	<div class="line not" id="line3" />
+<div id="navbarMobile">
+	<div class="nav home">
+		<img src="/home.png" alt="" class="icon home">
+	</div>
+	<div class="nav search">
+		<img src="/search.png" alt="" class="icon search">
+	</div>
+	<div class="nav newpost">
+		<img src="/new.png" alt="" class="icon new">
+	</div>
+	<div class="nav user">
+		<img src="/user.png" alt="" class="icon user">
+	</div>
 </div>
 
 <style>
@@ -120,11 +129,6 @@
 		font-weight: 600;
 	}
 
-	body {
-		overflow-x: hidden;
-		height: 1000vh;
-	}
-	
 	#space {
 		height: 60px;
 		width: 100vw;
@@ -190,7 +194,33 @@
 		color: #00dbdb;
 	}
 
-	/* Hamburger */
+	#navbarMobile {
+		width: 100vw;
+		height: 70px;
+		position: fixed;
+		/* top:90vh; */
+		bottom: 0; 
+		background: #141414;
+		z-index: 400;
+		border-top: 1px solid #585858;
+		display: flex;
+	}
+
+	.nav {
+		width: 25vw;
+		height: 80%;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		/* background: blue; */
+	}
+
+	.icon {
+		width: 7.5vw;
+		/* position: */
+	}
+
+/* 
 	.hamburger1 {
 		height: 45px;
 		margin: 10px;
@@ -235,20 +265,13 @@
 	#toggle1:checked ~ .menu1 {
 		min-height: 100px;
 		overflow: hidden;
-		/* min-height: 15vh; */
-		/* height: auto; */
-		/* margin-bottom: -200px; */
 	}
 
 	#toggle1:checked ~ .menu2 {
 		min-height: 265px;
 		overflow: hidden;
-		/* min-height: 15vh; */
-		/* height: auto; */
-		/* margin-bottom: -200px; */
 	}
 
-	/* Menu */
 	.menu1,
 	.menu2 {
 		width: 100%;
@@ -280,9 +303,5 @@
 		color: white;
 		font-weight: bold;
 		text-decoration: none;
-	}
-
-	.menu1 a:last-child {
-		/* padding-bottom: 80px; */
-	}
+	} */
 </style>
