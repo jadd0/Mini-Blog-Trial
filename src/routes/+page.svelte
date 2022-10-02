@@ -141,7 +141,7 @@
 						</h1>
 						<div id="descriptionHolder">
 							<h2 id="description">
-								{post.metadata.description}
+								{post.body}
 							</h2>
 							<a href="/@{post.username}">
 								<h2 id="name">@{post.username}</h2>
@@ -397,12 +397,17 @@
 		height: auto;
 	}
 
+	#description {
+		font-size: 17px;
+	}
+
 	#description,
 	#title {
 		word-break: break-word;
 	}
 
 	#title {
+		font-size: 19px;
 		padding-right: 20px;
 	}
 
@@ -411,8 +416,9 @@
 		/* min-height: 20vh; */
 		padding-bottom: 20px;
 		background: #212121;
-		margin-top: 20px;
-		border-radius: 10px;
+		/* margin-top: 20px; */
+		/* border-radius: 5px; */
+		border-bottom: 1px solid black;
 		transition: all 0.2s linear;
 	}
 
@@ -420,9 +426,21 @@
 		background: rgb(56, 56, 56);
 	}
 
+	@media (max-width: 575px) {
+		#postContainer {
+			width: 100vw !important;
+		}
+	}
+
 	@media (max-width: 800px) {
 		#postContainer {
-			width: 75vw;
+			width: 90vw;
+		}
+	}
+
+	@media (min-width: 800px) {
+		#postContainer {
+			width: calc(500px + 20vw) !important;
 		}
 	}
 
