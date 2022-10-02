@@ -1,6 +1,12 @@
 <script>
 	import { onMount } from "svelte";
+	import { page } from '$app/stores';
 	export let username;
+
+	let homeSrc = '/homeHollow.png';
+	let searchSrc = '/searchHollow.png';
+	let newSrc = '/pencilHollow.png';
+	let userSrc = '/userHollow.png';
 
 	if (username == "") {
 		username = undefined;
@@ -30,8 +36,33 @@
 		}
 	};
 
+	function changeImage() {
+		const url = $page.url.pathname
+
+		switch(url) {
+			case '/':
+				homeSrc = '/home.png'
+				break
+			case '/search':
+				searchSrc = '/search.png'
+				break
+			case '/newpost':
+				newSrc = 'pencil.png'
+				break
+			case `/@${username}`:
+				userSrc = 'user.png'
+				break
+		}
+
+		const brokenUrl = url.split('/')
+		if (brokenUrl[1] == `@${username}`) {
+			userSrc = '/user.png'
+		}
+	}
+	changeImage();
 	onMount(() => {
 		b();
+		
 	});
 </script>
 
@@ -96,24 +127,24 @@
 
 <div id="navbarMobile">
 	<a href="/">
-		<div class="nav home">
-			<img src="/home.png" alt="" class="icon home" />
+		<div class="nav home" id="home">
+			<img src={homeSrc} alt="" class="icon home" />
 		</div>
 	</a>
 	<a href="/search">
-		<div class="nav search">
-			<img src="/search.png" alt="" class="icon search" />
+		<div class="nav search" id="search">
+			<img src={searchSrc} alt="" class="icon search" />
 		</div>
 	</a>
 	<a href="/newpost">
-		<div class="nav newpost">
-			<img src="/new.png" alt="" class="icon new" />
+		<div class="nav newpost" id="newpost">
+			<img src={newSrc} alt="" class="icon new" />
 		</div>
 	</a>
 
 	<a href="/@{username}">
-		<div class="nav user">
-			<img src="/user.png" alt="" class="icon user" />
+		<div class="nav user" id="user">
+			<img src={userSrc} alt="" class="icon user" />
 		</div>
 	</a>
 </div>
