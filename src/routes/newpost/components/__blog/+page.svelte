@@ -1,12 +1,12 @@
 <script>
-    let title;
-    let description;
-    let body;
+	import { autoresize } from 'svelte-textarea-autoresize'
+    let title = '';
+    let body = '';
 
     let loading = false
 
     const submit = async () => {
-		if (title.length == 0 || description.length == 0 || body.length == 0) return
+		if (body.length == 0) return
 		loading = true
 		const response = await fetch("/api/createPost", {
 			method: "post",
@@ -16,7 +16,6 @@
 			},
 			body: JSON.stringify({
 				title: title,
-				description: description,
 				body: body
 			}),
 		});
@@ -32,35 +31,26 @@
 	};
 </script>
 
-<div id="inputHolder">
-  <textarea
-    name="text"
-    id="userInput"
-    maxlength="50"
-    placeholder="Title (0-50 chars)"
-    bind:value={title}
-    oninput='this.style.height = "";this.style.height = this.scrollHeight + "px"'
-  />
+<div class="inputHolder">
+	<textarea
+	class="userInput"
+	maxlength="70"
+	placeholder="Title (optional)"
+	bind:value={title}
+	use:autoresize
+/>
+ <h3 id="forTitle">{title.length}/70</h3>
 </div>
-<div id="inputHolder">
+<div class="inputHolder" id="body">
   <textarea
-    name="text"
-    id="userInput"
-    maxlength="100"
-    placeholder="Description (0-100 chars)"
-    bind:value={description}
-    oninput='this.style.height = "";this.style.height = this.scrollHeight + "px"'
-  />
-</div>
-<div id="inputHolder">
-  <textarea
-    name="text"
-    id="userInput"
-    maxlength="2000"
-    placeholder="Body (0-2000 chars)"
-    bind:value={body}
-    oninput='this.style.height = "";this.style.height = this.scrollHeight + "px"'
-  />
+	class="userInput"
+	maxlength="450"
+	placeholder="Body"
+	id="bodyInput"
+	bind:value={body}
+	use:autoresize
+/>
+ <h3 id="forBody">{body.length}/450</h3>
 </div>
 
 <button on:click={submit} id="loginButton">{loading === true ? "Loading..." : "Send"}</button>
@@ -80,72 +70,89 @@
 		font-weight: 300;
 	}
   @media (max-width: 930px) {
-		#form {
+		.form {
 			width: 340px !important;
 		}
 
-		#inputHolder {
+		.inputHolder {
 			width: 90% !important;
 		}
+
+		/* textarea {
+			font-size: 3.75vw !important;
+		}
+
+		h3 {
+					
+		} */
 	}
 
-	#userInput {
-		width: 87.5%;
-		min-height: 36px;
-		margin-left: 19px;
+	#body {
+		min-height: 100px;
+	}
+
+	#bodyInput {
+		min-height: 90px;
+	}
+
+	#forBody {
+		/* bottom: -40px !important;		 */
+	}
+
+	h3 {
+		font-weight: 600;
+		color: rgb(112, 112, 112);
+		font-size: 10px;
+		height: 0px;
+		width: 50px;
+		position: relative;
+		text-align: right;
+		bottom: 20px;
+	
+		right: -81%;
+		/* margin-top: 10%; */
+		/* position: sticky; */
+		/* bottom: 0px !important; */
+		/* margin-top: 7.5%; */
+	}
+
+	.userInput {
+		width: 80%;
+		min-height: 25px;
+		margin-left: 10px;
 		margin-top: 4px;
 		background: #212121;
 		color: white;
 		text-align: left;
 	}
 
-	#inputHolder {
-		width: 75%;
-		min-height: 40px;
+	.inputHolder {
+		width: 78%;
+		min-height: 30px;
+		padding-bottom: 5px;
 		margin: 0 auto;
 		margin-top: 10px;
 		background: #212121;
-		border-radius: 20px;
+		border-radius: 5px;
 		color: white;
 		text-align: left;
+		border: 2px solid #333;
+		transition: all 0.2s linear;
+	}
+
+	.inputHolder:focus-within {
+		border: 2px solid rgb(90, 90, 90);
 	}
 
 	textarea {
 		resize: none;
 		width: 400px;
 		min-height: 100px;
+		font-size: 16px;
 		height: auto;
 		padding: 5px;
 		overflow: hidden;
 		box-sizing: border-box;
-	}
-
-	h1 {
-		font-size: 1.75em;
-		font-weight: 800;
-		padding-top: 20px;
-		padding-bottom: 20px;
-		color: white;
-	}
-
-	#form {
-		margin: 0 auto;
-		background: #1b1b1b;
-		width: 40vw;
-		min-height: 400px;
-		padding-bottom: 30px;
-		margin-bottom: 30px;	
-		border-radius: 15px;
-		margin-top: 5vh;
-	}
-
-	input {
-		margin: 0 auto;
-		line-height: 16px;
-	}
-
-	a {
-		text-decoration: none;
 	}
 
 	#loginButton {

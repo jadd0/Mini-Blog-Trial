@@ -118,6 +118,7 @@
 	}
 
 	h2 {
+		padding-bottom: 5px;
 		font-size: 30px;
 		font-weight: 500;
 		color: white;

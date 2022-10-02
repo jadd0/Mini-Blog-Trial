@@ -23,6 +23,7 @@
 		"dotenv": "^16.0.2",
 		"nodemailer": "^6.7.8",
 		"supabase": "^1.4.5",
-		"svelte-simple-modal": "^1.4.1"
+		"svelte-simple-modal": "^1.4.1",
+		"svelte-textarea-autoresize": "^1.0.0"
 	}
 }

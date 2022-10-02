@@ -1,18 +1,17 @@
 <script>
-	import { fade } from "svelte/transition";
-	import { flip } from "svelte/animate";
+	import { autoresize } from "svelte-textarea-autoresize";
 
-	let value;
-	let body;
+	let value = "";
+	let body = "";
 	let options = [
 		{
-			value: '',
+			value: "",
 			votes: [],
 		},
 		{
-			value: '',
+			value: "",
 			votes: [],
-		}
+		},
 	];
 
 	let loading = false;
@@ -20,7 +19,7 @@
 	const submit = async () => {
 		if (body == undefined || body.length < 3) return;
 
-		const res = options.find((item) => (item.value).length < 1)
+		const res = options.find((item) => item.value.length < 1);
 		if (res != undefined) return;
 
 		loading = true;
@@ -33,7 +32,7 @@
 			},
 			body: JSON.stringify({
 				body,
-				options
+				options,
 			}),
 		});
 
@@ -57,21 +56,21 @@
 	}
 
 	function removeOption(i) {
-		if(options.length < 3) return
+		if (options.length < 3) return;
 		options.splice(i, 1);
 		options = options;
 	}
 </script>
 
-<div id="inputHolder" style="margin-top: 10px">
+<div class="inputHolder">
 	<textarea
-		name="text"
-		id="userInput"
-		maxlength="500"
-		placeholder="Question (3-500 chars)"
+		class="userInput"
+		maxlength="250"
+		placeholder="Question"
 		bind:value={body}
-		oninput='this.style.height = "";this.style.height = this.scrollHeight + "px"'
+		use:autoresize
 	/>
+	<h3 id="forTitle">{body.length}/250</h3>
 </div>
 
 <div id="optionHolder">
@@ -79,21 +78,23 @@
 
 	<div id="optionsHolder">
 		{#each options as item, i}
-			<div id="inputHolder" class="smallHolder">
-				<input
-					id="userInput"
-					class="small"
-					type="text"
-					placeholder="Option {i+1} (1-25 chars)"
+			<div class="inputHolder" id="optionHolder">
+				<textarea
+					class="userInput"
+					maxlength="25"
+					placeholder="Option {i + 1}"
+					id="option"
 					bind:value={item.value}
+					use:autoresize
 				/>
+				<h3 id="optionNum">{item.value.length}/25</h3>
 			</div>
 			<span id="delete" on:click={() => removeOption(i)}>❌</span>
 		{/each}
 	</div>
 
 	{#if options.length < 7}
-		<button id="addOption" on:click={addOption}><h3>+</h3></button>
+		<button id="addOption" on:click={addOption}><h5>+</h5></button>
 	{/if}
 </div>
 
@@ -119,20 +120,22 @@
 			width: 340px !important;
 		}
 
-		#inputHolder {
+		.inputHolder {
 			width: 90% !important;
 		}
-	}
 
-	h3 {
-		color: white;
-		/* color: white; */
-		font-size: 50px;
-		height: 45px;
-		/* line-height: 10px; */
-		text-align: center;
-		/* width: 40px; */
-		transition: all 0.2s linear;
+		#optionNum {
+			right: -77% !important;
+		}
+
+		#optionHolder {
+			width: 88% !important;
+			margin-left: 9px !important;
+		}
+
+		#delete {
+			margin-left: 5px;
+		}
 	}
 
 	#addOption {
@@ -160,69 +163,86 @@
 		gap: 0px;
 	}
 
-	.smallHolder {
-		margin-top: 10px !important;
-		margin-bottom: -27px !important;
-	}
-
-	.small {
-		width: 75% !important;
-	}
-
 	#delete {
 		position: relative;
-		top: -13px;
-		right: -78%;
+		top: -9px;
+		right: -92%;
 		width: 30px;
 		height: 30px;
 		text-align: center;
 	}
 
 	#option {
-		width: 75%;
+		width: 80%;
 		min-height: 25px;
-		background: rgb(56, 56, 56);
 	}
 
-	#userInput {
-		width: 87.5%;
-		min-height: 36px;
-		margin-left: 19px;
+	#optionHolder {
+		width: 85%;
+		margin-left: 6%;
+		margin-bottom: -29px;
+	}
+
+	h3 {
+		font-weight: 600;
+		color: rgb(112, 112, 112);
+		font-size: 10px;
+		height: 0px;
+		width: 50px;
+		position: relative;
+		text-align: right;
+		bottom: 20px;
+
+		right: -81%;
+		/* margin-top: 10%; */
+		/* position: sticky; */
+		/* bottom: 0px !important; */
+		/* margin-top: 7.5%; */
+	}
+
+	.userInput {
+		width: 80%;
+		min-height: 25px;
+		margin-left: 10px;
 		margin-top: 4px;
-		font-size: 19px;
 		background: #212121;
 		color: white;
 		text-align: left;
 	}
 
-	#inputHolder {
-		width: 75%;
-		min-height: 40px;
+	.inputHolder {
+		width: 78%;
+		min-height: 30px;
 		padding-bottom: 5px;
 		margin: 0 auto;
-		/* margin-top: 10px; */
+		margin-top: 10px;
 		background: #212121;
-		border-radius: 20px;
+		border-radius: 5px;
 		color: white;
 		text-align: left;
+		border: 2px solid #333;
+		transition: all 0.2s linear;
+	}
+
+	.inputHolder:focus-within {
+		border: 2px solid rgb(90, 90, 90);
 	}
 
 	textarea {
 		resize: none;
-		width: 400px;
-		min-height: 100px;
+		font-size: 16px;
 		height: auto;
 		padding: 5px;
 		overflow: hidden;
 		box-sizing: border-box;
 	}
 
-	h1 {
-		font-size: 1.75em;
-		font-weight: 800;
-		padding-top: 20px;
-		padding-bottom: 20px;
+	h5 {
 		color: white;
+		font-size: 50px;
+		height: 45px;
+		text-align: center;
+		transition: all 0.2s linear;
 	}
 
 	h2 {
@@ -233,29 +253,9 @@
 		margin-top: 15px;
 	}
 
-	#form {
-		margin: 0 auto;
-		background: #1b1b1b;
-		width: 40vw;
-		min-height: 400px;
-		padding-bottom: 30px;
-		margin-bottom: 30px;
-		border-radius: 15px;
-		margin-top: 5vh;
-	}
-
-	input {
-		margin: 0 auto;
-		line-height: 16px;
-	}
-
-	a {
-		text-decoration: none;
-	}
-
 	#loginButton {
 		margin: 0 auto;
-		margin-top: 30px;
+		margin-top: 40px;
 		width: 75%;
 		height: 50px;
 		color: white;
@@ -267,6 +267,6 @@
 	}
 
 	#loginButton:hover {
-		background: rgb(56, 56, 56);
+		background: rgb(56, 56, 56); 	
 	}
 </style>
