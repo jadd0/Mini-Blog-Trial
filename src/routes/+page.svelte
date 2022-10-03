@@ -1,8 +1,10 @@
 <script>
 	import Nav from "./__nav/+page.svelte";
+	import Icon from "@iconify/svelte";
 	import { onMount } from "svelte";
 
 	export let data;
+	let likes = []
 	let posts = [];
 	let polls = {};
 	let loading = true;
@@ -21,8 +23,39 @@
 		});
 	}
 
-	function roundToTwo(num) {
-		return +(Math.round(num + "e+2") + "e-2");
+	async function likeDislike() {}
+
+	function like(id) {
+		const post = posts.find((post) => post.id === id);
+
+		if (posts[id] == undefined) {
+		}
+	}
+
+	function dislike() {}
+
+	function getLikesDislikes(post) {
+		if (post == undefined) return
+		post = posts.find((item) => item.id === post)
+		const likes1 = post.likes || []
+		const dislikes = post.dislikes || []
+
+		const isLiked = !(
+			likes1.find((user) => user.username === data.username) === undefined
+		);
+		const isDisliked = !(
+			dislikes.find((user) => user.username === data.username) === undefined
+		);
+
+		likes[post.id] = {
+			isLiked,
+			likeCount: likes1.length,
+			isDisliked,
+			dislikeCount: dislikes.length,
+			likeHover: false,
+			dislikeHover: false
+		};
+		likes = [...likes]
 	}
 
 	function getStats(post) {
@@ -92,15 +125,6 @@
 		polls[post.id].total = total;
 	}
 
-	function date(isoDate) {
-		const date = new Date(isoDate);
-		const newDate = `${date.getDate()}/${
-			date.getMonth() + 1
-		}/${date.getFullYear()}`;
-
-		return newDate;
-	}
-
 	function timeAgo(input) {
 		const date = input instanceof Date ? input : new Date(input);
 		const formatter = new Intl.RelativeTimeFormat("en");
@@ -154,6 +178,7 @@
 			</div>
 		{/if}
 		{#each posts as post}
+		{#if post != undefined}
 			{#if post.type == "blog"}
 				<a href="/post/{post.id}" id="hello">
 					<div id="postContainer" class="postContainer">
@@ -171,10 +196,71 @@
 								{timeAgo(post.created_at)}
 							</h2>
 						</div>
+						<div id="buttonHolder">
+							<div id="hidden" style="display: none">
+								{getLikesDislikes(post.id)}
+							</div>
+							<button on:click={like} id="likeButton">
+								<div
+									on:mouseenter={() => {
+										likes[post.id].likeHover = true;
+									}}
+									on:mouseleave={() => {
+										likes[post.id].likeHover = false;
+									}}
+								>
+									{#if likes[post.id].likeHover || likes[post.id].isLiked}
+										<Icon
+											icon="akar-icons:arrow-up"
+											color="green"
+											width="60"
+											height="60"
+										/>
+									{:else}
+										<Icon
+											icon="akar-icons:arrow-up"
+											color="white"
+											width="60"
+											height="60"
+										/>
+									{/if}
+								</div>
+							</button>
+			
+							<h5>{likes[post.id].likeCount - likes[post.id].dislikeCount}</h5>
+			
+							<button on:click={dislike} id="likeButton">
+								<div
+									on:mouseenter={() => {
+										likes[post.id].dislikeHover = true;
+									}}
+									on:mouseleave={() => {
+										likes[post.id].dislikeHover = false;
+									}}
+								>
+									{#if likes[post.id].dislikeHover || likes[post.id].isDisliked}
+										<Icon
+											icon="akar-icons:arrow-down"
+											color="red"
+											width="60"
+											height="60"
+										/>
+									{:else}
+										<Icon
+											icon="akar-icons:arrow-down"
+											color="white"
+											width="60"
+											height="60"
+										/>
+									{/if}
+								</div>
+							</button>
+						</div>
 					</div>
 				</a>
 			{/if}
 			{#if post.type == "vote"}
+			
 				<div id="postContainer" class="vote">
 					<h3 id="voteTitle">{post.body}</h3>
 					<div>
@@ -229,8 +315,70 @@
 							{timeAgo(post.created_at)}
 						</h2>
 					</div>
+					<div id="buttonHolder">
+						<div id="hidden" style="display: none">
+							{getLikesDislikes(post.id)}
+						</div>
+						<button on:click={like} id="likeButton">
+							<div
+								on:mouseenter={() => {
+									likes[post.id].likeHover = true;
+								}}
+								on:mouseleave={() => {
+									likes[post.id].likeHover = false;
+								}}
+							>
+								{#if likes[post.id].likeHover || likes[post.id].isLiked}
+									<Icon
+										icon="akar-icons:arrow-up"
+										color="green"
+										width="60"
+										height="60"
+									/>
+								{:else}
+									<Icon
+										icon="akar-icons:arrow-up"
+										color="white"
+										width="60"
+										height="60"
+									/>
+								{/if}
+							</div>
+						</button>
+		
+						<h5>{likes[post.id].likeCount - likes[post.id].dislikeCount}</h5>
+		
+						<button on:click={dislike} id="likeButton">
+							<div
+								on:mouseenter={() => {
+									likes[post.id].dislikeHover = true;
+								}}
+								on:mouseleave={() => {
+									likes[post.id].dislikeHover = false;
+								}}
+							>
+								{#if likes[post.id].dislikeHover || likes[post.id].isDisliked}
+									<Icon
+										icon="akar-icons:arrow-down"
+										color="red"
+										width="60"
+										height="60"
+									/>
+								{:else}
+									<Icon
+										icon="akar-icons:arrow-down"
+										color="white"
+										width="60"
+										height="60"
+									/>
+								{/if}
+							</div>
+						</button>
+					</div>
 				</div>
 			{/if}
+			{/if}
+			
 		{/each}
 	</div>
 </body>
@@ -263,6 +411,26 @@
 		font-family: New-Inter;
 		letter-spacing: -1px !important;
 	}
+
+	#buttonHolder {
+		margin-top: 20px;
+		margin-left: -11vw;
+		width: 160px;
+		height: 60px !important;
+		line-height: 70px;
+		display: flex;
+		flex-direction: row;
+	}
+
+	#likeButton {
+		width: 60px;
+		height: 60px;
+		border-radius: 100px;
+		background: none;
+		cursor: pointer;
+	}
+
+
 
 	#credentials {
 		margin-left: 5vw;
