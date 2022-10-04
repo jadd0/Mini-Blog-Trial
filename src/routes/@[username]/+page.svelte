@@ -785,10 +785,6 @@
 		margin-left: 0px !important;
 	}
 
-	#name {
-		font-size: 20px;
-	}
-
 	h1 {
 		font-size: 30px;
 		font-weight: 600;
