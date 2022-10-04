@@ -274,7 +274,7 @@
 		margin: 0 auto;
 		height: 500px;
 		display: grid;
-		grid-template-rows: 5vh 70px 70px 70px 70px 70px 70px 70px 70px 70px;
+		grid-template-rows: 6vh 70px 70px 70px 70px 70px 70px 70px 70px 70px;
 		grid-template-columns: 14.4% 14.4% 14.4% 14.4% 14.4% 14.4% 14.4%;
 		/* row-gap: -10px; */
 		padding: 35px;
@@ -324,12 +324,13 @@
 	#container {
 		background: #1b1b1b;
 		width: 600px;
-		height: auto;
+		/* height: 75vh; */
 		/* display: inline-block; */
 		overflow: hidden;
 		border-radius: 20px;
 		z-index: 0;
 		margin-top: 3vh;
+		padding-bottom: 2000px;
 		padding: 0;
 	}
 </style>

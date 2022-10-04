@@ -151,7 +151,7 @@
 		polls[post.id].total = total;
 
 		for (let i in post.options) {
-			polls[post.id][i].percentage = Math.floor(
+			polls[post.id][i].percentage = Math.round(
 				(polls[post.id][i].total / total) * 100
 			);
 		}
@@ -178,7 +178,7 @@
 
 		for (let i in post.options) {
 			for (let i in post.options) {
-				polls[post.id][i].percentage = Math.floor(
+				polls[post.id][i].percentage = Math.round(
 					(polls[post.id][i].total / total) * 100
 				);
 			}
