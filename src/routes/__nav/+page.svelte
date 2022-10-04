@@ -166,8 +166,8 @@
 
 <style>
 	@font-face {
-		font-family: "New-Inter";
-		src: url("/fonts/Inter.ttf");
+		font-family: "Jakarta";
+		src: url("/fonts/Jakarta.ttf");
 	}
 
 	* {
@@ -179,7 +179,8 @@
 		border: 0;
 		outline: 0;
 		box-sizing: border-box;
-		font-family: "New-Inter";
+		font-family: "Jakarta";
+		letter-spacing: -0.5px !important;
 		font-weight: 600;
 	}
 

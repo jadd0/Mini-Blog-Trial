@@ -447,8 +447,8 @@
 
 <style>
 	@font-face {
-		font-family: "Inter";
-		src: url("/fonts/Inter.ttf");
+		font-family: "Jakarta";
+		src: url("/fonts/Jakarta.ttf");
 	}
 
 	body {
@@ -470,8 +470,8 @@
 		border: 0;
 		outline: 0;
 		box-sizing: border-box;
-		font-family: New-Inter;
-		letter-spacing: -1px !important;
+		font-family: Jakarta;
+		letter-spacing: -0.5px !important;
 	}
 
 	#likeCount {

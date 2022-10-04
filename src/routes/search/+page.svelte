@@ -63,8 +63,8 @@
 
 <style>
 	@font-face {
-		font-family: "New-Inter";
-		src: url("/fonts/Inter.ttf");
+		font-family: "Jakarta";
+		src: url("/fonts/Jakarta.ttf");
 	}
 
 	body {
@@ -88,7 +88,7 @@
 		outline: 0;
 		box-sizing: border-box;
 		font-family: New-Inter;
-		letter-spacing: -1px !important;
+		letter-spacing: -0.5px !important;
 	}
 
 	h1 {

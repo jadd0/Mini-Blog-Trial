@@ -21,8 +21,8 @@
 
 <style>
 	@font-face {
-		font-family: "New-Inter";
-		src: url("/fonts/Inter.ttf");
+		font-family: "Jakarta";
+		src: url("/fonts/Jakarta.ttf");
 	}
 
 	body {
