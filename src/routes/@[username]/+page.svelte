@@ -1,4 +1,5 @@
 <script>
+	import Icon from "@iconify/svelte";
 	import Nav from "../__nav/+page.svelte";
 	import { onMount } from "svelte";
 	import { page } from "$app/stores";
@@ -6,6 +7,8 @@
 	let posts = [];
 	let polls = {};
 	let loading = true;
+	let likes = []
+
 
 	async function submit(id, option) {
 		const response = await fetch("/api/voteOption", {
@@ -21,8 +24,101 @@
 		});
 	}
 
-	function roundToTwo(num) {
-		return +(Math.round(num + "e+2") + "e-2");
+	async function like(id) {
+		if (likes[id].isLiked) {
+			likes[id].isLiked = false;
+			likes[id].likeCount--;
+
+			const res = await fetch("/api/removeLike", {
+				method: "post",
+				headers: {
+					Accept: "application/json",
+					"Content-Type": "application/json",
+				},
+				body: JSON.stringify({
+					id: id,
+				}),
+			});
+			return
+		}
+		if (likes[id].isDisliked) {
+			likes[id].isDisliked = false;
+			likes[id].dislikeCount--;
+		}
+		likes[id].isLiked = true;
+		likes[id].likeCount++;
+
+		const res = await fetch("/api/likePost", {
+			method: "post",
+			headers: {
+				Accept: "application/json",
+				"Content-Type": "application/json",
+			},
+			body: JSON.stringify({
+				id,
+			}),
+		});
+	}
+
+	async function dislike(id) {
+		console.log(id)
+		if (likes[id].isDisliked) {
+			likes[id].isDisliked = false;
+			likes[id].dislikeCount--;
+
+			const res = await fetch("/api/removeDislike", {
+				method: "post",
+				headers: {
+					Accept: "application/json",
+					"Content-Type": "application/json",
+				},
+				body: JSON.stringify({
+					id,
+				}),
+			});
+			return
+		}
+		if (likes[id].isLiked) {
+			likes[id].isLiked = false;
+			likes[id].likeCount--;
+		}
+		likes[id].isDisliked = true;
+		likes[id].dislikeCount++;
+
+		const res = await fetch("/api/dislikePost", {
+			method: "post",
+			headers: {
+				Accept: "application/json",
+				"Content-Type": "application/json",
+			},
+			body: JSON.stringify({
+				id,
+			}),
+		});
+	}
+
+	function getLikesDislikes(post) {
+		if (post == undefined) return
+		post = posts.find((item) => item.id === post)
+		const likes1 = post.likes || []
+		const dislikes = post.dislikes || []
+
+		const isLiked = !(
+			likes1.find((user) => user.username === data.username) === undefined
+		);
+		const isDisliked = !(
+			dislikes.find((user) => user.username === data.username) === undefined
+		);
+
+		likes[post.id] = {
+			isLiked,
+			likeCount: likes1.length,
+			isDisliked,
+			dislikeCount: dislikes.length,
+			likeHover: false,
+			dislikeHover: false
+		};
+		likes = [...likes]
 	}
 
 	function getStats(post) {
@@ -92,19 +188,29 @@
 		polls[post.id].total = total;
 	}
 
-	function date(isoDate) {
-		const date = new Date(isoDate);
-		const newDate = `${date.getDate()}/${
-			date.getMonth() + 1
-		}/${date.getFullYear()}`;
-
-		return newDate;
+	function timeAgo(input) {
+		const date = input instanceof Date ? input : new Date(input);
+		const formatter = new Intl.RelativeTimeFormat("en");
+		const ranges = {
+			years: 3600 * 24 * 365,
+			months: 3600 * 24 * 30,
+			weeks: 3600 * 24 * 7,
+			days: 3600 * 24,
+			hours: 3600,
+			minutes: 60,
+			seconds: 1,
+		};
+		const secondsElapsed = (date.getTime() - Date.now()) / 1000;
+		for (let key in ranges) {
+			if (ranges[key] < Math.abs(secondsElapsed)) {
+				const delta = secondsElapsed / ranges[key];
+				return formatter.format(Math.round(delta), key);
+			}
+		}
 	}
 
 	onMount(async () => {
-		const res = await fetch(
-			`/api/getUserPosts?user=${$page.params.username}`
-		);
+		const res = await fetch(`/api/homePosts`);
 		const resJson = await res.json();
 		posts = resJson.data;
 		loading = false;
@@ -184,6 +290,7 @@
 		{/if}
 
 		{#each posts as post}
+		{#if post != undefined}
 			{#if post.type == "blog"}
 				<a href="/post/{post.id}" id="hello">
 					<div id="postContainer" class="postContainer">
@@ -192,22 +299,82 @@
 						</h1>
 						<div id="descriptionHolder">
 							<h2 id="description">
-								{post.metadata.description}
+								{post.body}
 							</h2>
 							<a href="/@{post.username}">
 								<h2 id="name">@{post.username}</h2>
 							</a>
 							<h2 id="date">
-								{date(new Date(post.created_at))}
+								{timeAgo(post.created_at)}
 							</h2>
+						</div>
+						<div id="buttonHolder">
+							<div id="hidden" style="display: none">
+								{getLikesDislikes(post.id)}
+							</div>
+							<button on:click={() => like(post.id)} id="likeButton">
+								<div
+									on:mouseenter={() => {
+										likes[post.id].likeHover = true;
+									}}
+									on:mouseleave={() => {
+										likes[post.id].likeHover = false;
+									}}
+								>
+									{#if likes[post.id].likeHover || likes[post.id].isLiked}
+										<Icon
+											icon="akar-icons:arrow-up"
+											color="green"
+											width="40"
+											height="40"
+										/>
+									{:else}
+										<Icon
+											icon="akar-icons:arrow-up"
+											color="white"
+											width="40"
+											height="40"
+										/>
+									{/if}
+								</div>
+							</button>
+			
+							<h5 id="likeCount">{likes[post.id].likeCount - likes[post.id].dislikeCount}</h5>
+			
+							<button on:click={() => dislike(post.id)} id="likeButton">
+								<div
+									on:mouseenter={() => {
+										likes[post.id].dislikeHover = true;
+									}}
+									on:mouseleave={() => {
+										likes[post.id].dislikeHover = false;
+									}}
+								>
+									{#if likes[post.id].dislikeHover || likes[post.id].isDisliked}
+										<Icon
+											icon="akar-icons:arrow-down"
+											color="red"
+											width="40"
+											height="40"
+										/>
+									{:else}
+										<Icon
+											icon="akar-icons:arrow-down"
+											color="white"
+											width="40"
+											height="40"
+										/>
+									{/if}
+								</div>
+							</button>
 						</div>
 					</div>
 				</a>
 			{/if}
-
 			{#if post.type == "vote"}
+			
 				<div id="postContainer" class="vote">
-					<h3>{post.body}</h3>
+					<h3 id="voteTitle">{post.body}</h3>
 					<div>
 						<div id="hidden" style="display: none">
 							{getStats(post)}
@@ -215,28 +382,35 @@
 					</div>
 					{#if polls[post.id].clicked == false}
 						{#each post.options as option, i}
-							<button
-								on:click={() => {
-									vote(post, i);
-								}}
-								class="voteButton POST{post.id}"
-								>{option.value}</button
-							>
+							<div class="fullForPerc">
+								<div class="percHolder">
+									<button
+										class="percBar button {post.id}{i}"
+										style="transition: all 0.2s linear;min-width: 13px; width: 100%"
+										on:click={() => {
+											vote(post, i);
+										}}
+									>
+										<h5>{option.value}</h5>
+									</button>
+								</div>
+								<h6 class="percNum" />
+							</div>
 						{/each}
 					{:else}
 						{#each post.options as option, i}
 							<div class="fullForPerc">
 								<div class="percHolder">
-									<div
+									<button
 										class="percBar"
 										class:selected={polls[post.id][i]
 											.clicked == true}
-										style="min-width: 13px; width: {polls[
+										style="transition: all 0.2s linear; min-width: 13px; width: {polls[
 											post.id
 										][i].percentage}%"
 									>
 										<h5>{option.value}</h5>
-									</div>
+									</button>
 								</div>
 								<h6 class="percNum">
 									{polls[post.id][i].percentage}%
@@ -245,8 +419,78 @@
 						{/each}
 						<h6 id="total">{polls[post.id].total} votes</h6>
 					{/if}
+					<div id="credentials">
+						<a href="/@{post.username}">
+							<h2 id="name">@{post.username}</h2>
+						</a>
+						<h2 id="date">
+							{timeAgo(post.created_at)}
+						</h2>
+					</div>
+					<div id="buttonHolder">
+						<div id="hidden" style="display: none">
+							{getLikesDislikes(post.id)}
+						</div>
+						<button on:click={() => like(post.id)} id="likeButton">
+							<div
+								on:mouseenter={() => {
+									likes[post.id].likeHover = true;
+								}}
+								on:mouseleave={() => {
+									likes[post.id].likeHover = false;
+								}}
+							>
+								{#if likes[post.id].likeHover || likes[post.id].isLiked}
+									<Icon
+										icon="akar-icons:arrow-up"
+										color="green"
+										width="40"
+										height="40"
+									/>
+								{:else}
+									<Icon
+										icon="akar-icons:arrow-up"
+										color="white"
+										width="40"
+										height="40"
+									/>
+								{/if}
+							</div>
+						</button>
+		
+						<h5 id="likeCount">{likes[post.id].likeCount - likes[post.id].dislikeCount}</h5>
+		
+						<button on:click={() => dislike(post.id)} id="likeButton">
+							<div
+								on:mouseenter={() => {
+									likes[post.id].dislikeHover = true;
+								}}
+								on:mouseleave={() => {
+									likes[post.id].dislikeHover = false;
+								}}
+							>
+								{#if likes[post.id].dislikeHover || likes[post.id].isDisliked}
+									<Icon
+										icon="akar-icons:arrow-down"
+										color="red"
+										width="40"
+										height="40"
+									/>
+								{:else}
+									<Icon
+										icon="akar-icons:arrow-down"
+										color="white"
+										width="40"
+										height="40"
+									/>
+								{/if}
+							</div>
+						</button>
+					</div>
 				</div>
 			{/if}
+			{/if}
+			
 		{/each}
 	</div>
 </body>
@@ -262,10 +506,9 @@
 		margin: 0;
 		padding: 0;
 		border: 0;
-		/* height: 100vh; */
 		width: 100vw;
 		background-color: #141414;
-		/* overflow-x: hidden */
+		overflow-x: hidden;
 	}
 
 	* {
@@ -281,6 +524,44 @@
 		letter-spacing: -1px !important;
 	}
 
+	#likeCount {
+		margin: 0 auto;
+		text-align: center;
+		font-size: 20px;
+		color: white;
+		font-weight: 500;
+		/* text-align: left;
+		word-break: break-all; */
+	}
+
+	#buttonHolder {
+		/* margin-top: -10%; */
+		margin-left: 4.5vw;
+		width: 110px;
+		height: 40px !important;
+		line-height: 60px;
+		display: flex;
+		flex-direction: row;
+		/* position: relative;
+		top: -20%;
+		z-index: 0; */
+	}
+
+	#likeButton {
+		width: 60px;
+		height: 60px;
+		border-radius: 100px;
+		background: none;
+		cursor: pointer;
+	}
+
+
+
+	#credentials {
+		margin-left: 5vw;
+		margin-top: 2vh;
+	}
+
 	#total {
 		font-weight: 600;
 		font-size: 20px;
@@ -292,26 +573,23 @@
 
 	.selected {
 		background-color: #00b1b1 !important;
+		border: none !important;
 	}
 
 	.fullForPerc {
+		height: 38px !important;
 		width: 95%;
 		display: flex;
 	}
 
 	h5 {
+		font-size: 17px;
 		color: white;
 		margin-left: 20px;
 		text-align: left;
-		/* overflow: visible; */
-		/* position: absolute; */
-		/* top: 10px; */
-		/* left: 32%; */
-		width: 60vw;
+		overflow: visible;
 		font-weight: 500;
-		/* margin-top: 2px; */
-		/* position: relative; */
-		/* top: 1.3vw; */
+		width: 100vw;
 	}
 
 	h6 {
@@ -322,7 +600,7 @@
 		width: 100px;
 		text-align: right !important;
 		color: white;
-		font-size: 20px;
+		font-size: 17px;
 	}
 
 	.percHolder {
@@ -336,41 +614,44 @@
 	}
 
 	.percBar {
-		height: 35px;
+		height: 32px;
 		background: #2a2a2a;
-		border-radius: 10px;
+		border-radius: 15px;
 		color: white;
 		text-align: center;
-		/* cursor: pointer; */
 		transition: all 0.2s linear;
 		border: 2px solid rgb(55, 55, 55);
 		margin-left: 5vw;
 		line-height: 30px;
+		transition: all 0.25s linear !important;
 	}
 
 	.vote:hover {
 		background: #212121 !important;
 	}
 
-	.voteButton {
-		width: 80%;
+	.button {
+		cursor: pointer;
+		/* width: 74%;
 		min-height: 35px;
 		background: #2a2a2a;
-		border-radius: 10px;
+		border-radius: 15px;
 		color: white;
 		text-align: center;
 		margin-top: 5px;
 		cursor: pointer;
 		transition: all 0.2s linear;
 		border: 2px solid rgb(55, 55, 55);
+		float: left;
+		margin-left: 5vw; */
 	}
 
-	.voteButton:hover {
+	.button:hover {
 		background: #3a3a3a;
 	}
 
 	h3 {
-		font-size: 2rem;
+		font-size: 20px;
 		font-weight: 400;
 		color: white;
 		text-align: left;
@@ -415,81 +696,45 @@
 		}
 	}
 
-	#followerContainer {
-		display: flex;
-		flex-direction: row;
-		gap: 10px;
-		margin-top: 20px;
+	#homeTitle {
+		font-size: 30px;
+		margin-bottom: 30px;
 	}
 
-	#button {
-		width: 200px;
-		height: 45px;
-		line-height: 45px;
-		font-weight: 600;
-		color: white;
-		background: #212121;
-		border-radius: 40px;
-		transition: all 0.2s linear;
-	}
-
-	#button:hover {
-		background: rgb(56, 56, 56);
-	}
-
-	@media (max-width: 500px) {
-		#button {
-			width: 30vw;
-			font-size: 20px;
-			font-size: 4vw;
-		}
-
-		#followButton {
-			width: 60vw !important;
-			font-size: 5vw;
-		}
-	}
-
-	#bland {
+	#empty {
 		font-size: 3rem;
-		font-weight: 600;
+		font-weight: 700;
 		color: white;
 		text-align: left;
 		margin-left: 5vw;
 		font-size: 30px !important;
-		margin-top: 15vh;
-	}
-
-	#title {
-		padding-right: 20px;
-	}
-
-	#username {
-		margin: 0 auto;
-		font-weight: 600;
-	}
-
-	#name {
-		margin: 0 auto;
-		font-weight: 600;
-		color: rgb(136, 136, 136);
+		margin-top: 20vh;
 	}
 
 	#date {
 		margin: 0 auto;
 		font-weight: 600;
 		color: rgb(136, 136, 136);
-		font-size: 20px;
+	}
+
+	#name {
+		color: rgb(159, 159, 159);
+		overflow: hidden;
+		margin-top: 5px;
+		font-weight: 600;
 	}
 
 	#whole {
-		width: 100vw;
-		height: auto;
 		display: flex;
 		justify-content: center;
 		align-items: center;
 		flex-direction: column;
-		padding-bottom: 20px;
+		padding-bottom: 60px;
+		height: auto;
+	}
+
+	#description {
+		font-size: 17px;
 	}
 
 	#description,
@@ -497,48 +742,56 @@
 		word-break: break-word;
 	}
 
+	#title,
+	#voteTitle {
+		font-size: 19px;
+		padding-right: 20px;
+	}
+
 	#postContainer {
 		width: 50vw;
 		/* min-height: 20vh; */
 		padding-bottom: 20px;
 		background: #212121;
-		margin-top: 20px;
-		border-radius: 10px;
+		/* margin-top: 20px; */
+		/* border-radius: 5px; */
+		border-bottom: 1px solid black;
 		transition: all 0.2s linear;
-		/* margin: auto; */
 	}
 
 	#postContainer:hover {
 		background: rgb(56, 56, 56);
 	}
 
-	@media (max-width: 800px) {
+	@media (max-width: 575px) {
 		#postContainer {
-			width: 75vw;
+			width: 100vw !important;
 		}
 	}
 
-	@media (max-width: 520px) {
-		h1 {
-			font-size: 6vw !important;
+	@media (max-width: 800px) {
+		#postContainer {
+			width: 90vw;
 		}
+	}
 
-		h2 {
-			font-size: 4.5vw !important;
+	@media (min-width: 800px) {
+		#postContainer {
+			width: calc(500px + 20vw) !important;
 		}
+	}
 
-		h3 {
-			font-size: 5.5vw !important;
-		}
+	#username {
+		margin-left: 0px !important;
+	}
 
-		h5 {
-			font-size: 5vw !important;
-		}
+	#name {
+		font-size: 20px;
 	}
 
 	h1 {
 		font-size: 30px;
-		font-weight: 700;
+		font-weight: 600;
 		color: white;
 		padding-top: 10px;
 		text-align: left;
@@ -546,10 +799,11 @@
 	}
 
 	h2 {
-		font-size: 1.5rem;
+		font-size: 17px;
 		font-weight: 500;
 		color: white;
 		text-align: left;
+		/* text-overflow: ellipsis; */
 		/* margin-left: 1vw; */
 	}
 
@@ -569,13 +823,48 @@
 		color: white;
 		font-weight: 600;
 		background-color: #212121;
-		border-radius: 20px;
+		border-radius: 10px;
 		cursor: pointer;
 		transition: all 0.2s linear;
+		font-size: 18px;
 	}
 
 	#followButton:hover {
 		background: rgb(56, 56, 56);
+	}
+
+	#followerContainer {
+		display: flex;
+		flex-direction: row;
+		gap: 10px;
+		margin-top: 10px;
+	}
+
+	#button {
+		width: 150px;
+		height: 45px;
+		font-size: 18px;
+		line-height: 45px;
+		font-weight: 600;
+		color: white;
+		background: #212121;
+		border-radius: 10px;
+		transition: all 0.2s linear;
+		margin-bottom: 20px;
+	}
+
+	#button:hover {
+		background: rgb(56, 56, 56);
+	}
+
+	@media (max-width: 500px) {
+		#button {
+			width: 30vw;
+		}
+
+		#followButton {
+			width: 60vw !important;
+		}
 	}
 
 	a {
