@@ -88,7 +88,7 @@
 		outline: 0;
 		box-sizing: border-box;
 		font-family: New-Inter;
-		letter-spacing: -0.5px !important;
+		letter-spacing: -0px !important;
 	}
 
 	h1 {

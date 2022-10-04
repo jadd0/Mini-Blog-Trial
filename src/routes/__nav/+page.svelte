@@ -180,7 +180,7 @@
 		outline: 0;
 		box-sizing: border-box;
 		font-family: "Jakarta";
-		letter-spacing: -0.5px !important;
+		letter-spacing: -0px !important;
 		font-weight: 600;
 	}
 
