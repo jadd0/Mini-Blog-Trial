@@ -48,8 +48,8 @@
 		border: 0;
 		outline: 0;
 		box-sizing: border-box;
-		/* font-family: New-Inter; */
-		font-family: New-Inter;
+		/* font-family: Jakarta; */
+		font-family: Jakarta;
     font-weight: 300;
 		/* font-weight: 500;
 

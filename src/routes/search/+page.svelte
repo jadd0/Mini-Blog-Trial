@@ -87,7 +87,7 @@
 		border: 0;
 		outline: 0;
 		box-sizing: border-box;
-		font-family: New-Inter;
+		font-family: Jakarta;
 		letter-spacing: -0px !important;
 	}
 
