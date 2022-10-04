@@ -23,16 +23,78 @@
 		});
 	}
 
-	async function likeDislike() {}
+	async function like(id) {
+		if (likes[id].isLiked) {
+			likes[id].isLiked = false;
+			likes[id].likeCount--;
 
-	function like(id) {
-		const post = posts.find((post) => post.id === id);
-
-		if (posts[id] == undefined) {
+			const res = await fetch("/api/removeLike", {
+				method: "post",
+				headers: {
+					Accept: "application/json",
+					"Content-Type": "application/json",
+				},
+				body: JSON.stringify({
+					id: id,
+				}),
+			});
+			return
 		}
+		if (likes[id].isDisliked) {
+			likes[id].isDisliked = false;
+			likes[id].dislikeCount--;
+		}
+		likes[id].isLiked = true;
+		likes[id].likeCount++;
+
+		const res = await fetch("/api/likePost", {
+			method: "post",
+			headers: {
+				Accept: "application/json",
+				"Content-Type": "application/json",
+			},
+			body: JSON.stringify({
+				id,
+			}),
+		});
 	}
 
-	function dislike() {}
+	async function dislike(id) {
+		console.log(id)
+		if (likes[id].isDisliked) {
+			likes[id].isDisliked = false;
+			likes[id].dislikeCount--;
+
+			const res = await fetch("/api/removeDislike", {
+				method: "post",
+				headers: {
+					Accept: "application/json",
+					"Content-Type": "application/json",
+				},
+				body: JSON.stringify({
+					id,
+				}),
+			});
+			return
+		}
+		if (likes[id].isLiked) {
+			likes[id].isLiked = false;
+			likes[id].likeCount--;
+		}
+		likes[id].isDisliked = true;
+		likes[id].dislikeCount++;
+
+		const res = await fetch("/api/dislikePost", {
+			method: "post",
+			headers: {
+				Accept: "application/json",
+				"Content-Type": "application/json",
+			},
+			body: JSON.stringify({
+				id,
+			}),
+		});
+	}
 
 	function getLikesDislikes(post) {
 		if (post == undefined) return
@@ -200,7 +262,7 @@
 							<div id="hidden" style="display: none">
 								{getLikesDislikes(post.id)}
 							</div>
-							<button on:click={like} id="likeButton">
+							<button on:click={() => like(post.id)} id="likeButton">
 								<div
 									on:mouseenter={() => {
 										likes[post.id].likeHover = true;
@@ -229,7 +291,7 @@
 			
 							<h5 id="likeCount">{likes[post.id].likeCount - likes[post.id].dislikeCount}</h5>
 			
-							<button on:click={dislike} id="likeButton">
+							<button on:click={() => dislike(post.id)} id="likeButton">
 								<div
 									on:mouseenter={() => {
 										likes[post.id].dislikeHover = true;
@@ -319,7 +381,7 @@
 						<div id="hidden" style="display: none">
 							{getLikesDislikes(post.id)}
 						</div>
-						<button on:click={like} id="likeButton">
+						<button on:click={() => like(post.id)} id="likeButton">
 							<div
 								on:mouseenter={() => {
 									likes[post.id].likeHover = true;
@@ -348,7 +410,7 @@
 		
 						<h5 id="likeCount">{likes[post.id].likeCount - likes[post.id].dislikeCount}</h5>
 		
-						<button on:click={dislike} id="likeButton">
+						<button on:click={() => dislike(post.id)} id="likeButton">
 							<div
 								on:mouseenter={() => {
 									likes[post.id].dislikeHover = true;
@@ -423,10 +485,10 @@
 	}
 
 	#buttonHolder {
-		margin-top: -10%;
-		margin-left: 30%;
+		/* margin-top: -10%; */
+		margin-left: 4.5vw;
 		width: 110px;
-		height: 60px !important;
+		height: 40px !important;
 		line-height: 60px;
 		display: flex;
 		flex-direction: row;
