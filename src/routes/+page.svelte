@@ -679,7 +679,7 @@
 		justify-content: center;
 		align-items: center;
 		flex-direction: column;
-		padding-bottom: 60px;
+		padding-bottom: 80px;
 		height: auto;
 	}
 

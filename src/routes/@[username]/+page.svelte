@@ -729,7 +729,7 @@
 		justify-content: center;
 		align-items: center;
 		flex-direction: column;
-		padding-bottom: 60px;
+		padding-bottom: 80px;
 		height: auto;
 	}
 
@@ -783,10 +783,6 @@
 
 	#username {
 		margin-left: 0px !important;
-	}
-
-	#name {
-		font-size: 20px;
 	}
 
 	h1 {

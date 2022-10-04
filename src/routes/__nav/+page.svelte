@@ -278,6 +278,7 @@
 		z-index: 400;
 		border-top: 1px solid #585858;
 		display: flex;
+		/* padding-top: 30px; */
 	}
 
 	.nav1 {
