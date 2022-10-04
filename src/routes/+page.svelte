@@ -447,7 +447,7 @@
 
 <style>
 	@font-face {
-		font-family: "New-Inter";
+		font-family: "Inter";
 		src: url("/fonts/Inter.ttf");
 	}
 
