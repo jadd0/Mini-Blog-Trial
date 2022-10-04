@@ -213,21 +213,21 @@
 										<Icon
 											icon="akar-icons:arrow-up"
 											color="green"
-											width="60"
-											height="60"
+											width="40"
+											height="40"
 										/>
 									{:else}
 										<Icon
 											icon="akar-icons:arrow-up"
 											color="white"
-											width="60"
-											height="60"
+											width="40"
+											height="40"
 										/>
 									{/if}
 								</div>
 							</button>
 			
-							<h5>{likes[post.id].likeCount - likes[post.id].dislikeCount}</h5>
+							<h5 id="likeCount">{likes[post.id].likeCount - likes[post.id].dislikeCount}</h5>
 			
 							<button on:click={dislike} id="likeButton">
 								<div
@@ -242,15 +242,15 @@
 										<Icon
 											icon="akar-icons:arrow-down"
 											color="red"
-											width="60"
-											height="60"
+											width="40"
+											height="40"
 										/>
 									{:else}
 										<Icon
 											icon="akar-icons:arrow-down"
 											color="white"
-											width="60"
-											height="60"
+											width="40"
+											height="40"
 										/>
 									{/if}
 								</div>
@@ -332,21 +332,21 @@
 									<Icon
 										icon="akar-icons:arrow-up"
 										color="green"
-										width="60"
-										height="60"
+										width="40"
+										height="40"
 									/>
 								{:else}
 									<Icon
 										icon="akar-icons:arrow-up"
 										color="white"
-										width="60"
-										height="60"
+										width="40"
+										height="40"
 									/>
 								{/if}
 							</div>
 						</button>
 		
-						<h5>{likes[post.id].likeCount - likes[post.id].dislikeCount}</h5>
+						<h5 id="likeCount">{likes[post.id].likeCount - likes[post.id].dislikeCount}</h5>
 		
 						<button on:click={dislike} id="likeButton">
 							<div
@@ -361,15 +361,15 @@
 									<Icon
 										icon="akar-icons:arrow-down"
 										color="red"
-										width="60"
-										height="60"
+										width="40"
+										height="40"
 									/>
 								{:else}
 									<Icon
 										icon="akar-icons:arrow-down"
 										color="white"
-										width="60"
-										height="60"
+										width="40"
+										height="40"
 									/>
 								{/if}
 							</div>
@@ -412,14 +412,27 @@
 		letter-spacing: -1px !important;
 	}
 
+	#likeCount {
+		margin: 0 auto;
+		text-align: center;
+		font-size: 20px;
+		color: white;
+		font-weight: 500;
+		/* text-align: left;
+		word-break: break-all; */
+	}
+
 	#buttonHolder {
-		margin-top: 20px;
-		margin-left: -11vw;
-		width: 160px;
+		margin-top: -10%;
+		margin-left: 30%;
+		width: 110px;
 		height: 60px !important;
-		line-height: 70px;
+		line-height: 60px;
 		display: flex;
 		flex-direction: row;
+		/* position: relative;
+		top: -20%;
+		z-index: 0; */
 	}
 
 	#likeButton {
