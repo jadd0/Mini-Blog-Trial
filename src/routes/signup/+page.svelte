@@ -216,7 +216,7 @@
 	h2 {
 		font-size: 25px;
 		margin-bottom: 10px;
-		font-weight: 700;
+		font-weight: 600;
 		padding: 10px;
 		margin-bottom: -5px;
 	}
@@ -246,7 +246,7 @@
 
 	h1 {
 		font-size: 1.75em;
-		font-weight: 800;
+		font-weight: 600;
 		padding-top: 20px;
 		padding-bottom: 20px;
 		color: white;

@@ -290,7 +290,7 @@
 	}
 
 	.icon {
-		width: 7.5vw;
+		width: 5.75vw;
 		max-width: 30px;
 		/* position: */
 	}
