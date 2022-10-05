@@ -37,7 +37,7 @@
 
 	function passwordChecker(password) {
 		const regex =
-			/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[#@$!%*?&])[A-Za-z\d#@$!%*?&]{6,}$/;
+		/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[~ `!@#$%^&*()_\-+={[\]}\|\\:;"'<,>.?\/])[A-Za-z\d#~ `!@#$%^&*()_\-+={[\]}\|\\:;"'<,>.?\/]{6,}$/;
 
 		if (regex.test(password)) {
 			wrong=false
@@ -56,7 +56,9 @@
 			usernameBool ||
 			email.length == 0 ||
 			name.length == 0 ||
-			name.length > 10
+			name.length > 20 ||
+			username.length == 0 ||
+			username.length > 10
 		) {
 			return;
 		}
@@ -124,7 +126,6 @@
 			<li>1-17 characters</li>
 			<li>Alpha-numeric</li>
 			<li>Can contain DOT and UNDERSCORE</li>
-			<li>No capitals</li>
 		</div>
 		{#if usernameBool}
 			<h2 id="incorrect">
@@ -135,7 +136,7 @@
 			<input
 				type="text"
 				id="userInput"
-				placeholder="name (max length 10)"
+				placeholder="name (max length 20)"
 				bind:value={name}
 			/>
 		</div>
@@ -151,9 +152,9 @@
 		<div id="passwordInfo">
 			<h2>Password must contain:</h2>
 			<li>One upper and lower case character</li>
-			<li>One of these special character (#, @, $, !, %, *, ?, &)</li>
+			<li>One special character</li>
 			<li>One number</li>
-			<li>Be between 6-50 characters</li>
+			<li>Be at least 6 characters</li>
 		</div>
 		{#if wrong == true}
 			<h2 id="incorrect">
