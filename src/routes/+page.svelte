@@ -560,6 +560,7 @@
 		overflow: visible;
 		font-weight: 500;
 		width: 100vw;
+		z-index: 200;
 	}
 
 	h6 {
@@ -594,6 +595,8 @@
 		margin-left: 5vw;
 		line-height: 30px;
 		transition: all 0.25s linear !important;
+		z-index: 50;
+		overflow: visible;
 	}
 
 	.vote:hover {

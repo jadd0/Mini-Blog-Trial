@@ -115,6 +115,7 @@
 			<input
 				type="text"
 				id="userInput"
+				maxlength="17"
 				placeholder="username"
 				bind:value={username}
 				on:input={usernameChecker}
@@ -136,6 +137,7 @@
 			<input
 				type="text"
 				id="userInput"
+				maxlength="20"
 				placeholder="name (max length 20)"
 				bind:value={name}
 			/>
