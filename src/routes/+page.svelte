@@ -4,7 +4,7 @@
 	import { onMount } from "svelte";
 
 	export let data;
-	let likes = []
+	let likes = [];
 	let posts = [];
 	let polls = {};
 	let loading = true;
@@ -38,7 +38,7 @@
 					id: id,
 				}),
 			});
-			return
+			return;
 		}
 		if (likes[id].isDisliked) {
 			likes[id].isDisliked = false;
@@ -60,7 +60,7 @@
 	}
 
 	async function dislike(id) {
-		console.log(id)
+		console.log(id);
 		if (likes[id].isDisliked) {
 			likes[id].isDisliked = false;
 			likes[id].dislikeCount--;
@@ -75,7 +75,7 @@
 					id,
 				}),
 			});
-			return
+			return;
 		}
 		if (likes[id].isLiked) {
 			likes[id].isLiked = false;
@@ -97,16 +97,17 @@
 	}
 
 	function getLikesDislikes(post) {
-		if (post == undefined) return
-		post = posts.find((item) => item.id === post)
-		const likes1 = post.likes || []
-		const dislikes = post.dislikes || []
+		if (post == undefined) return;
+		post = posts.find((item) => item.id === post);
+		const likes1 = post.likes || [];
+		const dislikes = post.dislikes || [];
 
 		const isLiked = !(
 			likes1.find((user) => user.username === data.username) === undefined
 		);
 		const isDisliked = !(
-			dislikes.find((user) => user.username === data.username) === undefined
+			dislikes.find((user) => user.username === data.username) ===
+			undefined
 		);
 
 		likes[post.id] = {
@@ -115,9 +116,9 @@
 			isDisliked,
 			dislikeCount: dislikes.length,
 			likeHover: false,
-			dislikeHover: false
+			dislikeHover: false,
 		};
-		likes = [...likes]
+		likes = [...likes];
 	}
 
 	function getStats(post) {
@@ -240,17 +241,145 @@
 			</div>
 		{/if}
 		{#each posts as post}
-		{#if post != undefined}
-			{#if post.type == "blog"}
-				<a href="/post/{post.id}" id="hello">
+			{#if post != undefined}
+				{#if post.type == "blog"}
 					<div id="postContainer" class="postContainer">
-						<h1 id="title">
-							{post.title}
-						</h1>
-						<div id="descriptionHolder">
-							<h2 id="description">
-								{post.body}
-							</h2>
+						<a href="/post/{post.id}" id="link">
+							<h1 id="title">
+								{post.title}
+							</h1>
+							<div id="descriptionHolder">
+								<h2 id="description">
+									{post.body}
+								</h2>
+								 </div>
+							</a>
+								<a href="/@{post.username}">
+									<h2 id="name" class="name">@{post.username}</h2>
+								</a>
+								<h2 id="date" class="date">
+									{timeAgo(post.created_at)}
+								</h2>
+							<!-- </div> -->
+							<div id="buttonHolder">
+								<div id="hidden" style="display: none">
+									{getLikesDislikes(post.id)}
+								</div>
+								<button
+									on:click={() => like(post.id)}
+									id="likeButton"
+								>
+									<div
+										on:mouseenter={() => {
+											likes[post.id].likeHover = true;
+										}}
+										on:mouseleave={() => {
+											likes[post.id].likeHover = false;
+										}}
+									>
+										{#if likes[post.id].likeHover || likes[post.id].isLiked}
+											<Icon
+												icon="akar-icons:arrow-up"
+												color="green"
+												width="40"
+												height="40"
+											/>
+										{:else}
+											<Icon
+												icon="akar-icons:arrow-up"
+												color="white"
+												width="40"
+												height="40"
+											/>
+										{/if}
+									</div>
+								</button>
+
+								<h5 id="likeCount">
+									{likes[post.id].likeCount -
+										likes[post.id].dislikeCount}
+								</h5>
+
+								<button
+									on:click={() => dislike(post.id)}
+									id="likeButton"
+								>
+									<div
+										on:mouseenter={() => {
+											likes[post.id].dislikeHover = true;
+										}}
+										on:mouseleave={() => {
+											likes[post.id].dislikeHover = false;
+										}}
+									>
+										{#if likes[post.id].dislikeHover || likes[post.id].isDisliked}
+											<Icon
+												icon="akar-icons:arrow-down"
+												color="red"
+												width="40"
+												height="40"
+											/>
+										{:else}
+											<Icon
+												icon="akar-icons:arrow-down"
+												color="white"
+												width="40"
+												height="40"
+											/>
+										{/if}
+									</div>
+								</button>
+							</div>
+					</div>
+				{/if}
+				{#if post.type == "vote"}
+					<div id="postContainer" class="vote">
+						<h3 id="voteTitle">{post.body}</h3>
+						<div>
+							<div id="hidden" style="display: none">
+								{getStats(post)}
+							</div>
+						</div>
+						{#if polls[post.id].clicked == false}
+							{#each post.options as option, i}
+								<div class="fullForPerc">
+									<div class="percHolder">
+										<button
+											class="percBar button {post.id}{i}"
+											style="transition: all 0.2s linear;min-width: 13px; width: 100%"
+											on:click={() => {
+												vote(post, i);
+											}}
+										>
+											<h5>{option.value}</h5>
+										</button>
+									</div>
+									<h6 class="percNum" />
+								</div>
+							{/each}
+						{:else}
+							{#each post.options as option, i}
+								<div class="fullForPerc">
+									<div class="percHolder">
+										<button
+											class="percBar"
+											class:selected={polls[post.id][i]
+												.clicked == true}
+											style="transition: all 0.2s linear; min-width: 13px; width: {polls[
+												post.id
+											][i].percentage}%"
+										>
+											<h5>{option.value}</h5>
+										</button>
+									</div>
+									<h6 class="percNum">
+										{polls[post.id][i].percentage}%
+									</h6>
+								</div>
+							{/each}
+							<h6 id="total">{polls[post.id].total} votes</h6>
+						{/if}
+						<div id="credentials">
 							<a href="/@{post.username}">
 								<h2 id="name">@{post.username}</h2>
 							</a>
@@ -262,7 +391,10 @@
 							<div id="hidden" style="display: none">
 								{getLikesDislikes(post.id)}
 							</div>
-							<button on:click={() => like(post.id)} id="likeButton">
+							<button
+								on:click={() => like(post.id)}
+								id="likeButton"
+							>
 								<div
 									on:mouseenter={() => {
 										likes[post.id].likeHover = true;
@@ -288,10 +420,16 @@
 									{/if}
 								</div>
 							</button>
-			
-							<h5 id="likeCount">{likes[post.id].likeCount - likes[post.id].dislikeCount}</h5>
-			
-							<button on:click={() => dislike(post.id)} id="likeButton">
+
+							<h5 id="likeCount">
+								{likes[post.id].likeCount -
+									likes[post.id].dislikeCount}
+							</h5>
+
+							<button
+								on:click={() => dislike(post.id)}
+								id="likeButton"
+							>
 								<div
 									on:mouseenter={() => {
 										likes[post.id].dislikeHover = true;
@@ -319,128 +457,8 @@
 							</button>
 						</div>
 					</div>
-				</a>
+				{/if}
 			{/if}
-			{#if post.type == "vote"}
-			
-				<div id="postContainer" class="vote">
-					<h3 id="voteTitle">{post.body}</h3>
-					<div>
-						<div id="hidden" style="display: none">
-							{getStats(post)}
-						</div>
-					</div>
-					{#if polls[post.id].clicked == false}
-						{#each post.options as option, i}
-							<div class="fullForPerc">
-								<div class="percHolder">
-									<button
-										class="percBar button {post.id}{i}"
-										style="transition: all 0.2s linear;min-width: 13px; width: 100%"
-										on:click={() => {
-											vote(post, i);
-										}}
-									>
-										<h5>{option.value}</h5>
-									</button>
-								</div>
-								<h6 class="percNum" />
-							</div>
-						{/each}
-					{:else}
-						{#each post.options as option, i}
-							<div class="fullForPerc">
-								<div class="percHolder">
-									<button
-										class="percBar"
-										class:selected={polls[post.id][i]
-											.clicked == true}
-										style="transition: all 0.2s linear; min-width: 13px; width: {polls[
-											post.id
-										][i].percentage}%"
-									>
-										<h5>{option.value}</h5>
-									</button>
-								</div>
-								<h6 class="percNum">
-									{polls[post.id][i].percentage}%
-								</h6>
-							</div>
-						{/each}
-						<h6 id="total">{polls[post.id].total} votes</h6>
-					{/if}
-					<div id="credentials">
-						<a href="/@{post.username}">
-							<h2 id="name">@{post.username}</h2>
-						</a>
-						<h2 id="date">
-							{timeAgo(post.created_at)}
-						</h2>
-					</div>
-					<div id="buttonHolder">
-						<div id="hidden" style="display: none">
-							{getLikesDislikes(post.id)}
-						</div>
-						<button on:click={() => like(post.id)} id="likeButton">
-							<div
-								on:mouseenter={() => {
-									likes[post.id].likeHover = true;
-								}}
-								on:mouseleave={() => {
-									likes[post.id].likeHover = false;
-								}}
-							>
-								{#if likes[post.id].likeHover || likes[post.id].isLiked}
-									<Icon
-										icon="akar-icons:arrow-up"
-										color="green"
-										width="40"
-										height="40"
-									/>
-								{:else}
-									<Icon
-										icon="akar-icons:arrow-up"
-										color="white"
-										width="40"
-										height="40"
-									/>
-								{/if}
-							</div>
-						</button>
-		
-						<h5 id="likeCount">{likes[post.id].likeCount - likes[post.id].dislikeCount}</h5>
-		
-						<button on:click={() => dislike(post.id)} id="likeButton">
-							<div
-								on:mouseenter={() => {
-									likes[post.id].dislikeHover = true;
-								}}
-								on:mouseleave={() => {
-									likes[post.id].dislikeHover = false;
-								}}
-							>
-								{#if likes[post.id].dislikeHover || likes[post.id].isDisliked}
-									<Icon
-										icon="akar-icons:arrow-down"
-										color="red"
-										width="40"
-										height="40"
-									/>
-								{:else}
-									<Icon
-										icon="akar-icons:arrow-down"
-										color="white"
-										width="40"
-										height="40"
-									/>
-								{/if}
-							</div>
-						</button>
-					</div>
-				</div>
-			{/if}
-			{/if}
-			
 		{/each}
 	</div>
 </body>
@@ -474,6 +492,10 @@
 		letter-spacing: -0px !important;
 	}
 
+	#link {
+		height: 100%;
+	}
+
 	#likeCount {
 		margin: 0 auto;
 		text-align: center;
@@ -504,8 +526,6 @@
 		background: none;
 		cursor: pointer;
 	}
-
-
 
 	#credentials {
 		margin-left: 5vw;
@@ -659,6 +679,10 @@
 		margin-left: 5vw;
 		font-size: 30px !important;
 		margin-top: 20vh;
+	}
+
+	.name, .date {
+		margin-left: 5vw !important;
 	}
 
 	#date {

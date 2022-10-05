@@ -430,6 +430,7 @@
 		width: 100vw;
 		height: auto;
 		overflow-x: hidden;
+		padding-bottom: 80px;
 	}
 
 	@media (max-width: 800px) {
