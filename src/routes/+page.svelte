@@ -559,8 +559,8 @@
 		text-align: left;
 		overflow: visible;
 		font-weight: 500;
-		width: 100vw;
-		z-index: 200;
+		/* width: 100vw; */
+		/* z-index: 200; */
 	}
 
 	h6 {
