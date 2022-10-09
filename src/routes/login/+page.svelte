@@ -74,6 +74,10 @@
 			/>
 		</div>
 
+		<a href="/resetpassword">
+			<p id="forgot">Forgotten password?</p>
+		</a>
+
 		<button on:click={submit} id="loginButton">{loading === true ? "Loading..." : "Log in"}</button>
 		<a href="/signup">
 			<p>Sign up here</p>
@@ -104,6 +108,11 @@
 		box-sizing: border-box;
 		font-family: Jakarta;
 		font-weight: 300;
+	}
+
+	#forgot {
+		font-size: 15px;
+		margin-top: 1.5vh;
 	}
 
 	@media (max-width: 460px) {
@@ -196,7 +205,7 @@
 
 	#loginButton {
 		margin: 0 auto;
-		margin-top: 30px;
+		margin-top: 10px;
 		width: 75%;
 		height: 50px;
 		color: white;

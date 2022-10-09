@@ -6,6 +6,43 @@ export class SupabaseFeatures {
 
 	// TODO refractor all code to allow for dynamic 'get'
 
+	async changePassword(username, password) {
+		const user = await this.getUser(username)
+
+		const { data, error } = await this.supabase
+			.from("users")
+			.update({ password: password })
+			.match({ username: username });
+
+		if (data == undefined) return true
+		return false
+	}
+
+	async changeResetKey(username, key) {
+		const user = await this.getUser(username);
+
+		let keys = user.keys
+		keys.passwordReset = `${username}.${key}`
+
+		const { data, error } = await this.supabase
+			.from("users")
+			.update({ keys: keys })
+			.match({ username: username });
+		
+		if (error == undefined) return true
+		return false
+	}
+
+	async getEmail(username, email) {
+		const user = await this.getUser(username)
+		if (!user) return false
+
+		const res = await this.comparePassword(email, user.email)
+
+		if (res) return user
+		return false
+	}
+
 	async voteOnPost(id, option, username) {
 		const post = await this.getPost(id)
 		if (!post) return false;

@@ -22,7 +22,7 @@
 		"bcryptjs": "^2.4.3",
 		"crypto-js": "^4.1.1",
 		"dotenv": "^16.0.2",
-		"nodemailer": "^6.7.8",
+		"nodemailer": "^6.8.0",
 		"supabase": "^1.4.5",
 		"svelte-simple-modal": "^1.4.1",
 		"svelte-textarea-autoresize": "^1.0.0"
