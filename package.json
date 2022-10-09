@@ -17,6 +17,7 @@
 	"type": "module",
 	"dependencies": {
 		"@supabase/supabase-js": "^2.0.0-rc.8",
+		"aws-sdk": "^2.1230.0",
 		"bcrypt": "^5.0.1",
 		"bcryptjs": "^2.4.3",
 		"crypto-js": "^4.1.1",
