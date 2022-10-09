@@ -361,7 +361,7 @@
 							{#each post.options as option, i}
 								<div class="fullForPerc">
 									<div class="percHolder">
-										<button
+										<div
 											class="percBar"
 											class:selected={polls[post.id][i]
 												.clicked == true}
@@ -370,7 +370,7 @@
 											][i].percentage}%"
 										>
 											<h5>{option.value}</h5>
-										</button>
+										</div>
 									</div>
 									<h6 class="percNum">
 										{polls[post.id][i].percentage}%
@@ -559,7 +559,7 @@
 		text-align: left;
 		overflow: visible;
 		font-weight: 500;
-		/* width: 100vw; */
+		width: 100vw;
 		/* z-index: 200; */
 	}
 
