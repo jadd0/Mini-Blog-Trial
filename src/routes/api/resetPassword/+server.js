@@ -16,8 +16,14 @@ export const POST = async ({ request }) => {
     return new Response("Invalid email/username", { status: 401 });
   }
 
-  const email = await features.sendEmail(body.email, 'resetPassword')
-	console.log(email)
+	console.log("jdnfdjbfjkdbfkkdjf")
+
+	// 15 minutes
+	const time = 900000
+	const code = features.genetateToken(10, time)
+	console.log(code)
+  const email = await features.sendEmail(body.email, 'resetPassword', code)
+
   if (email) {
     return new Response("Email sent", { status: 200 });
   }
