@@ -25,15 +25,16 @@ export class Features {
 		return hash;
 	}
 
-	genetateToken() {
+	genetateToken(length, time) {
+		console.log({length, time})
 		const alphNumString =
 			"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
 		// 1.5 days
-		const days = 129600000;
+		const days = time || 129600000;
 		const expire = new Date().getTime() + days;
 		let key = "";
 
-		for (let i = 0; i < 40; i++) {
+		for (let i = 0; i < (length || 40); i++) {
 			key +=
 				alphNumString[Math.floor(Math.random() * alphNumString.length)];
 		}
@@ -68,38 +69,39 @@ export class Features {
 		return cookie;
 	}
 
-	async sendEmail(email, area) {
+	async sendEmail(email, area, code) {
 		const user = process.env.VITE_NODEMAILER_EMAIL || import.meta.env.VITE_NODEMAILER_EMAIL
 		const pass = process.env.PASSWORD || import.meta.env.VITE_NODEMAILER_PASSWORD
 
-		let transport = this.nodemailer.createTransport({
-			host: "smtp-relay.sendinblue.com",
-			port: 587,
-			auth: {
-				user,
-				pass,
-			},
-		});
+		console.log(email, area, code)
+		// let transport = this.nodemailer.createTransport({
+		// 	host: "smtp-relay.sendinblue.com",
+		// 	port: 587,
+		// 	auth: {
+		// 		user,
+		// 		pass,
+		// 	},
+		// });
 
-		transport.verify(function (error, success) {
-			if (error) {
-				return 'auth'
-			}
-		});
+		// transport.verify(function (error, success) {
+		// 	if (error) {
+		// 		return 'auth'
+		// 	}
+		// });
 
-		const mailOptions = {
-			from: "jaddblog@jaddblog.com",
-			to: email,
-			subject: "Hello",
-			text: area,
-		};
+		// const mailOptions = {
+		// 	from: "jaddblog@jaddblog.com",
+		// 	to: email,
+		// 	subject: "Hello",
+		// 	text: area,
+		// };
 
-		transport.sendMail(mailOptions, function (err, info) {
-			if (err) {
-				return false
-			}
-		});
-		
-		return true
+		// transport.sendMail(mailOptions, function (err, info) {
+		// 	if (err) {
+		// 		return false
+		// 	}
+		// });
+
+		// return true
 	}
 }
