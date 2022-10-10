@@ -1,3 +1,5 @@
+import { TimestreamQuery } from "aws-sdk";
+
 export class SupabaseFeatures {
 	constructor(supabase, bcrypt) {
 		this.supabase = supabase;
@@ -5,6 +7,16 @@ export class SupabaseFeatures {
 	}
 
 	// TODO refractor all code to allow for dynamic 'get'
+
+	async getEmail(username, email) {
+		const user = await this.getUser(username)
+		if (!user) return false
+
+		const res = await this.comparePassword(email, user.email)
+
+		if (res) return true
+		return false
+	}
 
 	async voteOnPost(id, option, username) {
 		const post = await this.getPost(id)
