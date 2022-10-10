@@ -1,4 +1,8 @@
 export class Features {
+	constructor(nodemailer) {
+		this.nodemailer = nodemailer;
+	}
+
 	parseCookie(cookieList) {
 		const result = {};
 		let jwt = "";
@@ -18,7 +22,7 @@ export class Features {
 
 	async hashPassword(bcrypt, plaintextPassword) {
 		const hash = await bcrypt.hash(plaintextPassword, 10);
-		return hash
+		return hash;
 	}
 
 	genetateToken() {
@@ -42,8 +46,8 @@ export class Features {
 	//expires in 2 days
 	generateExpiry() {
 		const date = new Date();
-		const days = 1.5
-		date.setTime(date.getTime() + (days*24*60*60*1000));
+		const days = 1.5;
+		date.setTime(date.getTime() + days * 24 * 60 * 60 * 1000);
 
 		return date;
 	}
@@ -62,5 +66,42 @@ export class Features {
 		const cookie = `key=${key}; path=/; Expires=${this.generateExpiry()}; HostOnly=false; Secure=lax; httpOnly=true; SameSite=Strict;`;
 
 		return cookie;
+	}
+
+	async sendEmail(email, area) {
+		const user = process.env.VITE_NODEMAILER_EMAIL || import.meta.env.VITE_NODEMAILER_EMAIL
+		const pass = process.env.PASSWORD || import.meta.env.VITE_NODEMAILER_PASSWORD
+
+		let transport = this.nodemailer.createTransport({
+			host: "smtp-relay.sendinblue.com",
+			port: 587,
+			auth: {
+				user,
+				pass,
+			},
+		});
+
+		transport.verify(function (error, success) {
+			if (error) {
+				console.log(error)
+				return 'auth'
+			}
+		});
+
+		const mailOptions = {
+			from: "jaddblog@jaddblog.com",
+			to: email,
+			subject: "Hello",
+			text: area,
+		};
+
+		transport.sendMail(mailOptions, function (err, info) {
+			if (err) {
+				console.log(err)
+				return false
+			} else {
+				return true
+			}
+		});
 	}
 }
