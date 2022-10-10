@@ -83,7 +83,6 @@ export class Features {
 
 		transport.verify(function (error, success) {
 			if (error) {
-				console.log(error)
 				return 'auth'
 			}
 		});
@@ -97,11 +96,10 @@ export class Features {
 
 		transport.sendMail(mailOptions, function (err, info) {
 			if (err) {
-				console.log(err)
 				return false
-			} else {
-				return true
 			}
 		});
+		
+		return true
 	}
 }

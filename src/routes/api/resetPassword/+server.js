@@ -17,7 +17,7 @@ export const POST = async ({ request }) => {
   }
 
   const email = await features.sendEmail(body.email, 'resetPassword')
-
+	console.log(email)
   if (email) {
     return new Response("Email sent", { status: 200 });
   }
