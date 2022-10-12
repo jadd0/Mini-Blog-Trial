@@ -1,20 +1,21 @@
-import { supabase } from "../../supabaseClient.js";
-import { SupabaseFeatures } from "../../classes/supabaseFeatures.js";
-import { Features } from "../../classes/usefulFeatures.js";
+import { supabase } from "../../../supabaseClient.js";
+import { SupabaseFeatures } from "../../../classes/supabaseFeatures.js";
+import { Features } from "../../../classes/usefulFeatures.js";
 
 const supabaseClass = new SupabaseFeatures(supabase);
 const features = new Features()
 
-export const load = async({ request }) => {
+export const load = async({ request, params }) => {
+  console.log(params)
+  const username = params.code.split('.')[0]
   const cookie = features.parseCookie(request.headers.get("cookie"));
 
-  let username = ''
+  let username1 = ''
   let auth = ''
 
 	if (cookie.key != undefined) {
     auth = await supabaseClass.checkKey(cookie.key)
 	}
-
   if (!auth) {
     username = ''
   }
