@@ -5,10 +5,21 @@ import { Features } from "../../../classes/usefulFeatures.js";
 const supabaseClass = new SupabaseFeatures(supabase);
 const features = new Features()
 
+async function checkKey(username, code) {
+  const user = await supabaseClass.getUser(username)
+
+  if (code === user.keys.passwordReset) {
+    return true
+  }
+  return false
+}
+
 export const load = async({ request, params }) => {
-  console.log(params)
-  const username = params.code.split('.')[0]
   const cookie = features.parseCookie(request.headers.get("cookie"));
+  const username = params.code.split('.')[0]
+
+  const res = await checkKey(username, params.code)
+  if (!res) throw new Error('Reset code invalid')
 
   let username1 = ''
   let auth = ''
@@ -17,10 +28,10 @@ export const load = async({ request, params }) => {
     auth = await supabaseClass.checkKey(cookie.key)
 	}
   if (!auth) {
-    username = ''
+    username1 = ''
   }
   else {
-    username = auth
+    username1 = auth
   }
 
 	return {
