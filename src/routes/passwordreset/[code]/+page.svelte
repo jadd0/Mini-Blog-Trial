@@ -1,26 +1,38 @@
 <script>
 	export let data;
+	const code = data.code
+	const passwordUsername = data.passwordUsername
 	import { onMount } from "svelte";
 	import Nav from '../../__nav/+page.svelte'
-	let email = ''
-	let username = ''
+
+	let password = ''
+	let password1 = ''
 
 	async function submit() {
-		const response = await fetch("/api/resetPassword", {
+		if (password1 !== password) return
+		const response = await fetch("/api/changePassword", {
 			method: "post",
 			headers: {
 				Accept: "application/json",
 				"Content-Type": "application/json",
 			},
 			body: JSON.stringify({
-				email,
-				username
+				username: passwordUsername,
+				code,
+				password
 			}),
 		});
 	}
+
+	function checkSame() {
+		if (password1 !== password) {
+			console.log("different")
+			return
+		}
+	}
 </script>
 
-<!-- <svelte:window on:keyup={submit} /> -->
+<svelte:window on:keyup={checkSame} />
 
 <svelte:head>
 	<title>Reset Password</title>
@@ -29,7 +41,9 @@
 <body>
 	<Nav username={data.username}/>
 	<div id="loginForm">
-		
+		<input type="text" bind:value={password}>
+		<input type="text" bind:value={password1}>
+		<button on:click={submit}>send</button>
 	</div>
 </body>
 
