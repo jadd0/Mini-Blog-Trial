@@ -6,6 +6,18 @@ export class SupabaseFeatures {
 
 	// TODO refractor all code to allow for dynamic 'get'
 
+	async changePassword(username, password) {
+		const user = await this.getUser(username)
+
+		const { data, error } = await this.supabase
+			.from("users")
+			.update({ password: password })
+			.match({ username: username });
+
+		if (data == undefined) return false
+		return true
+	}
+
 	async changeResetKey(username, key) {
 		const user = await this.getUser(username);
 
