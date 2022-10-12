@@ -24,8 +24,11 @@ export const POST = async ({ request }) => {
 
   const hashedPassword = await features.hashPassword(bcryptjs, body.password)
 	const res1 = await supabaseClass.changePassword(body.username, hashedPassword)
+  const res2 = await supabaseClass.changeResetKey(body.username, '')
 
   if (!res1) return new Response("There has been an error whilst resetting your password. Please try again later. If this error persists please email me jaddalkwork@gmail.com", { status: 500 });
+
+
 
 	return new Response("Password changed", { status: 200 });
 }
