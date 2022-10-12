@@ -1,6 +1,7 @@
 import { supabase } from "../../../supabaseClient.js";
 import { SupabaseFeatures } from "../../../classes/supabaseFeatures.js";
 import { Features } from "../../../classes/usefulFeatures.js";
+import { error } from "@sveltejs/kit";
 
 const supabaseClass = new SupabaseFeatures(supabase);
 const features = new Features()
@@ -19,7 +20,8 @@ export const load = async({ request, params }) => {
   const username = params.code.split('.')[0]
 
   const res = await checkKey(username, params.code)
-  if (!res) throw new Error('Reset code invalid')
+  if (!res) throw error(404, 'Reset code invalid')
+
 
   let username1 = ''
   let auth = ''
