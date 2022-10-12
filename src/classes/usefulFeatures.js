@@ -74,34 +74,34 @@ export class Features {
 		const pass = process.env.PASSWORD || import.meta.env.VITE_NODEMAILER_PASSWORD
 
 		console.log(email, area, code)
-		// let transport = this.nodemailer.createTransport({
-		// 	host: "smtp-relay.sendinblue.com",
-		// 	port: 587,
-		// 	auth: {
-		// 		user,
-		// 		pass,
-		// 	},
-		// });
+		let transport = this.nodemailer.createTransport({
+			host: "smtp-relay.sendinblue.com",
+			port: 587,
+			auth: {
+				user,
+				pass,
+			},
+		});
 
-		// transport.verify(function (error, success) {
-		// 	if (error) {
-		// 		return 'auth'
-		// 	}
-		// });
+		transport.verify(function (error, success) {
+			if (error) {
+				return 'auth'
+			}
+		});
 
-		// const mailOptions = {
-		// 	from: "jaddblog@jaddblog.com",
-		// 	to: email,
-		// 	subject: "Hello",
-		// 	text: area,
-		// };
+		const mailOptions = {
+			from: "jaddblog@jaddblog.com",
+			to: email,
+			subject: "Hello",
+			text: `hello ${email}, http://localhost/passwordreset/${code}`,
+		};
 
-		// transport.sendMail(mailOptions, function (err, info) {
-		// 	if (err) {
-		// 		return false
-		// 	}
-		// });
+		transport.sendMail(mailOptions, function (err, info) {
+			if (err) {
+				return false
+			}
+		});
 
-		// return true
+		return true
 	}
 }
