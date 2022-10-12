@@ -22,29 +22,14 @@ export const POST = async ({ request }) => {
 	
   const email = await features.sendEmail(body.email, 'resetPassword', code)
 
-  if (email) {
-    return new Response("Email sent", { status: 200 });
+  if (!email) {
+		return new Response("Sorry, there has been an issue sending the email. Please try again later. If this issue persists, please email me jaddalkwork@gmail.com", { status: 500 });
   }
 
-  // return new Response("Issue", { status: 406 });
-	// const auth = await supabaseClass.authenticate((username).toLowerCase(), password);
+	const resKey = await supabaseClass.changeResetKey(res.username, code)
+	if (!resKey) {
+		return new Response("Sorry, there has been an issue changing your reset key. Please try again later. If this issue persists, please email me jaddalkwork@gmail.com", { status: 500 });
+	}
 
-	// if (!auth) {
-	// 	return new Response("Invalid credentials", { status: 406 });
-	// }
-
-	// const key = features.genetateToken()
-	
-	// const res = await supabaseClass.changeKey(auth, key)
-
-	// if (!res) {
-	// 	return new Response("Invalid credentials", { status: 406 });
-	// }
-	
-	// const cookie = features.generateCookie(key);
-	// return new Response('Redirect', {
-	// 	status: 200,
-	// 	headers: { 'set-cookie': cookie,
-	// 	Location: "/" },
-	// });
+	return new Response("Email sent", { status: 200 });
 }
