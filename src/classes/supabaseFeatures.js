@@ -10,7 +10,7 @@ export class SupabaseFeatures {
 		const user = await this.getUser(username);
 
 		let keys = user.keys
-		keys.passwordReset = key
+		keys.passwordReset = `${username}.${key}`
 
 		const { data, error } = await this.supabase
 			.from("users")
