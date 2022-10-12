@@ -27,6 +27,7 @@ export const load = async({ request, params }) => {
 	if (cookie.key != undefined) {
     auth = await supabaseClass.checkKey(cookie.key)
 	}
+
   if (!auth) {
     username1 = ''
   }
@@ -35,6 +36,8 @@ export const load = async({ request, params }) => {
   }
 
 	return {
-    username: username
+    code: params.code,
+    username: username1,
+    passwordUsername: username
   }
 };
