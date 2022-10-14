@@ -20,7 +20,7 @@ export const POST = async ({ request }) => {
 	const time = 900000
 	const code = features.genetateToken(40, time)
 	
-  const email = await features.sendEmail(body.email, body.username,'resetPassword', code)
+  const email = await features.sendEmail(body.email, body.username,'Reset Password', code)
 
   if (!email) {
 		return new Response("Sorry, there has been an issue sending the email. Please try again later. If this issue persists, please email me jaddalkwork@gmail.com", { status: 500 });
