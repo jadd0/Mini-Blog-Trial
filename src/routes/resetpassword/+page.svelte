@@ -30,7 +30,7 @@
 <body>
 	<Nav username={data.username} />
 	<div id="loginForm">
-		<h1>Reset Password</h1>
+		<h1>Forgot Password</h1>
 		<p>Type in your username and email address asssociated with your account. If the email address matches, an email will be sent with instructions on how to reset your password.</p>
 		<div class="inputHolder">
 			<input type="text" class="userInput" bind:value={email} required />
@@ -150,9 +150,9 @@
 	}
 
 	p {
-		margin-top: -20px;
+		margin-top: -15px;
 		padding: 0px 20px 5px 20px;
-		color: rgb(255, 255, 255);
+		color: rgb(142, 142, 142);
 		font-size: 14px;
 		font-weight: 400;
 		transition: all 0.2s linear;
