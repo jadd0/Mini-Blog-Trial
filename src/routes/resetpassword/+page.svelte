@@ -4,6 +4,7 @@
 	import Nav from "../__nav/+page.svelte";
 	let email = "";
 	let username = "";
+	let loading = false;
 
 	async function submit() {
 		const response = await fetch("/api/resetPassword", {
@@ -30,6 +31,7 @@
 	<Nav username={data.username} />
 	<div id="loginForm">
 		<h1>Reset Password</h1>
+		<p>Type in your username and email address asssociated with your account. If the email address matches, an email will be sent with instructions on how to reset your password.</p>
 		<div class="inputHolder">
 			<input type="text" class="userInput" bind:value={email} required />
 			<span class="floatingLabel">Your email address</span>
@@ -38,6 +40,8 @@
 			<input type="text" class="userInput" bind:value={username}	 required />
 			<span class="floatingLabel">Your username</span>
 		</div>
+		<button on:click={submit} id="loginButton">{loading === true ? "Loading..." : "Send"}</button>
+
 	</div>
 </body>
 
@@ -146,15 +150,12 @@
 	}
 
 	p {
-		margin-top: 20px;
+		margin-top: -20px;
+		padding: 0px 20px 5px 20px;
 		color: rgb(255, 255, 255);
-		font-size: 30px;
+		font-size: 14px;
 		font-weight: 400;
 		transition: all 0.2s linear;
-	}
-
-	p:hover {
-		color: rgb(127, 127, 127);
 	}
 
 	#userInput {
@@ -191,7 +192,7 @@
 		margin: 0 auto;
 		background: #1b1b1b;
 		width: 400px;
-		height: 350px;
+		height: 375px;
 		border-radius: 15px;
 		margin-top: 7vh;
 	}
@@ -207,13 +208,13 @@
 
 	#loginButton {
 		margin: 0 auto;
-		margin-top: 10px;
-		width: 75%;
+		margin-top: 30px;
+		width: 78%; 
 		height: 50px;
 		color: white;
 		font-weight: 600;
 		background-color: #212121;
-		border-radius: 20px;
+		border-radius: 5px;
 		cursor: pointer;
 		transition: all 0.2s linear;
 	}
