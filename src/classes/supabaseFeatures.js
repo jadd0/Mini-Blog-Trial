@@ -14,8 +14,8 @@ export class SupabaseFeatures {
 			.update({ password: password })
 			.match({ username: username });
 
-		if (data == undefined) return false
-		return true
+		if (data == undefined) return true
+		return false
 	}
 
 	async changeResetKey(username, key) {
