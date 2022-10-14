@@ -1,87 +1,49 @@
 <script>
 	export let data;
+	const code = data.code
+	const passwordUsername = data.passwordUsername
 	import { onMount } from "svelte";
-	import Nav from '../__nav/+page.svelte'
-	let username = "";
-	let password = "";
-	let wrong = false;
-	let shake = false
-	let loading = false
+	import Nav from '../../__nav/+page.svelte'
 
-	
+	let password = ''
+	let password1 = ''
 
-	function enterQuery(event) {
-		if (event.key == "Enter") {
-			submit();
-		}
-		wrong = false
-
-	}
-
-	const submit = async () => {
-		loading = true
-		const response = await fetch("/api/login", {
+	async function submit() {
+		if (password1 !== password) return
+		const response = await fetch("/api/changePassword", {
 			method: "post",
 			headers: {
 				Accept: "application/json",
 				"Content-Type": "application/json",
 			},
 			body: JSON.stringify({
-				username: username,
-				password: password,
+				username: passwordUsername,
+				code,
+				password
 			}),
 		});
+	}
 
-		if (response.ok) {
-			window.location = "/";
+	function checkSame() {
+		if (password1 !== password) {
+			console.log("different")
+			return
 		}
-
-		if (response.ok == false) {
-			loading = false
-			wrong = true;
-			shake = true
-		}
-		setTimeout(() => {
-			shake = false
-		}, 300);		
-	};
+	}
 </script>
 
-<svelte:window on:keyup={enterQuery} />
+<svelte:window on:keyup={checkSame} />
 
 <svelte:head>
-	<title>Login</title>
+	<title>Reset Password</title>
 </svelte:head>
 
 <body>
 	<Nav username={data.username}/>
 	<div id="loginForm">
-		<h1>Login</h1>
-		<div id="inputHolder" class:wrong={wrong} class:shake={shake}>
-			<input
-				type="username"
-				id="userInput"
-				placeholder="username"
-				bind:value={username}
-			/>
-		</div>
-		<div id="inputHolder" class:wrong={wrong} class:shake={shake}>
-			<input
-				type="password"
-				id="userInput"
-				placeholder="password"
-				bind:value={password}
-			/>
-		</div>
-
-		<a href="/resetpassword">
-			<p id="forgot">Forgotten password?</p>
-		</a>
-
-		<button on:click={submit} id="loginButton">{loading === true ? "Loading..." : "Log in"}</button>
-		<a href="/signup">
-			<p>Sign up here</p>
-		</a>
+		<input type="text" bind:value={password}>
+		<input type="text" bind:value={password1}>
+		<button on:click={submit}>send</button>
 	</div>
 </body>
 
