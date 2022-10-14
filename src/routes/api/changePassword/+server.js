@@ -8,8 +8,12 @@ const features = new Features();
 
 async function checkKey(username, code) {
   const user = await supabaseClass.getUser(username)
-  console.log(user)
+  console.log(code)
   if (code === user.keys.passwordReset) {
+    if (code.split('.')[1] < new Date().getTime()) {
+      supabaseClass.changeResetKey(username, '')
+      if (!res1) return new Response("This reset code is invalid. The code only lasts for 15 minutes for security reasons. Please request a new code at /resetpassword.", { status: 405 })
+    }
     return true
   }
   return false
@@ -26,9 +30,7 @@ export const POST = async ({ request }) => {
 	const res1 = await supabaseClass.changePassword(body.username, hashedPassword)
   const res2 = await supabaseClass.changeResetKey(body.username, '')
 
-  if (!res1) return new Response("There has been an error whilst resetting your password. Please try again later. If this error persists please email me jaddalkwork@gmail.com", { status: 500 });
+  if (!res1 || !res2) return new Response("There has been an error whilst resetting your password. Please try again later. If this error persists please email me jaddalkwork@gmail.com", { status: 500 });
 
-
-
-	return new Response("Password changed", { status: 200 });
+	return new Response("Password changed successfully", { status: 200 });
 }
