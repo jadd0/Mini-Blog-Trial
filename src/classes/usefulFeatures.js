@@ -91,8 +91,19 @@ export class Features {
 		const mailOptions = {
 			from: "jaddblog@jaddblog.com",
 			to: email,
-			subject: "Hello",
-			text: `hello ${email}, http://localhost/passwordreset/${username}.${code}`,
+			subject: area,
+			html: `<h1>Hey, ${username}!</h1>
+			<br/>
+			<p>You requested a link to reset your password, so just click this link below to do so.
+			<br/>
+			<br/>
+			https://jadd.live/resetpassword/${username}.${code}
+			<br/>
+			<br/>
+			If you did not request a link to reset your password, please contact me as soon as possible at jaddalkwork@gmail.com
+			<br/>
+			<br/>
+			Thank you!</p>`,
 		};
 
 		transport.sendMail(mailOptions, function (err, info) {
