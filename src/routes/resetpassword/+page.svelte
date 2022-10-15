@@ -7,6 +7,7 @@
 	let loading = false;
 
 	async function submit() {
+		loading = true;
 		const response = await fetch("/api/resetPassword", {
 			method: "post",
 			headers: {
@@ -18,6 +19,7 @@
 				username,
 			}),
 		});
+		if (response.ok) location.reload();
 	}
 </script>
 
@@ -31,17 +33,27 @@
 	<Nav username={data.username} />
 	<div id="loginForm">
 		<h1>Forgot Password</h1>
-		<p>Type in your username and email address asssociated with your account. If the email address matches, an email will be sent with instructions on how to reset your password.</p>
+		<p>
+			Type in your username and email address asssociated with your
+			account. If the email address matches, an email will be sent with
+			instructions on how to reset your password.
+		</p>
 		<div class="inputHolder">
 			<input type="text" class="userInput" bind:value={email} required />
 			<span class="floatingLabel">Your email address</span>
 		</div>
 		<div class="inputHolder">
-			<input type="text" class="userInput" bind:value={username}	 required />
+			<input
+				type="text"
+				class="userInput"
+				bind:value={username}
+				required
+			/>
 			<span class="floatingLabel">Your username</span>
 		</div>
-		<button on:click={submit} id="loginButton">{loading === true ? "Loading..." : "Send"}</button>
-
+		<button on:click={submit} id="loginButton"
+			>{loading === true ? "Loading..." : "Send"}</button
+		>
 	</div>
 </body>
 
@@ -209,7 +221,7 @@
 	#loginButton {
 		margin: 0 auto;
 		margin-top: 30px;
-		width: 78%; 
+		width: 78%;
 		height: 50px;
 		color: white;
 		font-weight: 600;
