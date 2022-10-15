@@ -8,7 +8,6 @@ const features = new Features();
 
 async function checkKey(username, code) {
   const user = await supabaseClass.getUser(username)
-  console.log(code)
   if (code === user.keys.passwordReset) {
     if (code.split('.')[1] < new Date().getTime()) {
       supabaseClass.changeResetKey(username, '')

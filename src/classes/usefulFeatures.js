@@ -26,7 +26,6 @@ export class Features {
 	}
 
 	genetateToken(length, time) {
-		console.log({length, time})
 		const alphNumString =
 			"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
 		// 1.5 days
