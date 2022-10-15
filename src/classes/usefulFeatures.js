@@ -69,9 +69,14 @@ export class Features {
 		return cookie;
 	}
 
-	async sendEmail(email, username, area, code) {
+	async sendEmail(email, username, area, code, time) {
 		const user = process.env.VITE_NODEMAILER_EMAIL || import.meta.env.VITE_NODEMAILER_EMAIL
 		const pass = process.env.PASSWORD || import.meta.env.VITE_NODEMAILER_PASSWORD
+
+		time = new Date(time).toLocaleTimeString("en-GB", {
+			hour: "numeric",
+			minute: "numeric",
+		})
 
 		let transport = this.nodemailer.createTransport({
 			host: "smtp-relay.sendinblue.com",
@@ -100,6 +105,7 @@ export class Features {
 			https://jadd.live/resetpassword/${username}.${code}
 			<br/>
 			<br/>
+			This link will expire automatically after 15 minutes, at ${time}.
 			If you did not request a link to reset your password, please contact me as soon as possible at jaddalkwork@gmail.com
 			<br/>
 			<br/>
