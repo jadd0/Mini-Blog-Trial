@@ -60,7 +60,6 @@
 	}
 
 	async function dislike(id) {
-		console.log(id);
 		if (likes[id].isDisliked) {
 			likes[id].isDisliked = false;
 			likes[id].dislikeCount--;
