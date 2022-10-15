@@ -5,15 +5,24 @@
 
 	const username = data.passwordUsername
 	const code = data.code
-	let password = "";
-	let password1 = "";
+	const regex =
+		/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[~ `!@#$%^&*()_\-+={[\]}\|\\:;"'<,>.?\/])[A-Za-z\d#~ `!@#$%^&*()_\-+={[\]}\|\\:;"'<,>.?\/]{6,}$/;
+
+	let same = true;
 	let loading = false;
+	let wrong = false;
+	
+	let password = "";
+	$: password === password1 ? wrong = false : wrong = true
+	$: if(regex.test(password) == false && password.length > 0) wrong = true
+	
+	let password1 = "";
+	$: password === password1 ? wrong = false : wrong = true
 
 	async function submit() {
-		if (password != password1) return
+		if (password != password1 || wrong == true) return
 		loading = true
-		
-
+	
 		const response = await fetch("/api/changePassword", {
 			method: "post",
 			headers: {
@@ -26,12 +35,9 @@
 				password
 			}),
 		});
-		console.log("hello")
 		if (response.ok ) location.href = '/login'
 	}
 </script>
-
-<!-- <svelte:window on:keyup={submit} /> -->
 
 <svelte:head>
 	<title>Reset Password</title>
@@ -41,15 +47,20 @@
 	<Nav username={data.username} />
 	<div id="loginForm">
 		<h1>Reset Password</h1>
-		<p></p>
-		<div class="inputHolder">
+		<p>Please type in your new password and confirm it by retyping it in. If both passwords are the same, you are able to reset your password by pressing the 'Reset' button.</p>
+		<div class="inputHolder {wrong === true ? 'wrong' : ''}">
 			<input type="text" class="userInput" bind:value={password} required />
 			<span class="floatingLabel">Type in password</span>
 		</div>
-		<div class="inputHolder">
+		<div class="inputHolder {wrong === true ? 'wrong' : ''}">
 			<input type="text" class="userInput" bind:value={password1}	 required />
 			<span class="floatingLabel">Retype in new password</span>
 		</div>
+		<h2>Password must contain:</h2>
+			<li>One upper and lower case character</li>
+			<li>One special character</li>
+			<li>One number</li>
+			<li>Be at least 6 characters</li>
 		<button on:click={submit} id="loginButton">{loading === true ? "Loading..." : "Reset"}</button>
 	</div>
 </body>
@@ -77,6 +88,22 @@
 		box-sizing: border-box;
 		font-family: Jakarta;
 		font-weight: 300;
+	}
+
+	h2 {
+		font-size: 17px;
+		color: white;
+		font-weight: 500;
+		margin-top: 10px !important;
+		margin: 0 auto;
+	}
+
+	li {
+		font-size: 15px;
+		color: white;
+		float: left;
+		margin-left: 30px;
+		padding-right: 75px;
 	}
 
 	.inputHolder {
@@ -141,7 +168,7 @@
 	}
 
 	.wrong {
-		border: 2px solid red;
+		border: 2px solid red !important;
 	}
 
 	@keyframes shake2 {
@@ -201,7 +228,8 @@
 		margin: 0 auto;
 		background: #1b1b1b;
 		width: 400px;
-		height: 375px;
+		height: auto;
+		padding-bottom: 20px;
 		border-radius: 15px;
 		margin-top: 7vh;
 	}
