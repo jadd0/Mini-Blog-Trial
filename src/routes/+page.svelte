@@ -1,6 +1,5 @@
 <script>
 	import Nav from "./__nav/+page.svelte";
-	import Icon from "@iconify/svelte";
 	import { onMount } from "svelte";
 
 	export let data;
