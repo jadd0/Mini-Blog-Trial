@@ -208,10 +208,10 @@
 	}
 
 	onMount(async () => {
-		const res = await fetch(`/api/homePosts`);
-		const resJson = await res.json();
-		posts = resJson.data;
-		loading = false;
+		// const res = await fetch(`/api/homePosts`);
+		// const resJson = await res.json();
+		// posts = resJson.data;
+		// loading = false;
 	});
 </script>
 
