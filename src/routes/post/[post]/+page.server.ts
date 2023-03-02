@@ -1,24 +1,23 @@
-import { supabase } from "../../../supabaseClient.js";
-import { SupabaseFeatures } from "../../../classes/supabaseFeatures.js"
-import { Features } from "../../../classes/usefulFeatures.js";
 import { error, redirect } from "@sveltejs/kit";
+import { authFlow } from '../../../functions/auth'
 
-const features = new Features();
-const supabaseClass = new SupabaseFeatures(supabase);
+// NOT DONE YET
 
 /** @type {import('./$types').Load} */
-export async function load({ request, params }) {
-  const cookie = features.parseCookie(request.headers.get("cookie"));
+export const load: any = async ({ request, cookies, fetch }) => {
+  const auth = await authFlow(request.headers.get("cookie"), fetch)
 
-	if (cookie.key == undefined) {
-		throw redirect(307, "/login");
-	}
-
-	const auth = await supabaseClass.checkKey(cookie.key)
-	
 	if (!auth) {
 		throw redirect(307, "/login");
 	}
+	
+	cookies.set('key', auth.newKey, {
+		path: '/',
+		HostOnly: false,
+		Secure: 'lax',
+		httpOnly: true,
+		SameSite: 'Strict'
+	});
 
 	const data = await supabaseClass.getPost(params.post)
 	

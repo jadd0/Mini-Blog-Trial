@@ -3,6 +3,8 @@ import { SupabaseFeatures } from "../../../classes/supabaseFeatures.js";
 import { Features } from "../../../classes/usefulFeatures.js";
 import { error } from "@sveltejs/kit";
 
+// NOT DONE YET
+
 const supabaseClass = new SupabaseFeatures(supabase);
 const features = new Features()
 

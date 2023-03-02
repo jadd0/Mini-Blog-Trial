@@ -71,14 +71,6 @@ export class DB {
 		return data;
 	}	
 
-	// async g() {
-	// 	const { data, error } = await this.supabase
-	// 		.from('Jobs', 'ActiveJobs')
-	// 		.select('*')
-	// 		.
-
-	// }
-
 	async updateValue(config: {
 		table: string;
 		valueToChange: string;
