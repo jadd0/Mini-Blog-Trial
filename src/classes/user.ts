@@ -5,54 +5,36 @@ export class User extends DB {
 		super(supabase);
 	}
 
-	async unfollow(config: { username: any; userToUnfollow: any }) {
-		const { username, userToUnfollow } = config;
+	async getAllUsernames() {
+		const { data, e } = await this.supabase.from('Users').select('username');
 
-		const res = await this.deleteValue({
-			table: 'Following',
-			values: {
-				username: username,
-				followedUsername: userToUnfollow,
-			},
-		});
-
-		if (res) return true;
-
-		return false;
+		return data;
 	}
 
-	async follow(config: { username: any; userToFollow: any }) {
-		const { username, userToFollow } = config;
-		const user2 = await this.getValue({
-			table: 'Users',
-			value: { username: userToFollow },
-		});
+	async getAllUsers() {
+		const { data, error } = await this.supabase.from('Users').select('*');
 
-		if (!user2) {
+		return data;
+	}
+
+	async getUser(username: string) {
+		const { data, e } = await this.getValue({ table: 'Users', value: { username } });
+
+		if (data.length == 0) return false;
+		return data[0];
+	}
+
+	async changePassword(username: string, password: string): Promise<boolean> {
+		{
+			const user = await this.getUser(username);
+
+			const { data, error } = await this.supabase
+				.from('users')
+				.update({ password: password })
+				.match({ username: username });
+
+			if (data == undefined) return true;
 			return false;
 		}
-
-		const followBool = !(await this.getValue({
-			table: 'Following',
-			value: { username: username, followedUsername: user2.username },
-		}))
-			? false
-			: true;
-
-		if (followBool) {
-			return false;
-		}
-
-		const err = await this.newValue({
-			table: 'Following',
-			values: {
-				username: username,
-				followedUsername: user2.username,
-			},
-		});
-
-		if (err) return true;
-
-		return false;
 	}
 }

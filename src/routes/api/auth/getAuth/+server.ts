@@ -20,9 +20,6 @@ export const GET: any = async ({ url, fetch }) => {
 		throw error(401, 'Not authorised');
 	}
 
-	// console.log({accessKey})
-
-	// const newKeyRes = await fetch(`/api/auth/getKey?accesKey=${accessKey}+uuid=${accessKeyAuth.uuid}`);
 	const newKeyRes = await fetch(`/api/auth/getKey?accessKey=${accessKey}`);
 	// console.log(newKeyRes)
 	if (!newKeyRes.ok) {
@@ -34,7 +31,6 @@ export const GET: any = async ({ url, fetch }) => {
 
 	const newKey = await newKeyRes.json()
 	accessKeyAuth.newKey = newKey
-	console.log({accessKeyAuth})
-	console.log('hellofdfdf')
+
 	return new Response(JSON.stringify(accessKeyAuth));
 };

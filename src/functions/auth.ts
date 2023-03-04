@@ -26,15 +26,14 @@ export async function getAuth(cookies: any, fetch: any) {
 export async function authFlow(cookies: any, fetch: any) {
   cookies = Auth.Parse.parseCookie(cookies);
 	const firstRes = await getAuth(cookies, fetch)
-	// console.log(firstRes)
+
 	if (firstRes.ok) return await firstRes.json()
 
 	const key = await getKey(cookies, fetch)
-	console.log({key})
 	if (!key) return false
 
   cookies.key = key
-	console.log("hjfbgjkbfgjbg")
+
 	const secondRes = await getAuth(cookies, fetch)
 	return await secondRes.json()
 }

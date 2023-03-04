@@ -10,6 +10,11 @@ export class Auth extends DB {
 		this.Bcrypt = Bcrypt;
 	}
 
+	public async comparePassword(plaintextPassword: string, hash: string): Promise<string> {
+		const result = await this.Bcrypt.compare(plaintextPassword, hash);
+		return result;
+	}
+
 	public async hashPassword(plaintextPassword: string) {
 		const hash = await this.Bcrypt.hash(plaintextPassword, 10);
 		return hash;
@@ -38,7 +43,7 @@ export class Auth extends DB {
 		return false;
 	}
 
-	public async checkAvailability(username: string, email: string) {
+	public async checkAvailability(username: string, email: string): Promise<boolean> {
 		const userList = await this.getAllValues('Users');
 		userList;
 		const usernameAvailability = userList.find(
@@ -54,11 +59,6 @@ export class Auth extends DB {
 		if (!userBool || !emailBool) return false;
 
 		return true;
-	}
-
-	public async comparePassword(plaintextPassword: string, hash: string) {
-		const result = await this.Bcrypt.compare(plaintextPassword, hash);
-		return result;
 	}
 
 	public async authenticate(username: string, password: string) {
@@ -97,24 +97,24 @@ export class Auth extends DB {
 		return true;
 	}
 
-	async changeKey(user: string, key: string) {
+	async changeKey(username: string, key: string, type: string) {
 		let res1;
 
 		const res = await this.updateValue({
 			table: 'Keys',
 			valueToChange: key,
 			columnToChange: 'key',
-			valueToMatch: user,
-			columnToMatch: 'user'
+			valueToMatch: username,
+			columnToMatch: 'username'
 		});
-		console.log({res})
 
 		if (res.length == 0) {
 			res1 = await this.newValue({
 				table: 'Keys',
 				values: {
 					key,
-					user
+					username,
+					type
 				}
 			});
 
@@ -154,5 +154,21 @@ export class Auth extends DB {
 
 		if (data.length == 0 || data == false) return false;
 		return data;
+	}
+
+	async checkEmail(username: string, email: string): Promise<boolean|string> {
+		const user = await this.getValue({
+			table: 'Users',
+			value: {
+				username,
+				email
+			}
+		})
+		if (!user) return false
+
+		const res = await this.comparePassword(email, user.email)
+
+		if (res) return user
+		return false
 	}
 }
