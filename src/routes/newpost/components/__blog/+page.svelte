@@ -3,7 +3,7 @@
     let title = '';
     let body = '';
 
-    let loading = false
+    let loading = false	
 
     const submit = async () => {
 		if (body.length == 0) return

@@ -1,6 +1,7 @@
 <script>
-	import Nav from "./__nav/+page.svelte";
-	import { onMount } from "svelte";
+	import Nav from './__nav/+page.svelte';
+	import Icon from "@iconify/svelte";
+	import { onMount } from 'svelte';
 
 	export let data;
 	let likes = [];
@@ -8,113 +9,104 @@
 	let polls = {};
 	let loading = true;
 
-	async function submit(id, option) {
-		const response = await fetch("/api/voteOption", {
-			method: "post",
+	async function submit(uuid, optionUUID) {
+		const response = await fetch('/api/voteOption', {
+			method: 'post',
 			headers: {
-				Accept: "application/json",
-				"Content-Type": "application/json",
+				Accept: 'application/json',
+				'Content-Type': 'application/json'
 			},
 			body: JSON.stringify({
-				id,
-				option,
-			}),
+				uuid,
+				optionUUID
+			})
 		});
 	}
 
-	async function like(id) {
-		if (likes[id].isLiked) {
-			likes[id].isLiked = false;
-			likes[id].likeCount--;
+	async function like(post) {
+		if (likes[post.id].isLiked) {
+			likes[post.id].isLiked = false;
+			likes[post.id].likeCount--;
 
-			const res = await fetch("/api/removeLike", {
-				method: "post",
+			const res = await fetch('/api/removeLike', {
+				method: 'post',
 				headers: {
-					Accept: "application/json",
-					"Content-Type": "application/json",
+					Accept: 'application/json',
+					'Content-Type': 'application/json'
 				},
 				body: JSON.stringify({
-					id: id,
-				}),
+					uuid: post.uuid
+				})
 			});
 			return;
 		}
-		if (likes[id].isDisliked) {
-			likes[id].isDisliked = false;
-			likes[id].dislikeCount--;
+		if (likes[post.id].isDisliked) {
+			likes[post.id].isDisliked = false;
+			likes[post.id].dislikeCount--;
 		}
-		likes[id].isLiked = true;
-		likes[id].likeCount++;
+		likes[post.id].isLiked = true;
+		likes[post.id].likeCount++;
 
-		const res = await fetch("/api/likePost", {
-			method: "post",
+		const res = await fetch('/api/likePost', {
+			method: 'post',
 			headers: {
-				Accept: "application/json",
-				"Content-Type": "application/json",
+				Accept: 'application/json',
+				'Content-Type': 'application/json'
 			},
 			body: JSON.stringify({
-				id,
-			}),
+				uuid: post.uuid
+			})
 		});
 	}
 
-	async function dislike(id) {
-		if (likes[id].isDisliked) {
-			likes[id].isDisliked = false;
-			likes[id].dislikeCount--;
+	async function dislike(post) {
+		if (likes[post.id].isDisliked) {
+			likes[post.id].isDisliked = false;
+			likes[post.id].dislikeCount--;
 
-			const res = await fetch("/api/removeDislike", {
-				method: "post",
+			const res = await fetch('/api/removeDislike', {
+				method: 'post',
 				headers: {
-					Accept: "application/json",
-					"Content-Type": "application/json",
+					Accept: 'application/json',
+					'Content-Type': 'application/json'
 				},
 				body: JSON.stringify({
-					id,
-				}),
+					uuid: post.uuid
+				})
 			});
 			return;
 		}
-		if (likes[id].isLiked) {
-			likes[id].isLiked = false;
-			likes[id].likeCount--;
+		if (likes[post.id].isLiked) {
+			likes[post.id].isLiked = false;
+			likes[post.id].likeCount--;
 		}
-		likes[id].isDisliked = true;
-		likes[id].dislikeCount++;
+		likes[post.id].isDisliked = true;
+		likes[post.id].dislikeCount++;
 
-		const res = await fetch("/api/dislikePost", {
-			method: "post",
+		const res = await fetch('/api/dislikePost', {
+			method: 'post',
 			headers: {
-				Accept: "application/json",
-				"Content-Type": "application/json",
+				Accept: 'application/json',
+				'Content-Type': 'application/json'
 			},
 			body: JSON.stringify({
-				id,
-			}),
+				uuid: post.uuid
+			})
 		});
 	}
 
 	function getLikesDislikes(post) {
 		if (post == undefined) return;
+
 		post = posts.find((item) => item.id === post);
-		const likes1 = post.likes || [];
-		const dislikes = post.dislikes || [];
-
-		const isLiked = !(
-			likes1.find((user) => user.username === data.username) === undefined
-		);
-		const isDisliked = !(
-			dislikes.find((user) => user.username === data.username) ===
-			undefined
-		);
-
+		
 		likes[post.id] = {
-			isLiked,
-			likeCount: likes1.length,
-			isDisliked,
-			dislikeCount: dislikes.length,
+			isLiked: post.isLiked,
+			likeCount: post.likes,
+			isDisliked: post.isDisliked,
+			dislikeCount: post.dislikes,
 			likeHover: false,
-			dislikeHover: false,
+			dislikeHover: false
 		};
 		likes = [...likes];
 	}
@@ -125,39 +117,41 @@
 		}
 
 		polls[post.id] = {
-			clicked: false,
+			clicked: false
 		};
 
 		let total = 0;
-
+		for (let i = 0; i < post.options.length; i++) {
+			for (let j = 0; j < post.options[i].length; j++) {
+				if (post.options[i][j].hasOwnProperty('uuid')) {
+					total++;
+				}
+			}
+		}
 		for (let i in post.options) {
 			total += post.options[i].votes.length;
 			polls[post.id][i] = {
+				uuid: post.uuid,
 				total: post.options[i].votes.length,
-				percentage: 0,
+				percentage: 0
 			};
 
-			if (
-				post.options[i].votes.find(
-					(item) => item.username === data.username
-				) != undefined
-			) {
+			if (post.options[i].votes.find((item) => item.username === item.username) != undefined) {
 				polls[post.id][i] = { ...polls[post.id][i], clicked: true };
 				polls[post.id].clicked = true;
 			}
 		}
+
 		polls[post.id].total = total;
 
 		for (let i in post.options) {
-			polls[post.id][i].percentage = Math.round(
-				(polls[post.id][i].total / total) * 100
-			);
+			polls[post.id][i].percentage = Math.round((polls[post.id][i].total / total) * 100);
 		}
 	}
 
 	function vote(post, option) {
 		polls[post.id] = {
-			selected: option,
+			selected: option
 		};
 
 		let total = 0;
@@ -166,19 +160,17 @@
 			total += post.options[i].votes.length;
 			polls[post.id][i] = {
 				total: post.options[i].votes.length,
-				percentage: 0,
+				percentage: 0
 			};
 		}
 
 		polls[post.id][option].total += 1;
 		total += 1;
-		submit(post.id, post.options[option].value);
+		submit(post.uuid, post.options[option].uuid);
 
 		for (let i in post.options) {
 			for (let i in post.options) {
-				polls[post.id][i].percentage = Math.round(
-					(polls[post.id][i].total / total) * 100
-				);
+				polls[post.id][i].percentage = Math.round((polls[post.id][i].total / total) * 100);
 			}
 		}
 
@@ -188,7 +180,7 @@
 
 	function timeAgo(input) {
 		const date = input instanceof Date ? input : new Date(input);
-		const formatter = new Intl.RelativeTimeFormat("en");
+		const formatter = new Intl.RelativeTimeFormat('en');
 		const ranges = {
 			years: 3600 * 24 * 365,
 			months: 3600 * 24 * 30,
@@ -196,7 +188,7 @@
 			days: 3600 * 24,
 			hours: 3600,
 			minutes: 60,
-			seconds: 1,
+			seconds: 1
 		};
 		const secondsElapsed = (date.getTime() - Date.now()) / 1000;
 		for (let key in ranges) {
@@ -208,10 +200,10 @@
 	}
 
 	onMount(async () => {
-		// const res = await fetch(`/api/homePosts`);
-		// const resJson = await res.json();
-		// posts = resJson.data;
-		// loading = false;
+		const res = await fetch(`/api/homePosts`);
+		const resJson = await res.json();
+		posts = resJson.data;
+		loading = false;
 	});
 </script>
 
@@ -224,9 +216,7 @@
 	<div id="whole">
 		<h1 id="homeTitle">Home</h1>
 		{#if posts.length == 0 && !loading}
-			<a href="/search" id="empty"
-				>It's looking empty here...<br />Go follow some people!</a
-			>
+			<a href="/search" id="empty">It's looking empty here...<br />Go follow some people!</a>
 		{/if}
 		{#if loading}
 			<div class="css-spinner clickable">
@@ -240,7 +230,7 @@
 		{/if}
 		{#each posts as post}
 			{#if post != undefined}
-				{#if post.type == "blog"}
+				{#if post.type == 'text'}
 					<div id="postContainer" class="postContainer">
 						<a href="/post/{post.id}" id="link">
 							<h1 id="title">
@@ -250,87 +240,60 @@
 								<h2 id="description">
 									{post.body}
 								</h2>
-								 </div>
-							</a>
-								<a href="/@{post.username}">
-									<h2 id="name" class="name">@{post.username}</h2>
-								</a>
-								<h2 id="date" class="date">
-									{timeAgo(post.created_at)}
-								</h2>
-							<!-- </div> -->
-							<div id="buttonHolder">
-								<div id="hidden" style="display: none">
-									{getLikesDislikes(post.id)}
-								</div>
-								<button
-									on:click={() => like(post.id)}
-									id="likeButton"
-								>
-									<div
-										on:mouseenter={() => {
-											likes[post.id].likeHover = true;
-										}}
-										on:mouseleave={() => {
-											likes[post.id].likeHover = false;
-										}}
-									>
-										{#if likes[post.id].likeHover || likes[post.id].isLiked}
-											<Icon
-												icon="akar-icons:arrow-up"
-												color="green"
-												width="40"
-												height="40"
-											/>
-										{:else}
-											<Icon
-												icon="akar-icons:arrow-up"
-												color="white"
-												width="40"
-												height="40"
-											/>
-										{/if}
-									</div>
-								</button>
-
-								<h5 id="likeCount">
-									{likes[post.id].likeCount -
-										likes[post.id].dislikeCount}
-								</h5>
-
-								<button
-									on:click={() => dislike(post.id)}
-									id="likeButton"
-								>
-									<div
-										on:mouseenter={() => {
-											likes[post.id].dislikeHover = true;
-										}}
-										on:mouseleave={() => {
-											likes[post.id].dislikeHover = false;
-										}}
-									>
-										{#if likes[post.id].dislikeHover || likes[post.id].isDisliked}
-											<Icon
-												icon="akar-icons:arrow-down"
-												color="red"
-												width="40"
-												height="40"
-											/>
-										{:else}
-											<Icon
-												icon="akar-icons:arrow-down"
-												color="white"
-												width="40"
-												height="40"
-											/>
-										{/if}
-									</div>
-								</button>
 							</div>
+						</a>
+						<a href="/@{post.username}">
+							<h2 id="name" class="name">@{post.username}</h2>
+						</a>
+						<h2 id="date" class="date">
+							{timeAgo(post.created_at)}
+						</h2>
+						<!-- </div> -->
+						<div id="buttonHolder">
+							<div id="hidden" style="display: none">
+								{getLikesDislikes(post.id)}
+							</div>
+							<button on:click={() => like(post)} id="likeButton">
+								<div
+									on:mouseenter={() => {
+										likes[post.id].likeHover = true;
+									}}
+									on:mouseleave={() => {
+										likes[post.id].likeHover = false;
+									}}
+								>
+									{#if likes[post.id].likeHover || likes[post.id].isLiked}
+										<Icon icon="akar-icons:arrow-up" color="green" width="40" height="40" />
+									{:else}
+										<Icon icon="akar-icons:arrow-up" color="white" width="40" height="40" />
+									{/if}
+								</div>
+							</button>
+
+							<h5 id="likeCount">
+								{likes[post.id].likeCount - likes[post.id].dislikeCount}
+							</h5>
+
+							<button on:click={() => dislike(post)} id="likeButton">
+								<div
+									on:mouseenter={() => {
+										likes[post.id].dislikeHover = true;
+									}}
+									on:mouseleave={() => {
+										likes[post.id].dislikeHover = false;
+									}}
+								>
+									{#if likes[post.id].dislikeHover || likes[post.id].isDisliked}
+										<Icon icon="akar-icons:arrow-down" color="red" width="40" height="40" />
+									{:else}
+										<Icon icon="akar-icons:arrow-down" color="white" width="40" height="40" />
+									{/if}
+								</div>
+							</button>
+						</div>
 					</div>
 				{/if}
-				{#if post.type == "vote"}
+				{#if post.type == 'vote'}
 					<div id="postContainer" class="vote">
 						<h3 id="voteTitle">{post.body}</h3>
 						<div>
@@ -349,7 +312,7 @@
 												vote(post, i);
 											}}
 										>
-											<h5>{option.value}</h5>
+											<h5>{option.option}</h5>
 										</button>
 									</div>
 									<h6 class="percNum" />
@@ -361,13 +324,11 @@
 									<div class="percHolder">
 										<div
 											class="percBar"
-											class:selected={polls[post.id][i]
-												.clicked == true}
-											style="transition: all 0.2s linear; min-width: 13px; width: {polls[
-												post.id
-											][i].percentage}%"
+											class:selected={polls[post.id][i].clicked == true}
+											style="transition: all 0.2s linear; min-width: 13px; width: {polls[post.id][i]
+												.percentage}%"
 										>
-											<h5>{option.value}</h5>
+											<h5>{option.option}</h5>
 										</div>
 									</div>
 									<h6 class="percNum">
@@ -389,10 +350,7 @@
 							<div id="hidden" style="display: none">
 								{getLikesDislikes(post.id)}
 							</div>
-							<button
-								on:click={() => like(post.id)}
-								id="likeButton"
-							>
+							<button on:click={() => like(post)} id="likeButton">
 								<div
 									on:mouseenter={() => {
 										likes[post.id].likeHover = true;
@@ -402,32 +360,18 @@
 									}}
 								>
 									{#if likes[post.id].likeHover || likes[post.id].isLiked}
-										<Icon
-											icon="akar-icons:arrow-up"
-											color="green"
-											width="40"
-											height="40"
-										/>
+										<Icon icon="akar-icons:arrow-up" color="green" width="40" height="40" />
 									{:else}
-										<Icon
-											icon="akar-icons:arrow-up"
-											color="white"
-											width="40"
-											height="40"
-										/>
+										<Icon icon="akar-icons:arrow-up" color="white" width="40" height="40" />
 									{/if}
 								</div>
 							</button>
 
 							<h5 id="likeCount">
-								{likes[post.id].likeCount -
-									likes[post.id].dislikeCount}
+								{likes[post.id].likeCount - likes[post.id].dislikeCount}
 							</h5>
 
-							<button
-								on:click={() => dislike(post.id)}
-								id="likeButton"
-							>
+							<button on:click={() => dislike(post)} id="likeButton">
 								<div
 									on:mouseenter={() => {
 										likes[post.id].dislikeHover = true;
@@ -437,19 +381,9 @@
 									}}
 								>
 									{#if likes[post.id].dislikeHover || likes[post.id].isDisliked}
-										<Icon
-											icon="akar-icons:arrow-down"
-											color="red"
-											width="40"
-											height="40"
-										/>
+										<Icon icon="akar-icons:arrow-down" color="red" width="40" height="40" />
 									{:else}
-										<Icon
-											icon="akar-icons:arrow-down"
-											color="white"
-											width="40"
-											height="40"
-										/>
+										<Icon icon="akar-icons:arrow-down" color="white" width="40" height="40" />
 									{/if}
 								</div>
 							</button>
@@ -463,8 +397,8 @@
 
 <style>
 	@font-face {
-		font-family: "Jakarta";
-		src: url("/fonts/Jakarta.ttf");
+		font-family: 'Jakarta';
+		src: url('/fonts/Jakarta.ttf');
 	}
 
 	body {
@@ -682,7 +616,8 @@
 		margin-top: 20vh;
 	}
 
-	.name, .date {
+	.name,
+	.date {
 		margin-left: 5vw !important;
 	}
 

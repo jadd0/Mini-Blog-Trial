@@ -46,7 +46,8 @@ export class DB {
 			.match(value);
 
 		if (data.length == 0 || error != undefined) return false;
-		return data[0];
+		if (data.length == 1) return data[0];
+		return data
 	}
 
 	async getRangeValues(config: {
@@ -73,10 +74,10 @@ export class DB {
 
 	async updateValue(config: {
 		table: string;
-		valueToChange: string;
-		columnToChange: string;
-		valueToMatch: string;
-		columnToMatch: string;
+		valueToChange: any;
+		columnToChange: any;
+		valueToMatch: any;
+		columnToMatch: any;
 	}) {
 		const {
 			table,
@@ -91,7 +92,6 @@ export class DB {
 			.update({ [columnToChange]: valueToChange })
 			.match({ [columnToMatch]: valueToMatch })
 			.select()
-		console.log({data, error})
 
 		if (error != undefined) return false;
 		return data;
@@ -101,6 +101,8 @@ export class DB {
 		const { table, values } = config;
 
 		const { data, error } = await this.supabase.from(table).insert([values]).select();
+
+		console.log({data, error})
 		if (error != undefined) return false
 		return data
 	}
@@ -112,8 +114,8 @@ export class DB {
 			.from(table)
 			.delete()
 			.match(values);
-
-		if (error != undefined) return true
-		return false
+		console.log(data,error)
+		if (error != undefined) return false
+		return true
 	}
 }

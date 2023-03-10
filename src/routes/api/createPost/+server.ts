@@ -1,6 +1,9 @@
+import { get } from 'svelte/store';
 import { authFlow } from '../../../functions/auth'
-import 
+import { posts } from '../../stores/objects';
 import { error } from '@sveltejs/kit';
+
+const Posts = get(posts)
 
 /** @type {import('./$types').Load} */
 export async function POST({ request, fetch }) {
@@ -10,10 +13,9 @@ export async function POST({ request, fetch }) {
 		throw error(401, "Not authorised");
 	}
 
-	const userData = await request.json();
+	const { title, body, type } = await request.json();
+	const res = await Posts.createPost({ title, body, type, username: auth.username });
 
-	const res = await supabaseClass.createPost(userData, auth);
-
-	if (res) return new Response("Posted successfully")
-	throw error(500, "There has been an issue posting. Please try again later. If this issue persists please email me at jaddalkwork@gmail.com")
+	if (!res)	throw error(500, "There has been an issue posting. Please try again later. If this issue persists please email me at jaddalkwork@gmail.com")
+	return new Response(JSON.stringify(auth.newKey));
 }

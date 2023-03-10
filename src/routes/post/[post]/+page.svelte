@@ -127,7 +127,7 @@
 			},
 			body: JSON.stringify({
 				id: data.id,
-				commentBody: commentBody,
+				commentBody,
 			}),
 		});
 

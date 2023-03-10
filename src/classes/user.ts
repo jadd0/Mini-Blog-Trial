@@ -18,10 +18,15 @@ export class User extends DB {
 	}
 
 	async getUser(username: string) {
-		const { data, e } = await this.getValue({ table: 'Users', value: { username } });
+		const user = await this.getValue({
+			table: 'Users',
+			value: {
+				username: username
+			}
+		})
 
-		if (data.length == 0) return false;
-		return data[0];
+		if (!user) return false;
+		return user;
 	}
 
 	async changePassword(username: string, password: string): Promise<boolean> {
@@ -36,5 +41,73 @@ export class User extends DB {
 			if (data == undefined) return true;
 			return false;
 		}
+	}
+
+	async checkFollowing(username: string, followedUsername: string): Promise<boolean> {
+		const res = await this.getValue({
+			table: 'Following',
+			value: {
+				username,
+				followedUsername
+			}
+		})
+
+		if (!res) return false
+		return true
+	}
+
+	async follow(username: string, followedUsername: string): Promise<boolean> {
+		if (await this.checkFollowing(username, followedUsername)) return false
+		const res = await this.newValue({
+			table: 'Following',
+			values: {
+				username,
+				followedUsername
+			}
+		})
+
+		if (!res) return false
+		return true
+	}
+
+	async unfollow(username: string, followedUsername: string): Promise<boolean> {
+		if (!await this.checkFollowing(username, followedUsername)) return false
+
+		const res = await this.deleteValue({
+			table: 'Following',
+			values: {
+				username,
+				followedUsername
+			}
+		})
+
+		if (!res) return false
+		return true
+	}	
+
+	async getFollowed(followedUsername: string) {
+		const res = await this.getValue({
+			table: 'Following',
+			value: {
+				followedUsername
+			},
+			returnValues: 'username'
+		});
+
+		if (!res) return false;
+		return res;
+	}
+
+	async getFollowing(username: string) {
+		const res = await this.getValue({
+			table: 'Following',
+			value: {
+				username
+			},
+			returnValues: 'followedUsername'
+		});
+
+		if (!res) return false;
+		return res;
 	}
 }

@@ -25,7 +25,6 @@ export class Auth extends DB {
 		email: string;
 		password: string;
 		name: string;
-		uuid: string;
 	}) {
 		const result = await this.checkAvailability(userDetails.username, userDetails.email);
 
@@ -35,7 +34,6 @@ export class Auth extends DB {
 
 		const res = await this.newValue({ table: 'Users', values: userDetails });
 
-		res;
 		if (res) {
 			return true;
 		}
