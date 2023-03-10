@@ -45,7 +45,7 @@ export class DB {
 			.select(returnValues)
 			.match(value);
 
-		if (data.length == 0 || error != undefined) return false;
+		if (error != undefined || data.length == 0) return false;
 		if (data.length == 1) return data[0];
 		return data
 	}

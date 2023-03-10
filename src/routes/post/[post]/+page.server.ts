@@ -1,10 +1,13 @@
+import { get } from 'svelte/store'
 import { error, redirect } from "@sveltejs/kit";
 import { authFlow } from '../../../functions/auth'
+import { posts } from '../../stores/objects'
 
+const Posts = get(posts)
 // NOT DONE YET
 
 /** @type {import('./$types').Load} */
-export const load: any = async ({ request, cookies, fetch }) => {
+export const load: any = async ({ request, cookies, fetch, params }) => {
   const auth = await authFlow(request.headers.get("cookie"), fetch)
 
 	if (!auth) {
@@ -19,47 +22,31 @@ export const load: any = async ({ request, cookies, fetch }) => {
 		SameSite: 'Strict'
 	});
 
-	const data = await supabaseClass.getPost(params.post)
-	
-	if (!data) {
+	const res = await Posts.getPost(params.post, auth.username)
+	console.log('gosuhfjsdf', res)
+	if (!res) {
 		throw error(404, "No post found");
 	}
+
 	let bool = false
-	if (auth == data.username) {
+	if (auth == res.username) {
 		bool = true
 	}
 
-  if (data == undefined || data.length == 0) {
+  if (!res) {
     throw error(404, 'No post found');
   }
-
-	const returnData = data
-	let comments = data.comments || []
-
-	comments.sort(function(a, b) {
+	console.log(res)
+	res.comments.sort(function(a, b) {
     return (a.created_at < b.created_at) ? -1 : ((a.created_at > b.created_at) ? 1 : 0);
 	});
 
-	const likes = data.likes || []
-	const dislikes = data.dislikes || []
-
-	const isLiked = !(likes.find(
-		(user) => user.username === auth
-	) === undefined);
-	const isDisliked = !(dislikes.find(
-		(user) => user.username === auth
-	) === undefined);
-
+	res.comments = res.comments.reverse()
 
 	return {
 		bool,
-		returnData,
-		likeCount: likes.length,
-		dislikeCount: dislikes.length,
-		isLiked,
-		isDisliked,
-		username: auth,
+		...res,
+		username: auth.username,
 		id: params.post,
-		comments: (comments.reverse())
 	}
 }

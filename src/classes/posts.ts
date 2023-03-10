@@ -19,7 +19,7 @@ export class Posts extends DB {
 			.select('*')
 			.filter('postUUID', 'in', `(${arr})`);
 
-		if (error != undefined) return false
+		if (error != undefined) return false;
 		return data;
 	}
 
@@ -34,7 +34,7 @@ export class Posts extends DB {
 		for (let i of newArr) {
 			list += `"${i}",`;
 		}
-		list = list.substring(0, list.length-1)
+		list = list.substring(0, list.length - 1);
 		return list;
 	}
 
@@ -43,27 +43,26 @@ export class Posts extends DB {
 			.from('VoteOptions')
 			.select('*')
 			.filter('postUUID', 'in', `(${arr})`);
-		console.log(data, error)
-		if (error != undefined) return false
-		return data
-	}
 
+		if (error != undefined) return false;
+		return data;
+	}
 
 	// ARR IS ALL THE POSTS
 	async getVotesFromList(arr: any) {
-		let posts = []
+		let posts = [];
 		for (let i = 0; i < arr.length; i++) {
-			posts.push(arr[i].uuid)
+			posts.push(arr[i].uuid);
 		}
 
 		let list = '';
 		for (let i of posts) {
 			list += `"${i}",`;
 		}
-	
-		list = list.substring(0, list.length-1)
 
-		const options = await this.getOptionsFromList(list)
+		list = list.substring(0, list.length - 1);
+
+		const options = await this.getOptionsFromList(list);
 
 		// DATA IS THE VOTES
 		const { data, error } = await this.supabase
@@ -71,20 +70,19 @@ export class Posts extends DB {
 			.select('*')
 			.filter('postUUID', 'in', `(${list})`);
 
-		if (error != undefined) return false
+		if (error != undefined) return false;
 
 		for (let i = 0; i < options.length; i++) {
-			const votes = data.filter(obj => obj.option == options[i].uuid)
-			console.log({votes})
-			options[i].votes = votes
+			const votes = data.filter((obj) => obj.option == options[i].uuid);
+			options[i].votes = votes;
 		}
 
 		for (let i = 0; i < arr.length; i++) {
-			const option = options.filter(obj => obj.postUUID == arr[i].uuid)
-			arr[i].options = option
+			const option = options.filter((obj) => obj.postUUID == arr[i].uuid);
+			arr[i].options = option;
 		}
 
-		return arr
+		return arr;
 	}
 
 	async getPostsFromList(arr: any, username: string) {
@@ -103,19 +101,16 @@ export class Posts extends DB {
 		if (!likesAndDislikes) return false;
 
 		for (let i = 0; i < data.length; i++) {
-			let likes = ((likesAndDislikes.filter(
+			let likes = likesAndDislikes.filter(
 				(obj) => obj.postUUID == data[i].uuid && obj.type == true
-			)))
+			);
 			let dislikes = likesAndDislikes.filter(
 				(obj) => obj.postUUID == data[i].uuid && obj.type == false
-			)
+			);
 
-			const isLiked = (likes.find(
-				(obj) => obj.username == username
-			) == undefined ? false : true);
-			const isDisliked = (dislikes.find(
-				(obj) => obj.username == username
-			) == undefined ? false : true)
+			const isLiked = likes.find((obj) => obj.username == username) == undefined ? false : true;
+			const isDisliked =
+				dislikes.find((obj) => obj.username == username) == undefined ? false : true;
 
 			data[i] = {
 				...data[i],
@@ -123,13 +118,13 @@ export class Posts extends DB {
 				isDisliked,
 				likes: likes.length || 0,
 				dislikes: dislikes.length || 0
-			}
+			};
 		}
 
-		const res = await this.getVotesFromList(data)
+		const res = await this.getVotesFromList(data);
 
 		if (res) {
-			data = res
+			data = res;
 		}
 
 		data.sort(function (a, b) {
@@ -140,21 +135,34 @@ export class Posts extends DB {
 		return false;
 	}
 
-	async getPost(uuid: string, username: string) {
-		const res = await this.getValue({
+	async getPost(id: string, username: string) {
+		let res = await this.getValue({
 			table: 'Posts',
 			value: {
-				uuid
+				uuid: id
 			}
 		});
-		console.log({res})
-		if (!res) return false;
 
-		// const likes = await this.getLikesDislikes(uuid, true, username);
-		// const dislikes = await this.getLikesDislikes(uuid, false, username);
+		if (!res) {
+			res = await this.getValue({
+				table: 'Posts',
+				value: {
+					id
+				}
+			});
+			if (!res) return false
+		}
+
+		const likesDislikes = await this.getLikesDislikes(res.uuid, username);
+		if (!likesDislikes) return false
+
+		const comments = await this.getComments(res.uuid);
+		if (!comments) return false
+		res.comments = comments
 
 		return {
-			post: res
+			...res,
+			...likesDislikes
 		};
 	}
 
@@ -186,7 +194,7 @@ export class Posts extends DB {
 		});
 
 		if (!res) return false;
-		return res[0]
+		return res[0];
 	}
 
 	// async getLikeDislike(postUUID: string, username: string): Promise<boolean|string> {
@@ -213,8 +221,6 @@ export class Posts extends DB {
 			}
 		});
 
-		console.log(res)
-
 		if (!res) return false;
 		return true;
 	}
@@ -234,16 +240,16 @@ export class Posts extends DB {
 	}
 
 	async likeDislike(postUUID: string, type: boolean, username: string): Promise<boolean> {
-		console.log('one', postUUID)
 		const res = await this.getLikesDislikes(postUUID, username);
-		console.log('heloo', res)
 
 		if (res.liked || res.disliked) {
 			if (!(await this.deleteLikeDislike(postUUID, username))) return false;
 			if (!(await this.createLikeDislike(postUUID, type, username))) return false;
+			
+			return true
 		}
 
-		if (!(await this.createLikeDislike(postUUID, type, username))) return false
+		if (!(await this.createLikeDislike(postUUID, type, username))) return false;
 
 		return true;
 	}
@@ -262,8 +268,6 @@ export class Posts extends DB {
 	}
 
 	async getComments(postUUID: string) {
-		if (!(await this.getPost(postUUID))) return false;
-
 		let res = await this.getValue({
 			table: 'Comments',
 			value: {
@@ -275,30 +279,33 @@ export class Posts extends DB {
 	}
 
 	async getLikesDislikes(postUUID: string, username: string) {
-		if (!(await this.getPost(postUUID, username))) return false;
+		const { data, error } = await this.supabase
+			.from('LikesAndDislikes')
+			.select('*')
+			.eq('postUUID', postUUID)
 
-		const { data, error } = await this.getValue({
-			table: 'LikesAndDislikes',
-			value: {
-				postUUID,
-				username
-			}
-		})
+		console.log(data, error)
 
-		if (error != undefined) return false;
-		if (data == undefined) return {
-			amount: 0,
-			liked: false,
-			disliked: false,
-		}
+		if (error != undefined || data[0] == undefined) return {
+				total: 0,
+				likes: [],
+				dislikes: [],
+				liked: false,
+				disliked: false
+			};
+
+		const likes = data.filter((obj) => obj.type == true);
+		const dislikes = data.filter((obj) => obj.type == false);
 
 		const liked = data.find((item: any) => item.username === username && item.type == true);
 		const disliked = data.find((item: any) => item.username === username && item.type == false);
-
+		console.log(dislikes)
 		return {
-			amount: data.length,
+			likes,
+			dislikes,
+			total: data.length,
 			liked: liked === undefined ? false : true,
-			disliked: disliked === undefined ? false : true,
+			disliked: disliked === undefined ? false : true
 		};
 	}
 }
