@@ -2,6 +2,7 @@ import { writable } from 'svelte/store';
 
 import { supabase } from '../../supabaseClient';
 import bcryptjs from 'bcryptjs';
+import nodemailer from 'nodemailer'
 
 import { Auth } from '../../classes/auth';
 import { DB } from '../../classes/db';
@@ -14,7 +15,7 @@ import { Vote } from '../../classes/vote';
 
 const authObj = new Auth(new Parse(), bcryptjs, supabase);
 const dbObj = new DB(supabase);
-const passwordResetObj = new PasswordReset(supabase)
+const passwordResetObj = new PasswordReset(supabase, nodemailer)
 const postsObj = new Posts(supabase)
 const userObj = new User(supabase)
 const voteObj = new Vote(supabase)

@@ -2,7 +2,7 @@
 	import Nav from './__nav/+page.svelte';
 	import Icon from "@iconify/svelte";
 	import { onMount } from 'svelte';
-
+	console.log("hello")
 	export let data;
 	let likes = [];
 	let posts = [];

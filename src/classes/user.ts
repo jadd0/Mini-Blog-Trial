@@ -86,28 +86,22 @@ export class User extends DB {
 	}	
 
 	async getFollowed(followedUsername: string) {
-		const res = await this.getValue({
-			table: 'Following',
-			value: {
-				followedUsername
-			},
-			returnValues: 'username'
-		});
+		const { data, error } = await this.supabase
+			.from('Following')
+			.select('*')
+			.eq('followedUsername', followedUsername) 
 
-		if (!res) return false;
-		return res;
+		if (error != undefined) return false;
+		return data;
 	}
 
 	async getFollowing(username: string) {
-		const res = await this.getValue({
-			table: 'Following',
-			value: {
-				username
-			},
-			returnValues: 'followedUsername'
-		});
+		const { data, error } = await this.supabase
+			.from('Following')
+			.select('*')
+			.eq('username', username) 
 
-		if (!res) return false;
-		return res;
+		if (error != undefined) return false;
+		return data;
 	}
 }

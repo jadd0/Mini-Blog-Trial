@@ -96,18 +96,14 @@ export class Auth extends DB {
 	}
 
 	async changeKey(username: string, key: string, type: string) {
-		let res1;
+		const { data, error } = await this.supabase
+			.from('Keys')
+			.update({ 'key': key })
+			.match({ 'type': type, 'username': username })
+			.select()
 
-		const res = await this.updateValue({
-			table: 'Keys',
-			valueToChange: key,
-			columnToChange: 'key',
-			valueToMatch: username,
-			columnToMatch: 'username'
-		});
-
-		if (res.length == 0) {
-			res1 = await this.newValue({
+		if (error != undefined) {
+			const res = await this.newValue({
 				table: 'Keys',
 				values: {
 					key,
@@ -116,11 +112,10 @@ export class Auth extends DB {
 				}
 			});
 
-			if (!res1) return false;
-			return res1[0].key;
+			if (!res) return false;
+			return res.key;
 		}
-
-		return res[0].key;
+		return data[0].key;
 	}
 
 	public async checkAccessKey(token: string) {
@@ -158,8 +153,7 @@ export class Auth extends DB {
 		const user = await this.getValue({
 			table: 'Users',
 			value: {
-				username,
-				email
+				username
 			}
 		})
 		if (!user) return false

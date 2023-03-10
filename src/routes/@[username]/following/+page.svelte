@@ -1,32 +1,27 @@
 <script>
-	import { page } from "$app/stores";
-	import { onMount } from "svelte";
-	import Nav from "../../__nav/+page.svelte";
+	import { page } from '$app/stores';
+	import { onMount } from 'svelte';
+	import Nav from '../../__nav/+page.svelte';
 	export let data = [];
 
 	function date(isoDate) {
 		const date = new Date(isoDate);
-		const newDate = `${date.getDate()}/${
-			date.getMonth() + 1
-		}/${date.getFullYear()}`;
+		const newDate = `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`;
 
 		return newDate;
 	}
 
 	const submit = async () => {
-		const response = await fetch(
-			`/api/${data.bool === true ? "unfollow" : "follow"}`,
-			{
-				method: "post",
-				headers: {
-					Accept: "application/json",
-					"Content-Type": "application/json",
-				},
-				body: JSON.stringify({
-					username: $page.params.username,
-				}),
-			}
-		);
+		const response = await fetch(`/api/${data.bool === true ? 'unfollow' : 'follow'}`, {
+			method: 'post',
+			headers: {
+				Accept: 'application/json',
+				'Content-Type': 'application/json'
+			},
+			body: JSON.stringify({
+				username: $page.params.username
+			})
+		});
 
 		if (response.ok) {
 			location.reload();
@@ -43,12 +38,14 @@
 	<div id="whole">
 		<h1 id="username">@{$page.params.username}'s following</h1>
 		<div id="container">
-			{#each data.data as username}
-				<a href="/@{username}">
-					<div id="userHolder">
-						<h1 id="name">{username}</h1>
-					</div>
-				</a>
+			{#each data.data as user}
+				{#if user.followedUsername != data.username}
+					<a href="/@{user.followedUsername}">
+						<div id="userHolder">
+							<h1 id="name">{user.followedUsername}</h1>
+						</div>
+					</a>
+				{/if}
 			{/each}
 		</div>
 	</div>
@@ -56,8 +53,8 @@
 
 <style>
 	@font-face {
-		font-family: "Jakarta";
-		src: url("/fonts/Jakarta.ttf");
+		font-family: 'Jakarta';
+		src: url('/fonts/Jakarta.ttf');
 	}
 
 	body {
@@ -89,27 +86,27 @@
 		font-weight: 600;
 	}
 
-  #name {
-    font-size: 25px !important;
+	#name {
+		font-size: 25px !important;
 		color: rgb(255, 255, 255);
 		margin: 0 auto;
-		overflow: hidden;	
+		overflow: hidden;
 		text-overflow: ellipsis;
 		padding: 10px 10px 10px 10px;
 		transition: all 0.2s linear;
-  }
+	}
 
-  #userHolder {
-    line-height: 65px;
+	#userHolder {
+		line-height: 65px;
 		display: flex;
 		justify-content: center;
 		align-items: center;
 		height: 55px;
 		border-bottom: solid 4px #212121;
-  }
+	}
 
 	#container {
-    margin-top: 40px;
+		margin-top: 40px;
 		height: 50vh;
 		width: 400px;
 		overflow: scroll;
@@ -117,8 +114,8 @@
 		display: flex;
 		flex-direction: column;
 		padding-bottom: 30px;
-    border: 5px solid #212121;
-    border-radius: 20px;
+		border: 5px solid #212121;
+		border-radius: 20px;
 	}
 
 	@media (max-width: 460px) {

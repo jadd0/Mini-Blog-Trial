@@ -1,7 +1,7 @@
 import { get } from 'svelte/store'
 import { error, redirect } from "@sveltejs/kit";
-import { authFlow } from '../../functions/auth'
-import { user } from '../stores/objects'
+import { authFlow } from '../../../functions/auth'
+import { user } from '../../stores/objects'
 
 const User = get(user)
 
@@ -28,27 +28,10 @@ export const load: any = async ({ request, cookies, fetch, params }) => {
 	}
 
 	let bool = false
-	const followingList = await User.getFollowing(auth.username)
-
-	try {
-		const res = followingList.find(obj => params.username == obj.followedUsername)
-		console.log(res)
-		if (res != undefined) bool = true
-	}
-	catch {
-		bool = false
-	}
-
-	if (auth.username == params.username) {
-		bool = 'self'
-	}
-	
-	
+	const followingList = await User.getFollowing(auth.username) || ['Noone yet!']
 
 	return {
-		user: user,
-		followingList,
-		...auth,
-		bool: bool
+		data: followingList,
+		username: auth.username
 	};
 }

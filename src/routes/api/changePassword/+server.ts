@@ -1,35 +1,37 @@
-import { SupabaseFeatures } from "../../../classes/supabaseFeatures.js";
-import { Features } from "../../../classes/usefulFeatures.js";
-import { supabase } from "../../../supabaseClient.js";
-import bcryptjs from 'bcryptjs';
+import { get } from 'svelte/store';
+import { auth, user, passwordReset } from '../../stores/objects';
+import { error, redirect } from "@sveltejs/kit";
 
-// NOT DONE YET
 
-const supabaseClass = new SupabaseFeatures(supabase, bcryptjs);
-const features = new Features();
+const Auth = get(auth);
+const User = get(user);
+const PasswordReset = get(passwordReset);
 
-async function checkKey(username, code) {
-  const user = await supabaseClass.getUser(username)
-  if (code === user.keys.passwordReset) {
-    if (code.split('.')[1] < new Date().getTime()) {
-      supabaseClass.changeResetKey(username, '')
-      if (!res1) return new Response("This reset code is invalid. The code only lasts for 15 minutes for security reasons. Please request a new code at /resetpassword.", { status: 405 })
-    }
-    return true
-  }
-  return false
+async function checkKey(username, code, time) {
+	const user = await PasswordReset.checkKey(code);
+  console.log(user)
+	if (!user) return false;
+
+	if (time < new Date().getTime()) {
+		PasswordReset.changeResetKey(username, '');
+		throw error(404, 'Reset code expired');
+	}
+  return true
 }
 
 /** @type {import('./__types/[id]').RequestHandler} */
 export const POST = async ({ request }) => {
 	const body = await request.json();
-  const res = await checkKey(body.username, body.code)
+
+  const time = body.code.split('.')[1]
+
+  const res = await checkKey(body.username, body.code, time)
 
   if (!res) return new Response("Reset code invalid", { status: 401 });
 
-  const hashedPassword = await features.hashPassword(bcryptjs, body.password)
-	const res1 = await supabaseClass.changePassword(body.username, hashedPassword)
-  const res2 = await supabaseClass.changeResetKey(body.username, '')
+  const hashedPassword = await Auth.hashPassword(body.password)
+	const res1 = await User.changePassword(body.username, hashedPassword)
+  const res2 = await PasswordReset.changeResetKey(body.username, '')
 
   if (!res1 || !res2) return new Response("There has been an error whilst resetting your password. Please try again later. If this error persists please email me jaddalkwork@gmail.com", { status: 500 });
 

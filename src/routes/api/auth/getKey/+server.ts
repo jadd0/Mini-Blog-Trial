@@ -18,7 +18,7 @@ export const GET: any = async ({ url }) => {
 	}
 
   const key = await Auth.changeKey(auth.username, Auth.Parse.generateToken(), 'auth')
-
+	console.log(key)
   if (!key) {
     throw error(500, 'Sorry, there has been an error on our side whilst trying to update your key. Please try again later. If this coninues to occur, please contact me at jaddalkwork@gmail.com.');
   }
