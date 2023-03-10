@@ -15,8 +15,8 @@ export async function POST({ request, fetch }) {
 
 	const req = await request.json();
 
-	const res = await Posts.newComment(req.id, auth.username, req.commentBody);
-
+	const res = await Posts.newComment(req.uuid, auth.username, req.commentBody);
+	
 	if (!res) {
 		throw error(500);
 	}

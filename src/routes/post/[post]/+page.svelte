@@ -120,7 +120,7 @@
 				"Content-Type": "application/json",
 			},
 			body: JSON.stringify({
-				id: data.id,
+				uuid: data.uuid,
 				commentBody: commentBody,
 			}),
 		});
@@ -234,7 +234,7 @@
 							<a href="/@{comment.username}">
 								<h4>{comment.username}</h4>
 							</a>
-							<h5>{comment.body}</h5>
+							<h5>{comment.content}</h5>
 						</div>
 					{/each}
 				</div>

@@ -265,17 +265,18 @@ export class Posts extends DB {
 		});
 
 		if (!res) return false;
+		return true
 	}
 
 	async getComments(postUUID: string) {
-		let res = await this.getValue({
-			table: 'Comments',
-			value: {
-				postUUID
-			}
-		});
-		if (!res) res = [];
-		return res;
+		let { data, error } = await this.supabase
+			.from('Comments')
+			.select('*')
+			.eq('postUUID', postUUID)
+		
+		if (error != undefined) return false
+		if (data == undefined) return []
+		return data;
 	}
 
 	async getLikesDislikes(postUUID: string, username: string) {
