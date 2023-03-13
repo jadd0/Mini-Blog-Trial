@@ -24,7 +24,7 @@ export const POST = async ({ request }) => {
 	const body = await request.json();
 
   const time = body.code.split('.')[1]
-
+	
   const res = await checkKey(body.username, body.code, time)
 
   if (!res) return new Response("Reset code invalid", { status: 401 });
@@ -34,6 +34,8 @@ export const POST = async ({ request }) => {
   const res2 = await PasswordReset.changeResetKey(body.username, '')
 
   if (!res1 || !res2) return new Response("There has been an error whilst resetting your password. Please try again later. If this error persists please email me jaddalkwork@gmail.com", { status: 500 });
+
+	
 
 	return new Response("Password changed successfully", { status: 200 });
 }

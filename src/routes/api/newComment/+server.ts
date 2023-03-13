@@ -6,7 +6,7 @@ import { error } from "@sveltejs/kit";
 const Posts = get(posts)
 
 /** @type {import('./$types').Load} */
-export async function POST({ request, fetch }) {
+export async function POST({ request, fetch, cookies }) {
 	const auth = await authFlow(request.headers.get("cookie"), fetch)
 
 	if (!auth) {
@@ -16,6 +16,14 @@ export async function POST({ request, fetch }) {
 	const req = await request.json();
 
 	const res = await Posts.newComment(req.uuid, auth.username, req.commentBody);
+
+	cookies.set('key', auth.newKey, {
+		path: '/',
+		HostOnly: false,
+		Secure: 'lax',
+		httpOnly: true,
+		SameSite: 'Strict'
+	});
 	
 	if (!res) {
 		throw error(500);

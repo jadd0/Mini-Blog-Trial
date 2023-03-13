@@ -8,9 +8,8 @@ const User = get(user);
 const PasswordReset = get(passwordReset);
 
 async function checkKey(username, code, time) {
-	const user = await PasswordReset.checkKey(code);
-  console.log(user)
-	if (!user) return false;
+	const res = await PasswordReset.checkKey(code);
+	if (!res) return false;
 
 	if (time < new Date().getTime()) {
 		PasswordReset.changeResetKey(username, '');
@@ -24,11 +23,14 @@ export const load = async ({ request, params }) => {
 	const username = params.code.split('.')[0];
 	const time = params.code.split('.')[1];
 
-	const res = await checkKey(username, params.code, time);
+	const code = `${params.code.split('.')[1]}.${params.code.split('.')[2]}`
+
+	const res = await checkKey(username, code, time);
   console.log({res})
 	if (!res) throw error(404, 'Reset code invalid');
 
 	return {
-		code: params.code
+		code: code,
+		username,
 	};
 };

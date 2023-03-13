@@ -96,6 +96,7 @@
 			}),
 		});
 	}
+
 	const deletePost = async () => {
 		const response = await fetch("/api/deletePost", {
 			method: "post",
@@ -104,13 +105,14 @@
 				"Content-Type": "application/json",
 			},
 			body: JSON.stringify({
-				id: data.id,
+				uuid: data.uuid,
 			}),
 		});
 		if (response.ok) {
-			location.replace(`/@${data.username}`);
+			location.replace(`/`);
 		}
 	};
+	
 	const submit = async () => {
 		if (commentBody.length < 3) return;
 		const response = await fetch("/api/newComment", {

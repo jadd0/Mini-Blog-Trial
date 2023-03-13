@@ -29,7 +29,7 @@ export const load: any = async ({ request, cookies, fetch, params }) => {
 	}
 
 	let bool = false
-	if (auth == res.username) {
+	if (auth.username == res.username) {
 		bool = true
 	}
 
@@ -47,6 +47,6 @@ export const load: any = async ({ request, cookies, fetch, params }) => {
 		bool,
 		...res,
 		username: auth.username,
-		id: params.post,
+		id: params.post
 	}
 }

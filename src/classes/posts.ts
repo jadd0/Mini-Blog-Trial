@@ -142,7 +142,7 @@ export class Posts extends DB {
 			.select('*')
 			.filter('username', 'in', `(${list})`);
 
-		if (error != undefined) return false
+		if (error != undefined) return false;
 
 		const likesAndDislikes = await this.getLikesDislikesFromList(data);
 		if (!likesAndDislikes) return false;
@@ -193,16 +193,47 @@ export class Posts extends DB {
 		};
 	}
 
+	async delete(table, column, value) {
+		const { data, error } = await this.supabase.from(table).delete().eq('postUUID', uuid);
+	}
+
 	async deletePost(uuid: string): Promise<boolean> {
-		const res = await this.deleteValue({
+		let res = await this.deleteValue({
+			table: 'Comments',
+			values: {
+				'postUUID': uuid
+			}
+		})
+		if (!res) return false
+		res = await this.deleteValue({
+			table: 'LikesAndDislikes',
+			values: {
+				'postUUID': uuid
+			}
+		})
+		if (!res) return false
+		res = await this.deleteValue({
+			table: 'Votes',
+			values: {
+				'postUUID': uuid
+			}
+		})
+		if (!res) return false
+		res = await this.deleteValue({
+			table: 'VoteOptions',
+			values: {
+				'postUUID': uuid
+			}
+		})
+		if (!res) return false
+		res = await this.deleteValue({
 			table: 'Posts',
 			values: {
-				uuid
+				'uuid': uuid
 			}
-		});
-
-		if (!res) return false;
-		return true;
+		})
+		if (!res) return false
+		return true
 	}
 
 	async createPost(config: {
