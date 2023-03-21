@@ -22,10 +22,8 @@
 			},
 			body: JSON.stringify({ query: val }),
 		});
-		const h = await rawResponse.json();
-		users = h.data;
-
-		// (users)
+		const res = await rawResponse.json();
+		users = res.data;
 	};
 </script>
 

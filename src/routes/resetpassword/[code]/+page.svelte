@@ -3,7 +3,7 @@
 	import { onMount } from "svelte";
 	import Nav from "../../__nav/+page.svelte";
 
-	const username = data.passwordUsername
+	const username = data.username
 	const code = data.code
 	const regex =
 		/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[~ `!@#$%^&*()_\-+={[\]}\|\\:;"'<,>.?\/])[A-Za-z\d#~ `!@#$%^&*()_\-+={[\]}\|\\:;"'<,>.?\/]{6,}$/;

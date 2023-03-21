@@ -19,6 +19,7 @@
 				username,
 			}),
 		});
+		console.log(await response.json())
 		if (response.ok) location.reload();
 	}
 </script>

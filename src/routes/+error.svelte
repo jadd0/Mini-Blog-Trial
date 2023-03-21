@@ -48,24 +48,15 @@
 		border: 0;
 		outline: 0;
 		box-sizing: border-box;
-		/* font-family: Jakarta; */
 		font-family: Jakarta;
     font-weight: 300;
-		/* font-weight: 500;
-
-		font-variation-settings: 'wght' 500; */
-
 		letter-spacing: -2px;
-
-		/* font-family: "fenix";
-		font-weight: 500; */
 	}
 
   h1 {
     font-size: 10rem;
     color: white;
     font-weight: 800;
-    /* padding-left: 100vw; */
   }
 
   h2 {

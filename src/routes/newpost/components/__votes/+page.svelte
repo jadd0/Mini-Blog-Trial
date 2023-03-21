@@ -5,12 +5,10 @@
 	let body = "";
 	let options = [
 		{
-			value: "",
-			votes: [],
+			value: ""
 		},
 		{
-			value: "",
-			votes: [],
+			value: ""
 		},
 	];
 
@@ -24,6 +22,12 @@
 
 		loading = true;
 
+		const newOptions = []
+		for (let i in options) {
+			newOptions.push(options[i].value)
+		}
+		console.log(newOptions)
+
 		const response = await fetch("/api/createVote", {
 			method: "post",
 			headers: {
@@ -32,7 +36,7 @@
 			},
 			body: JSON.stringify({
 				body,
-				options,
+				options: newOptions,
 			}),
 		});
 
@@ -48,8 +52,7 @@
 
 	function addOption() {
 		const obj = {
-			value,
-			votes: [],
+			value: ''
 		};
 
 		options = [...options, obj];

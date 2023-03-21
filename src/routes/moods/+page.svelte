@@ -181,11 +181,7 @@
 	</div>
 </body>
 
-<!-- <script>
-  
-</script>
 
-<Modal><Content /></Modal> -->
 <style>
 	@font-face {
 		font-family: "Jakarta";
@@ -197,7 +193,6 @@
 		margin: 0;
 		padding: 0;
 		border: 0;
-		/* height: 1000vh; */
 		width: 100vw;
 		background-color: #141414;
 		overflow-x: hidden;
@@ -217,12 +212,10 @@
 	}
 
 	#box {
-		/* width: 76px !important; */
 		padding: 0px;
 		display: flex;
 		justify-content: center;
 		align-items: center;
-		/* outline: 1px solid rgb(77, 77, 77); */
 	}
 
 	#right {
@@ -240,7 +233,6 @@
 		align-items: center;
 		flex-direction: row;
 		width: 90%;
-		/* gap: 10%; */
 		margin: 0 auto;
 	}
 
@@ -248,7 +240,6 @@
 		color: white;
 		font-size: 25px;
 		text-align: center;
-		/* width: auto; */
 	}
 
 	button {
@@ -270,13 +261,11 @@
 	}
 
 	#month {
-		/* margin-top: 25px; */
 		margin: 0 auto;
 		height: 500px;
 		display: grid;
 		grid-template-rows: 6vh 70px 70px 70px 70px 70px 70px 70px 70px 70px;
 		grid-template-columns: 14.4% 14.4% 14.4% 14.4% 14.4% 14.4% 14.4%;
-		/* row-gap: -10px; */
 		padding: 35px;
 	}
 
@@ -324,8 +313,6 @@
 	#container {
 		background: #1b1b1b;
 		width: 600px;
-		/* height: 75vh; */
-		/* display: inline-block; */
 		overflow: hidden;
 		border-radius: 20px;
 		z-index: 0;
