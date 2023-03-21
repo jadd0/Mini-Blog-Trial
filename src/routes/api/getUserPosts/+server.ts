@@ -14,7 +14,7 @@ export async function GET({ request, fetch, url, cookies }) {
 	}
 
   const username = url.searchParams.get("user")
-	let posts = await Posts.getPosts(username)
+	let posts = await Posts.getPosts(username, auth.username)
 
 
 	posts.sort(function(a: any, b: any) {

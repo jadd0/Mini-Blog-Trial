@@ -10,7 +10,7 @@ export const POST: any = async ({ request }) => {
 	const password = body.password;
 
 	const auth = await Auth.authenticate(username.toLowerCase(), password);
-	
+	console.log({auth})
 	if (!auth) {
 		return new Response('Invalid credentials', { status: 406 });
 	}

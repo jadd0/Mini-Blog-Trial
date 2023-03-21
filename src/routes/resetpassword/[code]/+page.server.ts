@@ -26,7 +26,7 @@ export const load = async ({ request, params }) => {
 	const code = `${params.code.split('.')[1]}.${params.code.split('.')[2]}`
 
 	const res = await checkKey(username, code, time);
-  console.log({res})
+
 	if (!res) throw error(404, 'Reset code invalid');
 
 	return {

@@ -21,7 +21,7 @@ export async function GET({ request, fetch, cookies }) {
   for (let i in followingList) {
     arr.push(followingList[i].followedUsername)
   }
-
+  
   const data = await Posts.getPostsFromList(arr, auth.username)
 
   if (!data) {

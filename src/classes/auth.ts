@@ -25,14 +25,17 @@ export class Auth extends DB {
 		email: string;
 		password: string;
 		name: string;
-	}) {
+	}, accessKey: string) {
 		const result = await this.checkAvailability(userDetails.username, userDetails.email);
 
 		if (!result) {
 			return false;
 		}
 
-		const res = await this.newValue({ table: 'Users', values: userDetails });
+		const res = await this.newValue({ table: 'Users', values: {
+			...userDetails,
+			accessKey
+		} });
 
 		if (res) {
 			return true;
@@ -102,7 +105,7 @@ export class Auth extends DB {
 			.match({ 'type': type, 'username': username })
 			.select()
 
-		if (error != undefined) {
+		if (error != undefined || data.length === 0) {
 			const res = await this.newValue({
 				table: 'Keys',
 				values: {
@@ -115,6 +118,7 @@ export class Auth extends DB {
 			if (!res) return false;
 			return res.key;
 		}
+		
 		return data[0].key;
 	}
 
@@ -132,10 +136,8 @@ export class Auth extends DB {
 	public async checkKey(token: string) {
 		const splitToken = token.split('.');
 		const date = splitToken[0];
-		// console.log(splitToken)
 
 		const res = this.checkDate(date);
-		// console.log({res})
 		if (!res) return false;
 
 		const data = await this.getValue({
@@ -143,7 +145,6 @@ export class Auth extends DB {
 			value: { key: token }
 		});
 
-		// console.log({data})
 
 		if (data.length == 0 || data == false) return false;
 		return data;
@@ -159,8 +160,8 @@ export class Auth extends DB {
 		if (!user) return false
 
 		const res = await this.comparePassword(email, user.email)
-
-		if (res) return user
+		const res2 = user.email == email
+		if (res || res2) return user
 		return false
 	}
 }

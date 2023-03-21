@@ -136,7 +136,7 @@
 				percentage: 0
 			};
 
-			if (post.options[i].votes.find((item) => item.username === item.username) != undefined) {
+			if (post.options[i].votes.find((item) => item.username === data.username) != undefined) {
 				polls[post.id][i] = { ...polls[post.id][i], clicked: true };
 				polls[post.id].clicked = true;
 			}
@@ -147,6 +147,7 @@
 		for (let i in post.options) {
 			polls[post.id][i].percentage = Math.round((polls[post.id][i].total / total) * 100);
 		}
+		console.log(polls)
 	}
 
 	function vote(post, option) {

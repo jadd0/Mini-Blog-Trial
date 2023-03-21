@@ -23,7 +23,7 @@ export const load: any = async ({ request, cookies, fetch, params }) => {
 	});
 
 	const res = await Posts.getPost(params.post, auth.username)
-	console.log('gosuhfjsdf', res)
+
 	if (!res) {
 		throw error(404, "No post found");
 	}
@@ -36,7 +36,7 @@ export const load: any = async ({ request, cookies, fetch, params }) => {
   if (!res) {
     throw error(404, 'No post found');
   }
-	console.log(res)
+
 	res.comments.sort(function(a, b) {
     return (a.created_at < b.created_at) ? -1 : ((a.created_at > b.created_at) ? 1 : 0);
 	});
@@ -46,7 +46,7 @@ export const load: any = async ({ request, cookies, fetch, params }) => {
 	return {
 		bool,
 		...res,
-		username: auth.username,
+		authUsername: auth.username,
 		id: params.post
 	}
 }

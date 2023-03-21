@@ -1,49 +1,45 @@
 <script>
 	export let data;
-	import { onMount } from "svelte";
-	import Nav from '../__nav/+page.svelte'
-	let username = "";
-	let password = "";
+	import { onMount } from 'svelte';
+	import Nav from '../__nav/+page.svelte';
+	let username = '';
+	let password = '';
 	let wrong = false;
-	let shake = false
-	let loading = false
-
-	
+	let shake = false;
+	let loading = false;
 
 	function enterQuery(event) {
-		if (event.key == "Enter") {
+		if (event.key == 'Enter') {
 			submit();
 		}
-		wrong = false
-
+		wrong = false;
 	}
 
 	const submit = async () => {
-		loading = true
-		const response = await fetch("/api/login", {
-			method: "post",
+		loading = true;
+		const response = await fetch('/api/login', {
+			method: 'post',
 			headers: {
-				Accept: "application/json",
-				"Content-Type": "application/json",
+				Accept: 'application/json',
+				'Content-Type': 'application/json'
 			},
 			body: JSON.stringify({
 				username: username,
-				password: password,
-			}),
+				password: password
+			})
 		});
 
 		if (response.ok) {
-			window.location = "/";
-		}
-
-		if (response.ok == false) {
-			loading = false
+			window.location = '/';
+		} else {
+			loading = false;
 			wrong = true;
-			shake = true
+			shake = true;
+
+			setTimeout(() => {
+				shake = false;
+			}, 300);
 		}
-		setTimeout(() => {
-			shake = false
-		}, 300);		
 	};
 </script>
 
@@ -54,31 +50,21 @@
 </svelte:head>
 
 <body>
-	<Nav username={data.username}/>
+	<Nav username={data.username} />
 	<div id="loginForm">
 		<h1>Login</h1>
-		<div id="inputHolder" class:wrong={wrong} class:shake={shake}>
-			<input
-				type="username"
-				id="userInput"
-				placeholder="username"
-				bind:value={username}
-			/>
+		<div id="inputHolder" class:wrong class:shake>
+			<input type="username" id="userInput" placeholder="username" bind:value={username} />
 		</div>
-		<div id="inputHolder" class:wrong={wrong} class:shake={shake}>
-			<input
-				type="password"
-				id="userInput"
-				placeholder="password"
-				bind:value={password}
-			/>
+		<div id="inputHolder" class:wrong class:shake>
+			<input type="password" id="userInput" placeholder="password" bind:value={password} />
 		</div>
 
 		<a href="/resetpassword">
 			<p id="forgot">Forgotten password?</p>
 		</a>
 
-		<button on:click={submit} id="loginButton">{loading === true ? "Loading..." : "Log in"}</button>
+		<button on:click={submit} id="loginButton">{loading === true ? 'Loading...' : 'Log in'}</button>
 		<a href="/signup">
 			<p>Sign up here</p>
 		</a>

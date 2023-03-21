@@ -13,10 +13,10 @@ export class Posts extends DB {
 			let dislikes = likesAndDislikes.filter(
 				(obj) => obj.postUUID == posts[i].uuid && obj.type == false
 			);
-
-			const isLiked = likes.find((obj) => obj.username == username) == undefined ? false : true;
+		
+			const isLiked = likes.find((obj) => obj.username === username) == undefined ? false : true;
 			const isDisliked =
-				dislikes.find((obj) => obj.username == username) == undefined ? false : true;
+				dislikes.find((obj) => obj.username == username) === undefined ? false : true;
 
 			posts[i] = {
 				...posts[i],
@@ -30,31 +30,33 @@ export class Posts extends DB {
 		return posts;
 	}
 
-	async getPosts(username: string) {
-		let posts = await this.getValue({
-			table: 'Posts',
-			value: {
-				username
-			}
-		});
-		if (!posts) return false;
+	async getPosts(userA: string, username: string) {
+		let { data, error } = await this.supabase
+			.from('Posts')
+			.select('*')
+			.match({	
+				username: userA
+			})
+		
+		
+		if (error != undefined) return false
 
-		const likesAndDislikes = await this.getLikesDislikesFromList(posts);
+		const likesAndDislikes = await this.getLikesDislikesFromList(data);
 		if (!likesAndDislikes) return false;
 
-		posts = this.addLikesToPost(posts, likesAndDislikes, username);
+		data = this.addLikesToPost(data, likesAndDislikes, username);
 
-		const votes = await this.getVotesFromList(posts);
+		const votes = await this.getVotesFromList(data);
 
 		if (votes) {
-			posts = votes;
+			data = votes;
 		}
 
-		posts.sort(function (a, b) {
+		data.sort(function (a, b) {
 			return a.created_at < b.created_at ? -1 : a.created_at > b.created_at ? 1 : 0;
 		});
 
-		return posts;
+		return data;
 	}
 
 	async getLikesDislikesFromList(arr: any) {
@@ -255,21 +257,6 @@ export class Posts extends DB {
 		return res[0];
 	}
 
-	// async getLikeDislike(postUUID: string, username: string): Promise<boolean|string> {
-	// 	const res = await this.getValue({
-	// 		table: 'LikesAndDislikes',
-	// 		value: {
-	// 			username,
-	// 			postUUID
-	// 		}
-	// 	})
-
-	// 	if (!res) return false
-
-	// 	if (res.type == false) return 'dislike'
-	// 	return 'like'
-	// }
-
 	async deleteLikeDislike(postUUID: string, username: string): Promise<boolean> {
 		const res = await this.deleteValue({
 			table: 'LikesAndDislikes',
@@ -356,7 +343,7 @@ export class Posts extends DB {
 
 		const liked = data.find((item: any) => item.username === username && item.type == true);
 		const disliked = data.find((item: any) => item.username === username && item.type == false);
-		console.log(dislikes);
+
 		return {
 			likes,
 			dislikes,

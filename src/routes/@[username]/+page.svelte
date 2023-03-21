@@ -138,7 +138,7 @@
 				percentage: 0
 			};
 
-			if (post.options[i].votes.find((item) => item.username === item.username) != undefined) {
+			if (post.options[i].votes.find((item) => item.username === data.username) != undefined) {
 				polls[post.id][i] = { ...polls[post.id][i], clicked: true };
 				polls[post.id].clicked = true;
 			}

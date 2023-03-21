@@ -19,14 +19,13 @@ export async function getAuth(cookies: any, fetch: any) {
   }
 
 	const res = await fetch(`/api/auth/getAuth?accessKey=${cookies.accessKey}&key=${cookies.key}`);
-
 	return res
 }
 
 export async function authFlow(cookies: any, fetch: any) {
   cookies = Auth.Parse.parseCookie(cookies);
-	const firstRes = await getAuth(cookies, fetch)
 
+	const firstRes = await getAuth(cookies, fetch)
 	if (firstRes.ok) return await firstRes.json()
 
 	const key = await getKey(cookies, fetch)

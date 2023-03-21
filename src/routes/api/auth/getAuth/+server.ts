@@ -21,7 +21,7 @@ export const GET: any = async ({ url, fetch }) => {
 	}
 
 	const newKeyRes = await fetch(`/api/auth/getKey?accessKey=${accessKey}`);
-	// console.log(newKeyRes)
+
 	if (!newKeyRes.ok) {
 		throw error(
 			500,

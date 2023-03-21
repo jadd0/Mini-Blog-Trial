@@ -8,7 +8,7 @@ const PasswordReset = get(passwordReset)
 export const POST = async ({ request }) => {
 	const body = await request.json();
 	const res = await Auth.checkEmail(body.username, body.email);
-
+	console.log(res)
 	if (!res) {
 		return new Response('Invalid email/username', { status: 401 });
 	}
@@ -18,7 +18,7 @@ export const POST = async ({ request }) => {
 	const code = Auth.Parse.generateToken(40, time);
 	const date = new Date().getTime() + time;
 	const email = await PasswordReset.sendEmail(body.email, body.username, 'Reset Password', code, date);
-
+	console.log(email)
 	if (!email) {
 		return new Response(
 			'Sorry, there has been an issue sending the email. Please try again later. If this issue persists, please email me jaddalkwork@gmail.com',

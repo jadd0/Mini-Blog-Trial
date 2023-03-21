@@ -35,7 +35,5 @@ export const POST = async ({ request }) => {
 
   if (!res1 || !res2) return new Response("There has been an error whilst resetting your password. Please try again later. If this error persists please email me jaddalkwork@gmail.com", { status: 500 });
 
-	
-
 	return new Response("Password changed successfully", { status: 200 });
 }

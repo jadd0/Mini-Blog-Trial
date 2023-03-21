@@ -17,7 +17,6 @@
 		"Dec",
 	];
 	export let data;
-  console.log(data)
 
 	let isLiked = data.liked;
 	let isDisliked = data.disliked;
@@ -140,7 +139,7 @@
 	<title>Post {$page.params.post} - {data.title}</title>
 </svelte:head>
 
-<Nav username={data.username} />
+<Nav username={data.authUsername} />
 <body>
 	<div id="whole">
 		<div id="container">

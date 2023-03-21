@@ -28,7 +28,7 @@ export const load: any = async ({ request, cookies, fetch, params }) => {
 	}
 
 	let bool = false
-	const followersList = await User.getFollowed(auth.username) || ['Noone yet!']
+	const followersList = await User.getFollowed(params.username) || ['Noone yet!']
 	console.log(followersList)
 
 	return {

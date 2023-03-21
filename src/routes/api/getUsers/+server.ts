@@ -17,8 +17,6 @@ export async function POST({ request, fetch, cookies }) {
 	const req = await request.json();
 	const lowerQuery = req.query.toLowerCase();
 
-	// TODO If the search query is empty, return 10 random users
-
 	const items = users
 		.filter((user: any) => user.username.toLowerCase().indexOf(lowerQuery) !== -1)
 		.map((a: any) => a.username)

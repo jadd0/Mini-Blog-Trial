@@ -44,39 +44,11 @@ export class SupabaseFeatures {
 		return false;
 	}
 
-	padTo2Digits(num) {
-		return num.toString().padStart(2, "0");
-	}
+	
 
-	getDate() {
-		const date = new Date();
+	
 
-		const day = this.padTo2Digits(date.getDate());
-		const month = this.padTo2Digits(date.getMonth() + 1);
-		const year = this.padTo2Digits(date.getFullYear());
-
-		const newDate = `${year}-${month}-${day}`;
-		return newDate;
-	}
-
-	async newMood(mood, text, username) {
-		const date = this.getDate();
-		const res = await this.checkIfMoodPresent(username);
-
-		if (!res) return false
-
-		const { data, error } = await this.supabase.from("moods").insert([
-			{
-				mood,
-				text,
-				username,
-				date,
-			},
-		]);
-
-		if (error == undefined) return true;
-		return false;
-	}
+	
 
 
 	

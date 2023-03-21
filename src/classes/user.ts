@@ -31,14 +31,12 @@ export class User extends DB {
 
 	async changePassword(username: string, password: string): Promise<boolean> {
 		{
-			const user = await this.getUser(username);
-
 			const { data, error } = await this.supabase
-				.from('users')
-				.update({ password: password })
-				.match({ username: username });
+				.from('Users')
+				.update({ password })
+				.match({ username });
 
-			if (data == undefined) return true;
+			if (error == undefined) return true;
 			return false;
 		}
 	}

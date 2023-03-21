@@ -102,7 +102,6 @@ export class DB {
 
 		const { data, error } = await this.supabase.from(table).insert([values]).select();
 
-		console.log({data, error})
 		if (error != undefined) return false
 		return data
 	}
@@ -114,8 +113,22 @@ export class DB {
 			.from(table)
 			.delete()
 			.match(values);
-		console.log(data,error)
 		if (error != undefined) return false
 		return true
+	}
+
+	padTo2Digits(num) {
+		return num.toString().padStart(2, "0");
+	}
+
+	getDate() {
+		const date = new Date();
+
+		const day = this.padTo2Digits(date.getDate());
+		const month = this.padTo2Digits(date.getMonth() + 1);
+		const year = this.padTo2Digits(date.getFullYear());
+
+		const newDate = `${year}-${month}-${day}`;
+		return newDate;
 	}
 }

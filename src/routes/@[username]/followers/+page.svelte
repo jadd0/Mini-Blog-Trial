@@ -39,13 +39,13 @@
 		<h1 id="username">@{$page.params.username}'s followers</h1>
 		<div id="container">
 			{#each data.data as follower}
-				{#if follower.username != data.username}
+				<!-- {#if follower.username != data.username} -->
 					<a href="/@{follower.username}">
 						<div id="userHolder">
 							<h1 id="name">{follower.username}</h1>
 						</div>
 					</a>
-				{/if}
+				<!-- {/if} -->
 			{/each}
 		</div>
 	</div>

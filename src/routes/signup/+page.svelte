@@ -2,6 +2,8 @@
 	import Nav from "../__nav/+page.svelte";
 	import { onMount } from "svelte";
 
+	import {goto} from '$app/navigation';
+
 	let username = "";
 	let password = "";
 	let name = "";
@@ -78,9 +80,13 @@
 		});
 
 		// (response);
-
+		
 		if (response.ok) {
-			window.location = "/";
+			console.log('okay')
+			setTimeout(() => {
+				goto('/')
+			}, 500)
+			
 		}
 
 		if (response.status == 401) {

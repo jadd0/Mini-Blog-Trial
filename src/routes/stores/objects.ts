@@ -11,6 +11,7 @@ import { PasswordReset } from '../../classes/passwordReset';
 import { Posts } from '../../classes/posts';
 import { User } from '../../classes/user';
 import { Vote } from '../../classes/vote';
+import { Moods } from '../../classes/moods';
 
 
 const authObj = new Auth(new Parse(), bcryptjs, supabase);
@@ -19,6 +20,7 @@ const passwordResetObj = new PasswordReset(supabase, nodemailer)
 const postsObj = new Posts(supabase)
 const userObj = new User(supabase)
 const voteObj = new Vote(supabase)
+const moodsObj = new Moods(supabase)
 
 
 export const auth = writable(authObj);
@@ -27,3 +29,4 @@ export const passwordReset = writable(passwordResetObj);
 export const posts = writable(postsObj);
 export const user = writable(userObj);
 export const vote = writable(voteObj);
+export const moods = writable(moodsObj);
