@@ -3,7 +3,23 @@
 		<div class="content">
 			<div class="welcome">
 				<div class="marquee">
-					<p>Jadd Al-Khabbaz Jadd Al-Khabbaz</p>
+					<ul class="marquee__content">
+						<li>Jadd Al-Khabbaz</li>
+						<li>Jadd Al-Khabbaz</li>
+						<li>Jadd Al-Khabbaz</li>
+						<li>Jadd Al-Khabbaz</li>
+						<li>Jadd Al-Khabbaz</li>
+						<li>Jadd Al-Khabbaz</li>
+					</ul>
+			
+					<ul aria-hidden="true" class="marquee__content">
+						<li>Jadd Al-Khabbaz</li>
+						<li>Jadd Al-Khabbaz</li>
+						<li>Jadd Al-Khabbaz</li>
+						<li>Jadd Al-Khabbaz</li>
+						<li>Jadd Al-Khabbaz</li>
+						<li>Jadd Al-Khabbaz</li>
+					</ul>
 				</div>
 				<span>A freelance web developer</span>
 			</div>
@@ -54,63 +70,68 @@
 		letter-spacing: -0px !important;
 	}
 
-	.marquee {
-		width: 100vw;
-		height: 300px;
-		overflow: hidden;
-		position: relative;
-		background: #fefefe;
-		color: #333;
-		border: 1px solid #4a4a4a;
-	}
+	/* Marquee styles */
+.marquee {
+  --gap: 1rem;
+  position: relative;
+  display: flex;
+  overflow: hidden;
+  user-select: none;
+  gap: var(--gap);
+	overflow: hidden;
+}
 
-	.marquee p {
-		font-size: 150px;
-		position: absolute;
-		width: 200%;
-		height: 100%;
-		margin: 0;
-		line-height: 50px;
-		text-align: center;
-		padding: 40px;
-		-moz-transform: translateX(100%);
-		-webkit-transform: translateX(100%);
-		transform: translateX(100%);
-		-moz-animation: scroll-left 2s linear infinite;
-		-webkit-animation: scroll-left 2s linear infinite;
-		animation: scroll-left 20s linear infinite;
-	}
+.marquee__content {
+  flex-shrink: 0;
+  display: flex;
+  justify-content: space-around;
+  gap: var(--gap);
+  min-width: 100%;
+	animation: scroll 40s linear infinite;
+}
 
-	@-moz-keyframes scroll-left {
-		0% {
-			-moz-transform: translateX(0%);
-		}
-		100% {
-			-moz-transform: translateX(-100%);
-		}
-	}
+.marquee__content li {
+	font-size: 150px;
+}
 
-	@-webkit-keyframes scroll-left {
-		0% {
-			-webkit-transform: translateX(00%);
-		}
-		100% {
-			-webkit-transform: translateX(-100%);
-		}
-	}
+@keyframes scroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(calc(-100% - var(--gap)));
+  }
+}
 
-	@keyframes scroll-left {
-		0% {
-			-moz-transform: translateX(00%);
-			-webkit-transform: translateX(00%);
-			transform: translateX(0%);
-		}
-		100% {
-			-moz-transform: translateX(-100%);
-			-webkit-transform: translateX(-100%);
-			transform: translateX(-100%);
-		}
-	}
+/* Pause animation when reduced-motion is set */
+@media (prefers-reduced-motion: reduce) {
+  .marquee__content {
+    animation-play-state: paused !important;
+  }
+}
+
+ul {
+    list-style-type: none;
+}
+
+
+@keyframes scroll-abs {
+  from {
+    transform: translateX(calc(100% + var(--gap)));
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+body {
+  padding: 2rem;
+  width: 100%;
+  min-height: 100vh;
+  font-family: system-ui, sans-serif;
+  font-size: 1rem;
+  line-height: 1.5;
+}
 
 	span {
 		/* font-family: 'Times New Roman', Times, serif; */
