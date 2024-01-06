@@ -2,7 +2,9 @@
 	<div class="container">
 		<div class="content">
 			<div class="welcome">
-				<h1>Jadd Al-Khabbaz</h1>
+				<div class="marquee">
+					<p>Jadd Al-Khabbaz Jadd Al-Khabbaz</p>
+				</div>
 				<span>A freelance web developer</span>
 			</div>
 		</div>
@@ -28,7 +30,6 @@
 		src: url('/fonts/timesnewroman.ttf');
 	}
 
-
 	body {
 		overflow-x: hidden;
 		margin: 0;
@@ -51,6 +52,64 @@
 		box-sizing: border-box;
 		font-family: Circular-normal;
 		letter-spacing: -0px !important;
+	}
+
+	.marquee {
+		width: 100vw;
+		height: 300px;
+		overflow: hidden;
+		position: relative;
+		background: #fefefe;
+		color: #333;
+		border: 1px solid #4a4a4a;
+	}
+
+	.marquee p {
+		font-size: 150px;
+		position: absolute;
+		width: 200%;
+		height: 100%;
+		margin: 0;
+		line-height: 50px;
+		text-align: center;
+		padding: 40px;
+		-moz-transform: translateX(100%);
+		-webkit-transform: translateX(100%);
+		transform: translateX(100%);
+		-moz-animation: scroll-left 2s linear infinite;
+		-webkit-animation: scroll-left 2s linear infinite;
+		animation: scroll-left 20s linear infinite;
+	}
+
+	@-moz-keyframes scroll-left {
+		0% {
+			-moz-transform: translateX(0%);
+		}
+		100% {
+			-moz-transform: translateX(-100%);
+		}
+	}
+
+	@-webkit-keyframes scroll-left {
+		0% {
+			-webkit-transform: translateX(00%);
+		}
+		100% {
+			-webkit-transform: translateX(-100%);
+		}
+	}
+
+	@keyframes scroll-left {
+		0% {
+			-moz-transform: translateX(00%);
+			-webkit-transform: translateX(00%);
+			transform: translateX(0%);
+		}
+		100% {
+			-moz-transform: translateX(-100%);
+			-webkit-transform: translateX(-100%);
+			transform: translateX(-100%);
+		}
 	}
 
 	span {
@@ -99,6 +158,6 @@
 		align-items: center;
 		justify-content: start;
 		color: white;
-		padding: 5vw;
+		/* padding: 5vw; */
 	}
 </style>
