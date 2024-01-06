@@ -1,7 +1,10 @@
 <body>
 	<div class="container">
 		<div class="content">
-			1			
+			<div class="welcome">
+				<h1>Jadd Al-Khabbaz</h1>
+				<span>A freelance web developer</span>
+			</div>
 		</div>
 		<div class="content">2</div>
 		<div class="content">3</div>
@@ -19,6 +22,12 @@
 		font-family: 'Circular-normal';
 		src: url('/fonts/CircularStd-Medium.otf');
 	}
+
+	@font-face {
+		font-family: 'tnr';
+		src: url('/fonts/timesnewroman.ttf');
+	}
+
 
 	body {
 		overflow-x: hidden;
@@ -44,6 +53,23 @@
 		letter-spacing: -0px !important;
 	}
 
+	span {
+		/* font-family: 'Times New Roman', Times, serif; */
+		color: rgb(166, 166, 166) !important;
+	}
+
+	.welcome {
+		margin-bottom: 30vh;
+		/* margin-left: 40px; */
+		display: flex;
+		flex-direction: column;
+		align-items: start;
+		justify-content: start;
+	}
+	h1 {
+		font-size: 75px;
+	}
+
 	.container,
 	.content {
 		width: 100vw;
@@ -52,7 +78,7 @@
 	}
 
 	.container {
-		overflow: auto;
+		overflow: scroll;
 		-webkit-scroll-snap-type: y mandatory;
 		-ms-scroll-snap-type: y mandatory;
 		scroll-snap-type: y mandatory;
@@ -69,8 +95,10 @@
 
 	.content {
 		display: flex;
+		flex-direction: row;
 		align-items: center;
-		justify-content: center;
+		justify-content: start;
 		color: white;
+		padding: 5vw;
 	}
 </style>
