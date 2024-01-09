@@ -1,69 +1,86 @@
 <script>
 	import { onMount } from 'svelte';
 
-const list = [
-  ' Freelance web developer   ',
-  ' Computer science student   ',
-  ' UX/UI designer   ',
-  ' Back-end developer   ',
-  ' Full-stack developer   ',
-  ' Computer scientist   ',
-  ' Tech enthusiast   ',
-  ' SEO specialist   ',
-  ' Aspiring software developer   ',
-  ' Front-end developer   ',
-  ' Javascript/Typescript developer   ',
-  ' Python developer   ',
-	' Motivated   ',
-	' Accountable   '
-];
+	const list = [
+		' Freelance web developer   ',
+		' Computer science student   ',
+		' UX/UI designer   ',
+		' Back-end developer   ',
+		' Full-stack developer   ',
+		' Computer scientist   ',
+		' Tech enthusiast   ',
+		' SEO specialist   ',
+		' Aspiring software developer   ',
+		' Front-end developer   ',
+		' Javascript/Typescript developer   ',
+		' Python developer   ',
+		' Motivated   ',
+		' Accountable   ',
+		' Creative   ',
+		' Detail oriented   ',
+		' Problem solver   '
+	];
 
-let lists;
-let speeds;
+	let lists;
+	let speeds;
 
-function shuffle(inputList) {
-  // Copy the input list to avoid modifying the original array
-  let shuffledList = [...inputList];
+	const randomNumber = (min, max) => {
+		return Math.floor(Math.random() * (max - min) + min);
+	};
 
-  // Fisher-Yates shuffle algorithm
-  for (let i = shuffledList.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    // Swap elements at i and j indices
-    [shuffledList[i], shuffledList[j]] = [shuffledList[j], shuffledList[i]];
-  }
+	function shuffle(inputList) {
+		// Copy the input list to avoid modifying the original array
+		let shuffledList = [...inputList];
 
-  return shuffledList.slice(0, 5);
-}
+		// Fisher-Yates shuffle algorithm
+		for (let i = shuffledList.length - 1; i > 0; i--) {
+			const j = Math.floor(Math.random() * (i + 1));
+			// Swap elements at i and j indices
+			[shuffledList[i], shuffledList[j]] = [shuffledList[j], shuffledList[i]];
+		}
 
-function getSpeeds() {
-  let speeds = [];
+		return shuffledList.slice(0, 5);
+	}
 
-  for (let i = 0; i < 12; i++) {
-    speeds.push(Math.floor(Math.random() * (40 - 20) + 20));
-  }
+	function getSpeeds() {
+		let speeds = [];
 
-  return speeds;
-}
+		for (let i = 0; i < 12; i++) {
+			speeds.push(randomNumber(20, 40));
+		}
 
-  lists = [
-    shuffle(list),
-    shuffle(list),
-    shuffle(list),
-    shuffle(list),
-    shuffle(list),
-    shuffle(list),
-    shuffle(list),
-    shuffle(list),
-    shuffle(list),
-    shuffle(list),
-    shuffle(list),
-    shuffle(list)
-  ];
+		return speeds;
+	}
 
-  speeds = getSpeeds();
+	function containsArray(arrOfArrays, targetArray) {
+		return arrOfArrays.some((arr) => arr.every((value, index) => value === targetArray[index]));
+	}
 
+	lists = [
+		shuffle(list),
+		shuffle(list),
+		shuffle(list),
+		shuffle(list),
+		shuffle(list),
+		shuffle(list),
+		shuffle(list),
+		shuffle(list),
+		shuffle(list),
+		shuffle(list),
+		shuffle(list),
+		shuffle(list)
+	];
+
+	speeds = getSpeeds();
+
+	let randomColours = [
+		[randomNumber(0, 11), randomNumber(1, 5)],
+		[randomNumber(0, 11), randomNumber(1, 5)],
+		[[randomNumber(0, 11), randomNumber(1, 5)]]
+	];
 </script>
 
+<!-- TODO: every random word is a distinguishable colour -->
 <body>
 	<div class="container">
 		<div class="content">
@@ -80,10 +97,15 @@ function getSpeeds() {
 								i
 							]}s linear infinite !important; color: rgb(82, 82, 82) !important"
 						>
-							{#each list as item}
-								{item}
+							{#each list as item, j}
+								{#if containsArray(randomColours, [i, j])}
+									<div style="color: rgb(0, 159, 255) !important; font-size: 40px !important;">
+										{item}
+									</div>
+								{:else}
+									{item}
+								{/if}
 							{/each}
-
 						</ul>
 						<ul
 							aria-hidden="true"
@@ -92,10 +114,15 @@ function getSpeeds() {
 								i
 							]}s linear infinite !important; color: rgb(82, 82, 82) !important"
 						>
-							{#each list as item}
-							{item}
+							{#each list as item, j}
+								{#if containsArray(randomColours, [i, j])}
+									<div style="color: rgb(0, 159, 255) !important; font-size: 40px !important;">
+										{item}
+									</div>
+								{:else}
+									{item}
+								{/if}
 							{/each}
-
 						</ul>
 					</div>
 				{/each}
@@ -163,7 +190,6 @@ function getSpeeds() {
 
 	/* Marquee styles */
 
-	
 	.marquee {
 		--gap: 1rem;
 		position: relative;
@@ -208,8 +234,8 @@ function getSpeeds() {
 	}
 
 	.marquee__content:last-child {
-  animation-name: scroll-abs;
-}
+		animation-name: scroll-abs;
+	}
 
 	ul {
 		list-style-type: none;
@@ -219,7 +245,7 @@ function getSpeeds() {
 
 	span {
 		font-size: 150px;
-		background-color:rgba(255,0,0,0.3);/*background color and opacity together*/
+		background-color: rgba(255, 0, 0, 0.3); /*background color and opacity together*/
 		z-index: 900;
 	}
 
