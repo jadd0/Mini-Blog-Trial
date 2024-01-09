@@ -18,7 +18,7 @@
 		' Accountable   ',
 		' Creative   ',
 		' Detail oriented   ',
-		' Problem solver   '
+		' Problem solver   ',
 	];
 
 	let lists;
@@ -74,20 +74,24 @@
 	speeds = getSpeeds();
 
 	let randomColours = [
-		[randomNumber(0, 11), randomNumber(1, 5)],
-		[randomNumber(0, 11), randomNumber(1, 5)],
-		[[randomNumber(0, 11), randomNumber(1, 5)]]
-	];
+  [randomNumber(0, 11), randomNumber(1, 5)],
+  [randomNumber(0, 11), randomNumber(1, 5)],
+  [randomNumber(0, 11), randomNumber(1, 5)],
+  [randomNumber(0, 11), randomNumber(1, 5)],
+  [randomNumber(0, 11), randomNumber(1, 5)]
+];
+	console.log(randomColours)
 </script>
 
 <!-- TODO: every random word is a distinguishable colour -->
 <body>
 	<div class="container">
+		<div class="welcome">
+			<span> JADD </span>
+			<span> AL-KHABBAZ </span>
+		</div>
 		<div class="content">
-			<!-- <div class="welcome">
-				<span> JADD </span>
-				<span> AL-KHABBAZ </span>
-			</div> -->
+			<!--  -->
 			<div class="background">
 				{#each lists as list, i}
 					<div class="marquee">
@@ -115,7 +119,7 @@
 							]}s linear infinite !important; color: rgb(82, 82, 82) !important"
 						>
 							{#each list as item, j}
-								{#if containsArray(randomColours, [i, j])}
+								{#if containsArray(randomColours, [i, j])}		
 									<div style="color: rgb(0, 159, 255) !important; font-size: 40px !important;">
 										{item}
 									</div>
@@ -245,8 +249,14 @@
 
 	span {
 		font-size: 150px;
-		background-color: rgba(255, 0, 0, 0.3); /*background color and opacity together*/
 		z-index: 900;
+		background: none !important;
+		/* opacity: 0; */
+		color: white;
+		position: relative;
+		top: 450px;
+		left: 50px;
+		font-weight: 1000;
 	}
 
 	.welcome {
@@ -255,8 +265,10 @@
 		flex-direction: column;
 		align-items: start;
 		justify-content: start;
-		background-color: none;
+		background: none !important;
 		z-index: 500 !important;
+		/* opacity: 0; */
+		position: relative;
 	}
 
 	h1 {
