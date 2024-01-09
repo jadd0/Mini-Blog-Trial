@@ -1,62 +1,90 @@
 <script>
 	import { onMount } from 'svelte';
 	const list = [
-		'Freelance web developer',
-		'Student',
-		'UX/UI designer',
-		'Back-end developer',
-		'Full-stack developer',
-		'Computer scientist',
-		'Tech enthusiast',
-		'SEO specialist',
-		'Aspiring software developer',
-		'Front-end developer',
-		'Javascript/Typescript developer',
-		'Python developer'
+		' Freelance web developer   ',
+		' Student   ',
+		'UX/UI designer   ',
+		' Back-end developer   ',
+		' Full-stack developer   ',
+		' Computer scientist   ',
+		' Tech enthusiast   ',
+		' SEO specialist   ',
+		' Aspiring software developer   ',
+		' Front-end developer   ',
+		' Javascript/Typescript developer   ',
+		' Python developer   '
 	];
 
-	let sizes;
-	let nnn;
+	let lists;
+	let speeds;
 
 	function shuffle(inputList) {
-  // Copy the input list to avoid modifying the original array
-  let shuffledList = [...inputList];
+		// Copy the input list to avoid modifying the original array
+		let shuffledList = [...inputList];
 
-  // Fisher-Yates shuffle algorithm
-  for (let i = shuffledList.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    // Swap elements at i and j indices
-    [shuffledList[i], shuffledList[j]] = [shuffledList[j], shuffledList[i]];
-  }
+		// Fisher-Yates shuffle algorithm
+		for (let i = shuffledList.length - 1; i > 0; i--) {
+			const j = Math.floor(Math.random() * (i + 1));
+			// Swap elements at i and j indices
+			[shuffledList[i], shuffledList[j]] = [shuffledList[j], shuffledList[i]];
+		}
 
-  return shuffledList;
-}
+		return shuffledList;
+	}
 
-	onMount(() => {
-		nnn = [shuffle(list), shuffle(list), shuffle(list), shuffle(list), shuffle(list), shuffle(list), shuffle(list)]
-	});
+	function getSpeeds() {
+		let speeds = [];
+
+		for (let i = 0; i < 10; i++) {
+			speeds.push(Math.floor(Math.random() * (45 - 35) + 35));
+		}
+
+		return speeds;
+	}
+	lists = [
+		shuffle(list),
+		shuffle(list),
+		shuffle(list),
+		shuffle(list),
+		shuffle(list),
+		shuffle(list),
+		shuffle(list),
+		shuffle(list),
+		shuffle(list),
+		shuffle(list),
+		shuffle(list),
+		shuffle(list)
+	];
+	speeds = getSpeeds();
+	console.log(speeds);
+	onMount(() => {});
 </script>
 
 <body>
 	<div class="container">
 		<div class="content">
-			<div class="welcome">
-				<div class="marquee">
-					<ul class="marquee__content">
-						<li>Jadd Al-Khabbaz</li>
-					</ul>
-
-					<ul aria-hidden="true" class="marquee__content">
-						<li>Jadd Al-Khabbaz</li>
-					</ul>
-				</div>
-				<div class="directory">
-					<p>Jadd Al-Khabbaz</p>
-					<p>Freelance web developer</p>
-
-				</div>
-				<!-- <span>A freelance web developer</span> -->
+			<div class="background">
+				{#each lists as list, i}
+					<div class="marquee">
+						<ul class="marquee__content" style="animation: scroll 30s linear infinite !important;">
+							{#each list as item}
+								{item}
+							{/each}
+							
+						</ul>
+						<ul aria-hidden="true" class="marquee__content" style="animation: scroll 30s linear infinite !important;">
+							{#each list as item}
+								{item}
+							{/each}
+						</ul>
+					</div>
+				{/each}
 			</div>
+
+			<!-- <div class="welcome">
+				<span> JADD </span>
+				<span> AL-KHABBAZ </span>
+			</div> -->
 		</div>
 		<div class="content">2</div>
 		<div class="content">3</div>
@@ -105,6 +133,15 @@
 		letter-spacing: -0px !important;
 	}
 
+	.background {
+		display: flex;
+		flex-direction: column;
+		width: 100vw;
+		height: 100vh;
+		position: absolute;
+		top: 0;
+	}
+
 	.things {
 		position: absolute;
 		top: 0;
@@ -127,14 +164,15 @@
 		justify-content: space-around;
 		gap: var(--gap);
 		min-width: 100%;
-		animation: scroll 10s linear infinite;
+		font-size: 40px;
+
 	}
 
 	.marquee__content li {
 		font-size: 250px;
 	}
 
-	@keyframes scroll {
+	@keyframes -global-scroll {
 		from {
 			transform: translateX(0);
 		}
@@ -154,7 +192,7 @@
 		list-style-type: none;
 	}
 
-	@keyframes scroll-abs {
+	@keyframes -global-scroll-abs {
 		from {
 			transform: translateX(calc(100% + var(--gap)));
 		}
@@ -164,8 +202,7 @@
 	}
 
 	span {
-		/* font-family: 'Times New Roman', Times, serif; */
-		color: rgb(166, 166, 166) !important;
+		font-size: 150px;
 	}
 
 	.welcome {
@@ -186,6 +223,7 @@
 		height: 100vh;
 		font-size: 60px;
 		overflow: hidden;
+		/* padding: 30px; */
 	}
 
 	.container {
