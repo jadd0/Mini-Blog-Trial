@@ -1,94 +1,105 @@
 <script>
 	import { onMount } from 'svelte';
-	const list = [
-		' Freelance web developer   ',
-		' Student   ',
-		'UX/UI designer   ',
-		' Back-end developer   ',
-		' Full-stack developer   ',
-		' Computer scientist   ',
-		' Tech enthusiast   ',
-		' SEO specialist   ',
-		' Aspiring software developer   ',
-		' Front-end developer   ',
-		' Javascript/Typescript developer   ',
-		' Python developer   '
-	];
 
-	let lists;
-	let speeds;
+const list = [
+  ' Freelance web developer   ',
+  ' Computer science student   ',
+  ' UX/UI designer   ',
+  ' Back-end developer   ',
+  ' Full-stack developer   ',
+  ' Computer scientist   ',
+  ' Tech enthusiast   ',
+  ' SEO specialist   ',
+  ' Aspiring software developer   ',
+  ' Front-end developer   ',
+  ' Javascript/Typescript developer   ',
+  ' Python developer   ',
+	' Motivated   ',
+	' Accountable   '
+];
 
-	function shuffle(inputList) {
-		// Copy the input list to avoid modifying the original array
-		let shuffledList = [...inputList];
+let lists;
+let speeds;
 
-		// Fisher-Yates shuffle algorithm
-		for (let i = shuffledList.length - 1; i > 0; i--) {
-			const j = Math.floor(Math.random() * (i + 1));
-			// Swap elements at i and j indices
-			[shuffledList[i], shuffledList[j]] = [shuffledList[j], shuffledList[i]];
-		}
+function shuffle(inputList) {
+  // Copy the input list to avoid modifying the original array
+  let shuffledList = [...inputList];
 
-		return shuffledList;
-	}
+  // Fisher-Yates shuffle algorithm
+  for (let i = shuffledList.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    // Swap elements at i and j indices
+    [shuffledList[i], shuffledList[j]] = [shuffledList[j], shuffledList[i]];
+  }
 
-	function getSpeeds() {
-		let speeds = [];
+  return shuffledList.slice(0, 5);
+}
 
-		for (let i = 0; i < 12; i++) {
-			speeds.push(Math.floor(Math.random() * (50 - 30) + 30));
-		}
+function getSpeeds() {
+  let speeds = [];
 
-		return speeds;
-	}
-	lists = [
-		shuffle(list),
-		shuffle(list),
-		shuffle(list),
-		shuffle(list),
-		shuffle(list),
-		shuffle(list),
-		shuffle(list),
-		shuffle(list),
-		shuffle(list),
-		shuffle(list),
-		shuffle(list),
-		shuffle(list)
-	];
-	speeds = getSpeeds();
-	console.log(speeds);
-	onMount(() => {});
+  for (let i = 0; i < 12; i++) {
+    speeds.push(Math.floor(Math.random() * (40 - 20) + 20));
+  }
+
+  return speeds;
+}
+
+  lists = [
+    shuffle(list),
+    shuffle(list),
+    shuffle(list),
+    shuffle(list),
+    shuffle(list),
+    shuffle(list),
+    shuffle(list),
+    shuffle(list),
+    shuffle(list),
+    shuffle(list),
+    shuffle(list),
+    shuffle(list)
+  ];
+
+  speeds = getSpeeds();
+
 </script>
 
 <body>
 	<div class="container">
 		<div class="content">
+			<!-- <div class="welcome">
+				<span> JADD </span>
+				<span> AL-KHABBAZ </span>
+			</div> -->
 			<div class="background">
 				{#each lists as list, i}
 					<div class="marquee">
-						<ul class="marquee__content" style="animation: scroll {speeds[i]}s linear infinite !important">
+						<ul
+							class="marquee__content"
+							style="animation: scroll {speeds[
+								i
+							]}s linear infinite !important; color: rgb(82, 82, 82) !important"
+						>
 							{#each list as item}
 								{item}
 							{/each}
 
-
-							
 						</ul>
-						<ul aria-hidden="true" class="marquee__content" style="animation: scroll {speeds[i]}s linear infinite !importantant;">
+						<ul
+							aria-hidden="true"
+							class="marquee__content"
+							style="animation: scroll {speeds[
+								i
+							]}s linear infinite !important; color: rgb(82, 82, 82) !important"
+						>
 							{#each list as item}
-								{item}
+							{item}
 							{/each}
-							
 
 						</ul>
 					</div>
 				{/each}
 			</div>
-
-			<!-- <div class="welcome">
-				<span> JADD </span>
-				<span> AL-KHABBAZ </span>
-			</div> -->
 		</div>
 		<div class="content">2</div>
 		<div class="content">3</div>
@@ -142,8 +153,7 @@
 		flex-direction: column;
 		width: 100vw;
 		height: 100vh;
-		position: absolute;
-		top: 0;
+		z-index: 0 !important;
 	}
 
 	.things {
@@ -152,6 +162,8 @@
 	}
 
 	/* Marquee styles */
+
+	
 	.marquee {
 		--gap: 1rem;
 		position: relative;
@@ -159,7 +171,6 @@
 		overflow: hidden;
 		user-select: none;
 		gap: var(--gap);
-		overflow: hidden;
 	}
 
 	.marquee__content {
@@ -168,12 +179,7 @@
 		justify-content: space-around;
 		gap: var(--gap);
 		min-width: 100%;
-		font-size: 40px;
-
-	}
-
-	.marquee__content li {
-		font-size: 250px;
+		/* color:rgb(82, 82, 82) !important; */
 	}
 
 	@keyframes -global-scroll {
@@ -181,24 +187,15 @@
 			transform: translateX(0);
 		}
 		to {
-			transform: translateX(calc(-100% - 1rem));
+			transform: translateX(calc(-100% - var(--gap)));
 		}
 	}
-
-	.marquee__content:last-child {
-  animation-name: -global-scroll-abs;
-}
 
 	/* Pause animation when reduced-motion is set */
 	@media (prefers-reduced-motion: reduce) {
 		.marquee__content {
 			animation-play-state: paused !important;
 		}
-	}
-
-	ul {
-		list-style-type: none;
-		color: #333 !important;
 	}
 
 	@keyframes -global-scroll-abs {
@@ -210,18 +207,32 @@
 		}
 	}
 
+	.marquee__content:last-child {
+  animation-name: scroll-abs;
+}
+
+	ul {
+		list-style-type: none;
+		/* color: #333 !important; */
+		font-size: 40px;
+	}
+
 	span {
 		font-size: 150px;
+		background-color:rgba(255,0,0,0.3);/*background color and opacity together*/
+		z-index: 900;
 	}
 
 	.welcome {
-		margin-bottom: 30vh;
 		/* margin-left: 40px; */
 		display: flex;
 		flex-direction: column;
 		align-items: start;
 		justify-content: start;
+		background-color: none;
+		z-index: 500 !important;
 	}
+
 	h1 {
 		font-size: 75px;
 	}
@@ -256,7 +267,7 @@
 		flex-direction: row;
 		align-items: center;
 		justify-content: start;
-		color: white;
+		/* color: white; */
 		/* padding: 5vw; */
 	}
 </style>
