@@ -50,7 +50,11 @@
 						<li>Jadd Al-Khabbaz</li>
 					</ul>
 				</div>
+				<div class="directory">
+					<p>Jadd Al-Khabbaz</p>
+					<p>Freelance web developer</p>
 
+				</div>
 				<!-- <span>A freelance web developer</span> -->
 			</div>
 		</div>
@@ -178,9 +182,10 @@
 
 	.container,
 	.content {
-		width: 100vw;
+		max-width: 100vw;
 		height: 100vh;
 		font-size: 60px;
+		overflow: hidden;
 	}
 
 	.container {
