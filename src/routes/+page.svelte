@@ -35,8 +35,8 @@
 	function getSpeeds() {
 		let speeds = [];
 
-		for (let i = 0; i < 10; i++) {
-			speeds.push(Math.floor(Math.random() * (45 - 35) + 35));
+		for (let i = 0; i < 12; i++) {
+			speeds.push(Math.floor(Math.random() * (50 - 30) + 30));
 		}
 
 		return speeds;
@@ -66,16 +66,20 @@
 			<div class="background">
 				{#each lists as list, i}
 					<div class="marquee">
-						<ul class="marquee__content" style="animation: scroll 30s linear infinite !important;">
+						<ul class="marquee__content" style="animation: scroll {speeds[i]}s linear infinite !important">
+							{#each list as item}
+								{item}
+							{/each}
+
+
+							
+						</ul>
+						<ul aria-hidden="true" class="marquee__content" style="animation: scroll {speeds[i]}s linear infinite !importantant;">
 							{#each list as item}
 								{item}
 							{/each}
 							
-						</ul>
-						<ul aria-hidden="true" class="marquee__content" style="animation: scroll 30s linear infinite !important;">
-							{#each list as item}
-								{item}
-							{/each}
+
 						</ul>
 					</div>
 				{/each}
@@ -177,9 +181,13 @@
 			transform: translateX(0);
 		}
 		to {
-			transform: translateX(calc(-100% - var(--gap)));
+			transform: translateX(calc(-100% - 1rem));
 		}
 	}
+
+	.marquee__content:last-child {
+  animation-name: -global-scroll-abs;
+}
 
 	/* Pause animation when reduced-motion is set */
 	@media (prefers-reduced-motion: reduce) {
@@ -190,6 +198,7 @@
 
 	ul {
 		list-style-type: none;
+		color: #333 !important;
 	}
 
 	@keyframes -global-scroll-abs {
