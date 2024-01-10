@@ -1,5 +1,7 @@
 <script>
 	import { onMount } from 'svelte';
+	import Typewriter from './typewriter.svelte';
+
 
 	const list = [
 		' Freelance web developer   ',
@@ -18,11 +20,19 @@
 		' Accountable   ',
 		' Creative   ',
 		' Detail oriented   ',
-		' Problem solver   ',
+		' Problem solver   '
 	];
 
 	let lists;
 	let speeds;
+
+	let furthestScrolled = 0
+	let scroll = 0
+	$: if (scroll > furthestScrolled) {
+		furthestScrolled = scroll
+		console.log(scroll)
+	}
+	
 
 	const randomNumber = (min, max) => {
 		return Math.floor(Math.random() * (max - min) + min);
@@ -56,6 +66,10 @@
 		return arrOfArrays.some((arr) => arr.every((value, index) => value === targetArray[index]));
 	}
 
+	function changeScroll(x) {
+		console.log(x)
+	}
+
 	lists = [
 		shuffle(list),
 		shuffle(list),
@@ -74,24 +88,24 @@
 	speeds = getSpeeds();
 
 	let randomColours = [
-  [randomNumber(0, 11), randomNumber(1, 5)],
-  [randomNumber(0, 11), randomNumber(1, 5)],
-  [randomNumber(0, 11), randomNumber(1, 5)],
-  [randomNumber(0, 11), randomNumber(1, 5)],
-  [randomNumber(0, 11), randomNumber(1, 5)]
-];
-	console.log(randomColours)
+		[randomNumber(0, 11), randomNumber(1, 5)],
+		[randomNumber(0, 11), randomNumber(1, 5)],
+		[randomNumber(0, 11), randomNumber(1, 5)],
+		[randomNumber(0, 11), randomNumber(1, 5)],
+		[randomNumber(0, 11), randomNumber(1, 5)]
+	];
+	console.log(randomColours);
 </script>
+
+<svelte:window bind:scrollY={scroll} />
 
 <!-- TODO: every random word is a distinguishable colour -->
 <body>
 	<div class="container">
-		<div class="welcome">
-			<span> JADD </span>
-			<span> AL-KHABBAZ </span>
-		</div>
 		<div class="content">
-			<!--  -->
+			<div class="imgHolder">
+				<img src="/name.svg" alt="" />
+			</div>
 			<div class="background">
 				{#each lists as list, i}
 					<div class="marquee">
@@ -119,7 +133,7 @@
 							]}s linear infinite !important; color: rgb(82, 82, 82) !important"
 						>
 							{#each list as item, j}
-								{#if containsArray(randomColours, [i, j])}		
+								{#if containsArray(randomColours, [i, j])}
 									<div style="color: rgb(0, 159, 255) !important; font-size: 40px !important;">
 										{item}
 									</div>
@@ -132,7 +146,16 @@
 				{/each}
 			</div>
 		</div>
-		<div class="content">2</div>
+		<div class="content">
+
+			<div class="innerContent">
+				<h1>About Me.</h1>
+				<Typewriter>
+					<p></p>
+				</Typewriter>
+				<p></p>
+			</div>
+		</div>
 		<div class="content">3</div>
 		<div class="content">4</div>
 	</div>
@@ -160,10 +183,8 @@
 		padding: 0;
 		border: 0;
 		max-width: 100vw;
-		/* height: 1000vh; */
+		min-height: 1000vh;
 		background-color: #141414;
-		overflow: hidden;
-		scroll-behavior: smooth;
 	}
 
 	* {
@@ -179,17 +200,35 @@
 		letter-spacing: -0px !important;
 	}
 
+	.innerContent {
+		width: 90vw;
+		height: 80vh;
+		display: flex;
+		justify-content: start;
+		align-items: start;
+	}
+
+	h1 {
+		font-size: 70px;
+	}
+
+	img {
+		z-index: 1000;
+	}
+
+	.imgHolder {
+		position: absolute;
+		top: 150px;
+		left: 40px;
+		z-index: 1000;
+	}
+
 	.background {
 		display: flex;
 		flex-direction: column;
 		width: 100vw;
 		height: 100vh;
 		z-index: 0 !important;
-	}
-
-	.things {
-		position: absolute;
-		top: 0;
 	}
 
 	/* Marquee styles */
@@ -247,45 +286,16 @@
 		font-size: 40px;
 	}
 
-	span {
-		font-size: 150px;
-		z-index: 900;
-		background: none !important;
-		/* opacity: 0; */
-		color: white;
-		position: relative;
-		top: 450px;
-		left: 50px;
-		font-weight: 1000;
-	}
-
-	.welcome {
-		/* margin-left: 40px; */
-		display: flex;
-		flex-direction: column;
-		align-items: start;
-		justify-content: start;
-		background: none !important;
-		z-index: 500 !important;
-		/* opacity: 0; */
-		position: relative;
-	}
-
-	h1 {
-		font-size: 75px;
-	}
-
 	.container,
 	.content {
 		max-width: 100vw;
 		height: 100vh;
 		font-size: 60px;
-		overflow: hidden;
-		/* padding: 30px; */
+		/* overflow: hidden; */
 	}
 
 	.container {
-		overflow: scroll;
+		/* overflow: scroll; */
 		-webkit-scroll-snap-type: y mandatory;
 		-ms-scroll-snap-type: y mandatory;
 		scroll-snap-type: y mandatory;
@@ -304,8 +314,7 @@
 		display: flex;
 		flex-direction: row;
 		align-items: center;
-		justify-content: start;
-		/* color: white; */
-		/* padding: 5vw; */
+		justify-content: center;
+		margin-bottom: 70px;
 	}
 </style>
