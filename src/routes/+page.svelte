@@ -114,51 +114,51 @@
 
 <!-- TODO: every random word is a distinguishable colour -->
 <body>
-	<div class="container">
-		<div class="content">
-			<div class="imgHolder">
-				<img src="/name.svg" alt="" />
-			</div>
-			<div class="background">
-				{#each lists as list, i}
-					<div class="marquee">
-						<ul
-							class="marquee__content"
-							style="animation: scroll {speeds[
-								i
-							]}s linear infinite !important; color: rgb(82, 82, 82) !important"
-						>
-							{#each list as item, j}
-								{#if containsArray(randomColours, [i, j])}
-									<div style="color: rgb(0, 159, 255) !important; font-size: 40px !important;">
-										{item}
-									</div>
-								{:else}
-									{item}
-								{/if}
-							{/each}
-						</ul>
-						<ul
-							aria-hidden="true"
-							class="marquee__content"
-							style="animation: scroll {speeds[
-								i
-							]}s linear infinite !important; color: rgb(82, 82, 82) !important"
-						>
-							{#each list as item, j}
-								{#if containsArray(randomColours, [i, j])}
-									<div style="color: rgb(0, 159, 255) !important; font-size: 40px !important;">
-										{item}
-									</div>
-								{:else}
-									{item}
-								{/if}
-							{/each}
-						</ul>
-					</div>
-				{/each}
-			</div>
+	<div class="first">
+		<div class="imgHolder">
+			<img src="/name.svg" alt="" />
 		</div>
+		<div class="background">
+			{#each lists as list, i}
+				<div class="marquee">
+					<ul
+						class="marquee__content"
+						style="animation: scroll {speeds[
+							i
+						]}s linear infinite !important; color: rgb(82, 82, 82) !important"
+					>
+						{#each list as item, j}
+							{#if containsArray(randomColours, [i, j])}
+								<div style="color: rgb(0, 159, 255) !important; font-size: 40px !important;">
+									{item}
+								</div>
+							{:else}
+								{item}
+							{/if}
+						{/each}
+					</ul>
+					<ul
+						aria-hidden="true"
+						class="marquee__content"
+						style="animation: scroll {speeds[
+							i
+						]}s linear infinite !important; color: rgb(82, 82, 82) !important"
+					>
+						{#each list as item, j}
+							{#if containsArray(randomColours, [i, j])}
+								<div style="color: rgb(0, 159, 255) !important; font-size: 40px !important;">
+									{item}
+								</div>
+							{:else}
+								{item}
+							{/if}
+						{/each}
+					</ul>
+				</div>
+			{/each}
+	</div>
+	</div>
+	<div class="container">
 		<div class="content">
 			<div class="innerContent" bind:this={typewriter1}>
 				<h1 id="aboutMe">About Me.</h1>
@@ -170,7 +170,9 @@
 				<p />
 			</div>
 		</div>
-		<div class="content">3</div>
+		<div class="content">
+			<h1>My Projects.</h1>
+		</div>
 		<div class="content">4</div>
 	</div>
 </body>
@@ -222,8 +224,11 @@
 		align-items: start;
 	}
 
-	#aboutMe {
+	h1 {
 		font-size: 70px;
+	}
+
+	#aboutMe {
 		margin-top: 45px;
 	}
 
@@ -301,10 +306,14 @@
 		font-size: 40px;
 	}
 
+	.first {
+		margin-bottom: 200px;
+	}
+
 	.container,
 	.content {
 		max-width: 100vw;
-		height: 100vh;
+		height: 35vh;
 		font-size: 60px;
 		/* overflow: hidden; */
 	}

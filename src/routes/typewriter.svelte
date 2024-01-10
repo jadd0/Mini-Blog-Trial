@@ -54,7 +54,6 @@
 		padding: 20px;
 		box-shadow: 0 -8px 10px -6px #000000, 8px 0 10px -6px #000000;
 		overflow: scroll;
-
 	}
 
 	p {
