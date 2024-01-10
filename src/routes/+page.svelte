@@ -2,17 +2,14 @@
 	import { onMount } from 'svelte';
 	import Typewriter from './typewriter.svelte';
 
-
-	let typewriter1, typewriter2, typewriter3
-	let height1, height2, height3
+	let typewriter1, typewriter2, typewriter3;
+	let height1, height2, height3;
 
 	onMount(() => {
-		height1 = typewriter1.getBoundingClientRect().top - 300
+		height1 = typewriter1.getBoundingClientRect().top - 300;
 		// height2 = typewriter2.getBoundingClientRect().top
 		// height3 = typewriter3.getBoundingClientRect().top
-
-	})
-	
+	});
 
 	const list = [
 		' Freelance web developer   ',
@@ -37,13 +34,12 @@
 	let lists;
 	let speeds;
 
-	let furthestScrolled = 0
-	let scroll = 0
+	let furthestScrolled = 0;
+	let scroll = 0;
 	$: if (scroll > furthestScrolled) {
-		furthestScrolled = scroll
-		console.log(scroll)
+		furthestScrolled = scroll;
+		console.log(scroll);
 	}
-	
 
 	const randomNumber = (min, max) => {
 		return Math.floor(Math.random() * (max - min) + min);
@@ -78,13 +74,13 @@
 	}
 
 	function distanceFromTop(x) {
-			console.log(typewriter1.getBoundingClientRect())
-      // const rect = x.getBoundingClientRect();
-      // return rect.top;
-    }
+		console.log(typewriter1.getBoundingClientRect());
+		// const rect = x.getBoundingClientRect();
+		// return rect.top;
+	}
 
 	function changeScroll(x) {
-		console.log(x)
+		console.log(x);
 	}
 
 	lists = [
@@ -164,11 +160,14 @@
 			</div>
 		</div>
 		<div class="content">
-
 			<div class="innerContent" bind:this={typewriter1}>
-				<h1>About Me.</h1>
-				<Typewriter height={height1} furthestScrolled={furthestScrolled} phrase='Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.'/>
-				<p></p>
+				<h1 id="aboutMe">About Me.</h1>
+				<Typewriter
+					height={height1}
+					{furthestScrolled}
+					phrase="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum."
+				/>
+				<p />
 			</div>
 		</div>
 		<div class="content">3</div>
@@ -205,7 +204,7 @@
 	* {
 		font-size: 24px;
 		text-align: center;
-		color: black;
+		color: white;
 		margin: 0;
 		padding: 0;
 		border: 0;
@@ -223,8 +222,9 @@
 		align-items: start;
 	}
 
-	h1 {
+	#aboutMe {
 		font-size: 70px;
+		margin-top: 45px;
 	}
 
 	img {

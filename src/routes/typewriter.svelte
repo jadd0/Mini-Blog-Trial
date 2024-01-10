@@ -49,52 +49,18 @@
 		display: flex;
 		flex-direction: column;
 		width: 80%;
-		height: 800px;
+		min-height: 50vh;
 		margin: 2% 0 1%;
-		padding: 10px;
+		padding: 20px;
 		box-shadow: 0 -8px 10px -6px #000000, 8px 0 10px -6px #000000;
 		overflow: scroll;
+
 	}
 
 	p {
 		font-size: 1.2rem;
 		line-height: 150%;
     color: white;
-	}
-
-	form {
-		width: 90%;
-		display: flex;
-		flex-direction: column;
-	}
-
-	input[type='text'] {
-		padding: 10px;
-		box-shadow: inset 0 1px 3px black;
-	}
-
-	button {
-		font-size: 1.3rem;
-		color: white;
-		box-shadow: 0 1px 3px black;
-		cursor: pointer;
-	}
-
-	button:active {
-		box-shadow: inset 1px 0 3px black;
-	}
-
-	button#startBtn {
-		background: hsla(72, 29%, 43%, 1);
-	}
-
-	button#stopBtn {
-		background: hsla(0, 90%, 29%, 1);
-	}
-
-	button#startBtn:disabled {
-		background: #ddd;
-		cursor: auto;
-		box-shadow: none;
+    text-align:left;
 	}
 </style>
