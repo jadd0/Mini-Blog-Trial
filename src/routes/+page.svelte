@@ -3,6 +3,17 @@
 	import Typewriter from './typewriter.svelte';
 
 
+	let typewriter1, typewriter2, typewriter3
+	let height1, height2, height3
+
+	onMount(() => {
+		height1 = typewriter1.getBoundingClientRect().top - 300
+		// height2 = typewriter2.getBoundingClientRect().top
+		// height3 = typewriter3.getBoundingClientRect().top
+
+	})
+	
+
 	const list = [
 		' Freelance web developer   ',
 		' Computer science student   ',
@@ -65,6 +76,12 @@
 	function containsArray(arrOfArrays, targetArray) {
 		return arrOfArrays.some((arr) => arr.every((value, index) => value === targetArray[index]));
 	}
+
+	function distanceFromTop(x) {
+			console.log(typewriter1.getBoundingClientRect())
+      // const rect = x.getBoundingClientRect();
+      // return rect.top;
+    }
 
 	function changeScroll(x) {
 		console.log(x)
@@ -148,11 +165,9 @@
 		</div>
 		<div class="content">
 
-			<div class="innerContent">
+			<div class="innerContent" bind:this={typewriter1}>
 				<h1>About Me.</h1>
-				<Typewriter>
-					<p></p>
-				</Typewriter>
+				<Typewriter height={height1} furthestScrolled={furthestScrolled} phrase='Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.'/>
 				<p></p>
 			</div>
 		</div>
