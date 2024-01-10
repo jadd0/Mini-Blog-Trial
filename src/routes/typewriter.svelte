@@ -37,6 +37,7 @@
 <style>
 	main {
 		width: 100vw;
+		height: 100vw;
 		display: flex;
 		flex-direction: column;
 		align-items: center;
