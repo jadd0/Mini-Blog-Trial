@@ -170,8 +170,14 @@
 				<p />
 			</div>
 		</div>
-		<div class="content">
+		<div class="content" id="projectContent">
 			<h1>My Projects.</h1>
+			<div class="projects">
+				<div class="project"></div>
+				<div class="project"></div>
+				<div class="project"></div>
+
+			</div>
 		</div>
 		<div class="content">4</div>
 	</div>
@@ -306,6 +312,31 @@
 		font-size: 40px;
 	}
 
+	/* START OF PROJECTS STYLES */
+
+	#projectContent {
+		flex-direction: column !important;
+		gap: 30px;
+	}
+
+	.projects {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		flex-direction: row !important;
+		width: 100vw;
+		height: 250px;
+		gap: 40px;
+	}
+
+	.project {
+		width: 25vw;
+		height: 200px;
+		box-shadow: 0 -8px 10px -6px #000000, 8px 0 10px -6px #000000;
+
+	}
+	/* END OF PROJECTS STYLES */
+
 	.first {
 		margin-bottom: 200px;
 	}
@@ -313,7 +344,7 @@
 	.container,
 	.content {
 		max-width: 100vw;
-		height: 35vh;
+		height: 50vh;
 		font-size: 60px;
 		/* overflow: hidden; */
 	}
