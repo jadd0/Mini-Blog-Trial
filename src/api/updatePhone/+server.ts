@@ -1,8 +1,8 @@
 const supabaseUrl = process.env.VITE_SUPABASE_URL || import.meta.env.VITE_SUPABASE_URL
 
-export async function POST({ request }) {
+export async function GET({ request }) {
 
   console.log(request)
 
-  return new Response('Success')
+  return new Response(JSON.stringify({key: 'hello'}))
 }
