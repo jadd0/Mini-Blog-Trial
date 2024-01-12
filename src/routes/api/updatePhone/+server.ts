@@ -26,14 +26,15 @@ async function getKey(key: string): Promise<any> {
 }
 
 async function setKey() {
+  const newKey = generateRandomString()
   const { data, error } = await supabase
     .from('Keys')
-    .update({ 'key': generateRandomString() })
+    .update({ 'key': newKey })
     .match({ 'type': 'phoneUpdate' })
     .select()
 		
   if (error) return false
-  return data.key
+  return newKey
 }
 
 export async function GET({ request, url, error  }) {
