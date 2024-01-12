@@ -16,8 +16,8 @@ function generateRandomString() {
 async function getKey(key: string): Promise<any> {
   const { data, error } = await supabase
     .from('Keys')
-    .select('type')
-    .match('updatePhone');
+    .select('*')
+    .match({ type: 'updateKey'})
 
   if (error) return false
 
