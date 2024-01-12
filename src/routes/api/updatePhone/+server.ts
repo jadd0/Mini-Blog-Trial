@@ -18,6 +18,8 @@ async function getKey(key: string): Promise<any> {
     .from('Keys')
     .select('*')
     .match({ type: 'updateKey'})
+  
+  console.log({data, error})
 
   if (error) return false
 
