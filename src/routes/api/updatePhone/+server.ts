@@ -1,6 +1,18 @@
 import { supabase } from '../../../supabaseClient'
 import { error, redirect } from '@sveltejs/kit';
 
+async function updateLocation(location: string) {
+  const { data, error } = await supabase
+    .from('Locations')
+    .insert({
+      location
+    })
+    .select();
+  
+  if (error != null) return false
+  return true
+}
+
 function generateRandomString() {
   const characters = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!"£$%^&*-+=#.';
   let randomString = '';
@@ -44,12 +56,13 @@ export async function GET({ request }) {
   const location = request.headers.get('location')
 
   console.log(key, location)
-  const t = await getKey(key)
-  console.log(t)
-  if (!t) throw error(404, 'Bad key');
+  if (!await getKey(key)) throw error(404, 'Bad key');
 
   const newKey = await setKey()
   if (!newKey) throw error(500, 'Error changing key')
+
+  const update = await updateLocation(location)
+  if (!update) throw error(500, 'Error updating location')
 
   return new Response(JSON.stringify({key: newKey}))
 }
