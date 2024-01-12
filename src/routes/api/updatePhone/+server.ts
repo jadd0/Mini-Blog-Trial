@@ -37,9 +37,9 @@ async function setKey() {
   return newKey
 }
 
-export async function GET({ request, url, error  }) {
-  const key = url.searchParams.get('key')
-  const location = url.searchParams.get('location')
+export async function GET({ request, error  }) {
+  const key = request.headers.get('key')
+  const location = request.headers.get('location')
 
   console.log(key, location)
 
