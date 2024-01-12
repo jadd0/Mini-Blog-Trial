@@ -17,7 +17,7 @@ async function getKey(key: string): Promise<any> {
   const { data, error } = await supabase
     .from('Keys')
     .select('*')
-    .match({ type: 'updateKey'})
+    .match({ type: 'updatePhone'})
   
   console.log({data, error})
 
@@ -31,8 +31,8 @@ async function setKey() {
   const newKey = generateRandomString()
   const { data, error } = await supabase
     .from('Keys')
-    .update({ 'key': newKey })
-    .match({ 'type': 'phoneUpdate' })
+    .update({ key: newKey })
+    .match({ type: 'updatePhone' })
     .select()
 		
   if (error != null) return false
