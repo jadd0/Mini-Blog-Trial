@@ -179,7 +179,9 @@
 
 			</div>
 		</div>
-		<div class="content">4</div>
+		<div class="content">
+			<h1>My Expertise.</h1>
+		</div>
 	</div>
 </body>
 
