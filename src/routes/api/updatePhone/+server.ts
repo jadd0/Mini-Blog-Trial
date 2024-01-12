@@ -22,8 +22,8 @@ async function getKey(key: string): Promise<any> {
   console.log({data, error})
 
   if (error != null) return false
-
-  if (key != data.key) return false
+  console.log(key, data[0].key)
+  if (key != data[0].key) return false
   return true
 }
 
