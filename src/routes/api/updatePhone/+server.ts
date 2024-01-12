@@ -21,7 +21,7 @@ async function getKey(key: string): Promise<any> {
   
   console.log({data, error})
 
-  if (error) return false
+  if (error != null) return false
 
   if (key != data.key) return false
   return true
@@ -35,7 +35,7 @@ async function setKey() {
     .match({ 'type': 'phoneUpdate' })
     .select()
 		
-  if (error) return false
+  if (error != null) return false
   return newKey
 }
 
