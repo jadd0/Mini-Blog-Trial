@@ -2,7 +2,7 @@ import { supabase } from '../../../supabaseClient'
 import { error, redirect } from '@sveltejs/kit';
 
 function generateRandomString() {
-  const characters = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789[]!"£$%^&*()-+=#.';
+  const characters = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!"£$%^&*-+=#.';
   let randomString = '';
 
   for (let i = 0; i < 16; i++) {
