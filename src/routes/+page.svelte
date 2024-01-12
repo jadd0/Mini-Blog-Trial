@@ -1,4 +1,6 @@
 <script>
+	export let location
+
 	import { onMount } from 'svelte';
 	import Typewriter from './typewriter.svelte';
 	import Project from './project.svelte';
@@ -8,6 +10,7 @@
 
 	onMount(() => {
 		height1 = typewriter1.getBoundingClientRect().top - 300;
+		console.log(location)
 		// height2 = typewriter2.getBoundingClientRect().top
 		// height3 = typewriter3.getBoundingClientRect().top
 	});
