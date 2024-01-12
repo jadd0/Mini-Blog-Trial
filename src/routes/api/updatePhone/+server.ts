@@ -10,7 +10,6 @@ function generateRandomString() {
     randomString += characters.charAt(randomIndex);
   }
 
-  return new Response(JSON.stringify({key: 'hello'}))
   return randomString;
 }
 
