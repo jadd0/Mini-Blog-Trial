@@ -43,11 +43,10 @@ export async function GET({ request, error  }) {
 
   console.log(key, location)
 
-  const constKey = await getKey(key)
-  if (!getKey(constKey)) throw error(404, 'Bad key');
+  if (!await getKey(key)) throw error(404, 'Bad key');
 
-  const newKey = setKey()
-  if (!setKey()) throw error(500, 'Error changing key')
+  const newKey = await setKey()
+  if (!newKey) throw error(500, 'Error changing key')
 
   return new Response(JSON.stringify({key: newKey}))
 }
