@@ -41,6 +41,8 @@ export async function GET({ request, url, error  }) {
   const key = url.searchParams.get('key')
   const location = url.searchParams.get('location')
 
+  console.log(key, location)
+
   const constKey = await getKey(key)
   if (!getKey(constKey)) throw error(404, 'Bad key');
 
