@@ -1,6 +1,7 @@
 <script>
 	import { onMount } from 'svelte';
 	import Typewriter from './typewriter.svelte';
+	import Project from './project.svelte';
 
 	let typewriter1, typewriter2, typewriter3;
 	let height1, height2, height3;
@@ -173,10 +174,9 @@
 		<div class="content" id="projectContent">
 			<h1>My Projects.</h1>
 			<div class="projects">
-				<div class="project"></div>
-				<div class="project"></div>
-				<div class="project"></div>
-
+				<Project />
+				<Project />
+				<Project />
 			</div>
 		</div>
 		<div class="content">
@@ -331,12 +331,7 @@
 		gap: 40px;
 	}
 
-	.project {
-		width: 25vw;
-		height: 200px;
-		box-shadow: 0 -8px 10px -6px #000000, 8px 0 10px -6px #000000;
-
-	}
+	
 	/* END OF PROJECTS STYLES */
 
 	.first {
