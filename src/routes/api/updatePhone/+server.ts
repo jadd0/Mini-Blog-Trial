@@ -44,8 +44,9 @@ export async function GET({ request }) {
   const location = request.headers.get('location')
 
   console.log(key, location)
-
-  if (!await getKey(key)) throw error(404, 'Bad key');
+  const t = await getKey(key)
+  console.log(t)
+  if (!t) throw error(404, 'Bad key');
 
   const newKey = await setKey()
   if (!newKey) throw error(500, 'Error changing key')
