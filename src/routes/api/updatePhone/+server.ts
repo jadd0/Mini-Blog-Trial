@@ -1,5 +1,5 @@
 import { supabase } from '../../../supabaseClient'
-
+import { error, redirect } from '@sveltejs/kit';
 
 function generateRandomString() {
   const characters = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789[]!"£$%^&*()-+=#.';
@@ -37,7 +37,7 @@ async function setKey() {
   return newKey
 }
 
-export async function GET({ request, error  }) {
+export async function GET({ request }) {
   const key = request.headers.get('key')
   const location = request.headers.get('location')
 
