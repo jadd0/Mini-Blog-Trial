@@ -1,16 +1,21 @@
 <script>
-	export let data
+	export let data;
 
 	import { onMount } from 'svelte';
+	import { Parallax, ParallaxLayer, StickyLayer } from 'svelte-parallax';
+
 	import Typewriter from './typewriter.svelte';
-	import Project from './project.svelte';
+	import Projects from './projects.svelte';
 
 	let typewriter1, typewriter2, typewriter3;
 	let height1, height2, height3;
+	let projects, projectsHeight
+	
 
 	onMount(() => {
-		console.log(data)
-		height1 = typewriter1.getBoundingClientRect().top - 300;
+		console.log(data);
+		height1 = typewriter1.offsetTop - 300;
+		projectsHeight = projects.offsetTop + 115
 		// height2 = typewriter2.getBoundingClientRect().top
 		// height3 = typewriter3.getBoundingClientRect().top
 	});
@@ -42,7 +47,6 @@
 	let scroll = 0;
 	$: if (scroll > furthestScrolled) {
 		furthestScrolled = scroll;
-		console.log(scroll);
 	}
 
 	const randomNumber = (min, max) => {
@@ -122,47 +126,50 @@
 		<div class="imgHolder">
 			<img src="/name.svg" alt="" />
 		</div>
-		<div class="background">
-			{#each lists as list, i}
-				<div class="marquee">
-					<ul
-						class="marquee__content"
-						style="animation: scroll {speeds[
-							i
-						]}s linear infinite !important; color: rgb(82, 82, 82) !important"
-					>
-						{#each list as item, j}
-							{#if containsArray(randomColours, [i, j])}
-								<div style="color: rgb(0, 159, 255) !important; font-size: 40px !important;">
-									{item}
-								</div>
-							{:else}
-								{item}
-							{/if}
-						{/each}
-					</ul>
-					<ul
-						aria-hidden="true"
-						class="marquee__content"
-						style="animation: scroll {speeds[
-							i
-						]}s linear infinite !important; color: rgb(82, 82, 82) !important"
-					>
-						{#each list as item, j}
-							{#if containsArray(randomColours, [i, j])}
-								<div style="color: rgb(0, 159, 255) !important; font-size: 40px !important;">
-									{item}
-								</div>
-							{:else}
-								{item}
-							{/if}
-						{/each}
-					</ul>
+		<div class="container">
+			<div class="content">
+				<div class="background">
+					{#each lists as list, i}
+						<div class="marquee">
+							<ul
+								class="marquee__content"
+								style="animation: scroll {speeds[
+									i
+								]}s linear infinite !important; color: rgb(82, 82, 82) !important"
+							>
+								{#each list as item, j}
+									{#if containsArray(randomColours, [i, j])}
+										<div style="color: rgb(0, 159, 255) !important; font-size: 40px !important;">
+											{item}
+										</div>
+									{:else}
+										{item}
+									{/if}
+								{/each}
+							</ul>
+							<ul
+								aria-hidden="true"
+								class="marquee__content"
+								style="animation: scroll {speeds[
+									i
+								]}s linear infinite !important; color: rgb(82, 82, 82) !important"
+							>
+								{#each list as item, j}
+									{#if containsArray(randomColours, [i, j])}
+										<div style="color: rgb(0, 159, 255) !important; font-size: 40px !important;">
+											{item}
+										</div>
+									{:else}
+										{item}
+									{/if}
+								{/each}
+							</ul>
+						</div>
+					{/each}
 				</div>
-			{/each}
-	</div>
-	</div>
-	<div class="container">
+			</div>
+		</div>
+
 		<div class="content">
 			<div class="innerContent" bind:this={typewriter1}>
 				<h1 id="aboutMe">About Me.</h1>
@@ -174,17 +181,13 @@
 				<p />
 			</div>
 		</div>
-		<div class="content" id="projectContent">
-			<h1>My Projects.</h1>
-			<div class="projects">
-				<Project />
-				<Project />
-				<Project />
-			</div>
+		<div class="content" id="projects">
+			<h1 bind:this={projects}>My Projects.</h1>
+			<Projects height={projectsHeight} scroll={scroll} />
 		</div>
-		<div class="content">
-			<h1>My Expertise.</h1>
-		</div>
+	</div>
+	<div class="content">
+		<h1>My Expertise.</h1>
 	</div>
 </body>
 
@@ -229,10 +232,11 @@
 
 	.innerContent {
 		width: 90vw;
-		height: 80vh;
+		height: 100vh;
 		display: flex;
 		justify-content: start;
 		align-items: start;
+		padding-top: 10vh;
 	}
 
 	h1 {
@@ -319,34 +323,35 @@
 
 	/* START OF PROJECTS STYLES */
 
-	#projectContent {
+	#projects {
+		display: flex;
+		justify-content: start;
+		align-items: start;
 		flex-direction: column !important;
 		gap: 30px;
+		height: 122vh !important;
 	}
 
-	.projects {
-		display: flex;
-		justify-content: center;
-		align-items: center;
-		flex-direction: row !important;
-		width: 100vw;
-		height: 250px;
-		gap: 40px;
-	}
-
-	
 	/* END OF PROJECTS STYLES */
 
 	.first {
 		margin-bottom: 200px;
 	}
 
-	.container,
+	.container {
+		height: auto;
+		width: 100vw;
+	}
+
 	.content {
-		max-width: 100vw;
-		height: 50vh;
+		width: 100vw;
+		height: 100vh;
 		font-size: 60px;
-		/* overflow: hidden; */
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+		justify-content: center;
+		margin-bottom: 70px;
 	}
 
 	.container {
@@ -366,10 +371,5 @@
 	}
 
 	.content {
-		display: flex;
-		flex-direction: row;
-		align-items: center;
-		justify-content: center;
-		margin-bottom: 70px;
 	}
 </style>

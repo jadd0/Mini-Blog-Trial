@@ -1,7 +1,6 @@
 <script>
 	export let height;
 	export let furthestScrolled;
-  $: console.log(height ); 
 	$: if (furthestScrolled >= height && !isTyping) {
 		typing();
 	}
@@ -37,7 +36,7 @@
 <style>
 	main {
 		width: 100vw;
-		height: 100vw;
+		height: 100%;
 		display: flex;
 		flex-direction: column;
 		align-items: center;
