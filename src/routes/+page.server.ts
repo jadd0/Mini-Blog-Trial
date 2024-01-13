@@ -32,15 +32,11 @@ function timeAgo(input) {
   }
 }
 
-function getTimeAgo(time) {
-  console.log(timeAgo(new Date(time).getTime()))
-}
 
 /** @type {import('./$types').Load} */
 export const load: any = async ({ request }) => {
 	const location = await getLocation();
 
-  console.log(getTimeAgo(location.created_at))
-	return { region: location.region, area: location.area  };
+	return { region: location.region, area: location.area, time: timeAgo(new Date(location.created_at).getTime()) };
 };
 
