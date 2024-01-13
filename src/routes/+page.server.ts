@@ -41,6 +41,6 @@ export const load: any = async ({ request }) => {
 	const location = await getLocation();
 
   console.log(getTimeAgo(location.created_at))
-	return { location: location.location  };
+	return { region: location.region, area: location.area  };
 };
 
