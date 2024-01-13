@@ -13,56 +13,17 @@ async function updateLocation(location: string) {
   return true
 }
 
-function generateRandomString() {
-  const characters = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!"£$%^&*-+=#.';
-  let randomString = '';
-
-  for (let i = 0; i < 16; i++) {
-    const randomIndex = Math.floor(Math.random() * characters.length);
-    randomString += characters.charAt(randomIndex);
-  }
-
-  return randomString;
-}
-
-async function getKey(key: string): Promise<any> {
-  const { data, error } = await supabase
-    .from('Keys')
-    .select('*')
-    .match({ type: 'updatePhone'})
-  
-  console.log({data, error})
-
-  if (error != null) return false
-  console.log(key, data[0].key)
-  if (key != data[0].key) return false
-  return true
-}
-
-async function setKey() {
-  const newKey = generateRandomString()
-  const { data, error } = await supabase
-    .from('Keys')
-    .update({ key: newKey })
-    .match({ type: 'updatePhone' })
-    .select()
-		
-  if (error != null) return false
-  return newKey
-}
-
 export async function GET({ request }) {
   const key = request.headers.get('key')
   const location = request.headers.get('location')
 
-  console.log(key, location)
-  if (!await getKey(key)) throw error(404, 'Bad key');
+  if (!key || !location) throw error(404, 'No location/key')
 
-  const newKey = await setKey()
-  if (!newKey) throw error(500, 'Error changing key')
+  const constKey = process.env.VITE_UPDATE_KEY || import.meta.env.VITE_UPDATE_KEY
+  if (key != constKey) throw error(404, 'Bad key');
 
   const update = await updateLocation(location)
   if (!update) throw error(500, 'Error updating location')
 
-  return new Response(JSON.stringify({key: newKey}))
+  return new Response()
 }
