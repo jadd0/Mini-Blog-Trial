@@ -1,4 +1,6 @@
 <script>
+	export let data
+
 	import { onMount } from 'svelte';
 	import Typewriter from './typewriter.svelte';
 	import Project from './project.svelte';
@@ -7,6 +9,7 @@
 	let height1, height2, height3;
 
 	onMount(() => {
+		console.log(data)
 		height1 = typewriter1.getBoundingClientRect().top - 300;
 		// height2 = typewriter2.getBoundingClientRect().top
 		// height3 = typewriter3.getBoundingClientRect().top
@@ -165,7 +168,7 @@
 				<Typewriter
 					height={height1}
 					{furthestScrolled}
-					phrase="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum."
+					phrase="I am currently in {data.area}, {data.region} as of {data.time}. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum."
 				/>
 				<p />
 			</div>
@@ -178,7 +181,9 @@
 				<Project />
 			</div>
 		</div>
-		<div class="content">4</div>
+		<div class="content">
+			<h1>My Expertise.</h1>
+		</div>
 	</div>
 </body>
 
