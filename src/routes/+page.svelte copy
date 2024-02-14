@@ -39,6 +39,7 @@
 	let scroll = 0;
 	$: if (scroll > furthestScrolled) {
 		furthestScrolled = scroll;
+		console.log(scroll);
 	}
 
 	const randomNumber = (min, max) => {

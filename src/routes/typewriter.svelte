@@ -6,13 +6,11 @@
 		typing();
 	}
 
-	export let phrase = ''; // text to be typed
+	export let phrase = ''; 
 	let typedChar = '';
 	let index = 0;
-	// $: console.log(index);
-	let typewriter; // for setInterval/clearInterval
+	let typewriter; 
 
-	// Disable START button; prevent clicking twice
 	let isTyping = false;
 
 	const typeChar = () => {
