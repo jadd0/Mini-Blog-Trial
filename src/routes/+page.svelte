@@ -6,16 +6,24 @@
 <SvelteInertiaScroll>
 	<body>
 		<div class="hero">
-			<Marquee>
+			<div class="marquee">
+				<Marquee speed={20}>
 				<h1>Jadd Al-Khabbaz</h1>
 				<h1>Jadd Al-Khabbaz</h1>
 				<h1>Jadd Al-Khabbaz</h1>
 			</Marquee>
+			</div>
+			
 		</div>
 	</body>
 </SvelteInertiaScroll>
 
 <style>
+	 @font-face {
+  	font-family: 'circular';
+  	src: url('/fonts/CircularStd-Medium.otf');
+}
+
 	body {
 		margin: 0;
 		padding: 0;
@@ -32,5 +40,7 @@
 	h1 {
 		margin: 20px;
 		font-size: 20vw;
+		color: #d9d9d9;
+		font-family: circular;
 	}
 </style>
