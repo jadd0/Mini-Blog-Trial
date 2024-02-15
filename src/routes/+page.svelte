@@ -1,6 +1,6 @@
 <script>
 	import { SvelteInertiaScroll } from 'svelteinertiascroll';
-	import { SvelteSimpleMarquee } from 'sveltesimplemarquee'
+	import { SvelteSimpleMarquee } from 'sveltesimplemarquee';
 	import { SvelteScrollTypewriter } from 'sveltescrolltypewriter';
 
 	export let data;
@@ -17,10 +17,15 @@
 				</SvelteSimpleMarquee>
 			</div>
 			<div class="descriptions">
-				<SvelteScrollTypewriter fontSize={20} furthestScrolled={0} auto={true} phrase={"Freelance web developer, Computer science student, UX/UI designer, Back-end developer, Full-stack developer, Computer scientist, Tech enthusiast, SEO specialist, Aspiring software developer, Front-end developer, Javascript/Typescript developer, Python developer, Motivated, Accountable, Creative, Detail oriented, Problem solver"} />
+				<SvelteScrollTypewriter
+					fontSize={20}
+					furthestScrolled={0}
+					auto={true}
+					phrase={'Freelance web developer, Computer science student, UX/UI designer, Back-end developer, Full-stack developer, Computer scientist, Tech enthusiast, SEO specialist, Aspiring software developer, Front-end developer, Javascript/Typescript developer, Python developer, Motivated, Accountable, Creative, Detail oriented, Problem solver'}
+				/>
 			</div>
 			<div class="jaddImage">
-				<img id="imgJadd" src="/images/jaddpic.jpeg" alt="">
+				<img id="imgJadd" src="/images/jaddpic.jpeg" alt="" />
 			</div>
 		</div>
 
@@ -28,9 +33,7 @@
 			<h2>Projects</h2>
 		</div>
 
-		<div class="section" id="aboutMe">
-
-		</div>
+		<div class="section" id="aboutMe" />
 	</body>
 </SvelteInertiaScroll>
 
@@ -111,9 +114,33 @@
 
 	h2 {
 		font-size: 100px;
-		position: absolute;
+		position: relative; /* Changed from absolute */
 		top: 50px;
 		left: 100px;
-		border-bottom: 20px solid white;
+		padding: 10px;
+		cursor: pointer;
+		overflow: hidden;
+	}
+
+	h2 {
+		display: inline-block;
+		margin: 0;
+		text-transform: uppercase;
+		position: absolute;
+	}
+	h2:after {
+		display: block;
+		content: '';
+		border-bottom: solid 20px white;
+		transform: scaleX(0);
+		transition: transform 250ms linear;
+	}
+	h2:after {
+		transform-origin: 100% 50%;
+	}
+
+	h2:hover:after {
+		transform: scaleX(1);
+		transform-origin: 0% 50%;
 	}
 </style>
