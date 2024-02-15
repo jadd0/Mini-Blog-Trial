@@ -35,6 +35,8 @@
 		"nodemailer": "^6.9.1",
 		"svelte-simple-modal": "^1.5.2",
 		"svelte-textarea-autoresize": "^1.0.0",
-		"svelteinertiascroll": "^1.0.4"
+		"svelteinertiascroll": "^1.0.4",
+		"sveltescrolltypewriter": "^1.0.1",
+		"sveltesimplemarquee": "^1.0.3"
 	}
 }
