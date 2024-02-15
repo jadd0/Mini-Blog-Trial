@@ -4,7 +4,9 @@
 
 <SvelteInertiaScroll>
 	<body>
-		<div class="hero" />
+		<div class="hero">
+			
+		</div>
 	</body>
 </SvelteInertiaScroll>
 
@@ -12,7 +14,7 @@
 	body {
 		margin: 0;
 		padding: 0;
-		width: 100%;
+		width: 100vw;
 		background: #121212;
     height: 10000vh;
 	}
@@ -20,6 +22,5 @@
   .hero {
     width: 100vw;
     height: 100vh;
-    background: white;
   }
 </style>
