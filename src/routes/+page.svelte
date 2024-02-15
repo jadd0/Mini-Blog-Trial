@@ -1,11 +1,12 @@
 <script>
 	import { SvelteInertiaScroll } from 'svelteinertiascroll';
+	import Marquee from './marquee.svelte'
 </script>
 
 <SvelteInertiaScroll>
 	<body>
 		<div class="hero">
-			
+			<Marquee>Hello</Marquee>
 		</div>
 	</body>
 </SvelteInertiaScroll>
