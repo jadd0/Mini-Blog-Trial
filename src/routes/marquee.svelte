@@ -1,5 +1,5 @@
 <script>
-  export let speed = 5;
+  export let speed = 50;
 </script>
 
 <div class="marquee">
@@ -26,24 +26,19 @@
 		display: flex;
 		overflow: hidden;
 		user-select: none;
-		gap: var(--gap);
-		overflow: hidden;
+    margin: none;
 	}
 
 	.marquee__content {
 		flex-shrink: 0;
 		display: flex;
 		justify-content: space-around;
-		gap: var(--gap);
+
 		min-width: 100%;
-		font-size: 40px;
+		/* color:rgb(82, 82, 82) !important; */
 	}
 
-	.marquee__content li {
-		font-size: 250px;
-	}
-
-	@keyframes scroll {
+	@keyframes -global-scroll {
 		from {
 			transform: translateX(0);
 		}
@@ -59,17 +54,22 @@
 		}
 	}
 
-	ul {
-		list-style-type: none;
-    color: white;
-	}
-
-	@keyframes scroll-abs {
+	@keyframes -global-scroll-abs {
 		from {
 			transform: translateX(calc(100% + var(--gap)));
 		}
 		to {
 			transform: translateX(0);
 		}
+	}
+
+	.marquee__content:last-child {
+		animation-name: scroll-abs;
+	}
+
+	ul {
+		list-style-type: none;
+		/* color: #333 !important; */
+		font-size: 40px;
 	}
 </style>

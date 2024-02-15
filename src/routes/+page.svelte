@@ -6,7 +6,11 @@
 <SvelteInertiaScroll>
 	<body>
 		<div class="hero">
-			<Marquee>Hello</Marquee>
+			<Marquee>
+				<h1>Jadd Al-Khabbaz</h1>
+				<h1>Jadd Al-Khabbaz</h1>
+				<h1>Jadd Al-Khabbaz</h1>
+			</Marquee>
 		</div>
 	</body>
 </SvelteInertiaScroll>
@@ -24,4 +28,9 @@
     width: 100vw;
     height: 100vh;
   }
+
+	h1 {
+		margin: 20px;
+		font-size: 20vw;
+	}
 </style>
