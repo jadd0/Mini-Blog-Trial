@@ -1,9 +1,19 @@
 <script>
-  export let content;
+  export let speed = 5;
 </script>
 
 <div class="marquee">
-  <ul class="marquee__content">
+  <ul
+    class="marquee__content"
+    style="animation: scroll {speed}s linear infinite !important; color: rgb(82, 82, 82) !important"
+  >
+    <slot></slot>
+  </ul>
+  <ul
+    aria-hidden="true"
+    class="marquee__content"
+    style="animation: scroll {speed}s linear infinite !important; color: rgb(82, 82, 82) !important"
+  >
     <slot></slot>
   </ul>
 </div>
