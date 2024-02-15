@@ -118,7 +118,7 @@
 	h2 {
 		font-size: 100px;
 		position: relative; /* Changed from absolute */
-		top: 70px;
+		top: 120px;
 		left: 100px;
 		padding: 10px;
 		cursor: pointer;
@@ -154,10 +154,17 @@
 	.inner {
 		width: 100%;
 		height: 100%;
-		border-left: solid 20px white;
-		border-top: solid 20px white;
-		border-bottom: solid 20px white;
 
 		padding: 50px;
 	}
+
+	.inner:before {
+   content: " ";
+   border-left:20px solid white;
+   border-top:20px solid white;
+   border-bottom:20px solid white;
+  padding:800px 100px 10px 5px;
+	position: absolute;
+	left: 30px;
+}
 </style>
