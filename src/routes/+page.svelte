@@ -7,7 +7,7 @@
 	<body>
 		<div class="hero">
 			<div class="marquee">
-				<Marquee speed={20}>
+				<Marquee>
 				<h1>Jadd Al-Khabbaz</h1>
 				<h1>Jadd Al-Khabbaz</h1>
 				<h1>Jadd Al-Khabbaz</h1>
@@ -20,8 +20,8 @@
 
 <style>
 	 @font-face {
-  	font-family: 'circular';
-  	src: url('/fonts/CircularStd-Medium.otf');
+  	font-family: 'jakarta';
+  	src: url('/fonts/Jakarta.ttf');
 }
 
 	body {
@@ -39,8 +39,8 @@
 
 	h1 {
 		margin: 20px;
-		font-size: 20vw;
+		font-size: 17vw;
 		color: #d9d9d9;
-		font-family: circular;
+		font-family: jakarta;
 	}
 </style>
