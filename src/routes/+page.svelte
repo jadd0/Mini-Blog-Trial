@@ -25,7 +25,7 @@
 		</div>
 
 		<div class="section" id="projects">
-
+			<h2>Projects</h2>
 		</div>
 
 		<div class="section" id="aboutMe">
@@ -93,7 +93,7 @@
 		border-radius: 15px;
 	}
 
-	.section {
+	.c {
 		width: 100vw;
 		height: 75vh;
 		display: flex;
@@ -103,7 +103,17 @@
 		margin-bottom: 70px;
 	}
 
+	.section {
+		position: relative;
+		height: 85vh;
+		width: 100vw;
+	}
+
 	h2 {
-		font-size: 40px;
+		font-size: 100px;
+		position: absolute;
+		top: 50px;
+		left: 100px;
+		border-bottom: 20px solid white;
 	}
 </style>
