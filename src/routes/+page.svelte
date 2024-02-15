@@ -30,7 +30,10 @@
 		</div>
 
 		<div class="section" id="projects">
-			<h2>Projects</h2>
+			<div class="inner">
+				<h2>Projects.</h2>
+			</div>
+			
 		</div>
 
 		<div class="section" id="aboutMe" />
@@ -115,7 +118,7 @@
 	h2 {
 		font-size: 100px;
 		position: relative; /* Changed from absolute */
-		top: 50px;
+		top: 70px;
 		left: 100px;
 		padding: 10px;
 		cursor: pointer;
@@ -142,5 +145,19 @@
 	h2:hover:after {
 		transform: scaleX(1);
 		transform-origin: 0% 50%;
+	}
+
+	#projects {
+		padding: 50px
+	}
+
+	.inner {
+		width: 100%;
+		height: 100%;
+		border-left: solid 20px white;
+		border-top: solid 20px white;
+		border-bottom: solid 20px white;
+
+		padding: 50px;
 	}
 </style>
