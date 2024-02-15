@@ -15,8 +15,15 @@
 				</SvelteSimpleMarquee>
 			</div>
 			<div class="descriptions">
-				<SvelteScrollTypewriter height={0} furthestScrolled={0} auto={true} phrase={"Freelance web developer, Computer science student, UX/UI designer, Back-end developer, Full-stack developer, Computer scientist, Tech enthusiast, SEO specialist, Aspiring software developer, Front-end developer, Javascript/Typescript developer, Python developer, Motivated, Accountable, Creative, Detail oriented, Problem solver"} />
+				<SvelteScrollTypewriter fontSize={20} furthestScrolled={0} auto={true} phrase={"Freelance web developer, Computer science student, UX/UI designer, Back-end developer, Full-stack developer, Computer scientist, Tech enthusiast, SEO specialist, Aspiring software developer, Front-end developer, Javascript/Typescript developer, Python developer, Motivated, Accountable, Creative, Detail oriented, Problem solver"} />
 			</div>
+			<div class="jaddImage">
+				<img id="imgJadd" src="/images/jaddpic.jpeg" alt="">
+			</div>
+		</div>
+
+		<div class="section">
+			
 		</div>
 	</body>
 </SvelteInertiaScroll>
@@ -27,28 +34,56 @@
 		src: url('/fonts/Jakarta.ttf');
 	}
 
-	* {
-		font-family: jakarta;
+	body {
+		overflow-x: hidden;
 		margin: 0;
 		padding: 0;
+		border: 0;
+		max-width: 100vw;
+		min-height: 1000vh;
+		background-color: #141414;
 	}
 
-	body {
+	* {
+		font-size: 24px;
+		text-align: center;
+		color: white;
 		margin: 0;
 		padding: 0;
-		width: 100vw;
-		background: #121212;
-		height: 10000vh;
+		border: 0;
+		outline: 0;
+		box-sizing: border-box;
+		font-family: jakarta;
+		letter-spacing: -0px !important;
 	}
 
 	.hero {
 		width: 100vw;
 		height: 100vh;
+		position: relative;
 	}
 
 	h1 {
 		margin: 20px;
 		font-size: 17vw;
 		color: #d9d9d9;
+	}
+
+	.descriptions {
+		width: 600px;
+		position: absolute;
+		top: 70%;
+		left: 100px;
+	}
+
+	.jaddImage {
+		position: absolute;
+		top: 70%;
+		right: 200px;
+	}
+
+	#imgJadd {
+		width: 150px;
+		border-radius: 15px;
 	}
 </style>

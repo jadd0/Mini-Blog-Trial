@@ -36,7 +36,7 @@
 		"svelte-simple-modal": "^1.5.2",
 		"svelte-textarea-autoresize": "^1.0.0",
 		"svelteinertiascroll": "^1.0.4",
-		"sveltescrolltypewriter": "^1.0.1",
+		"sveltescrolltypewriter": "^1.0.4",
 		"sveltesimplemarquee": "^1.0.3"
 	}
 }
