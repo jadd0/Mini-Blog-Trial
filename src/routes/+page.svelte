@@ -2,6 +2,8 @@
 	import { SvelteInertiaScroll } from 'svelteinertiascroll';
 	import { SvelteSimpleMarquee } from 'sveltesimplemarquee'
 	import { SvelteScrollTypewriter } from 'sveltescrolltypewriter';
+
+	export let data;
 </script>
 
 <SvelteInertiaScroll>
@@ -22,8 +24,12 @@
 			</div>
 		</div>
 
-		<div class="section">
-			
+		<div class="section" id="projects">
+
+		</div>
+
+		<div class="section" id="aboutMe">
+
 		</div>
 	</body>
 </SvelteInertiaScroll>
@@ -85,5 +91,19 @@
 	#imgJadd {
 		width: 150px;
 		border-radius: 15px;
+	}
+
+	.section {
+		width: 100vw;
+		height: 75vh;
+		display: flex;
+		flex-direction: row;
+		align-items: start;
+		justify-content: start;
+		margin-bottom: 70px;
+	}
+
+	h2 {
+		font-size: 40px;
 	}
 </style>
