@@ -16,7 +16,7 @@
 
 	let projects, projectsTop, projectsDistance;
 	let project1, project2, project3;
-	let project1Right = -400;
+	let project1Right = -400, project2Right = -400, project3Right = -400;
 	let inView = false;
 
 	function changeVal() {
@@ -26,14 +26,16 @@
 		if (projectsTop == 0 && scroll1 > 50) {
 			//to see if project1 in view
 
-
+			if ((screenWidth+15) > scroll1 ) {
 				project1Right = scroll1 - 400;
+			}
 			
+			else {
 
-
-
-				
+				project2Right = scroll1 - screenWidth -400;
 			
+			}
+
 		}
 	}
 
@@ -103,9 +105,9 @@
 	<div id="projects" bind:this={projects}>
 		<div class="inner">
 			<h2 id="projectsTitle">Projects.</h2>
-			<div class="project" style="right: {project1Right}px" bind:this={project1} />
-			<div class="project" bind:this={project2} />
-			<div class="project" bind:this={project3} />
+			<div class="project" style="right: {project1Right}px; background: white" bind:this={project1} />
+			<div class="project" style="right: {project2Right}px; background: blue" bind:this={project2} />
+			<div class="project" style="right: {project3Right}px; background: red" bind:this={project3} />
 		</div>
 	</div>
 </body>
@@ -266,7 +268,6 @@
 	.project {
 		width: 300px;
 		height: 300px;
-		background: white;
 		position: absolute;
 		top: 300px;
 		right: -310px;
