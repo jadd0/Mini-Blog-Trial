@@ -46,7 +46,7 @@
 				<!-- <img id="imgJadd" src="/images/jaddpic.jpeg" alt="" /> -->
 			</div>
 		</div>
-
+    
 		<div class="section" id="aboutMe">
       <div class="inner">
         <h2>Who am I?</h2>
@@ -84,8 +84,6 @@
     top: 0;
   }
 	body {
-		/* overflow-x: hidden; */
-    overflow: scroll;
 		margin: 0;
 		padding: 0;
 		border: 0;
@@ -161,7 +159,6 @@
 		position: relative; /* Changed from absolute */
 		left: 88px;
 		padding: 10px;
-		overflow: hidden;
 	}
 
 	h2 {
@@ -205,8 +202,8 @@
 		padding: 50px;
     position: sticky;
     position: -webkit-sticky;
-    top: 0;
-    background: white;
+    top: 0px;
+    bottom: 2000px;
 	}
 
 	#projects:before {
