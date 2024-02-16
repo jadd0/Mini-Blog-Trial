@@ -2,72 +2,114 @@
 	import { SvelteInertiaScroll } from 'svelteinertiascroll';
 	import { SvelteSimpleMarquee } from 'sveltesimplemarquee';
 	import { SvelteScrollTypewriter } from 'sveltescrolltypewriter';
-  import { onMount } from 'svelte';
+	import { onMount } from 'svelte';
 
 	export let data;
 
+	let screenWidth;
 
-  let typewriter1, height1, innerh;
-  let scroll = 0
-  $: console.log((innerh+scroll));
+	let scrollOld = 0;
+
+	let typewriter1, height1, innerh;
+	let scroll = 0,
+		scroll1 = 0;
+
+	let projects, projectsTop, projectsDistance;
+	let project1, project2, project3;
+	let project1Right = -400;
+	let inView = false;
+
+	function changeVal() {
+		projectsTop = projects.getBoundingClientRect().top;
+		scroll1 = scroll - projectsDistance;
+
+		if (projectsTop == 0 && scroll1 > 50) {
+			//to see if project1 in view
+
+
+				project1Right = scroll1 - 400;
+			
 
 
 
-  onMount(() => {
-    height1 = typewriter1.getBoundingClientRect().top;
-    console.log(height1, scroll, innerh);
-  })
+				
+			
+		}
+	}
 
+	function scrollFn() {
+		changeVal();
+	}
+
+	function calculateDistance() {
+		const element = document.getElementById('projects');
+		const rect = element.getBoundingClientRect();
+		projectsDistance = rect.top + window.pageYOffset;
+	}
+
+	onMount(() => {
+		height1 = typewriter1.getBoundingClientRect().top;
+		console.log(height1, scroll, innerh);
+		calculateDistance();
+
+		console.log({ screenWidth });
+	});
 </script>
 
-<svelte:window bind:scrollY={scroll} bind:innerHeight={innerh}/>
-
-
+<svelte:window
+	bind:scrollY={scroll}
+	bind:innerHeight={innerh}
+	bind:innerWidth={screenWidth}
+	on:scroll={scrollFn}
+/>
 
 <!-- <SvelteInertiaScroll> -->
-	<body>
-		<div class="hero">
-			<div class="marquee">
-				<SvelteSimpleMarquee>
-					<h1>Jadd Al-Khabbaz</h1>
-					<h1>Jadd Al-Khabbaz</h1>
-					<h1>Jadd Al-Khabbaz</h1>
-				</SvelteSimpleMarquee>
-			</div>
-			<div class="typewriter">
+<body>
+	<div class="hero">
+		<div class="marquee">
+			<SvelteSimpleMarquee>
+				<h1>Jadd Al-Khabbaz</h1>
+				<h1>Jadd Al-Khabbaz</h1>
+				<h1>Jadd Al-Khabbaz</h1>
+			</SvelteSimpleMarquee>
+		</div>
+		<div class="typewriter">
+			<SvelteScrollTypewriter
+				fontSize={20}
+				furthestScrolled={0}
+				auto={true}
+				phrase={'Freelance web developer, Computer science student, UX/UI designer, Back-end developer, Full-stack developer, Computer scientist, Tech enthusiast, SEO specialist, Aspiring software developer, Front-end developer, Javascript/Typescript developer, Python developer, Motivated, Accountable, Creative, Detail oriented, Problem solver'}
+			/>
+		</div>
+		<div class="jaddImage">
+			<!-- <img id="imgJadd" src="/images/jaddpic.jpeg" alt="" /> -->
+		</div>
+	</div>
+
+	<div class="section" id="aboutMe">
+		<div class="inner">
+			<h2>Who am I?</h2>
+			<div bind:this={typewriter1} id="aboutMeTypewriter" class="typewriter">
 				<SvelteScrollTypewriter
 					fontSize={20}
-					furthestScrolled={0}
-					auto={true}
-					phrase={'Freelance web developer, Computer science student, UX/UI designer, Back-end developer, Full-stack developer, Computer scientist, Tech enthusiast, SEO specialist, Aspiring software developer, Front-end developer, Javascript/Typescript developer, Python developer, Motivated, Accountable, Creative, Detail oriented, Problem solver'}
-				/>
-			</div>
-			<div class="jaddImage">
-				<!-- <img id="imgJadd" src="/images/jaddpic.jpeg" alt="" /> -->
-			</div>
-		</div>
-    
-		<div class="section" id="aboutMe">
-      <div class="inner">
-        <h2>Who am I?</h2>
-      <div bind:this={typewriter1} id="aboutMeTypewriter" class="typewriter">
-        <SvelteScrollTypewriter
-					fontSize={20}
-					furthestScrolled={scroll+innerh}
-          height={height1}
+					furthestScrolled={scroll + innerh}
+					height={height1}
 					phrase={`Hi! I am Jadd, a freelance web developer. I am from the Wirral, United Kingdom and I am currently in ${data.area}, ${data.region} as of ${data.time}. As a current Computer Science student, I am very enthusiastic in the web development industry... lorem mkdfosdfmsdmf fjsdhfusdhf sdkjf ksjd fksdfk sdkjf ksd fksd fks dfk kfsd f kj`}
 				/>
-      </div>
-      </div>
-			
-		</div>
-
-		<div id="projects">
-			<div class="inner">
-				<h2 id="projectsTitle">Projects.</h2>
 			</div>
 		</div>
-	</body>
+	</div>
+
+	<div id="projects" bind:this={projects}>
+		<div class="inner">
+			<h2 id="projectsTitle">Projects.</h2>
+			<div class="project" style="right: {project1Right}px" bind:this={project1} />
+			<div class="project" bind:this={project2} />
+			<div class="project" bind:this={project3} />
+		</div>
+	</div>
+</body>
+
 <!-- </SvelteInertiaScroll> -->
 
 <style>
@@ -76,13 +118,13 @@
 		src: url('/fonts/Jakarta.ttf');
 	}
 
-  .box {
-    position: sticky;
-    width: 100vw;
-    height: 40px;
-    background-color: white;
-    top: 0;
-  }
+	.box {
+		position: sticky;
+		width: 100vw;
+		height: 40px;
+		background-color: white;
+		top: 0;
+	}
 	body {
 		margin: 0;
 		padding: 0;
@@ -108,7 +150,7 @@
 
 	.hero {
 		width: 100vw;
-    min-height: 100vh;
+		min-height: 100vh;
 		position: relative;
 	}
 
@@ -122,7 +164,7 @@
 		width: 600px;
 		position: absolute;
 		bottom: 10%;
-    top: auto;
+		top: auto;
 		left: 100px;
 	}
 
@@ -151,7 +193,7 @@
 		position: relative;
 		height: 600px;
 		width: 100vw;
-    margin-top: 50px;
+		margin-top: 50px;
 	}
 
 	h2 {
@@ -168,7 +210,7 @@
 		position: absolute;
 	}
 
-  .inner {
+	.inner {
 		width: 100%;
 		height: 100%;
 		padding: 50px;
@@ -176,7 +218,7 @@
 
 	#projectsTitle {
 		cursor: pointer;
-    top: 100px;
+		top: 100px;
 	}
 
 	#projectsTitle:after {
@@ -196,14 +238,14 @@
 	}
 
 	#projects {
-    height: 85vh;
+		height: 85vh;
 		width: 100vw;
-    margin-top: 50px;
+		margin-top: 50px;
 		padding: 50px;
-    position: sticky;
-    position: -webkit-sticky;
-    top: 0px;
-    bottom: 2000px;
+		position: sticky;
+		position: -webkit-sticky;
+		top: 0px;
+		bottom: 500px;
 	}
 
 	#projects:before {
@@ -216,10 +258,17 @@
 		left: 30px;
 	}
 
-  #aboutMeTypewriter {
-    position: absolute;
-    top: 200px;
-  }
+	#aboutMeTypewriter {
+		position: absolute;
+		top: 200px;
+	}
 
-
+	.project {
+		width: 300px;
+		height: 300px;
+		background: white;
+		position: absolute;
+		top: 300px;
+		right: -310px;
+	}
 </style>
