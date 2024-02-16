@@ -2,9 +2,25 @@
 	import { SvelteInertiaScroll } from 'svelteinertiascroll';
 	import { SvelteSimpleMarquee } from 'sveltesimplemarquee';
 	import { SvelteScrollTypewriter } from 'sveltescrolltypewriter';
+  import { onMount } from 'svelte';
 
 	export let data;
+
+
+  let typewriter1, height1, innerh;
+  let scroll = 0
+  $: console.log((innerh+scroll));
+
+
+
+  onMount(() => {
+    height1 = typewriter1.getBoundingClientRect().top;
+    console.log(height1, scroll, innerh);
+  })
+
 </script>
+
+<svelte:window bind:scrollY={scroll} bind:innerHeight={innerh}/>
 
 <SvelteInertiaScroll>
 	<body>
@@ -16,7 +32,7 @@
 					<h1>Jadd Al-Khabbaz</h1>
 				</SvelteSimpleMarquee>
 			</div>
-			<div class="descriptions">
+			<div class="typewriter">
 				<SvelteScrollTypewriter
 					fontSize={20}
 					furthestScrolled={0}
@@ -25,18 +41,27 @@
 				/>
 			</div>
 			<div class="jaddImage">
-				<img id="imgJadd" src="/images/jaddpic.jpeg" alt="" />
+				<!-- <img id="imgJadd" src="/images/jaddpic.jpeg" alt="" /> -->
 			</div>
+		</div>
+
+		<div class="section" id="aboutMe">
+			<h2>Who am I?</h2>
+      <div bind:this={typewriter1} id="aboutMeTypewriter" class="typewriter">
+        <SvelteScrollTypewriter
+					fontSize={20}
+					furthestScrolled={scroll+innerh}
+          height={height1}
+					phrase={`Hi! I am Jadd, a freelance web developer. I am from the Wirral, United Kingdom and I am currently in ${data.area}, ${data.region} as of ${data.time}`}
+				/>
+      </div>
 		</div>
 
 		<div class="section" id="projects">
 			<div class="inner">
-				<h2>Projects.</h2>
+				<h2 id="projectsTitle">Projects.</h2>
 			</div>
-			
 		</div>
-
-		<div class="section" id="aboutMe" />
 	</body>
 </SvelteInertiaScroll>
 
@@ -71,7 +96,7 @@
 
 	.hero {
 		width: 100vw;
-		height: 100vh;
+    min-height: 100vh;
 		position: relative;
 	}
 
@@ -81,11 +106,13 @@
 		color: #d9d9d9;
 	}
 
-	.descriptions {
+	.typewriter {
 		width: 600px;
 		position: absolute;
-		top: 70%;
+		bottom: -10%;
+    top: auto;
 		left: 100px;
+    height: 300px;
 	}
 
 	.jaddImage {
@@ -118,10 +145,8 @@
 	h2 {
 		font-size: 100px;
 		position: relative; /* Changed from absolute */
-		top: 120px;
-		left: 100px;
+		left: 88px;
 		padding: 10px;
-		cursor: pointer;
 		overflow: hidden;
 	}
 
@@ -131,24 +156,30 @@
 		text-transform: uppercase;
 		position: absolute;
 	}
-	h2:after {
+
+	#projectsTitle {
+		cursor: pointer;
+    top: 120px;
+	}
+
+	#projectsTitle:after {
 		display: block;
 		content: '';
 		border-bottom: solid 20px white;
 		transform: scaleX(0);
 		transition: transform 250ms linear;
 	}
-	h2:after {
+	#projectsTitle:after {
 		transform-origin: 100% 50%;
 	}
 
-	h2:hover:after {
+	#projectsTitle:hover:after {
 		transform: scaleX(1);
 		transform-origin: 0% 50%;
 	}
 
 	#projects {
-		padding: 50px
+		padding: 50px;
 	}
 
 	.inner {
@@ -159,12 +190,17 @@
 	}
 
 	.inner:before {
-   content: " ";
-   border-left:20px solid white;
-   border-top:20px solid white;
-   border-bottom:20px solid white;
-  padding:800px 100px 10px 5px;
-	position: absolute;
-	left: 30px;
-}
+		content: ' ';
+		border-left: 20px solid white;
+		border-top: 20px solid white;
+		border-bottom: 20px solid white;
+		padding: 800px 100px 10px 5px;
+		position: absolute;
+		left: 30px;
+	}
+
+  #aboutMeTypewriter {
+    position: absolute;
+    top: 150px;
+  }
 </style>
