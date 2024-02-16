@@ -87,9 +87,10 @@
 		margin: 0;
 		padding: 0;
 		border: 0;
-		max-width: 100vw;
+		width: 100vw;
 		min-height: 1000vh;
 		background-color: #141414;
+		overflow-x: clip;
 	}
 
 	* {
@@ -120,10 +121,9 @@
 	.typewriter {
 		width: 600px;
 		position: absolute;
-		bottom: -10%;
+		bottom: 10%;
     top: auto;
 		left: 100px;
-    height: 300px;
 	}
 
 	.jaddImage {
@@ -149,7 +149,7 @@
 
 	.section {
 		position: relative;
-		height: 85vh;
+		height: 600px;
 		width: 100vw;
     margin-top: 50px;
 	}
