@@ -46,15 +46,18 @@
 		</div>
 
 		<div class="section" id="aboutMe">
-			<h2>Who am I?</h2>
+      <div class="inner">
+        <h2>Who am I?</h2>
       <div bind:this={typewriter1} id="aboutMeTypewriter" class="typewriter">
         <SvelteScrollTypewriter
 					fontSize={20}
 					furthestScrolled={scroll+innerh}
           height={height1}
-					phrase={`Hi! I am Jadd, a freelance web developer. I am from the Wirral, United Kingdom and I am currently in ${data.area}, ${data.region} as of ${data.time}`}
+					phrase={`Hi! I am Jadd, a freelance web developer. I am from the Wirral, United Kingdom and I am currently in ${data.area}, ${data.region} as of ${data.time}. As a current Computer Science student, I am very enthusiastic in the web development industry... lorem mkdfosdfmsdmf fjsdhfusdhf sdkjf ksjd fksdfk sdkjf ksd fksd fks dfk kfsd f kj`}
 				/>
       </div>
+      </div>
+			
 		</div>
 
 		<div class="section" id="projects">
@@ -140,6 +143,7 @@
 		position: relative;
 		height: 85vh;
 		width: 100vw;
+    margin-top: 50px;
 	}
 
 	h2 {
@@ -157,9 +161,15 @@
 		position: absolute;
 	}
 
+  .inner {
+		width: 100%;
+		height: 100%;
+		padding: 50px;
+	}
+
 	#projectsTitle {
 		cursor: pointer;
-    top: 120px;
+    top: 100px;
 	}
 
 	#projectsTitle:after {
@@ -182,14 +192,7 @@
 		padding: 50px;
 	}
 
-	.inner {
-		width: 100%;
-		height: 100%;
-
-		padding: 50px;
-	}
-
-	.inner:before {
+	#projects:before {
 		content: ' ';
 		border-left: 20px solid white;
 		border-top: 20px solid white;
@@ -201,6 +204,8 @@
 
   #aboutMeTypewriter {
     position: absolute;
-    top: 150px;
+    top: 200px;
   }
+
+
 </style>
