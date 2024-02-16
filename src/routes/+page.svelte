@@ -75,7 +75,8 @@
 				<h1>Jadd Al-Khabbaz</h1>
 			</SvelteSimpleMarquee>
 		</div>
-		<div class="typewriter">
+		<div class="typewriterHolderHero">
+			<div class="typewriter">
 			<SvelteScrollTypewriter
 				fontSize={20}
 				furthestScrolled={0}
@@ -83,6 +84,8 @@
 				phrase={'Freelance web developer, Computer science student, UX/UI designer, Back-end developer, Full-stack developer, Computer scientist, Tech enthusiast, SEO specialist, Aspiring software developer, Front-end developer, Javascript/Typescript developer, Python developer, Motivated, Accountable, Creative, Detail oriented, Problem solver'}
 			/>
 		</div>
+		</div>
+		
 		<div class="jaddImage">
 			<!-- <img id="imgJadd" src="/images/jaddpic.jpeg" alt="" /> -->
 		</div>
@@ -162,11 +165,17 @@
 		color: #d9d9d9;
 	}
 
+	.typewriterHolderHero {
+		height: 35vh;
+		width: 100vw;
+		position: absolute;
+		bottom: 0;
+	}
+
 	.typewriter {
 		width: 600px;
 		position: absolute;
-		bottom: 10%;
-		top: auto;
+		top: 0;
 		left: 100px;
 	}
 
