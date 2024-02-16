@@ -22,7 +22,9 @@
 
 <svelte:window bind:scrollY={scroll} bind:innerHeight={innerh}/>
 
-<SvelteInertiaScroll>
+
+
+<!-- <SvelteInertiaScroll> -->
 	<body>
 		<div class="hero">
 			<div class="marquee">
@@ -60,13 +62,13 @@
 			
 		</div>
 
-		<div class="section" id="projects">
+		<div id="projects">
 			<div class="inner">
 				<h2 id="projectsTitle">Projects.</h2>
 			</div>
 		</div>
 	</body>
-</SvelteInertiaScroll>
+<!-- </SvelteInertiaScroll> -->
 
 <style>
 	@font-face {
@@ -74,8 +76,16 @@
 		src: url('/fonts/Jakarta.ttf');
 	}
 
+  .box {
+    position: sticky;
+    width: 100vw;
+    height: 40px;
+    background-color: white;
+    top: 0;
+  }
 	body {
-		overflow-x: hidden;
+		/* overflow-x: hidden; */
+    overflow: scroll;
 		margin: 0;
 		padding: 0;
 		border: 0;
@@ -189,7 +199,14 @@
 	}
 
 	#projects {
+    height: 85vh;
+		width: 100vw;
+    margin-top: 50px;
 		padding: 50px;
+    position: sticky;
+    position: -webkit-sticky;
+    top: 0;
+    background: white;
 	}
 
 	#projects:before {
