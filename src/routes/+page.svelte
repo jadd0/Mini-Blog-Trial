@@ -108,9 +108,37 @@
 	<div id="projects" bind:this={projects}>
 		<div class="inner">
 			<h2 id="projectsTitle">Projects.</h2>
-			<div class="project" style="top: {project1Top}px; background: white" bind:this={project1} />
-			<div class="project" style="top: {project2Top}px; background: blue" bind:this={project2} />
-			<div class="project" style="top: {project3Top}px; background: red" bind:this={project3} />
+			<div class="projectsHolder">
+				<div class="project">
+					
+					<div class="innerProject">
+						<img class="projectImage" src="/images/screenshot.png" />
+					<h3>JaddBlog</h3>
+					<div class="description">Lorem ipsum dolor sit amet consectetur adipisicing elit. Atque, et.
+					</div>
+					</div>
+					
+				</div>
+				<div class="project" id="secondProject" >
+					<div class="innerProject">
+						<img class="projectImage" src="" />
+					<h3>Wirral Bears</h3>
+					<div class="description">Lorem ipsum dolor sit amet consectetur adipisicing elit. Atque, et.
+					</div>
+					</div>
+					
+				</div>
+				<div class="project">
+					<div class="innerProject">
+					<img class="projectImage" src="" />
+					<h3>Something</h3>
+					<div class="description">Lorem ipsum dolor sit amet consectetur adipisicing elit. Atque, et.
+					</div>
+					</div>
+					
+				</div>
+			</div>
+			
 		</div>
 	</div>
 </body>
@@ -285,12 +313,55 @@ body::-webkit-scrollbar {
 		top: 200px;
 	}
 
-	.project {
-		width:600px;
-		height: 400px;
+	.projectsHolder {
+		display: flex;
+		flex-direction: column;
 		position: absolute;
 		top: 300px;
+		z-index: 100;
+	}
 
-		border-radius: 20px;
+	.project {
+		width:600px;
+		height: 150px;
+		border-top: 1px solid #8f8f8f;
+		border-bottom: 1px solid #8f8f8f;
+		cursor: pointer;
+		
+	}
+
+	#secondProject {
+		border: none !important;
+	}
+
+	.innerProject {
+		display: flex;
+		flex-direction: column;
+		align-items: start;
+		justify-content: center;
+		height: 100%;
+		width: 100%;
+		transition: all linear 0.3s;
+		z-index: 0;
+	}
+
+	.innerProject:hover {
+		transform: translate(150px)
+	}
+
+	h3 {
+		font-size: 50px;
+	}
+
+	.description {
+		font-size: 15px;
+		color: #8f8f8f;
+	}
+
+	.projectImage {
+		width: 150px;
+		position: absolute;
+		left: -175px;
+		top: 24px;
 	}
 </style>
