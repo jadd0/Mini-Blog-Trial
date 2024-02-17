@@ -32,10 +32,16 @@ function timeAgo(input) {
   }
 }
 
+async function getPosts() {
+  
+  return
+}
+
 
 /** @type {import('./$types').Load} */
 export const load: any = async ({ request }) => {
 	const location = await getLocation();
+  const posts = await getPosts();
 
 	return { region: location.region, area: location.area, time: timeAgo(new Date(location.created_at).getTime()) };
 };
