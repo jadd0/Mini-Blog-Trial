@@ -1,5 +1,5 @@
 <script>
-	import {SvelteInertiaScroll} from 'svelteinertiascroll';
+	import { SvelteInertiaScroll } from 'svelteinertiascroll';
 	import { SvelteSimpleMarquee } from 'sveltesimplemarquee';
 	import { SvelteScrollTypewriter } from 'sveltescrolltypewriter';
 	import { onMount } from 'svelte';
@@ -16,7 +16,9 @@
 
 	let projects, projectsTop, projectsDistance;
 	let project1, project2, project3;
-	let project1Top = 300, project2Top = 1000, project3Top = 1700;
+	let project1Top = 300,
+		project2Top = 1000,
+		project3Top = 1700;
 	let inView = false;
 
 	function changeVal() {
@@ -26,16 +28,12 @@
 		if (projectsTop == 0 && scroll1 > 50) {
 			//to see if project1 in view
 
-			if (project2Top > 350 ) { //moving project 1 into view and end position
+			if (project2Top > 350) {
+				//moving project 1 into view and end position
 				project2Top += -scroll1;
+			} else {
+				project2Top -= scroll1;
 			}
-			
-			else {
-
-				project2Top -= scroll1
-			
-			}
-
 		}
 	}
 
@@ -66,82 +64,86 @@
 />
 
 <SvelteInertiaScroll>
-<body>
-	<div class="hero">
-		<div class="marquee">
-			<SvelteSimpleMarquee>
-				<h1>Jadd Al-Khabbaz</h1>
-				<h1>Jadd Al-Khabbaz</h1>
-				<h1>Jadd Al-Khabbaz</h1>
-			</SvelteSimpleMarquee>
-		</div>
-		<div class="typewriterHolderHero">
-			<div class="typewriter">
-			<SvelteScrollTypewriter
-				fontSize={20}
-				furthestScrolled={0}
-				auto={true}
-				phrase={'Freelance web developer, Computer science student, UX/UI designer, Back-end developer, Full-stack developer, Computer scientist, Tech enthusiast, SEO specialist, Aspiring software developer, Front-end developer, Javascript/Typescript developer, Python developer, Motivated, Accountable, Creative, Detail oriented, Problem solver'}
-			/>
-		</div>
-		</div>
-		
-		<div class="jaddImage">
-			<!-- <img id="imgJadd" src="/images/jaddpic.jpeg" alt="" /> -->
-		</div>
-	</div>
-
-	<div class="section" id="aboutMe">
-		<div class="inner">
-			<h2>Who am I?</h2>
-			<div bind:this={typewriter1} id="aboutMeTypewriter" class="typewriter">
-				<SvelteScrollTypewriter
-					fontSize={20}
-					furthestScrolled={scroll + innerh}
-					height={height1}
-					phrase={`Hi! I am Jadd, a freelance web developer. I am from the Wirral, United Kingdom and I am currently in ${data.area}, ${data.region} as of ${data.time}. As a current Computer Science student, I am very enthusiastic in the web development industry... lorem mkdfosdfmsdmf fjsdhfusdhf sdkjf ksjd fksdfk sdkjf ksd fksd fks dfk kfsd f kj`}
-				/>
+	<body>
+		<div class="hero">
+			<div class="marquee">
+				<SvelteSimpleMarquee>
+					<h1>Jadd Al-Khabbaz</h1>
+					<h1>Jadd Al-Khabbaz</h1>
+					<h1>Jadd Al-Khabbaz</h1>
+				</SvelteSimpleMarquee>
 			</div>
-		</div>
-	</div>
-
-	<div id="projects" bind:this={projects}>
-		<div class="inner">
-			<h2 id="projectsTitle">Projects.</h2>
-			<div class="projectsHolder">
-				<div class="project">
-					
-					<div class="innerProject">
-						<img class="projectImage" src="/images/screenshot.png" />
-					<h3>JaddBlog</h3>
-					<div class="description">Lorem ipsum dolor sit amet consectetur adipisicing elit. Atque, et.
-					</div>
-					</div>
-					
-				</div>
-				<div class="project" id="secondProject" >
-					<div class="innerProject">
-						<img class="projectImage" src="" />
-					<h3>Wirral Bears</h3>
-					<div class="description">Lorem ipsum dolor sit amet consectetur adipisicing elit. Atque, et.
-					</div>
-					</div>
-					
-				</div>
-				<div class="project">
-					<div class="innerProject">
-					<img class="projectImage" src="" />
-					<h3>Something</h3>
-					<div class="description">Lorem ipsum dolor sit amet consectetur adipisicing elit. Atque, et.
-					</div>
-					</div>
-					
+			<div class="typewriterHolderHero">
+				<div class="typewriter">
+					<SvelteScrollTypewriter
+						fontSize={20}
+						furthestScrolled={0}
+						auto={true}
+						phrase={'Freelance web developer, Computer science student, UX/UI designer, Back-end developer, Full-stack developer, Computer scientist, Tech enthusiast, SEO specialist, Aspiring software developer, Front-end developer, Javascript/Typescript developer, Python developer, Motivated, Accountable, Creative, Detail oriented, Problem solver'}
+					/>
 				</div>
 			</div>
-			
+
+			<div class="jaddImage">
+				<!-- <img id="imgJadd" src="/images/jaddpic.jpeg" alt="" /> -->
+			</div>
 		</div>
-	</div>
-</body>
+
+		<div class="section" id="aboutMe">
+			<div class="inner">
+				<h2>Who am I?</h2>
+				<div bind:this={typewriter1} id="aboutMeTypewriter" class="typewriter">
+					<SvelteScrollTypewriter
+						fontSize={20}
+						furthestScrolled={scroll + innerh}
+						height={height1}
+						phrase={`Hi! I am Jadd, a freelance web developer. I am from the Wirral, United Kingdom and I am currently in ${data.area}, ${data.region} as of ${data.time}. As a current Computer Science student, I am very enthusiastic in the web development industry... lorem mkdfosdfmsdmf fjsdhfusdhf sdkjf ksjd fksdfk sdkjf ksd fksd fks dfk kfsd f kj`}
+					/>
+				</div>
+			</div>
+		</div>
+
+		<div id="projects" bind:this={projects}>
+			<div class="inner">
+				<h2 id="projectsTitle">Projects.</h2>
+				<div class="projectsHolder">
+					<div class="project">
+						<div class="innerProject">
+							<img class="projectImage" src="/images/screenshot.png" />
+							<div class="descriptionProjectHolder">
+								<h3>JaddBlog</h3>
+								<div class="description">
+									Lorem ipsum dolor sit amet consectetur adipisicing elit. Atque, et.
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="project" id="secondProject">
+						<div class="innerProject">
+							<img class="projectImage" src="/images/screenshot.png" />
+							<div class="descriptionProjectHolder">
+								<h3>JaddBlog</h3>
+								<div class="description">
+									Lorem ipsum dolor sit amet consectetur adipisicing elit. Atque, et.
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="project">
+						<div class="innerProject">
+							<img class="projectImage" src="/images/screenshot.png" />
+							<div class="descriptionProjectHolder">
+								<h3>JaddBlog</h3>
+								<div class="description">
+									Lorem ipsum dolor sit amet consectetur adipisicing elit. Atque, et.
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
 </SvelteInertiaScroll>
 
 <style>
@@ -167,16 +169,16 @@
 		overflow-x: clip;
 	}
 
-	 /* Hide scrollbar for Chrome, Safari and Opera */
-body::-webkit-scrollbar {
-  display: none !important;
-}
+	/* Hide scrollbar for Chrome, Safari and Opera */
+	body::-webkit-scrollbar {
+		display: none !important;
+	}
 
-/* Hide scrollbar for IE, Edge and Firefox */
-* {
-  -ms-overflow-style: none !important;  /* IE and Edge */
-  scrollbar-width: none !important;  /* Firefox */
-} 
+	/* Hide scrollbar for IE, Edge and Firefox */
+	* {
+		-ms-overflow-style: none !important; /* IE and Edge */
+		scrollbar-width: none !important; /* Firefox */
+	}
 
 	* {
 		font-size: 24px;
@@ -267,7 +269,7 @@ body::-webkit-scrollbar {
 
 	#projectsTitle {
 		cursor: pointer;
-		top: 100px;
+		top: 120px;
 	}
 
 	#projectsTitle:after {
@@ -287,7 +289,7 @@ body::-webkit-scrollbar {
 	}
 
 	#projects {
-		height: 85vh;
+		height: 850px;
 		width: 100vw;
 		margin-top: 50px;
 		padding: 50px;
@@ -317,17 +319,17 @@ body::-webkit-scrollbar {
 		display: flex;
 		flex-direction: column;
 		position: absolute;
-		top: 300px;
+		top: 330px;
 		z-index: 100;
 	}
 
 	.project {
-		width:600px;
+		width: 600px;
 		height: 150px;
 		border-top: 1px solid #8f8f8f;
 		border-bottom: 1px solid #8f8f8f;
 		cursor: pointer;
-		
+		overflow: hidden;
 	}
 
 	#secondProject {
@@ -336,17 +338,29 @@ body::-webkit-scrollbar {
 
 	.innerProject {
 		display: flex;
-		flex-direction: column;
-		align-items: start;
+		flex-direction: row;
+		align-items: center;
 		justify-content: center;
+		gap: 40px;
 		height: 100%;
 		width: 100%;
 		transition: all linear 0.3s;
 		z-index: 0;
+		position: relative;
+		left: -185px;
+		
+
 	}
 
 	.innerProject:hover {
-		transform: translate(150px)
+		transform: translate(190px);
+	}
+
+	.descriptionProjectHolder {
+		display: flex;
+		flex-direction: column;
+		align-items: start;
+		justify-content: center;
 	}
 
 	h3 {
@@ -356,12 +370,10 @@ body::-webkit-scrollbar {
 	.description {
 		font-size: 15px;
 		color: #8f8f8f;
+		text-align: start;
 	}
 
 	.projectImage {
 		width: 150px;
-		position: absolute;
-		left: -175px;
-		top: 24px;
 	}
 </style>
