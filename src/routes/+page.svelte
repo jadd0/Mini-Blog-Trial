@@ -142,6 +142,14 @@
 					</div>
 				</div>
 			</div>
+
+			
+		</div>
+		<div class="section">
+			<div class="inner">
+				<h2>My Activity.</h2>
+			</div>
+			
 		</div>
 	</body>
 </SvelteInertiaScroll>
@@ -249,7 +257,7 @@
 
 	h2 {
 		font-size: 100px;
-		position: relative; /* Changed from absolute */
+		position: absolute; /* Changed from absolute */
 		left: 88px;
 		padding: 10px;
 	}
@@ -289,7 +297,7 @@
 	}
 
 	#projects {
-		height: 850px;
+		height: 1050px;
 		width: 100vw;
 		margin-top: 50px;
 		padding: 50px;
