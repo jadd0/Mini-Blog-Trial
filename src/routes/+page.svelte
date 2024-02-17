@@ -1,5 +1,5 @@
 <script>
-	import { SvelteInertiaScroll } from 'svelteinertiascroll';
+	import InertiaScroll from '../lib/InertiaScroll.svelte';
 	import { SvelteSimpleMarquee } from 'sveltesimplemarquee';
 	import { SvelteScrollTypewriter } from 'sveltescrolltypewriter';
 	import { onMount } from 'svelte';
@@ -16,7 +16,7 @@
 
 	let projects, projectsTop, projectsDistance;
 	let project1, project2, project3;
-	let project1Right = -400, project2Right = -400, project3Right = -400;
+	let project1Right = -500, project2Right = -500, project3Right = -500;
 	let inView = false;
 
 	function changeVal() {
@@ -26,7 +26,7 @@
 		if (projectsTop == 0 && scroll1 > 50) {
 			//to see if project1 in view
 
-			if ((screenWidth+15) > scroll1 ) {
+			if ((screenWidth-150) > scroll1 ) { //moving project 1 into view and end position
 				project1Right = scroll1 - 400;
 			}
 			
@@ -65,7 +65,7 @@
 	on:scroll={scrollFn}
 />
 
-<!-- <SvelteInertiaScroll> -->
+
 <body>
 	<div class="hero">
 		<div class="marquee">
@@ -115,7 +115,6 @@
 	</div>
 </body>
 
-<!-- </SvelteInertiaScroll> -->
 
 <style>
 	@font-face {
@@ -139,6 +138,17 @@
 		background-color: #141414;
 		overflow-x: clip;
 	}
+
+	 /* Hide scrollbar for Chrome, Safari and Opera */
+body::-webkit-scrollbar {
+  display: none !important;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+* {
+  -ms-overflow-style: none !important;  /* IE and Edge */
+  scrollbar-width: none !important;  /* Firefox */
+} 
 
 	* {
 		font-size: 24px;
@@ -257,6 +267,7 @@
 		position: -webkit-sticky;
 		top: 0px;
 		bottom: 500px;
+		z-index: 1000 !important;
 	}
 
 	#projects:before {
@@ -275,7 +286,7 @@
 	}
 
 	.project {
-		width: 300px;
+		width:450px;
 		height: 300px;
 		position: absolute;
 		top: 300px;
