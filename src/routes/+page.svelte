@@ -1,5 +1,5 @@
 <script>
-	import InertiaScroll from '../lib/InertiaScroll.svelte';
+	import {SvelteInertiaScroll} from 'svelteinertiascroll';
 	import { SvelteSimpleMarquee } from 'sveltesimplemarquee';
 	import { SvelteScrollTypewriter } from 'sveltescrolltypewriter';
 	import { onMount } from 'svelte';
@@ -16,7 +16,7 @@
 
 	let projects, projectsTop, projectsDistance;
 	let project1, project2, project3;
-	let project1Right = -500, project2Right = -500, project3Right = -500;
+	let project1Top = 300, project2Top = 1000, project3Top = 1700;
 	let inView = false;
 
 	function changeVal() {
@@ -26,13 +26,13 @@
 		if (projectsTop == 0 && scroll1 > 50) {
 			//to see if project1 in view
 
-			if ((screenWidth-150) > scroll1 ) { //moving project 1 into view and end position
-				project1Right = scroll1 - 400;
+			if (project2Top > 350 ) { //moving project 1 into view and end position
+				project2Top += -scroll1;
 			}
 			
 			else {
 
-				project2Right = scroll1 - screenWidth -400;
+				project2Top -= scroll1
 			
 			}
 
@@ -65,7 +65,7 @@
 	on:scroll={scrollFn}
 />
 
-
+<SvelteInertiaScroll>
 <body>
 	<div class="hero">
 		<div class="marquee">
@@ -108,13 +108,13 @@
 	<div id="projects" bind:this={projects}>
 		<div class="inner">
 			<h2 id="projectsTitle">Projects.</h2>
-			<div class="project" style="right: {project1Right}px; background: white" bind:this={project1} />
-			<div class="project" style="right: {project2Right}px; background: blue" bind:this={project2} />
-			<div class="project" style="right: {project3Right}px; background: red" bind:this={project3} />
+			<div class="project" style="top: {project1Top}px; background: white" bind:this={project1} />
+			<div class="project" style="top: {project2Top}px; background: blue" bind:this={project2} />
+			<div class="project" style="top: {project3Top}px; background: red" bind:this={project3} />
 		</div>
 	</div>
 </body>
-
+</SvelteInertiaScroll>
 
 <style>
 	@font-face {
@@ -286,10 +286,11 @@ body::-webkit-scrollbar {
 	}
 
 	.project {
-		width:450px;
-		height: 300px;
+		width:600px;
+		height: 400px;
 		position: absolute;
 		top: 300px;
-		right: -310px;
+
+		border-radius: 20px;
 	}
 </style>
