@@ -39,7 +39,7 @@ function sortTimeAgo(post) {
 async function getPosts() {
   const { data, error} = await supabase
     .from('Posts')
-    .select('*')
+    .select('*, LikesAndDislikes(*)')
     .match({type: 'text', username: 'jadd'})
     .order('created_at', { ascending: false })
 		.limit(3);

@@ -423,4 +423,12 @@
 		border-top: 1px solid #8f8f8f;
 		border-bottom: 1px solid #8f8f8f;
 	}
+
+	h4 {
+		font-size: 25px;
+	}
+
+	.post p {
+		font-size:20px;
+	}
 </style>
