@@ -148,6 +148,19 @@
 		<div class="section">
 			<div class="inner">
 				<h2>My Activity.</h2>
+
+				<div class="jaddblogHolder">
+					<div class="posts">
+						{#each data.posts as post}
+						<div class="post">
+							<h4>{post.title}</h4>
+							<p>{post.body}</p>
+							<span>{post.timeAgo}</span>
+						</div>
+					{/each}
+					</div>
+					
+				</div>
 			</div>
 			
 		</div>
@@ -364,6 +377,10 @@
 		transform: translate(190px);
 	}
 
+	@keyframes easeIn {
+		
+	}
+
 	.descriptionProjectHolder {
 		display: flex;
 		flex-direction: column;
@@ -383,5 +400,27 @@
 
 	.projectImage {
 		width: 150px;
+	}
+
+	.jaddblogHolder {
+		background: none;
+		width: 600px;
+		height: 400px;
+		position: absolute;
+		top: 225px;
+		left: 98px;
+
+	}
+
+	.posts {
+		width: 100%;
+		height: 100%;
+		display: flex;
+		flex-direction: column;
+	}
+	.post {
+		min-height: 100px;
+		border-top: 1px solid #8f8f8f;
+		border-bottom: 1px solid #8f8f8f;
 	}
 </style>

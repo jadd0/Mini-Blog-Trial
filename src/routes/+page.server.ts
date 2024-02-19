@@ -32,18 +32,29 @@ function timeAgo(input) {
   }
 }
 
+function sortTimeAgo(post) {
+  post.timeAgo = timeAgo(post.created_at);
+}
+
 async function getPosts() {
+  const { data, error} = await supabase
+    .from('Posts')
+    .select('*')
+    .match({type: 'text', username: 'jadd'})
+    .order('created_at', { ascending: false })
+		.limit(3);
 
-
-  return
+  return data
 }
 
 
 /** @type {import('./$types').Load} */
 export const load: any = async ({ request }) => {
 	const location = await getLocation();
-  const posts = await getPosts();
+  let posts = await getPosts();
 
-	return { region: location.region, area: location.area, time: timeAgo(new Date(location.created_at).getTime()) };
+  posts.forEach(sortTimeAgo);
+
+	return { region: location.region, area: location.area, time: timeAgo(new Date(location.created_at).getTime()), posts };
 };
 
