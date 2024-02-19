@@ -47,6 +47,26 @@ async function getPosts() {
   return data
 }
 
+function parseLikesAndDislikes(post) {
+  let upvotes = 0
+  let downvotes = 0
+
+  try {
+    (post.LikesAndDislikes).forEach((vote) => {
+    if (vote.type) {
+      upvotes++;
+    }
+    else {
+      downvotes++;
+    }
+  })
+  }
+  catch(e) {
+    return 0
+  }
+
+  post.vote = upvotes - downvotes
+}
 
 /** @type {import('./$types').Load} */
 export const load: any = async ({ request }) => {
@@ -54,6 +74,8 @@ export const load: any = async ({ request }) => {
   let posts = await getPosts();
 
   posts.forEach(sortTimeAgo);
+  posts.forEach(parseLikesAndDislikes);
+
 
 	return { region: location.region, area: location.area, time: timeAgo(new Date(location.created_at).getTime()), posts };
 };
