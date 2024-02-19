@@ -183,8 +183,12 @@
 		
 		<footer>
 			<div class="footerContent">
-				<h6>Hey there...</h6>
-				<div class="contactForm">Contact me</div>
+				<h6>Hey you...</h6>
+				<div class="button">
+					<a class="contactForm" href="#">
+						<span class="innerButton">Contact me</span>
+					</a>
+				</div>
 			</div>
 			
 		</footer>
@@ -517,36 +521,67 @@
 		font-size: 60px;
 	}
 
+
 	.contactForm {
-    color: #141414;
-    font-size: 30px;
-    font-weight: 600;
-    border-radius: 30px;
-    border: solid 1px #212121;
-    width: 270px;
-    height: 70px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: relative; /* Added position relative for absolute positioning of pseudo-element */
-    overflow: hidden; /* Hide the overflow of the pseudo-element */
+  display: block;
+  position: relative;
+  text-decoration: none;
+  color: black;
+  padding: 20px;
+  border: 2px solid #141414;
+  text-transform: uppercase;
+  font-size: 16px;
+  font-weight: bold;
+  width: 270px;
+  overflow: hidden;
+  border-radius: 30px;
 }
 
-.contactForm:after {
-		display: block;
-		content: '';
-		border-bottom: solid 20px black;
-		transform: scaleX(0);
-		transition: transform 250ms linear;
-		transform-origin: 100% 50%;
-	}
+.innerButton {
+  z-index: 5;
+  position: relative;
+  transition: color 350ms ease-in-out;
+  color: #141414;
+}
 
+.contactForm:hover .innerButton {
+  color: white;
+}
 
-	.contactForm:hover:after {
-		transform: scaleX(1);
-		transform-origin: 0% 50%;
-	}
+.contactForm::after,
+.contactForm::before {
+  content: " ";
+  display: block;
+  position: absolute;
+  width: 100%;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  background: #141414;
+  z-index: -1;
+}
 
-/* Removed the keyframe animations */
+.contactForm::before {
+  transform: translateX(-100%);
+  z-index: 1;
+}
+
+.contactForm:hover::before {
+  transform: translateX(0);
+  transition: transform 350ms ease-in-out;
+}
+
+.contactForm::after {
+  z-index: 0;
+  transform: translateX(100%); /* Changed to slide in from the left */
+  opacity: 0; /* Set initial opacity */
+  transition: transform 350ms ease-in-out, opacity 350ms ease-in-out 350ms; /* Add transition delay to opacity */
+}
+
+.contactForm:hover::after {
+  opacity: 1;
+  transform: translateX(0);
+  transition: transform 350ms ease-in-out, opacity 350ms ease-in-out; /* Adjust transition */
+}
 
 </style>
