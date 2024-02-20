@@ -203,12 +203,16 @@
 	:root {
 		--leftPC: 100px;
 		--leftPhone: 50px;
+		scrollbar-width: none;
 	}
 
 	@font-face {
 		font-family: 'jakarta';
 		src: url('/fonts/Jakarta.ttf');
 	}
+
+
+
 
 	body {
 		margin: 0;
@@ -236,6 +240,9 @@
 		box-sizing: border-box;
 		font-family: jakarta;
 		letter-spacing: -0px !important;
+		-ms-overflow-style: none;
+  scrollbar-width: none;
+		
 	}
 
 	.hero {
