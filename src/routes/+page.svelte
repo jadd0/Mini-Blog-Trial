@@ -17,13 +17,9 @@
 		scroll1 = 0;
 
 	let projects, projectsTop, projectsDistance;
-	let project1 = true,
-		project2 = true,
-		project3 = true;
-	let project1Top = 300,
-		project2Top = 1000,
-		project3Top = 1700;
-	let inView = false;
+	let project1 = false,
+		project2 = false,
+		project3 = false;
 
 	function changeVal() {
 		projectsTop = projects.getBoundingClientRect().top;
@@ -49,7 +45,7 @@
 	}
 
 	function scrollFn() {
-		//changeVal();
+		changeVal();
 	}
 
 	function calculateDistance() {
