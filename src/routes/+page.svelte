@@ -83,7 +83,7 @@
 			<div class="typewriterHolderHero">
 				<div class="typewriter">
 					<SvelteScrollTypewriter
-						fontSize={20}
+					fontSize={16}
 						furthestScrolled={0}
 						auto={true}
 						phrase={'Freelance web developer, Computer science student, UX/UI designer, Back-end developer, Full-stack developer, Computer scientist, Tech enthusiast, SEO specialist, Aspiring software developer, Front-end developer, Javascript/Typescript developer, Python developer, Motivated, Accountable, Creative, Detail oriented, Problem solver'}
@@ -109,8 +109,8 @@
 				</div>
 			</div>
 		</div>
-
-		<div id="projects" bind:this={projects}>
+		<div class="section" id="projectSection">
+			<div id="projects" bind:this={projects}>
 			<div class="inner">
 				<a href="https://github.com/jadd0"><h2 id="projectsTitle">Projects.</h2></a>
 				<div class="projectsHolder">
@@ -166,6 +166,8 @@
 				</div>
 			</div>
 		</div>
+		</div>
+		
 		<div class="section">
 			<div class="inner" id="activity">
 				<h2>My Activity.</h2>
@@ -198,6 +200,11 @@
 </body>
 
 <style>
+	:root {
+		--leftPC: 100px;
+		--leftPhone: 50px;
+	}
+
 	@font-face {
 		font-family: 'jakarta';
 		src: url('/fonts/Jakarta.ttf');
@@ -254,7 +261,7 @@
 		width: 600px;
 		position: absolute;
 		top: 0;
-		left: 100px;
+		left: var(--leftPC);
 	}
 
 	.jaddImage {
@@ -323,14 +330,20 @@
 		transform-origin: 0% 50%;
 	}
 
+	#projectSection {
+		height: 2400px;
+		padding-bottom: 1000px;
+	}
+
 	#projects {
-		height: 2000px;
+		
 		width: 100vw;
 		margin-top: 50px;
 		padding: 50px;
 		position: sticky;
+		position: -webkit-sticky !important;
 		top: 0px;
-		bottom: 1300px;
+
 		z-index: 0 !important;
 	}
 
@@ -490,5 +503,27 @@
 	.end {
 		height: 300px;
 		width: 100vw;
+	}
+
+	/* Responsive styles */
+
+	/* Tablet */
+
+	@media only screen and (max-width: 850px) {}
+
+	/* Phone */
+
+	@media only screen and (max-width: 500px) {
+		* {
+			font-size: 10px;
+		}
+		
+		.typewriterHolderHero {
+			left: 0 !important;
+		}
+
+		.typewriter {
+			
+		}
 	}
 </style>
