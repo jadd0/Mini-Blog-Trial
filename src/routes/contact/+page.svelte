@@ -2,7 +2,25 @@
 	import { autoresize } from 'svelte-textarea-autoresize';
 	let name = '',
 		email = '',
-		enquiry = '';
+		enquiry = '',
+		loading = false;
+
+	async function submit() {
+		loading = true;
+		const response = await fetch('/api/sendEmail', {
+			method: 'post',
+			headers: {
+				Accept: 'application/json',
+				'Content-Type': 'application/json'
+			},
+			body: JSON.stringify({
+				email,
+				username
+			})
+		});
+
+		if (response.ok) location.reload();
+	}
 </script>
 
 <body>
@@ -248,19 +266,19 @@
 		justify-content: start;
 		width: 400px;
 		margin-left: 100px;
-    margin-top: 40px;
-    gap: 20px;
+		margin-top: 40px;
+		gap: 20px;
 	}
 
-  .fullInput {
-    display: flex;
-    flex-direction: column;
-    align-items: start;
-    justify-content: center;
-    gap: 5px;
-  }
+	.fullInput {
+		display: flex;
+		flex-direction: column;
+		align-items: start;
+		justify-content: center;
+		gap: 5px;
+	}
 
-  h2 {
-    font-size: 16px;
-  }
+	h2 {
+		font-size: 16px;
+	}
 </style>
