@@ -27,13 +27,13 @@
 		projectsTop = projects.getBoundingClientRect().top;
 		scroll1 = scroll - projectsDistance;
 
-		if (projectsTop == 0 && scroll1 > 50) {
+		if (projectsTop == 0 && scroll1 > 150) {
 			project1 = true
 
-			if (scroll1 > 200) {
+			if (scroll1 > 350) {
 				project2 = true
 
-				if (scroll1 > 350) {
+				if (scroll1 >500) {
 					project3 = true
 				}
 
@@ -137,11 +137,11 @@
 						</div>
 					{/if}
 					{#if project2}
-						<div class="project" transition:fly={{ duration: 300, y: 500, opacity: 0.5 }}>
+						<div class="project" id="secondProject" transition:fly={{ duration: 300, y: 500, opacity: 0.5 }}>
 							<div class="innerProject">
 								<img class="projectImage" src="/images/screenshot.png" />
 								<div class="descriptionProjectHolder">
-									<h3>JaddBlog</h3>
+									<h3>Wirral Bears</h3>
 									<div class="description">
 										Lorem ipsum dolor sit amet consectetur adipisicing elit. Atque, et.
 									</div>
@@ -150,13 +150,13 @@
 						</div>
 					{/if}
 					{#if project3}
-						<div class="project" transition:fly={{ duration: 300, y: 500, opacity: 0.5 }}>
+						<div class="project" id="thirdProject" transition:fly={{ duration: 300, y: 500, opacity: 0.5 }}>
 							<div class="innerProject">
 								<img class="projectImage" src="/images/screenshot.png" />
 								<div class="descriptionProjectHolder">
-									<h3>JaddBlog</h3>
+									<h3>To come...</h3>
 									<div class="description">
-										Lorem ipsum dolor sit amet consectetur adipisicing elit. Atque, et.
+										Watch this space
 									</div>
 								</div>
 							</div>
@@ -323,7 +323,7 @@
 	}
 
 	#projects {
-		height: 1900px;
+		height: 2000px;
 		width: 100vw;
 		margin-top: 50px;
 		padding: 50px;
@@ -365,8 +365,8 @@
 		overflow: hidden;
 	}
 
-	#secondProject {
-		border: none !important;
+	#secondProject, #thirdProject {
+		border-top: none !important;
 	}
 
 	.innerProject {
