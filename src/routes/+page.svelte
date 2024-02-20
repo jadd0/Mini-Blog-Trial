@@ -63,115 +63,126 @@
 	bind:innerWidth={screenWidth}
 	on:scroll={scrollFn}
 />
-<SvelteInertiaScroll>
-	<body>
-		<div class="hero">
-			<div class="marquee">
-				<SvelteSimpleMarquee>
-					<h1>Jadd Al-Khabbaz</h1>
-					<h1>Jadd Al-Khabbaz</h1>
-					<h1>Jadd Al-Khabbaz</h1>
-				</SvelteSimpleMarquee>
-			</div>
-			<div class="typewriterHolderHero">
-				<div class="typewriter">
-					<SvelteScrollTypewriter
-						fontSize={20}
-						furthestScrolled={0}
-						auto={true}
-						phrase={'Freelance web developer, Computer science student, UX/UI designer, Back-end developer, Full-stack developer, Computer scientist, Tech enthusiast, SEO specialist, Aspiring software developer, Front-end developer, Javascript/Typescript developer, Python developer, Motivated, Accountable, Creative, Detail oriented, Problem solver'}
-					/>
-				</div>
-			</div>
 
-			<div class="jaddImage">
-				<!-- <img id="imgJadd" src="/images/jaddpic.jpeg" alt="" /> -->
+<body><SvelteInertiaScroll>
+	
+	<div class="hero">
+		<div class="marquee">
+			<SvelteSimpleMarquee>
+				<h1>Jadd Al-Khabbaz</h1>
+				<h1>Jadd Al-Khabbaz</h1>
+				<h1>Jadd Al-Khabbaz</h1>
+			</SvelteSimpleMarquee>
+		</div>
+		<div class="typewriterHolderHero">
+			<div class="typewriter">
+				<SvelteScrollTypewriter
+					fontSize={20}
+					furthestScrolled={0}
+					auto={true}
+					phrase={'Freelance web developer, Computer science student, UX/UI designer, Back-end developer, Full-stack developer, Computer scientist, Tech enthusiast, SEO specialist, Aspiring software developer, Front-end developer, Javascript/Typescript developer, Python developer, Motivated, Accountable, Creative, Detail oriented, Problem solver'}
+				/>
 			</div>
 		</div>
 
-		<div class="section" id="aboutMe">
-			<div class="inner">
-				<h2>Who am I?</h2>
-				<div bind:this={typewriter1} id="aboutMeTypewriter" class="typewriter">
-					<SvelteScrollTypewriter
-						fontSize={20}
-						furthestScrolled={scroll + innerh}
-						height={height1}
-						phrase={`Hi! I am Jadd, a freelance web developer. I am from the Wirral, United Kingdom and I am currently in ${data.area}, ${data.region} as of ${data.time}. As a current Computer Science student, I am very enthusiastic in the web development industry... lorem mkdfosdfmsdmf fjsdhfusdhf sdkjf ksjd fksdfk sdkjf ksd fksd fks dfk kfsd f kj`}
-					/>
-				</div>
+		<div class="jaddImage">
+			<!-- <img id="imgJadd" src="/images/jaddpic.jpeg" alt="" /> -->
+		</div>
+	</div>
+
+	<div class="section" id="aboutMe">
+		<div class="inner">
+			<h2>Who am I?</h2>
+			<div bind:this={typewriter1} id="aboutMeTypewriter" class="typewriter">
+				<SvelteScrollTypewriter
+					fontSize={20}
+					furthestScrolled={scroll + innerh}
+					height={height1}
+					phrase={`Hi! I am Jadd, a freelance web developer. I am from the Wirral, United Kingdom and I am currently in ${data.area}, ${data.region} as of ${data.time}. As a current Computer Science student, I am very enthusiastic in the web development industry... lorem mkdfosdfmsdmf fjsdhfusdhf sdkjf ksjd fksdfk sdkjf ksd fksd fks dfk kfsd f kj`}
+				/>
 			</div>
 		</div>
+	</div>
 
-		<div id="projects" bind:this={projects}>
-			<div class="inner">
-				<a href="https://github.com/jadd0"><h2 id="projectsTitle">Projects.</h2></a>
-				<div class="projectsHolder">
-					<div class="project">
-						<div class="innerProject">
-							<img class="projectImage" src="/images/screenshot.png" />
-							<div class="descriptionProjectHolder">
-								<h3>JaddBlog</h3>
-								<div class="description">
-									Lorem ipsum dolor sit amet consectetur adipisicing elit. Atque, et.
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="project" id="secondProject">
-						<div class="innerProject">
-							<img class="projectImage" src="/images/screenshot.png" />
-							<div class="descriptionProjectHolder">
-								<h3>JaddBlog</h3>
-								<div class="description">
-									Lorem ipsum dolor sit amet consectetur adipisicing elit. Atque, et.
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="project">
-						<div class="innerProject">
-							<img class="projectImage" src="/images/screenshot.png" />
-							<div class="descriptionProjectHolder">
-								<h3>JaddBlog</h3>
-								<div class="description">
-									Lorem ipsum dolor sit amet consectetur adipisicing elit. Atque, et.
-								</div>
+	<div id="projects" bind:this={projects}>
+		<div class="inner">
+			<a href="https://github.com/jadd0"><h2 id="projectsTitle">Projects.</h2></a>
+			<div class="projectsHolder">
+				<div class="project">
+					<div class="innerProject">
+						<img class="projectImage" src="/images/screenshot.png" />
+						<div class="descriptionProjectHolder">
+							<h3>JaddBlog</h3>
+							<div class="description">
+								Lorem ipsum dolor sit amet consectetur adipisicing elit. Atque, et.
 							</div>
 						</div>
 					</div>
 				</div>
-			</div>
-		</div>
-		<div class="section" id="activitySection">
-			<div class="inner" id="activity">
-				<h2>My Activity.</h2>
-
-				<div class="jaddblogHolder">
-					<div class="posts">
-						{#each data.posts as post}
-							<a href="https://blog.jadd.live/post/{post.id}"
-								><div class="post">
-									<div class="contentHolder">
-										<h4>{post.title}</h4>
-										<p>{post.body}</p>
-									</div>
-
-									<div class="adminHolder">
-										<a href="https://blog.jadd.live/@jadd"><span class="name">@jadd</span></a>
-
-										<span class="timeAgo">{post.timeAgo}</span>
-										<span class="vote">Vote Count: {post.vote}</span>
-									</div>
-								</div></a
-							>
-						{/each}
+				<div class="project" id="secondProject">
+					<div class="innerProject">
+						<img class="projectImage" src="/images/screenshot.png" />
+						<div class="descriptionProjectHolder">
+							<h3>JaddBlog</h3>
+							<div class="description">
+								Lorem ipsum dolor sit amet consectetur adipisicing elit. Atque, et.
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="project">
+					<div class="innerProject">
+						<img class="projectImage" src="/images/screenshot.png" />
+						<div class="descriptionProjectHolder">
+							<h3>JaddBlog</h3>
+							<div class="description">
+								Lorem ipsum dolor sit amet consectetur adipisicing elit. Atque, et.
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>
 		</div>
-	</body>
-</SvelteInertiaScroll>
+	</div>
+	<div class="section" id="activitySection">
+		<div class="inner" id="activity">
+			<h2>My Activity.</h2>
+
+			<div class="jaddblogHolder">
+				<div class="posts">
+					{#each data.posts as post}
+						<a href="https://blog.jadd.live/post/{post.id}"
+							><div class="post">
+								<div class="contentHolder">
+									<h4>{post.title}</h4>
+									<p>{post.body}</p>
+								</div>
+
+								<div class="adminHolder">
+									<a href="https://blog.jadd.live/@jadd"><span class="name">@jadd</span></a>
+
+									<span class="timeAgo">{post.timeAgo}</span>
+									<span class="vote">Vote Count: {post.vote}</span>
+								</div>
+							</div></a
+						>
+					{/each}
+				</div>
+			</div>
+		</div>
+	</div>
+	</SvelteInertiaScroll>
+	<footer>
+		<div class="footerContent">
+			<h6>Hey you...</h6>
+			<div class="button">
+				<a class="contactForm" href="/contact">
+					<span class="innerButton">Contact me</span>
+				</a>
+			</div>
+		</div>
+	</footer>
+</body>
 
 <style>
 	@font-face {
@@ -185,8 +196,7 @@
 		background: #141414;
 		overflow-x: clip;
 		border-radius: 20px;
-		padding-bottom: 300px;
-		height: 3000px;
+		height: auto;
 	}
 	/* Hide scrollbar for Chrome, Safari and Opera */
 	body::-webkit-scrollbar {
@@ -303,8 +313,7 @@
 		width: 100vw;
 		margin-top: 50px;
 		padding: 50px;
-		position: sticky;
-		position: -webkit-sticky;
+		position: relative;
 		top: 0px;
 		bottom: 500px;
 		z-index: 1000 !important;
@@ -474,10 +483,11 @@
 		min-height: 900px;
 	}
 
-	.footer {
+	footer {
 		margin-top: 0px;
 		width: 100vw;
 		height: 400px;
+		background: #d9d9d9;
 	}
 
 	.footerContent {
