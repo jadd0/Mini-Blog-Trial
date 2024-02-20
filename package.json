@@ -27,6 +27,7 @@
 	"dependencies": {
 		"@aws-sdk/client-s3": "^3.257.0",
 		"@iconify/svelte": "^3.1.0",
+		"@studio-freight/lenis": "^1.0.36",
 		"@supabase/supabase-js": "^2.4.1",
 		"aws-sdk": "^2.1301.0",
 		"bcryptjs": "^2.4.3",

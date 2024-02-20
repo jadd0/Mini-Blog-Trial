@@ -1,15 +1,29 @@
 <script>
 	import { SvelteInertiaScroll } from 'svelteinertiascroll';
 	import { page } from '$app/stores';
+	import Lenis from '@studio-freight/lenis';
+	import { onMount } from 'svelte';
 
+	onMount(() => {
+		const lenis = new Lenis();
 
+		lenis.on('scroll', (e) => {
+			console.log(e);
+		});
+
+		function raf(time) {
+			lenis.raf(time);
+			requestAnimationFrame(raf);
+		}
+
+		requestAnimationFrame(raf);
+	});
 </script>
 
-<SvelteInertiaScroll>
-	<main>
-		<slot />
-	</main>
-</SvelteInertiaScroll>
+<main>
+	<slot />
+</main>
+
 <footer>
 	<div class="footerContent">
 		<h6>Hey you...</h6>
@@ -28,8 +42,8 @@
 		width: 100vw;
 		height: 400px;
 		position: relative;
-		display: flex; 
-		justify-content: center; 
+		display: flex;
+		justify-content: center;
 	}
 
 	.footerContent {
@@ -60,7 +74,7 @@
 		width: 270px;
 		overflow: hidden;
 		border-radius: 30px;
-    margin-top: -130px;
+		margin-top: -130px;
 	}
 
 	.innerButton {
@@ -114,14 +128,14 @@
 		position: absolute;
 		bottom: 50px;
 		margin: 0 auto;
-		color:#141414;
+		color: #141414;
 	}
 
 	.endDate {
 		position: absolute;
 		bottom: 20px;
 		margin: 0 auto;
-		color:#141414;
+		color: #141414;
 		font-size: 15px;
 	}
 </style>

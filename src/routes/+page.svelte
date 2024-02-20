@@ -1,6 +1,7 @@
 <script>
 	import { SvelteSimpleMarquee } from 'sveltesimplemarquee';
 	import { SvelteScrollTypewriter } from 'sveltescrolltypewriter';
+	import { SvelteInertiaScroll } from 'svelteinertiascroll'
 	import { onMount } from 'svelte';
 
 	export let data;
@@ -52,6 +53,7 @@
 		calculateDistance();
 
 		console.log({ screenWidth });
+		
 	});
 </script>
 
@@ -63,10 +65,9 @@
 />
 
 
-	
-	<body>
-		<main>
-			<div class="hero">
+<body>
+	<main>
+		<div class="hero">
 			<div class="marquee">
 				<SvelteSimpleMarquee>
 					<h1>Jadd Al-Khabbaz</h1>
@@ -106,7 +107,7 @@
 
 		<div id="projects" bind:this={projects}>
 			<div class="inner">
-				<a href="https://github.com/jadd0"><h2 id="projectsTitle">Projects.</h2></a> 
+				<a href="https://github.com/jadd0"><h2 id="projectsTitle">Projects.</h2></a>
 				<div class="projectsHolder">
 					<div class="project">
 						<div class="innerProject">
@@ -143,8 +144,6 @@
 					</div>
 				</div>
 			</div>
-
-			
 		</div>
 		<div class="section">
 			<div class="inner" id="activity">
@@ -153,39 +152,29 @@
 				<div class="jaddblogHolder">
 					<div class="posts">
 						{#each data.posts as post}
-						<a href="https://blog.jadd.live/post/{post.id}"><div class="post">
-							
-								<div class="contentHolder">
-								<h4>{post.title}</h4>
-							<p>{post.body}</p>
-							</div>
-							
-							
-							<div class="adminHolder">
-								<a href="https://blog.jadd.live/@jadd"><span class="name">@jadd</span></a>
-								
-								<span class="timeAgo">{post.timeAgo}</span>
-								<span class="vote">Vote Count: {post.vote}</span>
-							</div>
-							
-						</div></a>
-					{/each}
+							<a href="https://blog.jadd.live/post/{post.id}"
+								><div class="post">
+									<div class="contentHolder">
+										<h4>{post.title}</h4>
+										<p>{post.body}</p>
+									</div>
+
+									<div class="adminHolder">
+										<a href="https://blog.jadd.live/@jadd"><span class="name">@jadd</span></a>
+
+										<span class="timeAgo">{post.timeAgo}</span>
+										<span class="vote">Vote Count: {post.vote}</span>
+									</div>
+								</div></a
+							>
+						{/each}
 					</div>
-					
 				</div>
 			</div>
-			
 		</div>
-		<div class="end"></div>
-		</main>
-		
-		
-
-		
-			
-		
-	</body>
-	
+		<div class="end" />
+	</main>
+</body>
 
 
 <style>
@@ -198,7 +187,6 @@
 		margin: 0;
 		padding: 0;
 		border: 0;
-		height:2400px;
 		background: #d9d9d9;
 		overflow-x: clip;
 		border-bottom-right-radius: 50px;
@@ -310,7 +298,6 @@
 		transform-origin: 100% 50%;
 	}
 
-
 	#projectsTitle:hover:after {
 		transform: scaleX(1);
 		transform-origin: 0% 50%;
@@ -321,8 +308,7 @@
 		width: 100vw;
 		margin-top: 50px;
 		padding: 50px;
-		position: sticky;
-		position: -webkit-sticky;
+		position: relative;
 		top: 0px;
 		bottom: 500px;
 		z-index: 1000 !important;
@@ -376,8 +362,6 @@
 		z-index: 0;
 		position: relative;
 		left: -185px;
-		
-
 	}
 
 	.innerProject:hover {
@@ -385,7 +369,6 @@
 	}
 
 	@keyframes easeIn {
-		
 	}
 
 	.descriptionProjectHolder {
@@ -412,7 +395,7 @@
 	#activity {
 		height: 600px;
 	}
-	
+
 	.jaddblogHolder {
 		background: none;
 		width: 600px;
@@ -462,7 +445,7 @@
 	}
 
 	.post p {
-		font-size:20px;
+		font-size: 20px;
 		text-align: start;
 	}
 
@@ -472,7 +455,8 @@
 		text-align: start;
 	}
 
-	.timeAgo, .vote {
+	.timeAgo,
+	.vote {
 		margin-top: 4px;
 	}
 
@@ -482,13 +466,11 @@
 
 	main {
 		width: 100vw;
-		border-radius: 0px 30px  30px 0;
+		border-radius: 0px 30px 30px 0;
 		background-color: #141414;
 	}
 	.end {
 		height: 300px;
 		width: 100vw;
 	}
-
-
 </style>
