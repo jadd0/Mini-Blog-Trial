@@ -304,11 +304,11 @@
 	}
 
 	#projects {
-		height: 1050px;
+		height: 2050px;
 		width: 100vw;
 		margin-top: 50px;
 		padding: 50px;
-		position: relative;
+		position: sticky;
 		top: 0px;
 		bottom: 500px;
 		z-index: 1000 !important;
