@@ -14,8 +14,7 @@
 				'Content-Type': 'application/json'
 			},
 			body: JSON.stringify({
-				email,
-				username
+				name, email, enquiry
 			})
 		});
 
@@ -74,6 +73,8 @@
 					<h3 id="forBody">{enquiry.length}/450</h3>
 				</div>
 			</div>
+
+			<button on:click={submit}>Click me</button>
 		</div>
 	</main>
 </body>

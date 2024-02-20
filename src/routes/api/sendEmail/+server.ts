@@ -2,13 +2,14 @@ import nodemailer from 'nodemailer';
 
 async function sendEmailToClient(email: string, name: string, enquiry: string, transport) {
 	const mailOptions = {
-		from: 'jaddlive@jaddblog.com',
+		from: 'jaddalkwork@gmail.com',
 		to: `${email}`,
 		subject: 'Contact Me',
 		html: `<h1>Hey, ${name}</h1>
 		<br/>
 		<p>Thank you for contacting me. I will endeavour to reply as soon as possible.
 		<br/>
+		This is an automated service, please do not reply to this email.
 		<br/>
 		Thanks, Jadd.
 		<br/>
@@ -41,7 +42,6 @@ async function sendEmailToMe(email: string, name: string, enquiry: string, trans
 	};
 	
 	transport.sendMail(mailOptions, function (err, info) {
-		console.log(err, info);
 		if (err) {
 			return false;
 		}
@@ -69,7 +69,11 @@ async function setUp(email, name, enquiry) {
 		}
 	});
 
-	if(!sendEmailToMe(email, name, enquiry, transport) && !sendEmailToClient(email, name, enquiry, transport)) {
+	if(!sendEmailToMe(email, name, enquiry, transport)) {
+		return false;
+	}
+
+	if(!sendEmailToClient(email, name, enquiry, transport)) {
 		return false;
 	}
 }
