@@ -92,7 +92,8 @@
 		height: 85vh;
 		background: #d9d9d9;
 		overflow-x: clip;
-		border-radius: 20px;
+		border-bottom-right-radius: 50px;
+		border-bottom-left-radius: 50px;
 	}
 
 	/* Hide scrollbar for Chrome, Safari and Opera */

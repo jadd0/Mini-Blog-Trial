@@ -19,12 +19,17 @@
 			</a>
 		</div>
 	</div>
+	<span class="endName">Jadd Al-Khabbaz</span>
+	<span class="endDate">2024</span>
 </footer>
 
 <style>
 	footer {
 		width: 100vw;
 		height: 400px;
+		position: relative;
+		display: flex; 
+		justify-content: center; 
 	}
 
 	.footerContent {
@@ -38,7 +43,7 @@
 	}
 
 	footer h6 {
-		color: #212121;
+		color: #141414;
 		font-size: 60px;
 	}
 
@@ -103,5 +108,20 @@
 		opacity: 1;
 		transform: translateX(0);
 		transition: transform 350ms ease-in-out, opacity 350ms ease-in-out; /* Adjust transition */
+	}
+
+	.endName {
+		position: absolute;
+		bottom: 50px;
+		margin: 0 auto;
+		color:#141414;
+	}
+
+	.endDate {
+		position: absolute;
+		bottom: 20px;
+		margin: 0 auto;
+		color:#141414;
+		font-size: 15px;
 	}
 </style>
