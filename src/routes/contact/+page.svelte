@@ -74,7 +74,7 @@
 				</div>
 			</div>
 
-			<button on:click={submit}>Click me</button>
+			<button id="loginButton" on:click={submit}>Submit</button>
 		</div>
 	</main>
 </body>
@@ -217,7 +217,6 @@
 
 	#loginButton {
 		margin: 0 auto;
-		margin-top: 30px;
 		width: 75%;
 		height: 50px;
 		color: white;
