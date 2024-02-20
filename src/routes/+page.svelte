@@ -1,10 +1,10 @@
 <script>
 	import { SvelteSimpleMarquee } from 'sveltesimplemarquee';
 	import { SvelteScrollTypewriter } from 'sveltescrolltypewriter';
-	import { SvelteInertiaScroll } from 'svelteinertiascroll'
+	import { SvelteInertiaScroll } from 'svelteinertiascroll';
 	import { onMount } from 'svelte';
-	import {fly} from 'svelte/transition'
-	import {quintOut} from 'svelte/easing'
+	import { fly } from 'svelte/transition';
+	import { quintOut } from 'svelte/easing';
 
 	export let data;
 
@@ -17,7 +17,9 @@
 		scroll1 = 0;
 
 	let projects, projectsTop, projectsDistance;
-	let project1 = false, project2= false, project3= false;
+	let project1 = true,
+		project2 = true,
+		project3 = true;
 	let project1Top = 300,
 		project2Top = 1000,
 		project3Top = 1700;
@@ -28,32 +30,26 @@
 		scroll1 = scroll - projectsDistance;
 
 		if (projectsTop == 0 && scroll1 > 150) {
-			project1 = true
+			project1 = true;
 
 			if (scroll1 > 350) {
-				project2 = true
+				project2 = true;
 
-				if (scroll1 >500) {
-					project3 = true
+				if (scroll1 > 500) {
+					project3 = true;
+				} else {
+					project3 = false;
 				}
-
-				else {
-					project3 = false
-				}
+			} else {
+				project2 = false;
 			}
-
-			else {
-				project2 = false
-			}
-		}
-
-		else if (scroll1 <= 50) {
-			project1 = false
+		} else if (scroll1 <= 50) {
+			project1 = false;
 		}
 	}
 
 	function scrollFn() {
-		changeVal();
+		//changeVal();
 	}
 
 	function calculateDistance() {
@@ -68,7 +64,6 @@
 		calculateDistance();
 
 		console.log({ screenWidth });
-		
 	});
 </script>
 
@@ -124,40 +119,50 @@
 				<a href="https://github.com/jadd0"><h2 id="projectsTitle">Projects.</h2></a>
 				<div class="projectsHolder">
 					{#if project1}
-						<div class="project" transition:fly={{ duration: 300, y: 500, opacity: 0.5 }}>
-							<div class="innerProject">
-								<img class="projectImage" src="/images/screenshot.png" />
-								<div class="descriptionProjectHolder">
-									<h3>JaddBlog</h3>
-									<div class="description">
-										Lorem ipsum dolor sit amet consectetur adipisicing elit. Atque, et.
+						<a href="https://blog.jadd.live">
+							<div class="project" transition:fly={{ duration: 300, y: 500, opacity: 0.5 }}>
+								<div class="innerProject">
+									<div class="descriptionProjectHolder">
+										<h3>JaddBlog</h3>
+										<div class="description">
+											A text-based social media inlcuding basic posts, polls, followers,
+											comments, likes etc.
+										</div>
 									</div>
+									<img class="projectImage" src="/images/jaddblog.png" />
 								</div>
 							</div>
-						</div>
+						</a>
 					{/if}
 					{#if project2}
-						<div class="project" id="secondProject" transition:fly={{ duration: 300, y: 500, opacity: 0.5 }}>
-							<div class="innerProject">
-								<img class="projectImage" src="/images/screenshot.png" />
-								<div class="descriptionProjectHolder">
-									<h3>Wirral Bears</h3>
-									<div class="description">
-										Lorem ipsum dolor sit amet consectetur adipisicing elit. Atque, et.
+						<a href="https://wirralbears.com">
+							<div
+								class="project"
+								id="secondProject"
+								transition:fly={{ duration: 300, y: 500, opacity: 0.5 }}
+							>
+								<div class="innerProject">
+									<div class="descriptionProjectHolder">
+										<h3>Wirral Bears</h3>
+										<div class="description">
+											A website to display the 'Wirral Bears' basketball team
+										</div>
 									</div>
+									<img class="projectImage" src="/images/screenshot.png" />
 								</div>
 							</div>
-						</div>
+						</a>
 					{/if}
 					{#if project3}
-						<div class="project" id="thirdProject" transition:fly={{ duration: 300, y: 500, opacity: 0.5 }}>
+						<div
+							class="project"
+							id="thirdProject"
+							transition:fly={{ duration: 300, y: 500, opacity: 0.5 }}
+						>
 							<div class="innerProject">
-								<img class="projectImage" src="/images/screenshot.png" />
 								<div class="descriptionProjectHolder">
 									<h3>To come...</h3>
-									<div class="description">
-										Watch this space
-									</div>
+									<div class="description">Watch this space</div>
 								</div>
 							</div>
 						</div>
@@ -365,7 +370,8 @@
 		overflow: hidden;
 	}
 
-	#secondProject, #thirdProject {
+	#secondProject,
+	#thirdProject {
 		border-top: none !important;
 	}
 
@@ -373,21 +379,14 @@
 		display: flex;
 		flex-direction: row;
 		align-items: center;
-		justify-content: center;
+		justify-content: start;
 		gap: 40px;
 		height: 100%;
 		width: 100%;
 		transition: all linear 0.3s;
 		z-index: 0;
 		position: relative;
-		left: -185px;
-	}
-
-	.innerProject:hover {
-		transform: translate(190px);
-	}
-
-	@keyframes easeIn {
+		left: 0;
 	}
 
 	.descriptionProjectHolder {
@@ -395,6 +394,7 @@
 		flex-direction: column;
 		align-items: start;
 		justify-content: center;
+		width: 380px;
 	}
 
 	h3 {
@@ -409,6 +409,8 @@
 
 	.projectImage {
 		width: 150px;
+		position: absolute;
+		right: 0;
 	}
 
 	#activity {
