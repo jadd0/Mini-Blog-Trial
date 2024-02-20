@@ -1,11 +1,13 @@
 <script>
 	import { SvelteSimpleMarquee } from 'sveltesimplemarquee';
 	import { SvelteScrollTypewriter } from 'sveltescrolltypewriter';
+	import { SvelteInertiaScroll } from 'svelteinertiascroll';
 	import { onMount } from 'svelte';
 
 	export let data;
 
-	let screenWidth;
+	let screenWidth,
+		height = 0;
 
 	let scrollOld = 0;
 
@@ -61,12 +63,9 @@
 	bind:innerWidth={screenWidth}
 	on:scroll={scrollFn}
 />
-
-
-	
+<SvelteInertiaScroll>
 	<body>
-		<main>
-			<div class="hero">
+		<div class="hero">
 			<div class="marquee">
 				<SvelteSimpleMarquee>
 					<h1>Jadd Al-Khabbaz</h1>
@@ -106,7 +105,7 @@
 
 		<div id="projects" bind:this={projects}>
 			<div class="inner">
-				<a href="https://github.com/jadd0"><h2 id="projectsTitle">Projects.</h2></a> 
+				<a href="https://github.com/jadd0"><h2 id="projectsTitle">Projects.</h2></a>
 				<div class="projectsHolder">
 					<div class="project">
 						<div class="innerProject">
@@ -143,67 +142,52 @@
 					</div>
 				</div>
 			</div>
-
-			
 		</div>
-		<div class="section">
+		<div class="section" id="activitySection">
 			<div class="inner" id="activity">
 				<h2>My Activity.</h2>
 
 				<div class="jaddblogHolder">
 					<div class="posts">
 						{#each data.posts as post}
-						<a href="https://blog.jadd.live/post/{post.id}"><div class="post">
-							
-								<div class="contentHolder">
-								<h4>{post.title}</h4>
-							<p>{post.body}</p>
-							</div>
-							
-							
-							<div class="adminHolder">
-								<a href="https://blog.jadd.live/@jadd"><span class="name">@jadd</span></a>
-								
-								<span class="timeAgo">{post.timeAgo}</span>
-								<span class="vote">Vote Count: {post.vote}</span>
-							</div>
-							
-						</div></a>
-					{/each}
+							<a href="https://blog.jadd.live/post/{post.id}"
+								><div class="post">
+									<div class="contentHolder">
+										<h4>{post.title}</h4>
+										<p>{post.body}</p>
+									</div>
+
+									<div class="adminHolder">
+										<a href="https://blog.jadd.live/@jadd"><span class="name">@jadd</span></a>
+
+										<span class="timeAgo">{post.timeAgo}</span>
+										<span class="vote">Vote Count: {post.vote}</span>
+									</div>
+								</div></a
+							>
+						{/each}
 					</div>
-					
 				</div>
 			</div>
-			
 		</div>
-		<div class="end"></div>
-		</main>
-		
-		
-
-		
-			
-		
 	</body>
-	
-
+</SvelteInertiaScroll>
 
 <style>
 	@font-face {
 		font-family: 'jakarta';
 		src: url('/fonts/Jakarta.ttf');
 	}
-
 	body {
 		margin: 0;
 		padding: 0;
 		border: 0;
-		height:2400px;
-		background: #d9d9d9;
+		background: #141414;
 		overflow-x: clip;
-		border-radius: 20px
+		border-radius: 20px;
+		padding-bottom: 300px;
+		height: 3000px;
 	}
-
 	/* Hide scrollbar for Chrome, Safari and Opera */
 	body::-webkit-scrollbar {
 		display: none !important;
@@ -309,7 +293,6 @@
 		transform-origin: 100% 50%;
 	}
 
-
 	#projectsTitle:hover:after {
 		transform: scaleX(1);
 		transform-origin: 0% 50%;
@@ -375,8 +358,6 @@
 		z-index: 0;
 		position: relative;
 		left: -185px;
-		
-
 	}
 
 	.innerProject:hover {
@@ -384,7 +365,6 @@
 	}
 
 	@keyframes easeIn {
-		
 	}
 
 	.descriptionProjectHolder {
@@ -411,7 +391,7 @@
 	#activity {
 		height: 600px;
 	}
-	
+
 	.jaddblogHolder {
 		background: none;
 		width: 600px;
@@ -461,7 +441,7 @@
 	}
 
 	.post p {
-		font-size:20px;
+		font-size: 20px;
 		text-align: start;
 	}
 
@@ -471,7 +451,8 @@
 		text-align: start;
 	}
 
-	.timeAgo, .vote {
+	.timeAgo,
+	.vote {
 		margin-top: 4px;
 	}
 
@@ -481,7 +462,7 @@
 
 	main {
 		width: 100vw;
-		border-radius: 0px 30px  30px 0;
+		border-radius: 0px 30px 30px 0;
 		background-color: #141414;
 	}
 	.end {
@@ -489,5 +470,92 @@
 		width: 100vw;
 	}
 
+	#activitySection {
+		min-height: 900px;
+	}
 
+	.footer {
+		margin-top: 0px;
+		width: 100vw;
+		height: 400px;
+	}
+
+	.footerContent {
+		width: 100vw;
+		height: 50%;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		flex-direction: column;
+		gap: 40px;
+	}
+
+	footer h6 {
+		color: #212121;
+		font-size: 60px;
+	}
+
+	.contactForm {
+		display: block;
+		position: relative;
+		text-decoration: none;
+		color: black;
+		padding: 20px;
+		border: 2px solid #141414;
+		text-transform: uppercase;
+		font-size: 16px;
+		font-weight: bold;
+		width: 270px;
+		overflow: hidden;
+		border-radius: 30px;
+		margin-top: -130px;
+		z-index: 0;
+	}
+
+	.innerButton {
+		z-index: 5;
+		position: relative;
+		transition: color 350ms ease-in-out;
+		color: #141414;
+	}
+
+	.contactForm:hover .innerButton {
+		color: white;
+	}
+
+	.contactForm::after,
+	.contactForm::before {
+		content: ' ';
+		display: block;
+		position: absolute;
+		width: 100%;
+		top: 0;
+		bottom: 0;
+		right: 0;
+		background: #141414;
+		z-index: -1;
+	}
+
+	.contactForm::before {
+		transform: translateX(100%);
+		z-index: 1;
+	}
+
+	.contactForm:hover::before {
+		transform: translateX(100%);
+		transition: transform 350ms ease-in-out;
+	}
+
+	.contactForm::after {
+		z-index: 0;
+		transform: translateX(-100%); /* Changed to slide in from the left */
+		opacity: 0; /* Set initial opacity */
+		transition: transform 350ms ease-in-out, opacity 350ms ease-in-out 350ms; /* Add transition delay to opacity */
+	}
+
+	.contactForm:hover::after {
+		opacity: 1;
+		transform: translateX(0);
+		transition: transform 350ms ease-in-out, opacity 350ms ease-in-out; /* Adjust transition */
+	}
 </style>

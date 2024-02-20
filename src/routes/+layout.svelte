@@ -6,22 +6,15 @@
 </script>
 
 <SvelteInertiaScroll>
-	<main>
+
 		<slot />
-	</main>
+
 </SvelteInertiaScroll>
-<footer>
-	<div class="footerContent">
-		<h6>Hey you...</h6>
-		<div class="button">
-			<a class="contactForm" href="/contact">
-				<span class="innerButton">Contact me</span>
-			</a>
-		</div>
-	</div>
-</footer>
 
 <style>
+  body {
+    height: 0px !important;
+  }
 	footer {
 		width: 100vw;
 		height: 400px;

@@ -48,7 +48,7 @@
 				</div>
 			</div>
 			<div class="fullInput">
-				<h2>Full Name</h2>
+				<h2>Email Address</h2>
 				<div class="inputHolder">
 					<textarea
 						class="userInput"
@@ -60,7 +60,7 @@
 				</div>
 			</div>
 			<div class="fullInput">
-				<h2>Full Name</h2>
+				<h2>Enquiry</h2>
 				<div class="inputHolder" id="body">
 					<textarea
 						class="userInput"
@@ -74,9 +74,12 @@
 				</div>
 			</div>
 
-			<button on:click={submit}>Click me</button>
+			<button id="loginButton" on:click={submit}>
+				<span class="innerButton">Submit</span>
+			</button>
 		</div>
 	</main>
+	
 </body>
 
 <style>
@@ -89,8 +92,8 @@
 		margin: 0;
 		padding: 0;
 		border: 0;
-		height: 85vh;
-		background: #d9d9d9;
+		height: auto;
+		background: #141414;
 		overflow-x: clip;
 		border-radius: 20px;
 	}
@@ -114,9 +117,10 @@
 	}
 	main {
 		width: 100vw;
-		height: 101vh;
+		min-height: 101vh;
 		border-radius: 0px 30px 30px 0;
 		background-color: #141414;
+		z-index: 100;
 	}
 
 	.hero {
@@ -180,6 +184,7 @@
 		background: #212121;
 		color: white;
 		text-align: left;
+		z-index: 100;
 		font-size: 16px;
 	}
 
@@ -193,6 +198,7 @@
 		color: white;
 		text-align: left;
 		border: 2px solid #333;
+		z-index: 100;
 		transition: all 0.2s linear;
 	}
 
@@ -213,6 +219,8 @@
 		padding: 5px;
 		overflow: hidden;
 		box-sizing: border-box;
+		z-index: 100;
+
 	}
 
 	#loginButton {
@@ -226,6 +234,8 @@
 		border-radius: 20px;
 		cursor: pointer;
 		transition: all 0.2s linear;
+		z-index: 100;
+
 	}
 
 	#loginButton:hover {
@@ -281,5 +291,8 @@
 
 	h2 {
 		font-size: 16px;
+	}
+
+	.button {
 	}
 </style>
