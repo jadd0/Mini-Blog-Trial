@@ -1,3 +1,8 @@
+<script>
+  import { autoresize } from 'svelte-textarea-autoresize'
+  let name = '', email = '', enquiry = ''
+</script>
+
 <body>
 	<main>
     <div class="hero">
@@ -6,6 +11,37 @@
       <p>Interested in working with me? Or simply want to get in contact? Great! Just fill in the form below and I will reply shortly</p>
     </div>
     
+    <div class="inputHolder">
+			<input
+				type="text"
+				class="userInput"
+				bind:value={name}
+        placeholder="Full name"
+				required
+			/>
+	
+		</div>
+    <div class="inputHolder">
+			<input
+				type="text"
+				class="userInput"
+				bind:value={email}
+        placeholder="Email"
+				required
+			/>
+
+		</div>
+    <div class="inputHolder" id="body">
+      <textarea
+      class="userInput"
+      maxlength="450"
+      placeholder="Body"
+      id="bodyInput"
+      bind:value={enquiry}
+      use:autoresize
+    />
+     <h3 id="forBody">{enquiry.length}/450</h3>
+    </div>
     </div>
 	</main>
 </body>
@@ -73,4 +109,120 @@
   h1 {
     font-size: 80px;
   }
+
+  #bodyInput {
+		min-height: 90px;
+    width: 330px;
+	}
+
+	#body {
+		height: auto !important;
+	}
+
+	h3 {
+		font-weight: 600;
+		color: rgb(112, 112, 112);
+		font-size: 10px;
+		height: 0px;
+		width: 50px;
+		position: relative;
+		text-align: right;
+		bottom: 20px;
+	
+		right: -341px;
+		/* margin-top: 10%; */
+		/* position: sticky; */
+		/* bottom: 0px !important; */
+		/* margin-top: 7.5%; */
+	}
+
+	.userInput {
+		width: 365px;
+		min-height: 25px;
+		margin-left: 15px;
+		margin-top: 13px;
+		background: #212121;
+		color: white;
+		text-align: left;
+    font-size: 16px;
+	}
+
+	.inputHolder {
+		width: 400px;
+		min-height: 55px;
+		padding-bottom: 5px;
+		margin: 0 auto;
+		margin-top: 10px;
+		background: #212121;
+		border-radius: 5px;
+		color: white;
+		text-align: left;
+		border: 2px solid #333;
+		transition: all 0.2s linear;
+	}
+
+	.inputHolder:focus-within {
+		border: 2px solid rgb(90, 90, 90);
+	}
+
+  #bodyInput {
+    margin-left: 8px;
+  }
+
+	textarea {
+		resize: none;
+		width: 400px;
+		min-height: 100px;
+		font-size: 16px;
+		height: auto;
+		padding: 5px;
+		overflow: hidden;
+		box-sizing: border-box;
+	}
+
+	#loginButton {
+		margin: 0 auto;
+		margin-top: 30px;
+		width: 75%;
+		height: 50px;
+		color: white;
+		font-weight: 600;
+		background-color: #212121;
+		border-radius: 20px;
+		cursor: pointer;
+		transition: all 0.2s linear;
+	}
+
+	#loginButton:hover {
+		background: rgb(56, 56, 56);
+	}
+
+	@media (max-width: 460px) {
+		#loginForm {
+			width: 325px !important;
+		}
+	}
+
+	.shake {
+		animation: shake2 0.2s linear;
+	}
+
+	.wrong {
+		border: 2px solid red;
+	}
+
+	@keyframes shake2 {
+		25% {
+			transform: translateX(11px);
+		}
+
+		50% {
+			transform: translateX(0px);
+		}
+
+		75% {
+			transform: translateX(-11px);
+		}
+	}
+
 </style>
