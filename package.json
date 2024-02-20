@@ -32,7 +32,7 @@
 		"bcryptjs": "^2.4.3",
 		"dotenv": "^16.0.3",
 		"multer-s3": "^3.0.1",
-		"nodemailer": "^6.9.1",
+		"nodemailer": "^6.9.9",
 		"svelte-simple-modal": "^1.5.2",
 		"svelte-textarea-autoresize": "^1.0.0",
 		"svelteinertiascroll": "^1.0.4",
