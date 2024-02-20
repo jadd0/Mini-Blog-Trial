@@ -20,11 +20,9 @@
 	});
 </script>
 
-<main>
-	<slot />
-</main>
 
-<footer>
+	<slot />
+	<footer>
 	<div class="footerContent">
 		<h6>Hey you...</h6>
 		<div class="button">
@@ -36,6 +34,9 @@
 	<span class="endName">Jadd Al-Khabbaz</span>
 	<span class="endDate">2024</span>
 </footer>
+
+
+
 
 <style>
 	footer {

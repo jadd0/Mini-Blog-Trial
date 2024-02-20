@@ -89,7 +89,7 @@
 		margin: 0;
 		padding: 0;
 		border: 0;
-		height: 85vh;
+		height: 103vh;
 		background: #d9d9d9;
 		overflow-x: clip;
 		border-bottom-right-radius: 50px;
@@ -115,7 +115,7 @@
 	}
 	main {
 		width: 100vw;
-		height: 101vh;
+		height: 103vh;
 		border-radius: 0px 30px 30px 0;
 		background-color: #141414;
 	}
