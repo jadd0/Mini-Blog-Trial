@@ -3,6 +3,8 @@
 	import { SvelteScrollTypewriter } from 'sveltescrolltypewriter';
 	import { SvelteInertiaScroll } from 'svelteinertiascroll'
 	import { onMount } from 'svelte';
+	import {fly} from 'svelte/transition'
+	import {quintOut} from 'svelte/easing'
 
 	export let data;
 
@@ -15,7 +17,7 @@
 		scroll1 = 0;
 
 	let projects, projectsTop, projectsDistance;
-	let project1, project2, project3;
+	let project1 = false, project2= false, project3= false;
 	let project1Top = 300,
 		project2Top = 1000,
 		project3Top = 1700;
@@ -26,14 +28,27 @@
 		scroll1 = scroll - projectsDistance;
 
 		if (projectsTop == 0 && scroll1 > 50) {
-			//to see if project1 in view
+			project1 = true
 
-			if (project2Top > 350) {
-				//moving project 1 into view and end position
-				project2Top += -scroll1;
-			} else {
-				project2Top -= scroll1;
+			if (scroll1 > 200) {
+				project2 = true
+
+				if (scroll1 > 350) {
+					project3 = true
+				}
+
+				else {
+					project3 = false
+				}
 			}
+
+			else {
+				project2 = false
+			}
+		}
+
+		else if (scroll1 <= 50) {
+			project1 = false
 		}
 	}
 
@@ -63,7 +78,6 @@
 	bind:innerWidth={screenWidth}
 	on:scroll={scrollFn}
 />
-
 
 <body>
 	<main>
@@ -109,39 +123,45 @@
 			<div class="inner">
 				<a href="https://github.com/jadd0"><h2 id="projectsTitle">Projects.</h2></a>
 				<div class="projectsHolder">
-					<div class="project">
-						<div class="innerProject">
-							<img class="projectImage" src="/images/screenshot.png" />
-							<div class="descriptionProjectHolder">
-								<h3>JaddBlog</h3>
-								<div class="description">
-									Lorem ipsum dolor sit amet consectetur adipisicing elit. Atque, et.
+					{#if project1}
+						<div class="project" transition:fly={{ duration: 300, y: 500, opacity: 0.5 }}>
+							<div class="innerProject">
+								<img class="projectImage" src="/images/screenshot.png" />
+								<div class="descriptionProjectHolder">
+									<h3>JaddBlog</h3>
+									<div class="description">
+										Lorem ipsum dolor sit amet consectetur adipisicing elit. Atque, et.
+									</div>
 								</div>
 							</div>
 						</div>
-					</div>
-					<div class="project" id="secondProject">
-						<div class="innerProject">
-							<img class="projectImage" src="/images/screenshot.png" />
-							<div class="descriptionProjectHolder">
-								<h3>JaddBlog</h3>
-								<div class="description">
-									Lorem ipsum dolor sit amet consectetur adipisicing elit. Atque, et.
+					{/if}
+					{#if project2}
+						<div class="project" transition:fly={{ duration: 300, y: 500, opacity: 0.5 }}>
+							<div class="innerProject">
+								<img class="projectImage" src="/images/screenshot.png" />
+								<div class="descriptionProjectHolder">
+									<h3>JaddBlog</h3>
+									<div class="description">
+										Lorem ipsum dolor sit amet consectetur adipisicing elit. Atque, et.
+									</div>
 								</div>
 							</div>
 						</div>
-					</div>
-					<div class="project">
-						<div class="innerProject">
-							<img class="projectImage" src="/images/screenshot.png" />
-							<div class="descriptionProjectHolder">
-								<h3>JaddBlog</h3>
-								<div class="description">
-									Lorem ipsum dolor sit amet consectetur adipisicing elit. Atque, et.
+					{/if}
+					{#if project3}
+						<div class="project" transition:fly={{ duration: 300, y: 500, opacity: 0.5 }}>
+							<div class="innerProject">
+								<img class="projectImage" src="/images/screenshot.png" />
+								<div class="descriptionProjectHolder">
+									<h3>JaddBlog</h3>
+									<div class="description">
+										Lorem ipsum dolor sit amet consectetur adipisicing elit. Atque, et.
+									</div>
 								</div>
 							</div>
 						</div>
-					</div>
+					{/if}
 				</div>
 			</div>
 		</div>
@@ -175,7 +195,6 @@
 		<div class="end" />
 	</main>
 </body>
-
 
 <style>
 	@font-face {
@@ -304,13 +323,13 @@
 	}
 
 	#projects {
-		height: 2050px;
+		height: 1900px;
 		width: 100vw;
 		margin-top: 50px;
 		padding: 50px;
 		position: sticky;
 		top: 0px;
-		bottom: 500px;
+		bottom: 1300px;
 		z-index: 1000 !important;
 	}
 
