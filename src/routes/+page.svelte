@@ -121,8 +121,8 @@
 									<div class="descriptionProjectHolder">
 										<h3>JaddBlog</h3>
 										<div class="description">
-											A text-based social media inlcuding basic posts, polls, followers,
-											comments, likes etc.
+											A text-based social media inlcuding basic posts, polls, followers, comments,
+											likes etc.
 										</div>
 									</div>
 									<img class="projectImage" src="/images/jaddblog.png" />
@@ -331,7 +331,7 @@
 		position: sticky;
 		top: 0px;
 		bottom: 1300px;
-		z-index: 1000 !important;
+		z-index: 0 !important;
 	}
 
 	#projects:before {
@@ -421,6 +421,7 @@
 		top: 245px;
 		left: 98px;
 		border-bottom: 1px solid #8f8f8f;
+		z-index: 100;
 	}
 
 	.posts {
