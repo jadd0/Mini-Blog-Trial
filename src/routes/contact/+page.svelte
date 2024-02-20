@@ -1,48 +1,62 @@
 <script>
-  import { autoresize } from 'svelte-textarea-autoresize'
-  let name = '', email = '', enquiry = ''
+	import { autoresize } from 'svelte-textarea-autoresize';
+	let name = '',
+		email = '',
+		enquiry = '';
 </script>
 
 <body>
 	<main>
-    <div class="hero">
-		<h1>Get in touch.</h1>
-    <div class="paraBox">
-      <p>Interested in working with me? Or simply want to get in contact? Great! Just fill in the form below and I will reply shortly</p>
-    </div>
-    
-    <div class="inputHolder">
-			<input
-				type="text"
-				class="userInput"
-				bind:value={name}
-        placeholder="Full name"
-				required
-			/>
-	
+		<div class="hero">
+			<h1>Get in touch.</h1>
+			<div class="paraBox">
+				<p>
+					Interested in working with me? Or simply want to get in contact? Great! Just fill in the
+					form below and I will reply shortly
+				</p>
+			</div>
 		</div>
-    <div class="inputHolder">
-			<input
-				type="text"
-				class="userInput"
-				bind:value={email}
-        placeholder="Email"
-				required
-			/>
 
+		<div class="contactForm">
+			<div class="fullInput">
+				<h2>Full Name</h2>
+				<div class="inputHolder">
+					<textarea
+						class="userInput"
+						maxlength="70"
+						placeholder="Full Name"
+						bind:value={name}
+						use:autoresize
+					/>
+				</div>
+			</div>
+			<div class="fullInput">
+				<h2>Full Name</h2>
+				<div class="inputHolder">
+					<textarea
+						class="userInput"
+						maxlength="70"
+						placeholder="Email Address"
+						bind:value={email}
+						use:autoresize
+					/>
+				</div>
+			</div>
+			<div class="fullInput">
+				<h2>Full Name</h2>
+				<div class="inputHolder" id="body">
+					<textarea
+						class="userInput"
+						maxlength="450"
+						placeholder="Enquiry"
+						id="bodyInput"
+						bind:value={enquiry}
+						use:autoresize
+					/>
+					<h3 id="forBody">{enquiry.length}/450</h3>
+				</div>
+			</div>
 		</div>
-    <div class="inputHolder" id="body">
-      <textarea
-      class="userInput"
-      maxlength="450"
-      placeholder="Body"
-      id="bodyInput"
-      bind:value={enquiry}
-      use:autoresize
-    />
-     <h3 id="forBody">{enquiry.length}/450</h3>
-    </div>
-    </div>
 	</main>
 </body>
 
@@ -86,37 +100,40 @@
 		background-color: #141414;
 	}
 
-  .hero {
-    width: 100vw;
-    height: 300px;
-    display: flex;
-    flex-direction: column;
-    gap: 30px;
-    align-items: start;
-    justify-content: start;
-    padding: 100px;
-  }
+	.hero {
+		width: 100vw;
+		height: 300px;
+		display: flex;
+		flex-direction: column;
+		gap: 30px;
+		align-items: start;
+		justify-content: start;
+		padding: 100px;
+	}
 
-  p {
-    text-align: start;
-    color:#9d9d9d;
-  }
+	p {
+		text-align: start;
+		color: #9d9d9d;
+		font-size: 18px;
+	}
 
-  .paraBox {
-    width: 600px;
-  }
+	.paraBox {
+		width: 600px;
+	}
 
-  h1 {
-    font-size: 80px;
-  }
+	h1 {
+		font-size: 80px;
+	}
 
-  #bodyInput {
+	#bodyInput {
 		min-height: 90px;
-    width: 330px;
+		width: 330px;
 	}
 
 	#body {
 		height: auto !important;
+		padding-bottom: 10px;
+		padding-left: 5px;
 	}
 
 	h3 {
@@ -128,8 +145,8 @@
 		position: relative;
 		text-align: right;
 		bottom: 20px;
-	
-		right: -341px;
+
+		right: -330px;
 		/* margin-top: 10%; */
 		/* position: sticky; */
 		/* bottom: 0px !important; */
@@ -140,11 +157,11 @@
 		width: 365px;
 		min-height: 25px;
 		margin-left: 15px;
-		margin-top: 13px;
+		margin-top: 10px;
 		background: #212121;
 		color: white;
 		text-align: left;
-    font-size: 16px;
+		font-size: 16px;
 	}
 
 	.inputHolder {
@@ -152,7 +169,6 @@
 		min-height: 55px;
 		padding-bottom: 5px;
 		margin: 0 auto;
-		margin-top: 10px;
 		background: #212121;
 		border-radius: 5px;
 		color: white;
@@ -165,9 +181,9 @@
 		border: 2px solid rgb(90, 90, 90);
 	}
 
-  #bodyInput {
-    margin-left: 8px;
-  }
+	#bodyInput {
+		margin-left: 8px;
+	}
 
 	textarea {
 		resize: none;
@@ -225,4 +241,26 @@
 		}
 	}
 
+	.contactForm {
+		display: flex;
+		flex-direction: column;
+		align-items: start;
+		justify-content: start;
+		width: 400px;
+		margin-left: 100px;
+    margin-top: 40px;
+    gap: 20px;
+	}
+
+  .fullInput {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    justify-content: center;
+    gap: 5px;
+  }
+
+  h2 {
+    font-size: 16px;
+  }
 </style>
