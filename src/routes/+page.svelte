@@ -498,6 +498,8 @@
 		align-items: start;
 		justify-content: center;
 		width: 100% !important;
+		position: relative;
+		top: 0px;
 	}
 
 	.adminHolder {
@@ -506,11 +508,16 @@
 		align-items: center;
 		justify-content: center;
 		gap: 10px;
+		position: relative;
+		bottom: -5px;
 	}
 
 	.post p {
 		font-size: 20px;
 		text-align: start;
+		overflow: clip;
+			white-space: nowrap;
+			text-overflow: ellipsis;
 	}
 
 	.adminHolder span {
@@ -609,6 +616,43 @@
 
 		.projectImage {
 			display: none;
+		}
+
+		#activity h2 {
+			text-align: start;
+			width: 50px;
+		}
+
+		.jaddblogHolder {
+			left: var(--leftPhone);
+			width: 70vw;
+			max-width: 400px;
+			top: 220px;
+		}
+
+		.contentHolder {
+			max-height: 50px;
+		}
+
+		.post {
+			height: 80px;
+		}
+
+		h4 {
+			font-size: 20px;
+		}
+
+		.post p {
+			font-size: 17px;
+			max-width: 300px;
+		}
+
+		.adminHolder span {
+			font-size: 14px;
+		}
+
+		.end {
+			height: 150px;
 		}
 	}
 </style>
