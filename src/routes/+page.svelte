@@ -83,7 +83,7 @@
 			<div class="typewriterHolderHero">
 				<div class="typewriter">
 					<SvelteScrollTypewriter
-					fontSize={16}
+						fontSize={16}
 						furthestScrolled={0}
 						auto={true}
 						phrase={'Freelance web developer, Computer science student, UX/UI designer, Back-end developer, Full-stack developer, Computer scientist, Tech enthusiast, SEO specialist, Aspiring software developer, Front-end developer, Javascript/Typescript developer, Python developer, Motivated, Accountable, Creative, Detail oriented, Problem solver'}
@@ -101,7 +101,7 @@
 				<h2>Who am I?</h2>
 				<div bind:this={typewriter1} id="aboutMeTypewriter" class="typewriter">
 					<SvelteScrollTypewriter
-						fontSize={20}
+						fontSize={16}
 						furthestScrolled={scroll + innerh}
 						height={height1}
 						phrase={`Hi! I am Jadd, a freelance web developer. I am from the Wirral, United Kingdom and I am currently in ${data.area}, ${data.region} as of ${data.time}. As a current Computer Science student, I am very enthusiastic in the web development industry... lorem mkdfosdfmsdmf fjsdhfusdhf sdkjf ksjd fksdfk sdkjf ksd fksd fks dfk kfsd f kj`}
@@ -111,63 +111,63 @@
 		</div>
 		<div class="section" id="projectSection">
 			<div id="projects" bind:this={projects}>
-			<div class="inner">
-				<a href="https://github.com/jadd0"><h2 id="projectsTitle">Projects.</h2></a>
-				<div class="projectsHolder">
-					{#if project1}
-						<a href="https://blog.jadd.live">
-							<div class="project" transition:fly={{ duration: 300, y: 500, opacity: 0.5 }}>
-								<div class="innerProject">
-									<div class="descriptionProjectHolder">
-										<h3>JaddBlog</h3>
-										<div class="description">
-											A text-based social media inlcuding basic posts, polls, followers, comments,
-											likes etc.
+				<div class="inner">
+					<a href="https://github.com/jadd0"><h2 id="projectsTitle">Projects.</h2></a>
+					<div class="projectsHolder">
+						{#if project1}
+							<a href="https://blog.jadd.live">
+								<div class="project" transition:fly={{ duration: 300, y: 500, opacity: 0.5 }}>
+									<div class="innerProject">
+										<div class="descriptionProjectHolder">
+											<h3>JaddBlog</h3>
+											<div class="description">
+												A text-based social media inlcuding basic posts, polls, followers, comments,
+												likes etc.
+											</div>
 										</div>
+										<img class="projectImage" src="/images/jaddblog.png" />
 									</div>
-									<img class="projectImage" src="/images/jaddblog.png" />
 								</div>
-							</div>
-						</a>
-					{/if}
-					{#if project2}
-						<a href="https://wirralbears.com">
+							</a>
+						{/if}
+						{#if project2}
+							<a href="https://wirralbears.com">
+								<div
+									class="project"
+									id="secondProject"
+									transition:fly={{ duration: 300, y: 500, opacity: 0.5 }}
+								>
+									<div class="innerProject">
+										<div class="descriptionProjectHolder">
+											<h3>Wirral Bears</h3>
+											<div class="description">
+												A website to display the 'Wirral Bears' basketball team
+											</div>
+										</div>
+										<img class="projectImage" src="/images/screenshot.png" />
+									</div>
+								</div>
+							</a>
+						{/if}
+						{#if project3}
 							<div
 								class="project"
-								id="secondProject"
+								id="thirdProject"
 								transition:fly={{ duration: 300, y: 500, opacity: 0.5 }}
 							>
 								<div class="innerProject">
 									<div class="descriptionProjectHolder">
-										<h3>Wirral Bears</h3>
-										<div class="description">
-											A website to display the 'Wirral Bears' basketball team
-										</div>
+										<h3>To come...</h3>
+										<div class="description">Watch this space</div>
 									</div>
-									<img class="projectImage" src="/images/screenshot.png" />
 								</div>
 							</div>
-						</a>
-					{/if}
-					{#if project3}
-						<div
-							class="project"
-							id="thirdProject"
-							transition:fly={{ duration: 300, y: 500, opacity: 0.5 }}
-						>
-							<div class="innerProject">
-								<div class="descriptionProjectHolder">
-									<h3>To come...</h3>
-									<div class="description">Watch this space</div>
-								</div>
-							</div>
-						</div>
-					{/if}
+						{/if}
+					</div>
 				</div>
 			</div>
 		</div>
-		</div>
-		
+
 		<div class="section">
 			<div class="inner" id="activity">
 				<h2>My Activity.</h2>
@@ -203,6 +203,9 @@
 	:root {
 		--leftPC: 100px;
 		--leftPhone: 50px;
+		--h2SizePC: 100px;
+		--h2SizePhone: 50px;
+
 		scrollbar-width: none;
 	}
 
@@ -210,9 +213,6 @@
 		font-family: 'jakarta';
 		src: url('/fonts/Jakarta.ttf');
 	}
-
-
-
 
 	body {
 		margin: 0;
@@ -241,8 +241,7 @@
 		font-family: jakarta;
 		letter-spacing: -0px !important;
 		-ms-overflow-style: none;
-  scrollbar-width: none;
-		
+		scrollbar-width: none;
 	}
 
 	.hero {
@@ -265,7 +264,8 @@
 	}
 
 	.typewriter {
-		width: 600px;
+		max-width: 600px;
+		width: 60vw;
 		position: absolute;
 		top: 0;
 		left: var(--leftPC);
@@ -294,13 +294,13 @@
 
 	.section {
 		position: relative;
-		min-height: 600px;
+		height: 600px;
 		width: 100vw;
 		margin-top: 50px;
 	}
 
 	h2 {
-		font-size: 100px;
+		font-size: var(--h2SizePC);
 		position: absolute; /* Changed from absolute */
 		left: 88px;
 		padding: 10px;
@@ -343,7 +343,6 @@
 	}
 
 	#projects {
-		
 		width: 100vw;
 		margin-top: 50px;
 		padding: 50px;
@@ -516,7 +515,8 @@
 
 	/* Tablet */
 
-	@media only screen and (max-width: 850px) {}
+	@media only screen and (max-width: 850px) {
+	}
 
 	/* Phone */
 
@@ -524,13 +524,39 @@
 		* {
 			font-size: 10px;
 		}
-		
+
 		.typewriterHolderHero {
 			left: 0 !important;
 		}
 
 		.typewriter {
-			
+			left: var(--leftPhone);
+			width: 80vw;
+		}
+
+		h2 {
+			font-size: var(--h2SizePhone);
+			left: 40px;
+		}
+
+		#projects:before {
+			padding: 78vh 70px 10px 5px;
+			border-left: 15px solid white;
+			border-top: 15px solid white;
+			border-bottom: 15px solid white;
+		}
+
+		#projectsTitle {
+			top: 70px;
+			left: 50px;
+		}
+
+		#aboutMeTypewriter {
+			top: 150px;
+		}
+
+		#aboutMe {
+			height: 450px !important;
 		}
 	}
 </style>
