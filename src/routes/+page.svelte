@@ -44,8 +44,35 @@
 		}
 	}
 
+	function changeValPhone() {
+		projectsTop = projects.getBoundingClientRect().top;
+		scroll1 = scroll - projectsDistance;
+
+		if (projectsTop == 0 && scroll1 > 150) {
+			project1 = true;
+
+			if (scroll1 > 350) {
+				project2 = true;
+
+				if (scroll1 > 500) {
+					project3 = true;
+				} else {
+					project3 = false;
+				}
+			} else {
+				project2 = false;
+			}
+		} else if (scroll1 <= 50) {
+			project1 = false;
+		}
+	}
+
 	function scrollFn() {
-		changeVal();
+		if (screenWidth < 800) {
+			changeValPhone();
+		} else {
+			changeVal();
+		}
 	}
 
 	function calculateDistance() {
@@ -520,7 +547,7 @@
 
 	/* Phone */
 
-	@media only screen and (max-width: 500px) {
+	@media only screen and (max-width: 800px) {
 		* {
 			font-size: 10px;
 		}
@@ -557,6 +584,29 @@
 
 		#aboutMe {
 			height: 450px !important;
+		}
+
+		#projectSection {
+			height: 1300px;
+			padding-bottom: 400px;
+		}
+
+		.projectsHolder {
+			top: 175px;
+			left: 63px;
+		}
+
+		.project {
+			height: 120px;
+			width: 270px;
+		}
+
+		h3 {
+			font-size: 30px;
+		}
+
+		.projectImage {
+			display: none;
 		}
 	}
 </style>
