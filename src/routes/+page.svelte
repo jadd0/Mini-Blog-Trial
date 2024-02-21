@@ -554,6 +554,7 @@
 
 		.typewriterHolderHero {
 			left: 0 !important;
+			bottom: 50px;
 		}
 
 		.typewriter {
@@ -567,7 +568,7 @@
 		}
 
 		#projects:before {
-			padding: 78vh 70px 10px 5px;
+			padding: 80vh 70px 10px 5px;
 			border-left: 15px solid white;
 			border-top: 15px solid white;
 			border-bottom: 15px solid white;
@@ -588,7 +589,8 @@
 
 		#projectSection {
 			height: 1300px;
-			padding-bottom: 400px;
+			padding-bottom: 0px;
+			margin-bottom: 80vh;
 		}
 
 		.projectsHolder {
@@ -597,7 +599,7 @@
 		}
 
 		.project {
-			height: 120px;
+			height: 20vh;
 			width: 270px;
 		}
 
