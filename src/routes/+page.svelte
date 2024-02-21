@@ -338,7 +338,7 @@
 	}
 
 	#projectSection {
-		height: 2400px;
+		height: 1800px;
 		padding-bottom: 1000px;
 	}
 
