@@ -1,39 +1,80 @@
 <script>
-	import { SvelteInertiaScroll } from 'svelteinertiascroll';
 	import { SvelteSimpleMarquee } from 'sveltesimplemarquee';
 	import { SvelteScrollTypewriter } from 'sveltescrolltypewriter';
-  import { onMount } from 'svelte';
+	import { SvelteInertiaScroll } from 'svelteinertiascroll';
+	import { onMount } from 'svelte';
 
 	export let data;
 
+	let screenWidth,
+		height = 0;
 
-  let typewriter1, height1, innerh;
-  let scroll = 0
-  $: console.log((innerh+scroll));
+	let scrollOld = 0;
 
+	let typewriter1, height1, innerh;
+	let scroll = 0,
+		scroll1 = 0;
 
+	let projects, projectsTop, projectsDistance;
+	let project1, project2, project3;
+	let project1Top = 300,
+		project2Top = 1000,
+		project3Top = 1700;
+	let inView = false;
 
-  onMount(() => {
-    height1 = typewriter1.getBoundingClientRect().top;
-    console.log(height1, scroll, innerh);
-  })
+	function changeVal() {
+		projectsTop = projects.getBoundingClientRect().top;
+		scroll1 = scroll - projectsDistance;
 
+		if (projectsTop == 0 && scroll1 > 50) {
+			//to see if project1 in view
+
+			if (project2Top > 350) {
+				//moving project 1 into view and end position
+				project2Top += -scroll1;
+			} else {
+				project2Top -= scroll1;
+			}
+		}
+	}
+
+	function scrollFn() {
+		changeVal();
+	}
+
+	function calculateDistance() {
+		const element = document.getElementById('projects');
+		const rect = element.getBoundingClientRect();
+		projectsDistance = rect.top + window.pageYOffset;
+	}
+
+	onMount(() => {
+		height1 = typewriter1.getBoundingClientRect().top;
+		console.log(height1, scroll, innerh);
+		calculateDistance();
+
+		console.log({ screenWidth });
+	});
 </script>
 
-<svelte:window bind:scrollY={scroll} bind:innerHeight={innerh}/>
+<svelte:window
+	bind:scrollY={scroll}
+	bind:innerHeight={innerh}
+	bind:innerWidth={screenWidth}
+	on:scroll={scrollFn}
+/>
 
-
-
-<!-- <SvelteInertiaScroll> -->
-	<body>
-		<div class="hero">
-			<div class="marquee">
-				<SvelteSimpleMarquee>
-					<h1>Jadd Al-Khabbaz</h1>
-					<h1>Jadd Al-Khabbaz</h1>
-					<h1>Jadd Al-Khabbaz</h1>
-				</SvelteSimpleMarquee>
-			</div>
+<body><SvelteInertiaScroll>
+	
+	<div class="hero">
+		<div class="marquee">
+			<SvelteSimpleMarquee>
+				<h1>Jadd Al-Khabbaz</h1>
+				<h1>Jadd Al-Khabbaz</h1>
+				<h1>Jadd Al-Khabbaz</h1>
+			</SvelteSimpleMarquee>
+		</div>
+		<div class="typewriterHolderHero">
 			<div class="typewriter">
 				<SvelteScrollTypewriter
 					fontSize={20}
@@ -42,60 +83,130 @@
 					phrase={'Freelance web developer, Markdown File Expert, Computer science student, UX/UI designer, Back-end developer, Full-stack developer, Computer scientist, Tech enthusiast, SEO specialist, Aspiring software developer, Front-end developer, Javascript/Typescript developer, Python developer, Motivated, Accountable, Creative, Detail oriented, Problem solver.'}
 				/>
 			</div>
-			<div class="jaddImage">
-				<!-- <img id="imgJadd" src="/images/jaddpic.jpeg" alt="" /> -->
-			</div>
-		</div>
-    
-		<div class="section" id="aboutMe">
-      <div class="inner">
-        <h2>Who am I?</h2>
-      <div bind:this={typewriter1} id="aboutMeTypewriter" class="typewriter">
-        <SvelteScrollTypewriter
-					fontSize={20}
-					furthestScrolled={scroll+innerh}
-          height={height1}
-					phrase={`Hi! I am Jadd, a freelance web developer. I am from the Wirral, United Kingdom and I am currently in ${data.area}, ${data.region} as of ${data.time}. As a current Computer Science student, I am very enthusiastic in the web development industry... lorem mkdfosdfmsdmf fjsdhfusdhf sdkjf ksjd fksdfk sdkjf ksd fksd fks dfk kfsd f kj`}
-				/>
-      </div>
-      </div>
-			
 		</div>
 
-		<div id="projects">
-			<div class="inner">
-				<h2 id="projectsTitle">Projects.</h2>
+		<div class="jaddImage">
+			<!-- <img id="imgJadd" src="/images/jaddpic.jpeg" alt="" /> -->
+		</div>
+	</div>
+
+	<div class="section" id="aboutMe">
+		<div class="inner">
+			<h2>Who am I?</h2>
+			<div bind:this={typewriter1} id="aboutMeTypewriter" class="typewriter">
+				<SvelteScrollTypewriter
+					fontSize={20}
+					furthestScrolled={scroll + innerh}
+					height={height1}
+					phrase={`Hi! I am Jadd, a freelance web developer. I am from the Wirral, United Kingdom and I am currently in ${data.area}, ${data.region} as of ${data.time}. As a current Computer Science student, I am very enthusiastic in the web development industry... lorem mkdfosdfmsdmf fjsdhfusdhf sdkjf ksjd fksdfk sdkjf ksd fksd fks dfk kfsd f kj`}
+				/>
 			</div>
 		</div>
-	</body>
-<!-- </SvelteInertiaScroll> -->
+	</div>
+
+	<div id="projects" bind:this={projects}>
+		<div class="inner">
+			<a href="https://github.com/jadd0"><h2 id="projectsTitle">Projects.</h2></a>
+			<div class="projectsHolder">
+				<div class="project">
+					<div class="innerProject">
+						<img class="projectImage" src="/images/screenshot.png" />
+						<div class="descriptionProjectHolder">
+							<h3>JaddBlog</h3>
+							<div class="description">
+								Lorem ipsum dolor sit amet consectetur adipisicing elit. Atque, et.
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="project" id="secondProject">
+					<div class="innerProject">
+						<img class="projectImage" src="/images/screenshot.png" />
+						<div class="descriptionProjectHolder">
+							<h3>JaddBlog</h3>
+							<div class="description">
+								Lorem ipsum dolor sit amet consectetur adipisicing elit. Atque, et.
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="project">
+					<div class="innerProject">
+						<img class="projectImage" src="/images/screenshot.png" />
+						<div class="descriptionProjectHolder">
+							<h3>JaddBlog</h3>
+							<div class="description">
+								Lorem ipsum dolor sit amet consectetur adipisicing elit. Atque, et.
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="section" id="activitySection">
+		<div class="inner" id="activity">
+			<h2>My Activity.</h2>
+
+			<div class="jaddblogHolder">
+				<div class="posts">
+					{#each data.posts as post}
+						<a href="https://blog.jadd.live/post/{post.id}"
+							><div class="post">
+								<div class="contentHolder">
+									<h4>{post.title}</h4>
+									<p>{post.body}</p>
+								</div>
+
+								<div class="adminHolder">
+									<a href="https://blog.jadd.live/@jadd"><span class="name">@jadd</span></a>
+
+									<span class="timeAgo">{post.timeAgo}</span>
+									<span class="vote">Vote Count: {post.vote}</span>
+								</div>
+							</div></a
+						>
+					{/each}
+				</div>
+			</div>
+		</div>
+	</div>
+	</SvelteInertiaScroll>
+	<footer>
+		<div class="footerContent">
+			<h6>Hey you...</h6>
+			<div class="button">
+				<a class="contactForm" href="/contact">
+					<span class="innerButton">Contact me</span>
+				</a>
+			</div>
+		</div>
+	</footer>
+</body>
 
 <style>
 	@font-face {
 		font-family: 'jakarta';
 		src: url('/fonts/Jakarta.ttf');
 	}
-
-  .box {
-    position: sticky;
-    width: 100vw;
-    height: 40px;
-    background-color: white;
-    top: 0;
-  }
 	body {
 		margin: 0;
 		padding: 0;
 		border: 0;
-		max-width: 100vw;
-		min-height: 1000vh;
-		background-color: #141414;
+		background: #141414;
+		overflow-x: clip;
+		border-radius: 20px;
+		height: auto;
+	}
+	/* Hide scrollbar for Chrome, Safari and Opera */
+	body::-webkit-scrollbar {
+		display: none !important;
 	}
 
 	* {
 		font-size: 24px;
 		text-align: center;
-		color: white;
+		color: #d9d9d9;
 		margin: 0;
 		padding: 0;
 		border: 0;
@@ -107,7 +218,7 @@
 
 	.hero {
 		width: 100vw;
-    min-height: 100vh;
+		min-height: 100vh;
 		position: relative;
 	}
 
@@ -117,13 +228,18 @@
 		color: #d9d9d9;
 	}
 
+	.typewriterHolderHero {
+		height: 35vh;
+		width: 100vw;
+		position: absolute;
+		bottom: 0;
+	}
+
 	.typewriter {
 		width: 600px;
 		position: absolute;
-		bottom: -10%;
-    top: auto;
+		top: 0;
 		left: 100px;
-    height: 300px;
 	}
 
 	.jaddImage {
@@ -149,14 +265,14 @@
 
 	.section {
 		position: relative;
-		height: 85vh;
+		min-height: 600px;
 		width: 100vw;
-    margin-top: 50px;
+		margin-top: 50px;
 	}
 
 	h2 {
 		font-size: 100px;
-		position: relative; /* Changed from absolute */
+		position: absolute; /* Changed from absolute */
 		left: 88px;
 		padding: 10px;
 	}
@@ -168,15 +284,14 @@
 		position: absolute;
 	}
 
-  .inner {
+	.inner {
 		width: 100%;
-		height: 100%;
 		padding: 50px;
 	}
 
 	#projectsTitle {
 		cursor: pointer;
-    top: 100px;
+		top: 120px;
 	}
 
 	#projectsTitle:after {
@@ -185,8 +300,6 @@
 		border-bottom: solid 20px white;
 		transform: scaleX(0);
 		transition: transform 250ms linear;
-	}
-	#projectsTitle:after {
 		transform-origin: 100% 50%;
 	}
 
@@ -196,14 +309,14 @@
 	}
 
 	#projects {
-    height: 85vh;
+		height: 1050px;
 		width: 100vw;
-    margin-top: 50px;
+		margin-top: 50px;
 		padding: 50px;
-    position: sticky;
-    position: -webkit-sticky;
-    top: 0px;
-    bottom: 2000px;
+		position: relative;
+		top: 0px;
+		bottom: 500px;
+		z-index: 1000 !important;
 	}
 
 	#projects:before {
@@ -216,10 +329,243 @@
 		left: 30px;
 	}
 
-  #aboutMeTypewriter {
-    position: absolute;
-    top: 200px;
-  }
+	#aboutMeTypewriter {
+		position: absolute;
+		top: 200px;
+	}
 
+	.projectsHolder {
+		display: flex;
+		flex-direction: column;
+		position: absolute;
+		top: 330px;
+		z-index: 100;
+	}
 
+	.project {
+		width: 600px;
+		height: 150px;
+		border-top: 1px solid #8f8f8f;
+		border-bottom: 1px solid #8f8f8f;
+		cursor: pointer;
+		overflow: hidden;
+	}
+
+	#secondProject {
+		border: none !important;
+	}
+
+	.innerProject {
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+		justify-content: center;
+		gap: 40px;
+		height: 100%;
+		width: 100%;
+		transition: all linear 0.3s;
+		z-index: 0;
+		position: relative;
+		left: -185px;
+	}
+
+	.innerProject:hover {
+		transform: translate(190px);
+	}
+
+	@keyframes easeIn {
+	}
+
+	.descriptionProjectHolder {
+		display: flex;
+		flex-direction: column;
+		align-items: start;
+		justify-content: center;
+	}
+
+	h3 {
+		font-size: 50px;
+	}
+
+	.description {
+		font-size: 15px;
+		color: #8f8f8f;
+		text-align: start;
+	}
+
+	.projectImage {
+		width: 150px;
+	}
+
+	#activity {
+		height: 600px;
+	}
+
+	.jaddblogHolder {
+		background: none;
+		width: 600px;
+		height: auto;
+		position: absolute;
+		top: 245px;
+		left: 98px;
+		border-bottom: 1px solid #8f8f8f;
+	}
+
+	.posts {
+		width: 100%;
+		height: 100%;
+		display: flex;
+		flex-direction: column;
+	}
+	.post {
+		min-height: 120px;
+		display: flex;
+		flex-direction: column;
+		align-items: start;
+		justify-content: center;
+		gap: 10px;
+		border-top: 1px solid #8f8f8f;
+		padding: 20px 0 25px;
+	}
+
+	h4 {
+		font-size: 25px;
+		text-align: start;
+	}
+
+	.contentHolder {
+		display: flex;
+		flex-direction: column;
+		align-items: start;
+		justify-content: center;
+		width: 100% !important;
+	}
+
+	.adminHolder {
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+		justify-content: center;
+		gap: 10px;
+	}
+
+	.post p {
+		font-size: 20px;
+		text-align: start;
+	}
+
+	.adminHolder span {
+		font-size: 17px;
+		color: rgb(136, 136, 136);
+		text-align: start;
+	}
+
+	.timeAgo,
+	.vote {
+		margin-top: 4px;
+	}
+
+	a {
+		text-decoration: none;
+	}
+
+	main {
+		width: 100vw;
+		border-radius: 0px 30px 30px 0;
+		background-color: #141414;
+	}
+	.end {
+		height: 300px;
+		width: 100vw;
+	}
+
+	#activitySection {
+		min-height: 900px;
+	}
+
+	footer {
+		margin-top: 0px;
+		width: 100vw;
+		height: 400px;
+		background: #d9d9d9;
+	}
+
+	.footerContent {
+		width: 100vw;
+		height: 50%;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		flex-direction: column;
+		gap: 40px;
+	}
+
+	footer h6 {
+		color: #212121;
+		font-size: 60px;
+	}
+
+	.contactForm {
+		display: block;
+		position: relative;
+		text-decoration: none;
+		color: black;
+		padding: 20px;
+		border: 2px solid #141414;
+		text-transform: uppercase;
+		font-size: 16px;
+		font-weight: bold;
+		width: 270px;
+		overflow: hidden;
+		border-radius: 30px;
+		margin-top: -130px;
+		z-index: 0;
+	}
+
+	.innerButton {
+		z-index: 5;
+		position: relative;
+		transition: color 350ms ease-in-out;
+		color: #141414;
+	}
+
+	.contactForm:hover .innerButton {
+		color: white;
+	}
+
+	.contactForm::after,
+	.contactForm::before {
+		content: ' ';
+		display: block;
+		position: absolute;
+		width: 100%;
+		top: 0;
+		bottom: 0;
+		right: 0;
+		background: #141414;
+		z-index: -1;
+	}
+
+	.contactForm::before {
+		transform: translateX(100%);
+		z-index: 1;
+	}
+
+	.contactForm:hover::before {
+		transform: translateX(100%);
+		transition: transform 350ms ease-in-out;
+	}
+
+	.contactForm::after {
+		z-index: 0;
+		transform: translateX(-100%); /* Changed to slide in from the left */
+		opacity: 0; /* Set initial opacity */
+		transition: transform 350ms ease-in-out, opacity 350ms ease-in-out 350ms; /* Add transition delay to opacity */
+	}
+
+	.contactForm:hover::after {
+		opacity: 1;
+		transform: translateX(0);
+		transition: transform 350ms ease-in-out, opacity 350ms ease-in-out; /* Adjust transition */
+	}
 </style>
