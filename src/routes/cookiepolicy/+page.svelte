@@ -4,7 +4,7 @@
 <body>
 	<main>
 		<div class="terms">
-			<h1>Terms of Service.</h1>
+			<h1>Cookie Policy.</h1>
 			<div class="section">
 				<h2>1. Cookie Policy</h2>
 
