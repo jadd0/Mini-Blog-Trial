@@ -20,7 +20,11 @@
 	});
 </script>
 
-
+<div class="nav">
+	<a href="/home"><div class="button">Home</div></a>
+	<a href="/contact"><div class="button" id="contact">Contact Me</div></a>
+	
+</div>
 	<slot />
 	<footer>
 	<div class="footerContent">
@@ -39,6 +43,43 @@
 
 
 <style>
+	a {
+		text-decoration: none;
+	}
+
+	.button {
+		color: #d9d9d9;
+		transition: all 0.25s linear;
+	}
+
+	.button:hover {
+		color: #7b7b7b;
+	}
+
+	#contact {
+		margin-right: 30px;
+	}
+
+
+	.nav {
+		width: 100vw;
+		position: absolute;
+		top: 0;
+		height: 70px;
+		background:#141414;
+		display: flex;
+		align-items: center;
+		justify-content: right;
+		gap: 30px;
+		z-index: 10000;
+	}
+
+	@media only screen and (max-width: 900px) {
+		.nav {
+			display: none;
+		}
+	}
+
 	footer {
 		width: 100vw;
 		height: 400px;
