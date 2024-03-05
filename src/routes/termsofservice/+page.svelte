@@ -120,6 +120,15 @@
 </body>
 
 <style>
+  	:root {
+		--leftPC: 100px;
+		--leftPhone: 50px;
+		--h2SizePC: 100px;
+		--h2SizePhone: 50px;
+
+		scrollbar-width: none;
+	}
+
 	@font-face {
 		font-family: 'jakarta';
 		src: url('/fonts/Jakarta.ttf');
@@ -191,7 +200,7 @@
 
 	.terms {
 		padding-top: 120px;
-		padding-left: 100px;
+		padding-left: var(--leftPC);
 		display: flex;
 		flex-direction: column;
 		justify-content: center;
@@ -204,5 +213,15 @@
 		color: #9d9d9d;
 		font-size: 18px;
     padding: 5px;
+  }
+
+  @media only screen and (max-width:565px) {
+    h1 {
+      font-size: 65px;
+    }
+
+    .terms {
+      padding-left: var(--leftPhone);
+    }
   }
 </style>
