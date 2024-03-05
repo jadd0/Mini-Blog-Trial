@@ -22,6 +22,10 @@
 
 
 	<slot />
+	<div class="nav">
+		<a href="/"><div class="box">Home</div></a>
+		<a href="/contact"><div class="box" id="contact">Contact Me</div></a>
+	</div>
 	<footer>
 	<div class="footerContent">
 		<h6>Hey you...</h6>
@@ -39,6 +43,43 @@
 
 
 <style>
+	.nav {
+		width: 100vw;
+		height: 60px;
+		background: #141414;
+		position: absolute;
+		top: 0;
+		z-index: 1000;
+		display: flex;
+		justify-content: right;
+		align-items: center;
+		gap: 30px;
+	}
+
+	@media only screen and (max-width:700px) {
+		.box {
+			display: none;
+		}
+	}
+
+	.box {
+		color: #d9d9d9;
+		transition: all .25s linear;
+	}
+
+	.box:hover {
+		color: #8b8b8b;
+	}
+
+	a {
+		text-decoration: none;
+	}
+
+	#contact {
+		margin-right: 30px;
+	}
+
+
 	footer {
 		width: 100vw;
 		height: 400px;
