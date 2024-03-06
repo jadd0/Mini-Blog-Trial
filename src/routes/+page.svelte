@@ -1,63 +1,57 @@
 <!-- // src/routes/auth/+page.svelte -->
 <script>
-  export let data
-  let { supabase } = data
-  $: ({ supabase } = data)
+	export let data;
+	let { supabase } = data;
+	$: ({ supabase } = data);
 
-  let email
-  let password
+	let email;
+	let password;
 
-  const handleSignUp = async () => {
-    console.log("hello")
-    await supabase.auth.signUp({
-      email,
-      password,
-      options: {
-        emailRedirectTo: `${location.origin}/api/callback`,
-      },
-    })
-  }
+	const handleSignUp = async () => {
+		console.log('hello');
+		await supabase.auth.signUp({
+			email,
+			password,
+			options: {
+				emailRedirectTo: `${location.origin}/api/callback`
+			}
+		});
+	};
 
-  const handleSignIn = async () => {
-    await supabase.auth.signInWithPassword({
-      email,
-      password,
-    })
-  }
+	const handleSignIn = async () => {
+		await supabase.auth.signInWithPassword({
+			email,
+			password
+		});
+	};
 
-  const handleSignOut = async () => {
-    await supabase.auth.signOut()
-  }
+	const handleSignOut = async () => {
+		await supabase.auth.signOut();
+	};
 </script>
 
 <body>
-  <div class="inputHolder">
-    <input type="text" class="userInput" bind:value={email} required />
-    <span class="floatingLabel">Username</span>
-  </div>
-  <div class="inputHolder">
-    <input
-      type="text"
-      class="userInput"
-      bind:value={email}
-      required
-    />
-    <span class="floatingLabel">Password</span>
-  </div>
-  <button on:click={submit} id="loginButton"
-    >Submit</button
-  >
+	<div class="loginHolder">
+		<div class="inputHolder">
+			<input type="text" class="userInput" bind:value={email} required />
+			<span class="floatingLabel">Username/Email</span>
+		</div>
+		<button on:click={submit} id="loginButton">Continue with email</button>
 
+    <div class="providers">
+      <div class="provider"></div>
+      <div class="provider"></div>
+    </div>
+	</div>
 </body>
 
 <!-- <svelte:window on:keyup={submit} /> -->
 
-
 <style>
-  @font-face {
-    font-family: jakarta;
-    src: url('/fonts/Jakarta.ttf');
-  }
+	@font-face {
+		font-family: jakarta;
+		src: url('/fonts/Jakarta.ttf');
+	}
 	body {
 		overflow-x: hidden;
 		margin: 0;
@@ -83,7 +77,7 @@
 	}
 
 	.inputHolder {
-		width: 78%;
+		width: 350px;
 		height: 50px;
 		padding-bottom: 5px;
 		margin: 0 auto;
@@ -170,28 +164,6 @@
 		transition: all 0.2s linear;
 	}
 
-	#userInput {
-		/* width: 264px; */
-		width: 87.5%;
-		height: 34px !important;
-		margin-left: 19px;
-		margin-top: 2px;
-		background: #212121 !important;
-		color: white;
-		text-align: left;
-	}
-
-	#inputHolder {
-		width: 75%;
-		height: 40px;
-		margin: 0 auto;
-		margin-top: 10px;
-		background: #212121;
-		border-radius: 20px;
-		color: white;
-		text-align: left;
-	}
-
 	h1 {
 		font-size: 35px;
 		font-weight: 600;
@@ -200,31 +172,15 @@
 		color: white;
 	}
 
-	#loginForm {
-		margin: 0 auto;
-		background: #1b1b1b;
-		width: 400px;
-		height: 375px;
-		border-radius: 15px;
-		margin-top: 7vh;
-	}
-
-	/* input {
-		margin: 0 auto;
-		line-height: 16px;
-	} */
-
-	a {
-		text-decoration: none;
-	}
-
+	
 	#loginButton {
 		margin: 0 auto;
-		margin-top: 30px;
-		width: 78%;
+		margin-top: 10px;
+		width: 300px;;
 		height: 50px;
 		color: white;
 		font-weight: 600;
+    font-size: 20px;
 		background-color: #212121;
 		border-radius: 5px;
 		cursor: pointer;
