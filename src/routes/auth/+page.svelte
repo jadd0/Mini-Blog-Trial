@@ -8,11 +8,12 @@
   let password
 
   const handleSignUp = async () => {
+    console.log("hello")
     await supabase.auth.signUp({
       email,
       password,
       options: {
-        emailRedirectTo: `${location.origin}/api/callback`,
+        emailRedirectTo: `${location.origin}/auth/callback`,
       },
     })
   }
