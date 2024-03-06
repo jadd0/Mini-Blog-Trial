@@ -6,7 +6,7 @@ const supabaseKey = process.env.VITE_SUPABASE_ANON_KEY || import.meta.env.VITE_S
 
 export const load = async ({ fetch, data, depends }) => {
   depends('supabase:auth')
-  
+
   const supabase = createSupabaseLoadClient({
     supabaseUrl,
     supabaseKey,
