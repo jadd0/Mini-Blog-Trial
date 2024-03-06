@@ -7,6 +7,6 @@ export const load = async({ locals: { supabase, getSession } }) => {
   console.log(session)
   if (!session) {
     // the user is not signed in
-    throw redirect(307, '/auth')
+    throw redirect(307, '/')
   }
 }
