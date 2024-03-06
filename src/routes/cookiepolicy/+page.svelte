@@ -60,7 +60,7 @@
 				<h3>Persistent Cookies:</h3>
 
 				<p>
-					These cookies have a lifespan of [duration, e.g., one year]. We use them specifically for
+					These cookies have do not have a set expiry date . We use them specifically for
 					storing authentication information.
 				</p>
 			</div>
