@@ -1,55 +1,30 @@
-<!-- // src/routes/auth/+page.svelte -->
 <script>
-	export let data;
-	let { supabase } = data;
-	$: ({ supabase } = data);
-
-	let email;
-	let password;
-
-	const handleSignUp = async () => {
-		console.log('hello');
-		await supabase.auth.signUp({
-			email,
-			password,
-			options: {
-				emailRedirectTo: `${location.origin}/api/callback`
-			}
-		});
-	};
-
-	const handleSignIn = async () => {
-		await supabase.auth.signInWithPassword({
-			email,
-			password
-		});
-	};
-
-	const handleSignOut = async () => {
-		await supabase.auth.signOut();
-	};
+	let roomCode = '';
 </script>
 
 <body>
-	<div class="loginHolder">
+  <div class="section">
+    <h1>Friend Interceptor</h1>
+    <p>Use this simple tool to find the shortest path to your destination whilst meeting your friend along the way.</p>
+  </div>
+	<div class="section">
+		<div class="button"><span>Make room here</span></div>
+	</div>
+	<div class="section">
+		<h1>Have a room code?</h1>
+		<h2>Please enter it here:</h2>
 		<div class="inputHolder">
-			<input type="text" class="userInput" bind:value={email} required />
-			<span class="floatingLabel">Username/Email</span>
+			<input type="text" class="userInput" maxlength="5" bind:value={roomCode} />
 		</div>
-		<button on:click={submit} id="loginButton">Continue with email</button>
 
-    <div class="providers">
-      <div class="provider"></div>
-      <div class="provider"></div>
-    </div>
+		<div class="button" id="enter"><span>Enter</span></div>
 	</div>
 </body>
 
-<!-- <svelte:window on:keyup={submit} /> -->
 
 <style>
 	@font-face {
-		font-family: jakarta;
+		font-family: 'Jakarta';
 		src: url('/fonts/Jakarta.ttf');
 	}
 	body {
@@ -59,14 +34,15 @@
 		border: 0;
 		/* height: 1000vh; */
 		width: 100vw;
-		background-color: #141414;
+		height: 100vh;
+		background-color: #212121;
 		/* overflow: hidden; */
 	}
 
 	* {
 		font-size: 24px;
 		text-align: center;
-		color: black;
+		color: white;
 		margin: 0;
 		padding: 0;
 		border: 0;
@@ -77,8 +53,8 @@
 	}
 
 	.inputHolder {
-		width: 350px;
-		height: 50px;
+		width: 150px;
+		height: 55px;
 		padding-bottom: 5px;
 		margin: 0 auto;
 		margin-top: 10px;
@@ -90,33 +66,19 @@
 		transition: all 0.2s linear;
 	}
 	.userInput {
-		width: 92.5%;
+		width: 120px;
+		font-size: 28px !important;
+    font-weight: 600;
 		min-height: 35px;
 		margin-left: 10px;
-		margin-top: 10px;
+		margin-top: 8px;
 		background: #212121;
 		color: white;
-		text-align: left;
+		text-align: center;
 	}
 	.inputHolder .userInput:focus {
 		border-color: blue;
 		border-width: medium medium 2px;
-	}
-	.inputHolder .floatingLabel {
-		position: relative;
-		pointer-events: none;
-		top: -40px;
-		left: 10px;
-		transition: 0.2s ease all;
-		font-size: 15px;
-		color: #727272;
-	}
-	.inputHolder input:focus ~ .floatingLabel,
-	.inputHolder input:not(:focus):valid ~ .floatingLabel {
-		top: -57px;
-		left: 10px;
-		font-size: 10px;
-		opacity: 1;
 	}
 
 	.inputHolder:focus-within {
@@ -127,67 +89,38 @@
 		font-size: 17px !important;
 	}
 
-	@media (max-width: 460px) {
-		#loginForm {
-			width: 325px !important;
-		}
-	}
+  h1 {
+    font-size: 40px;
+    font-weight: 700;
+  }
 
-	.shake {
-		animation: shake2 0.2s linear;
-	}
+  .section {
+    width: 100vw;
+    height: auto;
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
 
-	.wrong {
-		border: 2px solid red;
-	}
+  .button {
+    width: auto;
+    height: 60px;
+    border-radius: 10px;
+    background: #141414;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+  }
 
-	@keyframes shake2 {
-		25% {
-			transform: translateX(11px);
-		}
+  .button > span {
+    font-size: 25px;
+    font-weight: 600;
+  }
 
-		50% {
-			transform: translateX(0px);
-		}
-
-		75% {
-			transform: translateX(-11px);
-		}
-	}
-
-	p {
-		margin-top: -15px;
-		padding: 0px 20px 5px 20px;
-		color: rgb(142, 142, 142);
-		font-size: 14px;
-		font-weight: 400;
-		transition: all 0.2s linear;
-	}
-
-	h1 {
-		font-size: 35px;
-		font-weight: 600;
-		padding-top: 20px;
-		padding-bottom: 20px;
-		color: white;
-	}
-
-	
-	#loginButton {
-		margin: 0 auto;
-		margin-top: 10px;
-		width: 300px;;
-		height: 50px;
-		color: white;
-		font-weight: 600;
-    font-size: 20px;
-		background-color: #212121;
-		border-radius: 5px;
-		cursor: pointer;
-		transition: all 0.2s linear;
-	}
-
-	#loginButton:hover {
-		background: rgb(56, 56, 56);
-	}
+  #enter {
+    margin-top: 20px;
+  }
 </style>
