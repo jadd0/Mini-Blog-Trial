@@ -1,5 +1,20 @@
 <script>
 	let roomCode = '';
+
+  async function getRoom() {
+    const data = await fetch(`/api/getRoom?roomCode=${roomCode}`);
+    
+    if (data.ok) {
+      const parsed = data.json();
+
+      location.href = `/room/${parsed.roomCode}`;
+      return;
+    }
+  }
+
+  async function makeRoom() {
+    location.href = `/room/makeRoom`;
+  }
 </script>
 
 <body>
@@ -8,7 +23,7 @@
     <p>Use this simple tool to find the shortest path to your destination whilst meeting your friend along the way.</p>
   </div>
 	<div class="section">
-		<div class="button"><span>Make room here</span></div>
+		<div class="button" on:click={makeRoom}><span>Make room here</span></div>
 	</div>
 	<div class="section">
 		<h1>Have a room code?</h1>
@@ -113,7 +128,14 @@
     align-items: center;
     justify-content: center;
     padding: 20px;
+    cursor: pointer;
+    transition: linear 0.5s;
   }
+
+  .button:hover {
+    background: #343434;
+
+    }
 
   .button > span {
     font-size: 25px;

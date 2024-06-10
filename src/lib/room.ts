@@ -4,14 +4,14 @@ export class Room {
 	members: Array<any>;
 	directions: Array<any>;
 	goal: any;
-	roomID: any;
+	roomCode: any;
 	uuid: string;
 
-	constructor(goal: any, roomID: any, startMember: any) {
+	constructor(goal: any, roomCode: any, startMember: any) {
 		this.members = [startMember];
 		this.directions = [];
 		this.goal = goal;
-		this.roomID = roomID;
+		this.roomCode = roomCode;
 		this.uuid = uuidv4(); // Generate a unique UUID for the room
 	}
 

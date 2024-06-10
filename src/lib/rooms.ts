@@ -7,17 +7,17 @@ export class Rooms {
 		this.rooms = [];
 	}
 
-	addRoom(goal: any, roomID: any, startMember: any) {
-		const newRoom = new Room(goal, roomID, startMember);
+	addRoom(goal: any, roomCode: any, startMember: any) {
+		const newRoom = new Room(goal, roomCode, startMember);
 		this.rooms.push(newRoom);
 	}
 
-	deleteRoom(roomID: any) {
-		this.rooms = this.rooms.filter((room) => room.roomID !== roomID);
+	deleteRoom(roomCode: any) {
+		this.rooms = this.rooms.filter((room) => room.roomCode !== roomCode);
 	}
 
-	getRoom(roomID: any) {
-		return this.rooms.find((room) => room.roomID === roomID);
+	getRoom(roomCode: any) {
+		return this.rooms.find((room) => room.roomCode === roomCode);
 	}
 
 	getRoomByUUID(uuid: string) {
