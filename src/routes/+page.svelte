@@ -201,6 +201,7 @@
 		font-size: 18px;
 		text-align: start;
 		padding-left: 5px;
+		color: white;
 	}
 
 	p {
