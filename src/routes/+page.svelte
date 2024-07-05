@@ -32,7 +32,7 @@
 		<h3>Shoulders and Arms</h3>
 		<div class="ex">
 			<ul>
-				<li>shoulder press</li>
+				<li>shoulder press (dumbell)</li>
 				<li>incline curl</li>
 				<li>incline hammer curl</li>
 				<li>tricep push down (single arm)</li>
