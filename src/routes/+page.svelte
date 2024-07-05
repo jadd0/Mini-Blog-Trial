@@ -1,48 +1,10 @@
 <!-- // src/routes/auth/+page.svelte -->
 <script>
-	export let data;
-	let { supabase } = data;
-	$: ({ supabase } = data);
 
-	let email;
-	let password;
-
-	const handleSignUp = async () => {
-		console.log('hello');
-		await supabase.auth.signUp({
-			email,
-			password,
-			options: {
-				emailRedirectTo: `${location.origin}/api/callback`
-			}
-		});
-	};
-
-	const handleSignIn = async () => {
-		await supabase.auth.signInWithPassword({
-			email,
-			password
-		});
-	};
-
-	const handleSignOut = async () => {
-		await supabase.auth.signOut();
-	};
 </script>
 
 <body>
-	<div class="loginHolder">
-		<div class="inputHolder">
-			<input type="text" class="userInput" bind:value={email} required />
-			<span class="floatingLabel">Username/Email</span>
-		</div>
-		<button on:click={submit} id="loginButton">Continue with email</button>
-
-    <div class="providers">
-      <div class="provider"></div>
-      <div class="provider"></div>
-    </div>
-	</div>
+	
 </body>
 
 <!-- <svelte:window on:keyup={submit} /> -->
