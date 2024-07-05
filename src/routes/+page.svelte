@@ -7,9 +7,9 @@
 		<h1>Split</h1>
 		<p>
 			Everything 2 sets til absolute failure
-			<br/>Usually finish each last set with a drop set or two (also til failure)
-			<br/>Everything in 6-8 rep range, when get to 9 reps up the weight 
-			<br/>Usually drop the weight for the second set to still get 6-8 reps
+			<br />Usually finish each last set with a drop set or two (also til failure)
+			<br />Everything in 6-8 rep range, when get to 9 reps up the weight
+			<br />Usually drop the weight for the second set to still get 6-8 reps
 		</p>
 	</div>
 	<div class="section">
@@ -103,12 +103,15 @@
 		</div>
 	</div>
 	<div class="section">
-		<p>*1 only one set</p>
-		<p>*2 do on a 25kg plate to add deficit</p>
-		<p>*3 i sometimes superset those two exercises to save time</p>
 		<p>
-			SIDE NOTE: i swap exercises in and out all the time as long as the premise is the same it does
-			not matter at all, i just get bored of an exercise if i do it all the time
+			*1 Only one set
+			<br />
+			*2 Do on a 25kg plate to add deficit
+			<br />
+			*3 I sometimes superset those two exercises to save time
+			<br />
+			I swap exercises in and out all the time as long as the premise is the same it does not matter
+			at all, i just get bored of an exercise if I do it all the time
 		</p>
 	</div>
 </body>
@@ -124,6 +127,7 @@
 		overflow-x: hidden;
 		margin: 0;
 		padding: 0;
+		padding-bottom: 100px;
 		border: 0;
 		/* height: 1000vh; */
 		width: 100vw;
@@ -188,5 +192,6 @@
 		font-size: 16px;
 		font-weight: 400;
 		text-align: start;
+		padding-right: 30px;
 	}
 </style>
