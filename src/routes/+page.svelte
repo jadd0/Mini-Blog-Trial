@@ -1,5 +1,21 @@
-<!-- // src/routes/auth/+page.svelte -->
 <script>
+	import Lenis from '@studio-freight/lenis';
+	import { onMount } from 'svelte';
+
+	onMount(() => {
+		const lenis = new Lenis();
+
+		lenis.on('scroll', (e) => {
+			console.log(e);
+		});
+
+		function raf(time) {
+			lenis.raf(time);
+			requestAnimationFrame(raf);
+		}
+
+		requestAnimationFrame(raf);
+	});
 </script>
 
 <body>
