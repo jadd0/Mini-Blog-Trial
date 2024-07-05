@@ -1,10 +1,116 @@
 <!-- // src/routes/auth/+page.svelte -->
 <script>
-
 </script>
 
 <body>
-	
+	<div class="section">
+		<h1>Split</h1>
+		<p>
+			Everything 2 sets til absolute failure
+			<br/>Usually finish each last set with a drop set or two (also til failure)
+			<br/>Everything in 6-8 rep range, when get to 9 reps up the weight 
+			<br/>Usually drop the weight for the second set to still get 6-8 reps
+		</p>
+	</div>
+	<div class="section">
+		<h2>Monday</h2>
+		<h3>Chest and Back</h3>
+		<div class="ex">
+			<ul>
+				<li>wide pull-ups</li>
+				<li>incline dumbell bench</li>
+				<li>cable flyes (high to low)</li>
+				<li>cable flyes (low to high) *1</li>
+				<li>kneeling single arm pulldowns</li>
+				<li>cable row (close grip)</li>
+				<li>shrugs</li>
+			</ul>
+		</div>
+	</div>
+	<div class="section">
+		<h2>Tuesday</h2>
+		<h3>Shoulders and Arms</h3>
+		<div class="ex">
+			<ul>
+				<li>shoulder press</li>
+				<li>incline curl</li>
+				<li>incline hammer curl</li>
+				<li>tricep push down (single arm)</li>
+				<li>lateral raise (dumbell)</li>
+				<li>tricep extension (cable rope)</li>
+				<li>rear delt flyes</li>
+			</ul>
+		</div>
+	</div>
+	<div class="section">
+		<h2>Wednesday</h2>
+		<h3>Legs and Chest</h3>
+		<div class="ex">
+			<ul>
+				<li>romanian deadlift *2</li>
+				<li>leg press</li>
+				<li>leg curl</li>
+				<li>leg extension</li>
+				<li>dips</li>
+				<li>chest press</li>
+			</ul>
+		</div>
+	</div>
+	<div class="section">
+		<h2>Thursday</h2>
+		<h3>Arms</h3>
+		<div class="ex">
+			<ul>
+				<li>tricep push down</li>
+				<li>tricep extension</li>
+				<li>incline curl (dumbell)</li>
+				<li>incline hammer curl</li>
+				<li>wrist curl (cable, pronated)</li>
+				<li>wrist curl (cable, supinated)</li>
+			</ul>
+		</div>
+	</div>
+	<div class="section">
+		<h2>Friday</h2>
+		<h3>Chest, Back and Delts</h3>
+		<div class="ex">
+			<ul>
+				<li>wide pull-ups</li>
+				<li>incline db bench</li>
+				<li>dips</li>
+				<li>cable flyes (high to low)</li>
+				<li>cable flyes (low to high) *1</li>
+				<li>seated cable row</li>
+				<li>lateral raises (dumbell/cable)</li>
+				<li>rear delt flyes (cable or machine)</li>
+			</ul>
+		</div>
+	</div>
+	<div class="section">
+		<h2>Saturday</h2>
+		<h3>Legs and Arms</h3>
+		<div class="ex">
+			<ul>
+				<li>romanian deadlift</li>
+				<li>leg press</li>
+				<li>leg curl</li>
+				<li>leg extension</li>
+				<li>incline curl</li>
+				<li>tricep pushdown</li>
+				<li>wrist curl (cable, pronated) *3</li>
+				<li>wrist curl (cable, supinated) *3</li>
+			</ul>
+		</div>
+	</div>
+	<div class="section">
+		<p>*1 only one set</p>
+		<p>*2 do on a 25kg plate to add deficit</p>
+		<p>*3 i sometimes superset those two exercises to save time</p>
+		<p>
+			SIDE NOTE: i swap exercises in and out all the time as long as the premise is the same it does
+			not matter at all, i just get bored of an exercise if i do it all the time
+		</p>
+	</div>
 </body>
 
 <!-- <svelte:window on:keyup={submit} /> -->
@@ -38,118 +144,49 @@
 		font-weight: 300;
 	}
 
-	.inputHolder {
-		width: 350px;
-		height: 50px;
-		padding-bottom: 5px;
-		margin: 0 auto;
-		margin-top: 10px;
-		background: #212121;
-		border-radius: 5px;
-		color: white;
-		text-align: left;
-		border: 2px solid #333;
-		transition: all 0.2s linear;
-	}
-	.userInput {
-		width: 92.5%;
-		min-height: 35px;
-		margin-left: 10px;
-		margin-top: 10px;
-		background: #212121;
-		color: white;
-		text-align: left;
-	}
-	.inputHolder .userInput:focus {
-		border-color: blue;
-		border-width: medium medium 2px;
-	}
-	.inputHolder .floatingLabel {
-		position: relative;
-		pointer-events: none;
-		top: -40px;
-		left: 10px;
-		transition: 0.2s ease all;
-		font-size: 15px;
-		color: #727272;
-	}
-	.inputHolder input:focus ~ .floatingLabel,
-	.inputHolder input:not(:focus):valid ~ .floatingLabel {
-		top: -57px;
-		left: 10px;
-		font-size: 10px;
-		opacity: 1;
-	}
-
-	.inputHolder:focus-within {
-		border: 2px solid rgb(90, 90, 90);
-	}
-
-	input {
-		font-size: 17px !important;
-	}
-
-	@media (max-width: 460px) {
-		#loginForm {
-			width: 325px !important;
-		}
-	}
-
-	.shake {
-		animation: shake2 0.2s linear;
-	}
-
-	.wrong {
-		border: 2px solid red;
-	}
-
-	@keyframes shake2 {
-		25% {
-			transform: translateX(11px);
-		}
-
-		50% {
-			transform: translateX(0px);
-		}
-
-		75% {
-			transform: translateX(-11px);
-		}
-	}
-
-	p {
-		margin-top: -15px;
-		padding: 0px 20px 5px 20px;
-		color: rgb(142, 142, 142);
-		font-size: 14px;
-		font-weight: 400;
-		transition: all 0.2s linear;
+	.section {
+		width: 100vw;
+		height: auto;
+		padding-top: 30px;
+		padding-left: 60px;
+		display: flex;
+		justify-content: start;
+		align-items: start;
+		flex-direction: column;
 	}
 
 	h1 {
-		font-size: 35px;
+		font-size: 40px;
 		font-weight: 600;
-		padding-top: 20px;
-		padding-bottom: 20px;
 		color: white;
 	}
 
-	
-	#loginButton {
-		margin: 0 auto;
+	h2 {
+		font-size: 30px;
+		font-weight: 600;
+		color: white;
+	}
+
+	h3 {
+		font-size: 25px;
+		font-weight: 600;
+		color: white;
+	}
+
+	ul {
 		margin-top: 10px;
-		width: 300px;;
-		height: 50px;
-		color: white;
-		font-weight: 600;
-    font-size: 20px;
-		background-color: #212121;
-		border-radius: 5px;
-		cursor: pointer;
-		transition: all 0.2s linear;
 	}
 
-	#loginButton:hover {
-		background: rgb(56, 56, 56);
+	li {
+		font-size: 18px;
+		text-align: start;
+		padding-left: 5px;
+	}
+
+	p {
+		color: rgb(142, 142, 142);
+		font-size: 16px;
+		font-weight: 400;
+		text-align: start;
 	}
 </style>
