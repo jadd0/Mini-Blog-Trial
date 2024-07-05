@@ -18,6 +18,10 @@
 	});
 </script>
 
+<svelte:head>
+	<title>Jadd Workout Split</title>
+</svelte:head>
+
 <body>
 	<div class="section">
 		<h1>Split</h1>
