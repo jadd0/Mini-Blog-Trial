@@ -1,27 +1,45 @@
 <script lang="ts">
 	import Songs from './__components/selection/songs/+page.svelte';
 	import Albums from './__components/selection/albums/+page.svelte';
+	import Name from './__components/name/+page.svelte';
+
+	let nameDone = false;
+	let name = '';
 
 	let selected = 'song';
-
 </script>
 
 <body>
 	<div class="container">
-		<div class="selector">
-			<div class="options">
-				<div class="option {selected == 'album' ? '' : 'selected'}" on:click={() => {selected="song"}}>
-					<h2>SONGS</h2>
-				</div>
-				<div class="option {selected == 'song' ? '' : 'selected'}"  on:click={() => {selected="album"}}>
-					<h2>ALBUMS</h2>
+		{#if nameDone == false}
+			<Name  />
+		
+		{:else}
+			<div class="selector">
+				<div class="options">
+					<div
+						class="option {selected == 'album' ? '' : 'selected'}"
+						on:click={() => {
+							selected = 'song';
+						}}
+					>
+						<h2>SONGS</h2>
+					</div>
+					<div
+						class="option {selected == 'song' ? '' : 'selected'}"
+						on:click={() => {
+							selected = 'album';
+						}}
+					>
+						<h2>ALBUMS</h2>
+					</div>
 				</div>
 			</div>
-		</div>
-		{#if selected == 'song'}
-			<Songs />
-		{:else}
-			<Albums />
+			{#if selected == 'song'}
+				<Songs />
+			{:else}
+				<Albums />
+			{/if}
 		{/if}
 	</div>
 </body>
