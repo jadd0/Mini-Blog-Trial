@@ -1,156 +1,89 @@
-<script>
-	import Lenis from '@studio-freight/lenis';
-	import { onMount } from 'svelte';
+<script lang="ts">
+	let songName = '';
+	let isName: number = 0;
+	let songs: {}[] = [];
 
-	onMount(() => {
-		const lenis = new Lenis();
-
-		lenis.on('scroll', (e) => {
-			console.log(e);
-		});
-
-		function raf(time) {
-			lenis.raf(time);
-			requestAnimationFrame(raf);
+	async function submit(e: any) {
+		if (songName.length < 1) {
+			isName = 0;
+			return;
 		}
-
-		requestAnimationFrame(raf);
-	});
+		const res = await fetch(`/api/getSpotify?query=${songName}`, {
+			headers: { 'Content-Type': 'application/json' }
+		});
+		const parse = await res.json();
+		if (parse[0] == null) {
+			songs = [];
+			return;
+		}
+		songs = parse;
+		console.log(songs);
+	}
 </script>
 
-<svelte:head>
-	<title>Jadd Workout Split</title>
-</svelte:head>
+<svelte:window on:keyup={submit} />
 
 <body>
-	<div class="section">
-		<h1>Split</h1>
-		<p>
-			Everything 2 sets til absolute failure
-			<br />Usually finish each last set with a drop set or two (also til failure)
-			<br />Everything in 6-8 rep range, when get to 9 reps up the weight
-			<br />Usually drop the weight for the second set to still get 6-8 reps
-		</p>
-	</div>
-	<div class="section">
-		<h2>Monday</h2>
-		<h3>Chest and Back</h3>
-		<div class="ex">
-			<ul>
-				<li>wide pull-ups</li>
-				<li>incline dumbell bench</li>
-				<li>cable flyes (high to low)</li>
-				<li>cable flyes (low to high) *1</li>
-				<li>kneeling single arm pulldowns</li>
-				<li>cable row (close grip)</li>
-				<li>shrugs</li>
-			</ul>
+	<div class="container">
+		<div class="inputHolder">
+			<input class="userInput" type="text" bind:value={songName} />
+			<span class="floatingLabel">Name</span>
 		</div>
-	</div>
-	<div class="section">
-		<h2>Tuesday</h2>
-		<h3>Shoulders and Arms</h3>
-		<div class="ex">
-			<ul>
-				<li>shoulder press (dumbell)</li>
-				<li>incline curl</li>
-				<li>incline hammer curl</li>
-				<li>tricep push down (single arm)</li>
-				<li>lateral raise (dumbell)</li>
-				<li>tricep extension (cable rope)</li>
-				<li>rear delt flyes</li>
-			</ul>
+
+		<div class="desc">
+			<div class="empty" />
+			<div class="titleHolder"><h4>TITLE</h4></div>
+			<div class="albumTitle"><h4>ALBUM</h4></div>
+			<div aria-label="duration" class="ASYv4mEu1lXEHVa04HqY AgiCqnZUliKs_dafpdyi" aria-expanded="false"><svg role="img" height="16" width="16" viewBox="0 0 16 16" class="Svg-ytk21e-0 eqtHWV"><path d="M8 1.5a6.5 6.5 0 100 13 6.5 6.5 0 000-13zM0 8a8 8 0 1116 0A8 8 0 010 8z"></path><path d="M8 3.25a.75.75 0 01.75.75v3.25H11a.75.75 0 010 1.5H7.25V4A.75.75 0 018 3.25z"></path></svg></div>
 		</div>
-	</div>
-	<div class="section">
-		<h2>Wednesday</h2>
-		<h3>Legs and Chest</h3>
-		<div class="ex">
-			<ul>
-				<li>romanian deadlift *2</li>
-				<li>leg press</li>
-				<li>leg curl</li>
-				<li>leg extension</li>
-				<li>dips</li>
-				<li>chest press</li>
-			</ul>
+
+		<div class="songContainer">
+			{#each songs as song}
+				<div class="song">
+					<img src={song.album.images[0].url} class="thumbnail" />
+					<div class="properties">
+						<h2>{song.name}</h2>
+						<div class="explicitAndArtist">
+							{#if song.explicit}
+								<div class="explicitHolder">
+									<div class="explicit">
+										<span class="explicitText">E</span>
+									</div>
+								</div>
+							{/if}
+							<h3 class="artist">
+								{#each song.artists as artist, i}
+									{song.artists[0].name}{song.artists[i + 1] === undefined
+										? ''
+										: song.artists[i + 2] === undefined
+										? ' & '
+										: ', '}
+								{/each}
+							</h3>
+						</div>
+					</div>
+					<div class="albumHolder">
+						<h3>{song.album.name}</h3>
+					</div>
+				</div>
+			{/each}
 		</div>
-	</div>
-	<div class="section">
-		<h2>Thursday</h2>
-		<h3>Arms</h3>
-		<div class="ex">
-			<ul>
-				<li>tricep push down</li>
-				<li>tricep extension</li>
-				<li>incline curl (dumbell)</li>
-				<li>incline hammer curl</li>
-				<li>wrist curl (cable, pronated)</li>
-				<li>wrist curl (cable, supinated)</li>
-			</ul>
-		</div>
-	</div>
-	<div class="section">
-		<h2>Friday</h2>
-		<h3>Chest, Back and Delts</h3>
-		<div class="ex">
-			<ul>
-				<li>wide pull-ups</li>
-				<li>incline db bench</li>
-				<li>dips</li>
-				<li>cable flyes (high to low)</li>
-				<li>cable flyes (low to high) *1</li>
-				<li>seated cable row</li>
-				<li>lateral raises (dumbell/cable)</li>
-				<li>rear delt flyes (cable or machine)</li>
-			</ul>
-		</div>
-	</div>
-	<div class="section">
-		<h2>Saturday</h2>
-		<h3>Legs and Arms</h3>
-		<div class="ex">
-			<ul>
-				<li>romanian deadlift</li>
-				<li>leg press</li>
-				<li>leg curl</li>
-				<li>leg extension</li>
-				<li>incline curl</li>
-				<li>tricep pushdown</li>
-				<li>wrist curl (cable, pronated) *3</li>
-				<li>wrist curl (cable, supinated) *3</li>
-			</ul>
-		</div>
-	</div>
-	<div class="section">
-		<p>
-			*1 Only one set
-			<br />
-			*2 Do on a 25kg plate to add deficit
-			<br />
-			*3 I sometimes superset those two exercises to save time
-			<br />
-			I swap exercises in and out all the time as long as the premise is the same it does not matter
-			at all, i just get bored of an exercise if I do it all the time
-		</p>
 	</div>
 </body>
 
-<!-- <svelte:window on:keyup={submit} /> -->
-
 <style>
 	@font-face {
-		font-family: jakarta;
-		src: url('/fonts/Jakarta.ttf');
+		font-family: 'Circular';
+		src: url('/CircularStd-Book.otf');
 	}
 	body {
 		overflow-x: hidden;
 		margin: 0;
 		padding: 0;
-		padding-bottom: 100px;
 		border: 0;
 		/* height: 1000vh; */
 		width: 100vw;
+		height: 100vh;
 		background-color: #141414;
 		/* overflow: hidden; */
 	}
@@ -158,61 +91,339 @@
 	* {
 		font-size: 24px;
 		text-align: center;
-		color: black;
+		color: white;
 		margin: 0;
 		padding: 0;
 		border: 0;
 		outline: 0;
 		box-sizing: border-box;
-		font-family: Jakarta;
+		font-family: Circular;
 		font-weight: 300;
 	}
 
-	.section {
-		width: 100vw;
-		height: auto;
-		padding-top: 30px;
-		padding-left: 60px;
+	.inputHolder {
+		width: 300px;
+		height: 50px;
+		padding-bottom: 5px;
+		margin: 0 auto;
+		margin-top: 10px;
+		background: #212121;
+		border-radius: 5px;
+		color: white;
+		text-align: left;
+		border: 2px solid #333;
+		transition: all 0.2s linear;
+	}
+	.userInput {
+		width: 92.5%;
+		font-size: 20px !important;
+		min-height: 35px;
+		margin-left: 10px;
+		margin-top: 5px;
+		background: #212121;
+		color: white;
+		text-align: left;
+	}
+	.inputHolder .userInput:focus {
+		border-color: blue;
+		border-width: medium medium 2px;
+	}
+	.inputHolder .floatingLabel {
+		position: relative;
+		pointer-events: none;
+		top: -40px;
+		left: 10px;
+		transition: 0.2s ease all;
+		font-size: 15px;
+		color: #727272;
+	}
+	.inputHolder input:focus ~ .floatingLabel,
+	.inputHolder input:not(:focus):valid ~ .floatingLabel {
+		top: -57px;
+		left: 10px;
+		font-size: 10px;
+		opacity: 1;
+	}
+
+	.inputHolder:focus-within {
+		border: 2px solid rgb(90, 90, 90);
+	}
+
+	input {
+		font-size: 17px !important;
+	}
+
+	.desc {
+		width: 700px;
+		height: 30px;
+		margin: 0 auto;
+		/* background: white; */
+		display: flex;
+		margin-top: 20px;
+		border-bottom: #727272;
+	}
+
+	.empty {
+		width: 14%;
+		height: 100%;
+		/* background: green; */
+	}
+
+	.titleHolder {
+		width: 40%;
+		height: 100%;
+		/* background: blue; */
 		display: flex;
 		justify-content: start;
-		align-items: start;
+		align-items: center;
+	}
+
+	.albumTitle {
+		width: 37.5%;
+		height: 100%;
+		/* background: yellow; */
+		display: flex;
+		justify-content: start;
+		align-items: center;
+	}
+
+	.durationHolder {
+		width: 8.5%;
+		height: 100%;
+		/* background: orange; */
+		display: flex;
+		justify-content: start;
+		align-items: center;
+	}
+
+	.durationImage {
+		color: red;
+	}
+
+	h4 {
+		color: rgb(142, 142, 142);
+		font-size: 15px;
+		font-weight: 700;
+	}
+
+	.songContainer {
+		width: 700px;
+		height: 500px;
+		overflow: scroll;
+		display: flex;
 		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+		gap: 10px;
+		margin: 0 auto;
+		border-radius: 15px;
+		margin-top: 5px;
+		/* background: red; */
+	}
+
+	.song {
+		width: 100%;
+		min-height: 60px;
+		background: #181818;
+		display: flex;
+		border-radius: 6px;
+		transition: 0.2s ease-in-out;
+		cursor: pointer;
+	}
+
+	.song:nth-child(1) {
+		margin-top: 900px;
+	}
+
+	.song:hover {
+		background: #282828;
+	}
+
+	.thumbnail {
+		width: 45px;
+		height: 45px;
+		/* float: left;
+		margin-left: 20px;
+		margin: 0 auto; */
+		position: relative;
+		top: 13.5%;
+		left: 5%;
+	}
+
+	.properties {
+		width: 40%;
+		height: 100%;
+		display: flex;
+		flex-direction: column;
+		justify-content: start;
+		align-items: start;
+		margin-left: 7.5%;
+		padding-right: 4.5%;
+	}
+
+	.albumHolder {
+		width: 30%;
+		height: 100%;
+		display: flex;
+		justify-content: start;
+		align-items: center;
+	}
+
+	h2 {
+		font-size: 15px;
+		text-align: left;
+		margin-top: 12px;
+		white-space: nowrap;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		max-height: 18px;
+		max-width: 250px;
+	}
+
+	h3 {
+		font-size: 13px;
+		text-align: left;
+		float: left;
+		color: rgb(142, 142, 142);
+		white-space: nowrap;
+		overflow: hidden;
+		text-overflow: ellipsis;
+	}
+
+	.artist {
+		max-height: 18px;
+		max-width: 230px;
+	}
+
+	.explicit {
+		width: 14px;
+		height: 14px;
+		background: #a5a3a2;
+		border-radius: 2px;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		/* margin-top: -1px; */
+	}
+
+	.explicitHolder {
+		padding-right: 5px;
+	}
+
+	.explicitText {
+		font-size: 8px;
+		color: #121212;
+		text-align: center;
+		margin-top: 1px;
+	}
+
+	.explicitAndArtist {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		height: 20px;
+		margin-top: 1px;
+	}
+
+	@media (max-width: 460px) {
+		#loginForm {
+			width: 325px !important;
+		}
+	}
+
+	.shake {
+		animation: shake2 0.2s linear;
+	}
+
+	.wrong {
+		border: 2px solid red;
+	}
+
+	@keyframes shake2 {
+		25% {
+			transform: translateX(11px);
+		}
+
+		50% {
+			transform: translateX(0px);
+		}
+
+		75% {
+			transform: translateX(-11px);
+		}
+	}
+
+	p {
+		margin-top: -15px;
+		padding: 0px 20px 5px 20px;
+		color: rgb(142, 142, 142);
+		font-size: 14px;
+		font-weight: 400;
+		transition: all 0.2s linear;
+	}
+
+	#userInput {
+		/* width: 264px; */
+		width: 87.5%;
+		height: 34px !important;
+		margin-left: 19px;
+		margin-top: 2px;
+		background: #212121 !important;
+		color: white;
+		text-align: left;
+	}
+
+	#inputHolder {
+		width: 75%;
+		height: 40px;
+		margin: 0 auto;
+		margin-top: 10px;
+		background: #212121;
+		border-radius: 20px;
+		color: white;
+		text-align: left;
 	}
 
 	h1 {
 		font-size: 40px;
+		font-weight: 700;
+		padding-top: 20px;
+		padding-bottom: 20px;
+		color: white;
+	}
+
+	#loginForm {
+		margin: 0 auto;
+		background: #1b1b1b;
+		width: 400px;
+		height: 375px;
+		border-radius: 15px;
+		margin-top: 7vh;
+	}
+
+	/* input {
+		margin: 0 auto;
+		line-height: 16px;
+	} */
+
+	a {
+		text-decoration: none;
+	}
+
+	#loginButton {
+		margin: 0 auto;
+		margin-top: 30px;
+		width: 78%;
+		height: 50px;
+		color: white;
 		font-weight: 600;
-		color: white;
+		background-color: #212121;
+		border-radius: 5px;
+		cursor: pointer;
+		transition: all 0.2s linear;
 	}
 
-	h2 {
-		font-size: 30px;
-		font-weight: 600;
-		color: white;
-	}
-
-	h3 {
-		font-size: 25px;
-		font-weight: 600;
-		color: white;
-	}
-
-	ul {
-		margin-top: 10px;
-	}
-
-	li {
-		font-size: 18px;
-		text-align: start;
-		padding-left: 5px;
-		color: white;
-	}
-
-	p {
-		color: rgb(142, 142, 142);
-		font-size: 16px;
-		font-weight: 400;
-		text-align: start;
-		padding-right: 30px;
+	#loginButton:hover {
+		background: rgb(56, 56, 56);
 	}
 </style>
