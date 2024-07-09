@@ -6,13 +6,15 @@ export class Room {
 	goal: any;
 	roomCode: any;
 	uuid: string;
+	password: string;
 
-	constructor(goal: any, roomCode: any, startMember: any) {
+	constructor(goal: any, roomCode: any, startMember: any, password: string) {
 		this.members = [startMember];
 		this.directions = [];
 		this.goal = goal;
 		this.roomCode = roomCode;
 		this.uuid = uuidv4(); // Generate a unique UUID for the room
+		this.password = password;
 	}
 
 	async getDirection(xx: any, xy: any, yx: any, yy: any): Promise<any> {
