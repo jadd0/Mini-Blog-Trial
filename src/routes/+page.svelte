@@ -1,20 +1,36 @@
 <script lang="ts">
 	import Songs from './__components/selection/songs/+page.svelte';
 	import Albums from './__components/selection/albums/+page.svelte';
+	import Intro from './__components/intro/+page.svelte';
 	import Name from './__components/name/+page.svelte';
 
+	import { onMount } from 'svelte';
+
+	let firstDone = true;
 	let nameDone = false;
 	let name = '';
 
 	let selected = 'song';
+
+	function intro() {
+		firstDone = true;
+	}
+
+	onMount(() => {
+		//setTimeout(intro, 10000);
+	})
 </script>
 
 <body>
 	<div class="container">
-		{#if nameDone == false}
-			<Name  />
-		
-		{:else}
+		{#if firstDone == false}
+			<Intro />
+			
+		{/if}
+
+		{#if (nameDone == false && firstDone == true)} 
+				<Name />
+			{:else}
 			<div class="selector">
 				<div class="options">
 					<div
@@ -40,7 +56,7 @@
 			{:else}
 				<Albums />
 			{/if}
-		{/if}
+			{/if}
 	</div>
 </body>
 
