@@ -11,7 +11,7 @@
 			isName = 0;
 			return;
 		}
-		const res = await fetch(`/api/getSpotify?query=${songName}`, {
+		const res = await fetch(`/api/getSong?query=${songName}`, {
 			headers: { 'Content-Type': 'application/json' }
 		});
 		const parse = await res.json();
