@@ -74,7 +74,7 @@
 <style>
 	@font-face {
 		font-family: 'Circular';
-		src: url('/CircularStd-Book.otf');
+		src: url('/fonts/CircularStd-Book.otf');
 	}
 	body {
 		overflow-x: hidden;
