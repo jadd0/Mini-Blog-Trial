@@ -87,4 +87,8 @@
 	.selected {
 		background: #272727 !important;
 	}
+
+	h2 {
+		font-size: 20px;
+	}
 </style>
