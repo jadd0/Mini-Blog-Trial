@@ -353,10 +353,26 @@
       font-size: 13px;
     }
 
-    .albumHolder {
+    .releasedHolder {
       display: none;
     }
+
+    .songContainer {
+      height: 700px;
+      padding-top: 0px !important;
+      margin-top: 25px;
+    }
+
+    .song:nth-child(1) {
+		margin-top: 750px;
 	}
+	}
+	
+  .albumContainer {
+    padding-bottom: 50px;
+    padding-top: 60px;
+
+  }
 	
   .songContainer {
     padding-bottom: 50px;
