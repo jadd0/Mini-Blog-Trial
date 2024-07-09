@@ -27,6 +27,7 @@ export class Spotify {
 			})
 		});
 		const parsed = await res.json();
+
 		this.accessToken = parsed['access_token'];
 	}
 
