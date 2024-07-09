@@ -353,7 +353,7 @@
       font-size: 13px;
     }
 
-    .releasedHolder {
+    .albumHolder {
       display: none;
     }
 
