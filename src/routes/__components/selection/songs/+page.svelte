@@ -158,27 +158,10 @@
 		align-items: center;
 	}
 
-	.durationHolder {
-		width: 8.5%;
-		height: 100%;
-		/* background: orange; */
-		display: flex;
-		justify-content: start;
-		align-items: center;
-	}
-
-	.durationImage {
-		color: red;
-	}
-
 	h4 {
 		color: rgb(142, 142, 142);
 		font-size: 15px;
 		font-weight: 700;
-	}
-
-	.container {
-		margin-top: 100px;
 	}
 
 	.songContainer {
@@ -353,8 +336,32 @@
 		font-size: 17px !important;
 	}
 
+  @media (max-width: 750px) {
+		.desc {
+			display: none;
+		}
 
+    .song {
+      width: 100%;
+    }
+
+    .songContainer {
+      width: 100%;
+    }
+
+    h3 {
+      font-size: 13px;
+    }
+
+    .albumHolder {
+      display: none;
+    }
+	}
 	
+  .songContainer {
+    padding-bottom: 50px;
+    padding-top: 60px;
 
+  }
 	
 </style>

@@ -5,12 +5,12 @@ export const POST = async ({ request }) => {
 
 	const { data, error } = await supabase
 		.from('recommendations')
-		.update({ uri: body.song.uri })
-		.match({ uri: body.song.uri })
+		.update({ uri: body.album.uri })
+		.match({ uri: body.album.uri })
 		.select();
 
   if (data.length == 0) {
-    const { data, error } = await supabase.from('recommendations').insert({ 'uri': body.song.uri }).select();
+    const { data, error } = await supabase.from('recommendations').insert({ 'uri': body.album.uri }).select();
   }
 
 	return new Response();

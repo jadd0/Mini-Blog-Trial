@@ -40,6 +40,7 @@
 
 <svelte:window on:keyup={submit} />
 
+
 <div class="inputHolder">
   <input
     type="text"
@@ -78,7 +79,7 @@
 						</h3>
 					</div>
 				</div>
-				<div class="albumHolder">
+				<div class="releasedHolder">
 					<h3>{album.release_date}</h3>
 				</div>
 			</div>
@@ -235,7 +236,7 @@
 		padding-right: 4.5%;
 	}
 
-	.albumHolder {
+	.releasedHolder {
 		width: 30%;
 		height: 100%;
 		display: flex;
@@ -352,7 +353,43 @@
 	}
 
 
+	@media (max-width: 750px) {
+		.desc {
+			display: none;
+		}
+
+    .album {
+      width: 100%;
+    }
+
+    .albumContainer {
+      width: 100%;
+    }
+
+    h3 {
+      font-size: 13px;
+    }
+
+    .releasedHolder {
+      display: none;
+    }
+
+    .albumContainer {
+      height: 700px;
+      padding-top: 0px !important;
+      margin-top: 25px;
+    }
+
+    .album:nth-child(1) {
+		margin-top: 750px;
+	}
+	}
 	
+  .albumContainer {
+    padding-bottom: 50px;
+    padding-top: 60px;
+
+  }
 
 	
 </style>

@@ -91,4 +91,10 @@
 	h2 {
 		font-size: 20px;
 	}
+
+	@media (max-width: 750px) {
+		.container {
+			margin-top: 50px;
+		}
+	}
 </style>
