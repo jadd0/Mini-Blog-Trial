@@ -1,37 +1,37 @@
 <script lang="ts">
 	import Page from "../albums/+page.svelte";
 
-	let songName = '';
+	let albumName = '';
 	let isName: number = 0;
-	let songs: {}[] = [];
-	let selectedSongIndex: number | null = null;
+	let albums: {}[] = [];
+	let selectedAlbumName: number | null = null;
 
 	async function submit(e: any) {
-		if (songName.length < 1) {
+		if (albumName.length < 1) {
 			isName = 0;
 			return;
 		}
-		const res = await fetch(`/api/getAlbum?query=${songName}`, {
+		const res = await fetch(`/api/getAlbum?query=${albumName}`, {
 			headers: { 'Content-Type': 'application/json' }
 		});
 		const parse = await res.json();
 		if (parse[0] == null) {
-			songs = [];
+			albums = [];
 			return;
 		}
-		songs = parse;
-		console.log(songs);
+		albums = parse;
+		console.log(albums);
 	}
 
-	async function sendSong(song: any) {
-		const response = await fetch('/api/sendSong', {
+	async function sendAlbum(album: any) {
+		const response = await fetch('/api/sendalbum', {
 			method: 'post',
 			headers: {
 				Accept: 'application/json',
 				'Content-Type': 'application/json'
 			},
 			body: JSON.stringify({
-				song
+				album
 			})
 		});
 	}
@@ -42,7 +42,7 @@
 <svelte:window on:keyup={submit} />
 
 <div class="inputHolder">
-  <input class="userInput" type="text" bind:value={songName} />
+  <input class="userInput" type="text" bind:value={albumName} />
   <span class="floatingLabel">Name</span>
 </div>
 
@@ -52,14 +52,14 @@
   <div class="albumTitle"><h4>ALBUM</h4></div>
 </div>
 
-<div class="songContainer">
-  {#each songs as song, i}
-    <div class="song {selectedSongIndex === i ? 'selected' : ''}" on:click={() => sendSong(song)}>
-      <img src={song.album.images[0].url} class="thumbnail" />
+<div class="albumContainer">
+  {#each albums as album, i}
+    <div class="album {selectedAlbumName === i ? 'selected' : ''}" on:click={() => sendAlbum(album)}>
+      <img src={album.album.images[0].url} class="thumbnail" />
       <div class="properties">
-        <h2>{song.name}</h2>
+        <h2>{album.name}</h2>
         <div class="explicitAndArtist">
-          {#if song.explicit}
+          {#if album.explicit}
             <div class="explicitHolder">
               <div class="explicit">
                 <span class="explicitText">E</span>
@@ -67,14 +67,14 @@
             </div>
           {/if}
           <h3 class="artist">
-            {#each song.artists as artist, j}
-              {artist.name}{j < song.artists.length - 1 ? ', ' : ''}
+            {#each album.artists as artist, j}
+              {artist.name}{j < album.artists.length - 1 ? ', ' : ''}
             {/each}
           </h3>
         </div>
       </div>
       <div class="albumHolder">
-        <h3>{song.album.name}</h3>
+        <h3>{album.album.name}</h3>
       </div>
     </div>
   {/each}
@@ -223,7 +223,7 @@
 		margin-top: 100px;
 	}
 
-	.songContainer {
+	.albumContainer {
 		width: 700px;
 		height: 500px;
 		overflow-y: scroll;
@@ -238,7 +238,7 @@
 		/* background: red; */
 	}
 
-	.song {
+	.album {
 		width: 100%;
 		min-height: 60px;
 		background: #181818;
@@ -248,11 +248,11 @@
 		cursor: pointer;
 	}
 
-	.song:nth-child(1) {
+	.album:nth-child(1) {
 		margin-top: 900px;
 	}
 
-	.song:hover {
+	.album:hover {
 		background: #282828;
 	}
 
