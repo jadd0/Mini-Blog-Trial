@@ -1,7 +1,10 @@
 <script lang="ts">
+	import Page from "../albums/+page.svelte";
+
 	let songName = '';
 	let isName: number = 0;
 	let songs: {}[] = [];
+	let selectedSongIndex: number | null = null;
 
 	async function submit(e: any) {
 		if (songName.length < 1) {
@@ -19,6 +22,21 @@
 		songs = parse;
 		console.log(songs);
 	}
+
+	async function sendSong(song: any) {
+		const response = await fetch('/api/sendSong', {
+			method: 'post',
+			headers: {
+				Accept: 'application/json',
+				'Content-Type': 'application/json'
+			},
+			body: JSON.stringify({
+				song
+			})
+		});
+	}
+
+
 </script>
 
 <svelte:window on:keyup={submit} />
@@ -32,12 +50,11 @@
   <div class="empty" />
   <div class="titleHolder"><h4>TITLE</h4></div>
   <div class="albumTitle"><h4>ALBUM</h4></div>
-  <div class="add"><h4>ADD</h4></div>
 </div>
 
 <div class="songContainer">
-  {#each songs as song}
-    <div class="song">
+  {#each songs as song, i}
+    <div class="song {selectedSongIndex === i ? 'selected' : ''}" on:click={() => sendSong(song)}>
       <img src={song.album.images[0].url} class="thumbnail" />
       <div class="properties">
         <h2>{song.name}</h2>
@@ -50,12 +67,8 @@
             </div>
           {/if}
           <h3 class="artist">
-            {#each song.artists as artist, i}
-              {song.artists[0].name}{song.artists[i + 1] === undefined
-                ? ''
-                : song.artists[i + 2] === undefined
-                ? ' & '
-                : ', '}
+            {#each song.artists as artist, j}
+              {artist.name}{j < song.artists.length - 1 ? ', ' : ''}
             {/each}
           </h3>
         </div>
@@ -96,6 +109,10 @@
 		font-family: Circular;
 		font-weight: 300;
 	}
+
+  .selected {
+    background: green !important;
+  }
 
   .inputHolder {
 		width: 300px;
