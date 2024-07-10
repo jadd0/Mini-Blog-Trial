@@ -1,20 +1,25 @@
 <script lang="ts">
-  export let name = '';
+	export let name = '';
+  export let finished = false;
+
+  function submit() {
+    if (name.length > 0) {
+      finished = true;
+    }
+  }
 </script>
 
 <div class="container">
-  <h2>Before we continue...</h2>
-  <p>Please enter your name below so I know who to thank for the recommendation</p>
+	<h2>Before we continue...</h2>
+	<p>Please enter your (full) name below so I know who to thank for the recommendation</p>
 
-  <div class="inputHolder">
-    <input
-      type="text"
-      class="userInput"
-      bind:value={name}
-      required
-    />
-    <span class="floatingLabel">Name</span>
-  </div>
+	<div class="nameInput">
+		<div class="inputHolder">
+			<input type="text" class="userInput" bind:value={name} required />
+			<span class="floatingLabel">Name</span>
+		</div>
+		<div class="button" on:click={submit}>-></div>
+	</div>
 </div>
 
 <style>
@@ -38,20 +43,22 @@
 
 	.container {
 		margin-top: 100px;
-    display: flex;
-    flex-direction: column;
-    justify-content: start;
-    align-items: start;
-    padding: 50px;
+		display: flex;
+		flex-direction: column;
+		justify-content: start;
+		align-items: start;
+		padding: 50px;
+    height: 500px;
 	}
 
-  p {
-    margin-top: 10px;
-    font-size: 15px;;
-  }
+	p {
+		margin-top: 10px;
+		font-size: 15px;
+		text-align: start;
+	}
 
-  .inputHolder {
-		width: 300px;
+	.inputHolder {
+		width: 250px;
 		height: 50px;
 		padding-bottom: 5px;
 		margin: 0 auto;
@@ -62,7 +69,7 @@
 		text-align: left;
 		border: 2px solid #333;
 		transition: all 0.2s linear;
-    margin-left: 0px;
+		margin-left: 0px;
 	}
 	.userInput {
 		width: 92.5%;
@@ -102,9 +109,29 @@
 		font-size: 17px !important;
 	}
 
+	.nameInput {
+		width: 300px;
+		height: auto;
+		display: flex;
+		align-items: center;
+    justify-content: center;
+		gap: 10px;
+	}
 
+  .button {
+		width: 30px;
+		height: 30px;
+		background-color: #333;
+		border-radius: 50%;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		color: white;
+		cursor: pointer;
+    margin-top: 28px;
+	}
 
-  @media (max-width: 500px) {
+	@media (max-width: 500px) {
 		.intro {
 			width: 250px;
 		}

@@ -9,6 +9,7 @@
 	let firstDone = true;
 	let nameDone = false;
 	let name = '';
+	$: console.log(name)
 
 	let selected = 'song';
 
@@ -29,7 +30,7 @@
 		{/if}
 
 		{#if (nameDone == false && firstDone == true)} 
-				<Name />
+				<Name bind:finished={nameDone} bind:name={name} />
 			{:else}
 			<div class="selector">
 				<div class="options">
