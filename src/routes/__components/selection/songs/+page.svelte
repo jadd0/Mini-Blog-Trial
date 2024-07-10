@@ -1,5 +1,5 @@
 <script lang="ts">
-	import Page from '../albums/+page.svelte';
+	export let name;
 
 	let songName = '';
 	let isName: number = 0;
@@ -34,7 +34,8 @@
 				'Content-Type': 'application/json'
 			},
 			body: JSON.stringify({
-				song
+				song,
+				name
 			})
 		});
 	}

@@ -10,7 +10,7 @@ export const POST = async ({ request }) => {
 		.select();
 
   if (data.length == 0) {
-    const { data, error } = await supabase.from('recommendations').insert({ 'uri': body.album.uri }).select();
+    const { data, error } = await supabase.from('recommendations').insert({ 'uri': body.album.uri, 'name': body.name }).select();
   }
 
 	return new Response();

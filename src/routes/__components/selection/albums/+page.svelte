@@ -1,4 +1,6 @@
 <script lang="ts">
+	export let name;
+	
 	let albumName = '';
 	let isName: number = 0;
 	let albums: {}[] = [];
@@ -32,7 +34,8 @@
 				'Content-Type': 'application/json'
 			},
 			body: JSON.stringify({
-				album
+				album,
+				name
 			})
 		});
 	}
