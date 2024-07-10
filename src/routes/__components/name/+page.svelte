@@ -42,13 +42,13 @@
 	}
 
 	.container {
-		margin-top: 100px;
 		display: flex;
 		flex-direction: column;
 		justify-content: start;
 		align-items: start;
 		padding: 50px;
     height: 500px;
+    margin-top: 20px
 	}
 
 	p {

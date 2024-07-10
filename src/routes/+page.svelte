@@ -6,10 +6,9 @@
 
 	import { onMount } from 'svelte';
 
-	let firstDone = true;
+	let firstDone = false;
 	let nameDone = false;
 	let name = '';
-	$: console.log(name)
 
 	let selected = 'song';
 
@@ -18,7 +17,7 @@
 	}
 
 	onMount(() => {
-		//setTimeout(intro, 10000);
+		setTimeout(intro, 10000);
 	})
 </script>
 
@@ -31,7 +30,8 @@
 
 		{#if (nameDone == false && firstDone == true)} 
 				<Name bind:finished={nameDone} bind:name={name} />
-			{:else}
+		{/if}
+		{#if (nameDone && firstDone)}
 			<div class="selector">
 				<div class="options">
 					<div
