@@ -53,9 +53,9 @@
 				</div>
 			</div>
 			{#if selected == 'song'}
-				<Songs />
+				<Songs name={name} />
 			{:else}
-				<Albums />
+				<Albums name={name} />
 			{/if}
 			{/if}
 	</div>
