@@ -40,35 +40,74 @@ export class Spotify {
 	}) {
 		const { query, type, market, limit, offset } = config;
 
-    if (this.accessToken == undefined || this.accessToken.length == 0) {
-			
+		if (this.accessToken == undefined || this.accessToken.length == 0) {
 			// await this.getAccess();
 		}
 
-
-		const res = await fetch(`https://api.spotify.com/v1/search?q=${query}&type=${type}&limit=${limit}`, {
-			headers: {
-				'Content-Type': 'application/json',
-				Authorization: `Bearer ${this.accessToken}`
-			}
-		});
-
-		let parse = await res.json()
-
-		if (!res.ok) {
-			if (parse.error.message === 'Invalid access token' || parse.error.message === 'Only valid bearer authentication supported') {
-				await this.getAccess()
-				parse = await this.search({ query, type, market, limit, offset })
-
-				if (!parse) {
-					return false
+		const res = await fetch(
+			`https://api.spotify.com/v1/search?q=${query}&type=${type}&limit=${limit}`,
+			{
+				headers: {
+					'Content-Type': 'application/json',
+					Authorization: `Bearer ${this.accessToken}`
 				}
 			}
-			else {
-				return false
+		);
+
+		let parse = await res.json();
+
+		if (!res.ok) {
+			if (
+				parse.error.message === 'Invalid access token' ||
+				parse.error.message === 'Only valid bearer authentication supported'
+			) {
+				await this.getAccess();
+				parse = await this.search({ query, type, market, limit, offset });
+
+				if (!parse) {
+					return false;
+				}
+			} else {
+				return false;
 			}
 		}
 
-    return parse
+		return parse;
+	}
+
+	async getURI(URI: string) {
+		const type = URI.split(':')[1]
+		const value = URI.split(':')[2]
+
+
+		const res = await fetch(
+			`https://api.spotify.com/v1/${type}s/${value}`,
+			{
+				headers: {
+					'Content-Type': 'application/json',
+					Authorization: `Bearer ${this.accessToken}`
+				}
+			}
+		);
+
+		let parse = await res.json();
+		console.log(parse)
+		if (!res.ok) {
+			if (
+				parse.error.message === 'Invalid access token' ||
+				parse.error.message === 'Only valid bearer authentication supported'
+			) {
+				await this.getAccess();
+				parse = await this.getURI(URI);
+
+				if (!parse) {
+					return false;
+				}
+			} else {
+				return false;
+			}
+		}
+
+		return parse;
 	}
 }
