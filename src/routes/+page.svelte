@@ -12,7 +12,7 @@
 
 	let scrollOld = 0;
 
-	let typewriter1, height1, innerh;
+	let typewriter1, typewriter2, height1, height2, innerh;
 	let scroll = 0,
 		scroll1 = 0;
 
@@ -131,7 +131,7 @@
 						fontSize={16}
 						furthestScrolled={scroll + innerh}
 						height={height1}
-						phrase={`Hi! I am Jadd, a freelance web developer. I am from the Wirral, United Kingdom and I am currently in ${data.area}, ${data.region} as of ${data.time}. As a current Computer Science student, I am very enthusiastic in the web development industry... lorem mkdfosdfmsdmf fjsdhfusdhf sdkjf ksjd fksdfk sdkjf ksd fksd fks dfk kfsd f kj`}
+						phrase={`Hi! I am Jadd, a freelance web developer. I am from the Wirral, United Kingdom and I am currently in ${data.area}, ${data.region} as of ${data.time}. As a current Computer Science student, I am very enthusiastic in the web development industry and enjoy building cool stuff in my free time`}
 					/>
 				</div>
 			</div>
@@ -195,10 +195,44 @@
 			</div>
 		</div>
 
+
+
+		<div class="section" id="siteMap">
+			<div class="inner">
+				<h2>SITE MAP.</h2>
+				<div class="desc"></div>
+			</div> 
+			<div bind:this={typewriter2} id="descTypewriter" class="typewriter">
+				<SvelteScrollTypewriter
+					fontSize={16}
+					furthestScrolled={scroll + innerh}
+					height={height2}
+					phrase={`All of my personal work (pet projects and whatnot) is hosted under the same domain. I have used subdomains to seperate projects. Scroll down to see each.`}
+				/>
+			</div>
+			<div class="domainHolder">
+				<h3>.JADD.LIVE</h3>
+				<div class="subdomainDesc">
+					<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloribus similique magnam iusto a fugiat voluptates expedita temporibus, nobis excepturi dicta accusantium quod neque aperiam necessitatibus corrupti autem ipsum labore nostrum non voluptate. Debitis corporis deleniti excepturi aperiam aut! Veritatis animi eum distinctio tenetur magnam soluta!
+					</p>
+				</div>
+			</div>
+			<div class="subdomainHolder">
+				<h3>WWW</h3>
+				<h3>BLOG</h3>
+				<h3>MUSIC</h3>
+				<h3>PATH</h3>
+				<h3>SPLIT</h3>
+			</div>
+		</div>
+
+
+
+
 		<div class="section">
 			<div class="inner" id="activity">
 				<h2>My Activity.</h2>
-
+				
 				<div class="jaddblogHolder">
 					<div class="posts">
 						{#each data.posts as post}
@@ -269,6 +303,51 @@
 		letter-spacing: -0px !important;
 		-ms-overflow-style: none;
 		scrollbar-width: none;
+	}
+	
+	h3 {
+		font-size: 70px  !important;
+	}
+
+	.subdomainDesc p {
+		font-size: 16px !important;
+		text-align: left;
+	}
+
+	.subdomainDesc {
+		position: absolute;
+		top: 450px;
+		left: 326px;
+		width: 360px;
+	}
+
+	.subdomainHolder {
+		display: flex;
+		flex-direction: column;
+		position: absolute;
+		top: 350px;
+		left: 50px;
+		gap: 200px;
+	}
+
+	.domainHolder {
+		width: 100%;
+		height: 70vh;
+		border: 2px solid red;
+		margin-top: 250px;
+	}
+
+	#siteMap {
+		height: 200vh;
+		position: sticky;
+		position: -webkit-sticky !important;
+		top: 0px;
+
+		z-index: 0 !important;
+	}
+
+	#descTypewriter {
+		margin-top: 200px;
 	}
 
 	.hero {
