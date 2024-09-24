@@ -29,28 +29,7 @@
   const topChangeValue = 100; // Value to add/subtract from top each time
 
 
-	function changeVal() {
-		projectsTop = projects.getBoundingClientRect().top;
-		scroll1 = scroll - projectsDistance;
 
-		if (projectsTop == 0 && scroll1 > 150) {
-			project1 = true;
-
-			if (scroll1 > 350) {
-				project2 = true;
-
-				if (scroll1 > 500) {
-					project3 = true;
-				} else {
-					project3 = false;
-				}
-			} else {
-				project2 = false;
-			}
-		} else if (scroll1 <= 50) {
-			project1 = false;
-		}
-	}
 
 	function changeValPhone() {
 		projectsTop = projects.getBoundingClientRect().top;
@@ -78,8 +57,6 @@
 	function scrollFn() {
 		if (screenWidth < 800) {
 			changeValPhone();
-		} else {
-			changeVal();
 		}
 
 		let siteMapTop = siteMap.getBoundingClientRect().top;
@@ -133,11 +110,7 @@
 		console.log(topOffset)
 	}
 
-	function calculateDistance() {
-		const element = document.getElementById('projects');
-		const rect = element.getBoundingClientRect();
-		projectsDistance = rect.top + window.pageYOffset;
-	}
+
 
 	function calculateDistanceSiteMap() {
 		const element = document.getElementById('siteMap');
@@ -149,7 +122,7 @@
 	onMount(() => {
 		height1 = typewriter1.getBoundingClientRect().top;
 		console.log(height1, scroll, innerh);
-		calculateDistance();
+
 		calculateDistanceSiteMap();
 
 		console.log({ screenWidth });
@@ -202,64 +175,7 @@
 				</div>
 			</div>
 		</div>
-		<div class="section" id="projectSection">
-			<div id="projects" bind:this={projects}>
-				<div class="inner">
-					<a href="https://github.com/jadd0"><h2 id="projectsTitle">Projects.</h2></a>
-					<div class="projectsHolder">
-						{#if project1}
-							<a href="https://blog.jadd.live">
-								<div class="project" transition:fly={{ duration: 300, y: 500, opacity: 0.5 }}>
-									<div class="innerProject">
-										<div class="descriptionProjectHolder">
-											<h3>JaddBlog</h3>
-											<div class="description">
-												A text-based social media inlcuding basic posts, polls, followers, comments,
-												likes etc.
-											</div>
-										</div>
-										<img class="projectImage" src="/images/jaddblog.png" />
-									</div>
-								</div>
-							</a>
-						{/if}
-						{#if project2}
-							<a href="https://wirralbears.com">
-								<div
-									class="project"
-									id="secondProject"
-									transition:fly={{ duration: 300, y: 500, opacity: 0.5 }}
-								>
-									<div class="innerProject">
-										<div class="descriptionProjectHolder">
-											<h3>Wirral Bears</h3>
-											<div class="description">
-												A website to display the 'Wirral Bears' basketball team
-											</div>
-										</div>
-										<img class="projectImage" src="/images/screenshot.png" />
-									</div>
-								</div>
-							</a>
-						{/if}
-						{#if project3}
-							<div
-								class="project"
-								id="thirdProject"
-								transition:fly={{ duration: 300, y: 500, opacity: 0.5 }}
-							>
-								<div class="innerProject">
-									<div class="descriptionProjectHolder">
-										<h3>To come...</h3>
-										<div class="description">Watch this space</div>
-									</div>
-								</div>
-							</div>
-						{/if}
-					</div>
-				</div>
-			</div>
-		</div>
+	
 
 
 
@@ -449,7 +365,6 @@
 	.domainHolder {
 		width: 100%;
 		height: 70vh;
-		border: 2px solid red;
 		position: absolute;
 		transition: top 0.3s ease; /* Smooth transition for top change */
 	}
