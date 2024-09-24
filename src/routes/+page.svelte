@@ -351,7 +351,7 @@
 	}
 
 	#siteMap {
-		height: 210vh;
+		height: 2000px;
 		
 		position: sticky;
 		position: -webkit-sticky !important;
@@ -681,6 +681,10 @@
 		.typewriter {
 			left: var(--leftPhone);
 			width: 80vw;
+		}
+
+		h1 {
+			font-size: 140px;
 		}
 
 		h2 {
