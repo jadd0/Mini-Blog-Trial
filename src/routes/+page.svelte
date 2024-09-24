@@ -273,7 +273,7 @@
 
 	@font-face {
 		font-family: 'jakarta';
-		src: url('/fonts/Jakarta.ttf');
+		src: url('/fonts/JakartaVariable.ttf');
 	}
 
 	body {
@@ -695,6 +695,7 @@
 		h2 {
 			font-size: var(--h2SizePhone);
 			left: 40px;
+			font-weight: bold;
 		}
 
 		h3 {
