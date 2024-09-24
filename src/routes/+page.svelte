@@ -277,7 +277,7 @@
 				/>
 			</div>
 			<div class="domainHolder" bind:this={domainHolder} style="top: {350 + topOffset}px !important;">
-				<h3>.JADD.LIVE</h3>
+				<h3 id="domainName">.JADD.LIVE</h3>
 				<div class="subdomainDesc">
 					{#if topOffset == 0}
 					<SvelteScrollTypewriter
@@ -439,6 +439,11 @@
 		gap: 0px;
 		height: 1000px;
 		overflow: scroll;
+	}
+
+	#domainName {
+		text-align: start;
+		margin-left: 300px;
 	}
 
 	.domainHolder {
