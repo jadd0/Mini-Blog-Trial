@@ -162,13 +162,15 @@
 		<div class="section sectionSitemap" id="siteMap" bind:this={siteMap}>
 			<div class="inner">
 				<h2 id="siteMapHeader">SITE MAP.</h2>
-				<div class="desc"></div>
+				<div class="desc">
+					<p>All my projects are all subdomains on this site. Scroll down to see them, and click on any to visit.</p>
+					</div>
 			</div> 
 
 	
 			<div class="domainHolder" bind:this={domainHolder}>
 
-					<h3 id="domainName" style="position: absolute; top: {50 + (fontSize == 16 ? 75*topOffset :50*topOffset)}px !important;">.JADD.LIVE</h3>
+					<h3 id="domainName" style="position: absolute; top: {(fontSize == 16 ? 50 +  75*topOffset : 75 + 50*topOffset)}px !important;">.JADD.LIVE</h3>
 
 
 				<div class="subdomainDesc">
@@ -312,6 +314,17 @@
 	
 	h3 {
 		font-size: 40px  !important;
+	}
+
+	.desc p {
+		font-size: 14px;
+		text-align: start;
+	}
+
+	.desc {
+		position: absolute;
+		top: 120px;
+		left: 100px;
 	}
 
 	.subdomainDesc p {
@@ -693,6 +706,12 @@
 			font-size: 10px;
 		}
 
+		.desc {
+			top: 100px;
+			left: 50px;
+			
+		}
+
 		.typewriterHolderHero {
 			left: 0 !important;
 			bottom: 50px;
@@ -744,8 +763,10 @@
 			width: 80vw;
 		}
 
+
 		.subdomainHolder {
 			left: 50px;
+			top: 175px;
 		}
 
 		#domainName {
