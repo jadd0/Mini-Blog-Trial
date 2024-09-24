@@ -225,6 +225,10 @@
 				</div></a>
 				
 			</div>
+
+			<div class="wirralBearsDiv">
+				<p>Another large website I have done is for <br/> <a href="https://wirralbears.com" style="color: #4040ff; font-size: 16px;">The Wirral Bears</a>.</p>
+			</div>
 		</div>
 
 
@@ -664,6 +668,17 @@
 		width: 100vw;
 	}
 
+	.wirralBearsDiv {
+			z-index: 999;
+			position:absolute;
+			top: 550px;
+			left: 100px;
+		}
+
+		.wirralBearsDiv p {
+			font-size: 16px;;
+		}
+
 	/* Responsive styles */
 
 	/* Tablet */
@@ -734,12 +749,20 @@
 		}
 
 		#domainName {
-			margin-left: 140px !important;
+			margin-left: 115px !important;
 		}
 
-		#descTypewriter {
-			
+		.wirralBearsDiv {
+			z-index: 999;
+			position:absolute;
+			top: 650px;
+			left: 50px;
 		}
+
+		.wirralBearsDiv p {
+			font-size: 16px;;
+		}
+
 
 
 
@@ -781,7 +804,7 @@
 		}
 
 		h3 {
-			font-size: 30px;
+			font-size: 29px !important;
 		}
 
 		.projectImage {
