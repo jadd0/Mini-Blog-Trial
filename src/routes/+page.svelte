@@ -47,35 +47,35 @@
 		if (siteMapTop == 0) {
 
 			if (scrollDistance > 75) {
-				topOffset = 100;
+				topOffset = 1;
 				if (scrollDistance > 150) {
-					topOffset = 200;
+					topOffset = 2;
 
 					if (scrollDistance > 225) {
-						topOffset = 300;
+						topOffset = 3;
 
 						if (scrollDistance > 300) {
-							topOffset = 400;
+							topOffset = 4;
 
 
 				}
 
 				else {
-					topOffset = 300;
+					topOffset = 3;
 
 								
 }
 			} 
 
 			else {
-				topOffset = 200;
+				topOffset = 2;
 
 								
 }
 			}
 
 			else {
-				topOffset = 100;
+				topOffset = 1;
 				
 								
 }
@@ -167,38 +167,36 @@
 				<h2 id="siteMapHeader">SITE MAP.</h2>
 				<div class="desc"></div>
 			</div> 
-			<div class="siteMapDesc"><p style="font-size: {fontSize}px;">
-				All of my personal work (pet projects and whatnot) is hosted under the same domain. I have used subdomains to seperate projects. Scroll down to see each.
-			</p>
-				</div>
+
+	
 			<div class="domainHolder" bind:this={domainHolder}>
-				<h3 id="domainName" style="position: absolute; top: {250 + topOffset}px !important;">.JADD.LIVE</h3>
-				<div class="subdomainDesc" style={fontSize == 16 ? `top: ${350 + topOffset}px !important;` : "top: 520px; left: 50px; width: 300px;"}>
+				<h3 id="domainName" style="position: absolute; top: {50 + topOffset*75}px !important;">.JADD.LIVE</h3>
+				<div class="subdomainDesc">
 					{#if ((topOffset == 0) || ((fontSize == 14) && (topOffset == 0)))}
 					<SvelteScrollTypewriter
 						fontSize={fontSize}
 						auto
 						phrase={`This is my main portfolio site, also the site which we are currently on. This is a showcase of my talents as a full stack developer, whilst also trying to make it look as 'pretty' as possible (I hope I did a decent job).`}
 					/>
-						{:else if (((topOffset == 100) && (fontSize == 16)) || ((fontSize == 14) && (topOffset == 50)))}
+						{:else if (((topOffset == 1) && (fontSize == 16)) || ((fontSize == 14) && (topOffset == 50)))}
 						<SvelteScrollTypewriter
 						fontSize={fontSize}
 						auto
 						phrase={`This is my largest project. It is a text-based social network project where users can post their own content and view other people's content too. Users can follow others, like/comment on posts and also create/vote on vote-type posts.`}
 					/>
-					{:else if (((topOffset == 200) && (fontSize == 16)) || ((fontSize == 14) && (topOffset == 100)))}
+					{:else if (((topOffset == 2) && (fontSize == 16)) || ((fontSize == 14) && (topOffset == 100)))}
 					<SvelteScrollTypewriter
 						fontSize={fontSize}
 						auto
 						phrase={`This is a small project in which I created a music recommender for myself. Users can key in a song/album name, and upon clicking the title, I am then recommended said music.`}
 					/>
-					{:else if (((topOffset == 300) && (fontSize == 16)) || ((fontSize == 14) && (topOffset == 150)))}
+					{:else if (((topOffset == 3) && (fontSize == 16)) || ((fontSize == 14) && (topOffset == 150)))}
 						<SvelteScrollTypewriter
 						fontSize={fontSize}
 						auto
 						phrase={`This is a work-in-progress project where two or more users can find a meeting point where all users are aiming to walk to the same location. This will be cool once complete, trust me.`}
 					/>
-					{:else if (((topOffset == 400) && (fontSize == 16)) || ((fontSize == 14) && (topOffset == 200)))}
+					{:else if (((topOffset == 4) && (fontSize == 16)) || ((fontSize == 14) && (topOffset == 200)))}
 						<SvelteScrollTypewriter
 						fontSize={fontSize}
 						auto
@@ -229,7 +227,7 @@
 
 
 
-		<div class="section">
+		<div class="section" id="activityOuter">
 			<div class="inner" id="activity">
 				<h2>My Activity.</h2>
 				
@@ -316,13 +314,14 @@
 
 	.subdomainDesc {
 		position: absolute;
-		left: 326px;
+		left: 540px;
+		top: 40px;
 		width: 360px;
 	}
 
 	.subdomain {
 		width: 100vw;
-		height: 100px;
+		height: 75px;
 		display: flex;
 	}
 
@@ -330,7 +329,7 @@
 		display: flex;
 		flex-direction: column;
 		position: absolute;
-		top: 350px;
+		top: 150px;
 		left: 100px;
 		gap: 0px;
 		height: 1000px;
@@ -339,7 +338,7 @@
 
 	#domainName {
 		text-align: start;
-		margin-left: 300px;
+		margin-left: 250px;
 		transition: top 0.3s ease; /* Smooth transition for top change */
 
 	}
@@ -352,8 +351,8 @@
 	}
 
 	#siteMap {
-		height: 150vh;
-		margin-bottom: 30vh;
+		height: 210vh;
+		
 		position: sticky;
 		position: -webkit-sticky !important;
 		top: 0px;
@@ -559,6 +558,7 @@
 		right: 0;
 	}
 
+
 	#activity {
 		height: 600px;
 	}
@@ -580,7 +580,7 @@
 		width: 600px;
 		height: auto;
 		position: absolute;
-		top: 245px;
+		top: 150px;
 		left: 98px;
 		z-index: 100;
 	}
