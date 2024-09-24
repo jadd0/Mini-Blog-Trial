@@ -9,6 +9,12 @@
 	export let data;
 
 	let screenWidth;
+	$: if (screenWidth < 800) {
+		fontSize = 14
+	}
+	else {
+		fontSize = 16;
+	}
 
 	let scrollOld = 0;
 
@@ -29,35 +35,11 @@
   const topChangeValue = 100; // Value to add/subtract from top each time
 
 
+	let fontSize = 16;
 
 
-	function changeValPhone() {
-		projectsTop = projects.getBoundingClientRect().top;
-		scroll1 = scroll - projectsDistance;
-
-		if (projectsTop == 0 && scroll1 > 150) {
-			project1 = true;
-
-			if (scroll1 > 350) {
-				project2 = true;
-
-				if (scroll1 > 500) {
-					project3 = true;
-				} else {
-					project3 = false;
-				}
-			} else {
-				project2 = false;
-			}
-		} else if (scroll1 <= 50) {
-			project1 = false;
-		}
-	}
 
 	function scrollFn() {
-		if (screenWidth < 800) {
-			changeValPhone();
-		}
 
 		let siteMapTop = siteMap.getBoundingClientRect().top;
 		let scrollDistance = scroll - siteMapDistance;
@@ -106,8 +88,9 @@
 }
 		}
     
-		//domainHolder.style.top = `${350 + topOffset}px !important;`;
-		console.log(topOffset)
+		if (fontSize == 14) {
+			topOffset /= 2;
+		}
 	}
 
 
@@ -149,7 +132,7 @@
 			<div class="typewriterHolderHero">
 				<div class="typewriter">
 					<SvelteScrollTypewriter
-						fontSize={16}
+						fontSize={fontSize}
 						furthestScrolled={0}
 						auto={true}
 						phrase={'Freelance web developer, Computer science student, UX/UI designer, Back-end developer, Full-stack developer, Computer scientist, Tech enthusiast, SEO specialist, Aspiring software developer, Front-end developer, Javascript/Typescript developer, Python developer, Motivated, Accountable, Creative, Detail oriented, Problem solver.'}
@@ -167,7 +150,7 @@
 				<h2>Who am I?</h2>
 				<div bind:this={typewriter1} id="aboutMeTypewriter" class="typewriter">
 					<SvelteScrollTypewriter
-						fontSize={16}
+						fontSize={fontSize}
 						furthestScrolled={scroll + innerh}
 						height={height1}
 						phrase={`Hi! I am Jadd, a freelance web developer. I am from the Wirral, United Kingdom and I am currently in ${data.area}, ${data.region} as of ${data.time}. As a current Computer Science student, I am very enthusiastic in the web development industry and enjoy building cool stuff in my free time`}
@@ -184,43 +167,40 @@
 				<h2>SITE MAP.</h2>
 				<div class="desc"></div>
 			</div> 
-			<div bind:this={typewriter2} id="descTypewriter" class="typewriter">
-				<SvelteScrollTypewriter
-					fontSize={16}
-					furthestScrolled={scroll + innerh}
-					height={height2}
-					phrase={`All of my personal work (pet projects and whatnot) is hosted under the same domain. I have used subdomains to seperate projects. Scroll down to see each.`}
-				/>
-			</div>
-			<div class="domainHolder" bind:this={domainHolder} style="top: {350 + topOffset}px !important;">
-				<h3 id="domainName">.JADD.LIVE</h3>
-				<div class="subdomainDesc">
-					{#if topOffset == 0}
+			<div class="siteMapDesc"><p style="font-size: {fontSize}px;">
+				All of my personal work (pet projects and whatnot) is hosted under the same domain. I have used subdomains to seperate projects. Scroll down to see each.
+			</p>
+				</div>
+			<div class="domainHolder" bind:this={domainHolder}>
+				<h3 id="domainName" style="position: absolute; top: {250 + topOffset}px !important;">.JADD.LIVE</h3>
+				<div class="subdomainDesc" style={fontSize == 16 ? `top: ${350 + topOffset}px !important;` : "top: 520px; left: 50px; width: 300px;"}>
+					{#if ((topOffset == 0) || ((fontSize == 14) && (topOffset == 0)))}
 					<SvelteScrollTypewriter
-						fontSize={16}
+						fontSize={fontSize}
 						auto
 						phrase={`This is my main portfolio site, also the site which we are currently on. This is a showcase of my talents as a full stack developer, whilst also trying to make it look as 'pretty' as possible (I hope I did a decent job).`}
 					/>
-						{:else if topOffset == 100}
+						{:else if (((topOffset == 100) && (fontSize == 16)) || ((fontSize == 14) && (topOffset == 50)))}
 						<SvelteScrollTypewriter
-						fontSize={16}
+						fontSize={fontSize}
 						auto
 						phrase={`This is my largest project. It is a text-based social network project where users can post their own content and view other people's content too. Users can follow others, like/comment on posts and also create/vote on vote-type posts.`}
 					/>
-						{:else if topOffset == 200}<SvelteScrollTypewriter
-						fontSize={16}
+					{:else if (((topOffset == 200) && (fontSize == 16)) || ((fontSize == 14) && (topOffset == 100)))}
+					<SvelteScrollTypewriter
+						fontSize={fontSize}
 						auto
 						phrase={`This is a small project in which I created a music recommender for myself. Users can key in a song/album name, and upon clicking the title, I am then recommended said music.`}
 					/>
-						{:else if topOffset == 300}
+					{:else if (((topOffset == 300) && (fontSize == 16)) || ((fontSize == 14) && (topOffset == 150)))}
 						<SvelteScrollTypewriter
-						fontSize={16}
+						fontSize={fontSize}
 						auto
 						phrase={`This is a work-in-progress project where two or more users can find a meeting point where all users are aiming to walk to the same location. This will be cool once complete, trust me.`}
 					/>
-						{:else if topOffset == 400}
+					{:else if (((topOffset == 400) && (fontSize == 16)) || ((fontSize == 14) && (topOffset == 200)))}
 						<SvelteScrollTypewriter
-						fontSize={16}
+						fontSize={fontSize}
 						auto
 						phrase={`This is a small static page where I give people my workout split free of charge, how kind.`}
 					/>
@@ -360,6 +340,8 @@
 	#domainName {
 		text-align: start;
 		margin-left: 300px;
+		transition: top 0.3s ease; /* Smooth transition for top change */
+
 	}
 
 	.domainHolder {
@@ -456,6 +438,8 @@
 		width: 100%;
 		padding: 50px;
 	}
+
+
 
 	#projectsTitle {
 		cursor: pointer;
@@ -571,6 +555,18 @@
 		height: 600px;
 	}
 
+	.siteMapDesc {
+		position: absolute;
+		top: 200px;
+		left: 100px;
+		width: 400px;
+	}
+
+	.siteMapDesc p {
+		text-align: start;
+		color: white;
+	}
+
 	.jaddblogHolder {
 		background: none;
 		width: 600px;
@@ -578,7 +574,6 @@
 		position: absolute;
 		top: 245px;
 		left: 98px;
-		border-bottom: 1px solid #8f8f8f;
 		z-index: 100;
 	}
 
@@ -595,7 +590,6 @@
 		align-items: start;
 		justify-content: center;
 		gap: 10px;
-		border-top: 1px solid #8f8f8f;
 		padding: 20px 0 25px;
 	}
 
@@ -685,6 +679,44 @@
 			font-size: var(--h2SizePhone);
 			left: 40px;
 		}
+
+		h3 {
+			font-size: 35px !important;
+			left: 40px;
+		}
+
+		.subdomainDesc {
+			left: 0;
+		}
+
+		.siteMapDesc {
+		top: 150px;
+		left: 50px;
+		width: 80vw;
+	}
+
+		.subdomainDesc p {
+			font-size: 14px !important;
+		}
+
+		#domainName {
+			margin-left: 160px !important;
+		}
+
+		.subdomain {
+			height: 50px !important;
+		}
+
+		.subdomainDesc {
+			position: absolute;
+		}
+
+		#descTypewriter {
+			
+		}
+
+
+
 
 		#projects:before {
 			padding: 80vh 70px 10px 5px;
