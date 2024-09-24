@@ -222,7 +222,7 @@
 						<SvelteScrollTypewriter
 						fontSize={16}
 						auto
-						phrase={`This is a small static page where I give people my workout split for no charge, how kind.`}
+						phrase={`This is a small static page where I give people my workout split free of charge, how kind.`}
 					/>
 					{/if}
 				</div>
@@ -370,7 +370,8 @@
 	}
 
 	#siteMap {
-		height: 200vh;
+		height: 150vh;
+		margin-bottom: 30vh;
 		position: sticky;
 		position: -webkit-sticky !important;
 		top: 0px;
