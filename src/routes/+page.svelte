@@ -88,9 +88,6 @@
 }
 		}
     
-		if (fontSize == 14) {
-			topOffset /= 2;
-		}
 	}
 
 
@@ -170,33 +167,36 @@
 
 	
 			<div class="domainHolder" bind:this={domainHolder}>
-				<h3 id="domainName" style="position: absolute; top: {50 + topOffset*75}px !important;">.JADD.LIVE</h3>
+
+					<h3 id="domainName" style="position: absolute; top: {50 + (fontSize == 16 ? 75*topOffset :50*topOffset)}px !important;">.JADD.LIVE</h3>
+
+
 				<div class="subdomainDesc">
-					{#if ((topOffset == 0) || ((fontSize == 14) && (topOffset == 0)))}
+					{#if topOffset == 0}
 					<SvelteScrollTypewriter
 						fontSize={fontSize}
 						auto
 						phrase={`This is my main portfolio site, also the site which we are currently on. This is a showcase of my talents as a full stack developer, whilst also trying to make it look as 'pretty' as possible (I hope I did a decent job).`}
 					/>
-						{:else if (((topOffset == 1) && (fontSize == 16)) || ((fontSize == 14) && (topOffset == 50)))}
+						{:else if topOffset == 1}
 						<SvelteScrollTypewriter
 						fontSize={fontSize}
 						auto
 						phrase={`This is my largest project. It is a text-based social network project where users can post their own content and view other people's content too. Users can follow others, like/comment on posts and also create/vote on vote-type posts.`}
 					/>
-					{:else if (((topOffset == 2) && (fontSize == 16)) || ((fontSize == 14) && (topOffset == 100)))}
+					{:else if topOffset == 2}
 					<SvelteScrollTypewriter
 						fontSize={fontSize}
 						auto
 						phrase={`This is a small project in which I created a music recommender for myself. Users can key in a song/album name, and upon clicking the title, I am then recommended said music.`}
 					/>
-					{:else if (((topOffset == 3) && (fontSize == 16)) || ((fontSize == 14) && (topOffset == 150)))}
+					{:else if topOffset == 3}
 						<SvelteScrollTypewriter
 						fontSize={fontSize}
 						auto
 						phrase={`This is a work-in-progress project where two or more users can find a meeting point where all users are aiming to walk to the same location. This will be cool once complete, trust me.`}
 					/>
-					{:else if (((topOffset == 4) && (fontSize == 16)) || ((fontSize == 14) && (topOffset == 200)))}
+					{:else if topOffset == 4}
 						<SvelteScrollTypewriter
 						fontSize={fontSize}
 						auto
@@ -206,21 +206,24 @@
 				</div>
 			</div>
 			<div class="subdomainHolder">
-				<div class="subdomain" >
-					<h3>WWW</h3>
-				</div>
-				<div class="subdomain">
+				<a href="www.jadd.live">
+					<div class="subdomain" >
+										<h3>WWW</h3>
+									</div>
+				</a>
+				<a href="https://blog.jadd.live"><div class="subdomain">
 					<h3>BLOG</h3>
-				</div>
-				<div class="subdomain">
+				</div></a>
+				<a href="https://music.jadd.live"><div class="subdomain">
 					<h3>MUSIC</h3>
-				</div>
-				<div class="subdomain">
+				</div></a>
+				<a href="https://path.jadd.live"><div class="subdomain">
 					<h3>PATH</h3>
-				</div>
-				<div class="subdomain">
+				</div></a>
+				<a href="https://split.jadd.live"><div class="subdomain">
 					<h3>SPLIT</h3>
-				</div>
+				</div></a>
+				
 			</div>
 		</div>
 
@@ -340,8 +343,10 @@
 		text-align: start;
 		margin-left: 250px;
 		transition: top 0.3s ease; /* Smooth transition for top change */
-
+		width: 100vw !important;
 	}
+
+
 
 	.domainHolder {
 		width: 100%;
@@ -711,9 +716,6 @@
 			font-size: 14px !important;
 		}
 
-		#domainName {
-			margin-left: 160px !important;
-		}
 
 		.subdomain {
 			height: 50px !important;
@@ -721,6 +723,17 @@
 
 		.subdomainDesc {
 			position: absolute;
+			top: 340px;
+			left: 50px;
+			width: 80vw;
+		}
+
+		.subdomainHolder {
+			left: 50px;
+		}
+
+		#domainName {
+			margin-left: 140px !important;
 		}
 
 		#descTypewriter {
