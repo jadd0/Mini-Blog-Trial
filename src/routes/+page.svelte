@@ -227,7 +227,7 @@
 			</div>
 
 			<div class="wirralBearsDiv">
-				<p>Another large website I have done is for <br/> <a href="https://wirralbears.com" style="color: #4040ff; font-size: 16px;">The Wirral Bears</a>.</p>
+				<p>Another large website I have done is <br/> <a href="https://wirralbears.com" style="color: #4040ff; font-size: 16px;">The Wirral Bears</a>.</p>
 			</div>
 		</div>
 
