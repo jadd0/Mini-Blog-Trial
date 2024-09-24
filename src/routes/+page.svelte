@@ -16,10 +16,18 @@
 	let scroll = 0,
 		scroll1 = 0;
 
-	let projects, projectsTop, projectsDistance;
+	let projects, projectsTop, projectsDistance, siteMap, siteMapDistance;
 	let project1 = false,
 		project2 = false,
 		project3 = false;
+
+	let domainHolder;
+  let topOffset = 0; // Initial top value of the domainHolder
+	//$: domainHolder.style[top] = `${350+topOffset} px;`
+
+  const scrollThreshold = 75; // Change threshold for each scroll step
+  const topChangeValue = 100; // Value to add/subtract from top each time
+
 
 	function changeVal() {
 		projectsTop = projects.getBoundingClientRect().top;
@@ -73,6 +81,56 @@
 		} else {
 			changeVal();
 		}
+
+		let siteMapTop = siteMap.getBoundingClientRect().top;
+		let scrollDistance = scroll - siteMapDistance;
+
+		if (siteMapTop == 0) {
+
+			if (scrollDistance > 75) {
+				topOffset = 100;
+				if (scrollDistance > 150) {
+					topOffset = 200;
+
+					if (scrollDistance > 225) {
+						topOffset = 300;
+
+						if (scrollDistance > 300) {
+							topOffset = 400;
+
+
+				}
+
+				else {
+					topOffset = 300;
+
+								
+}
+			} 
+
+			else {
+				topOffset = 200;
+
+								
+}
+			}
+
+			else {
+				topOffset = 100;
+				
+								
+}
+			}
+
+			else {
+				topOffset = 0;
+
+								
+}
+		}
+    
+		//domainHolder.style.top = `${350 + topOffset}px !important;`;
+		console.log(topOffset)
 	}
 
 	function calculateDistance() {
@@ -81,10 +139,18 @@
 		projectsDistance = rect.top + window.pageYOffset;
 	}
 
+	function calculateDistanceSiteMap() {
+		const element = document.getElementById('siteMap');
+		console.log(element)
+		const rect = element.getBoundingClientRect();
+		siteMapDistance = rect.top + window.pageYOffset;
+	}
+
 	onMount(() => {
 		height1 = typewriter1.getBoundingClientRect().top;
 		console.log(height1, scroll, innerh);
 		calculateDistance();
+		calculateDistanceSiteMap();
 
 		console.log({ screenWidth });
 	});
@@ -197,7 +263,7 @@
 
 
 
-		<div class="section" id="siteMap">
+		<div class="section sectionSitemap" id="siteMap" bind:this={siteMap}>
 			<div class="inner">
 				<h2>SITE MAP.</h2>
 				<div class="desc"></div>
@@ -210,19 +276,57 @@
 					phrase={`All of my personal work (pet projects and whatnot) is hosted under the same domain. I have used subdomains to seperate projects. Scroll down to see each.`}
 				/>
 			</div>
-			<div class="domainHolder">
+			<div class="domainHolder" bind:this={domainHolder} style="top: {350 + topOffset}px !important;">
 				<h3>.JADD.LIVE</h3>
 				<div class="subdomainDesc">
-					<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloribus similique magnam iusto a fugiat voluptates expedita temporibus, nobis excepturi dicta accusantium quod neque aperiam necessitatibus corrupti autem ipsum labore nostrum non voluptate. Debitis corporis deleniti excepturi aperiam aut! Veritatis animi eum distinctio tenetur magnam soluta!
-					</p>
+					{#if topOffset == 0}
+					<SvelteScrollTypewriter
+						fontSize={16}
+						auto
+						phrase={`This is my main portfolio site, also the site which we are currently on. This is a showcase of my talents as a full stack developer, whilst also trying to make it look as 'pretty' as possible (I hope I did a decent job).`}
+					/>
+						{:else if topOffset == 100}
+						<SvelteScrollTypewriter
+						fontSize={16}
+						auto
+						phrase={`This is my largest project. It is a text-based social network project where users can post their own content and view other people's content too. Users can follow others, like/comment on posts and also create/vote on vote-type posts.`}
+					/>
+						{:else if topOffset == 200}<SvelteScrollTypewriter
+						fontSize={16}
+						auto
+						phrase={`This is a small project in which I created a music recommender for myself. Users can key in a song/album name, and upon clicking the title, I am then recommended said music.`}
+					/>
+						{:else if topOffset == 300}
+						<SvelteScrollTypewriter
+						fontSize={16}
+						auto
+						phrase={`This is a work-in-progress project where two or more users can find a meeting point where all users are aiming to walk to the same location. This will be cool once complete, trust me.`}
+					/>
+						{:else if topOffset == 400}
+						<SvelteScrollTypewriter
+						fontSize={16}
+						auto
+						phrase={`This is a small static page where I give people my workout split for no charge, how kind.`}
+					/>
+					{/if}
 				</div>
 			</div>
 			<div class="subdomainHolder">
-				<h3>WWW</h3>
-				<h3>BLOG</h3>
-				<h3>MUSIC</h3>
-				<h3>PATH</h3>
-				<h3>SPLIT</h3>
+				<div class="subdomain" >
+					<h3>WWW</h3>
+				</div>
+				<div class="subdomain">
+					<h3>BLOG</h3>
+				</div>
+				<div class="subdomain">
+					<h3>MUSIC</h3>
+				</div>
+				<div class="subdomain">
+					<h3>PATH</h3>
+				</div>
+				<div class="subdomain">
+					<h3>SPLIT</h3>
+				</div>
 			</div>
 		</div>
 
@@ -316,9 +420,14 @@
 
 	.subdomainDesc {
 		position: absolute;
-		top: 450px;
 		left: 326px;
 		width: 360px;
+	}
+
+	.subdomain {
+		width: 100vw;
+		height: 100px;
+		display: flex;
 	}
 
 	.subdomainHolder {
@@ -327,14 +436,17 @@
 		position: absolute;
 		top: 350px;
 		left: 50px;
-		gap: 200px;
+		gap: 0px;
+		height: 1000px;
+		overflow: scroll;
 	}
 
 	.domainHolder {
 		width: 100%;
 		height: 70vh;
 		border: 2px solid red;
-		margin-top: 250px;
+		position: absolute;
+		transition: top 0.3s ease; /* Smooth transition for top change */
 	}
 
 	#siteMap {
