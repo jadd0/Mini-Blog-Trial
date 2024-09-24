@@ -163,7 +163,7 @@
 			<div class="inner">
 				<h2 id="siteMapHeader">SITE MAP.</h2>
 				<div class="desc">
-					<p>All my projects are all subdomains on this site. Scroll down to see them, and click on any to visit.</p>
+					<p>All my projects are all subdomains on this site. Scroll down, and click on any to visit.</p>
 					</div>
 			</div> 
 
@@ -709,7 +709,7 @@
 		.desc {
 			top: 100px;
 			left: 50px;
-			
+			width: 80vw;
 		}
 
 		.typewriterHolderHero {
