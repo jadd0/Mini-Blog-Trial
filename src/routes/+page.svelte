@@ -164,7 +164,7 @@
 
 		<div class="section sectionSitemap" id="siteMap" bind:this={siteMap}>
 			<div class="inner">
-				<h2>SITE MAP.</h2>
+				<h2 id="siteMapHeader">SITE MAP.</h2>
 				<div class="desc"></div>
 			</div> 
 			<div class="siteMapDesc"><p style="font-size: {fontSize}px;">
@@ -264,7 +264,7 @@
 	:root {
 		--leftPC: 100px;
 		--leftPhone: 50px;
-		--h2SizePC: 100px;
+		--h2SizePC: 60px;
 		--h2SizePhone: 50px;
 
 		scrollbar-width: none;
@@ -306,7 +306,7 @@
 	}
 	
 	h3 {
-		font-size: 70px  !important;
+		font-size: 40px  !important;
 	}
 
 	.subdomainDesc p {
@@ -331,7 +331,7 @@
 		flex-direction: column;
 		position: absolute;
 		top: 350px;
-		left: 50px;
+		left: 100px;
 		gap: 0px;
 		height: 1000px;
 		overflow: scroll;
@@ -434,6 +434,10 @@
 		position: absolute;
 	}
 
+	#siteMapHeader {
+		top: 20px;
+	}
+
 	.inner {
 		width: 100%;
 		padding: 50px;
@@ -486,9 +490,13 @@
 		left: 30px;
 	}
 
+	#aboutMe {
+		height: 600px;
+	}
+
 	#aboutMeTypewriter {
 		position: absolute;
-		top: 200px;
+		top: 150px;
 	}
 
 	.projectsHolder {
@@ -557,7 +565,7 @@
 
 	.siteMapDesc {
 		position: absolute;
-		top: 200px;
+		top: 150px;
 		left: 100px;
 		width: 400px;
 	}
@@ -735,7 +743,7 @@
 		}
 
 		#aboutMe {
-			height: 450px !important;
+			height: 350px !important;
 		}
 
 		#projectSection {
