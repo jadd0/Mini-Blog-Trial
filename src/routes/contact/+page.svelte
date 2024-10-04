@@ -115,7 +115,7 @@
 	}
 	main {
 		width: 100vw;
-		height: 103vh;
+		min-height: 103vh;
 		border-radius: 0px 30px 30px 0;
 		background-color: #141414;
 	}
@@ -134,15 +134,17 @@
 	p {
 		text-align: start;
 		color: #9d9d9d;
-		font-size: 18px;
+		font-size: 16px;
 	}
 
 	.paraBox {
-		width: 600px;
+		width: 70vw;
+		max-width: 600px;
 	}
 
 	h1 {
-		font-size: 80px;
+		font-size: 60px;
+		text-align: start;
 	}
 
 	#bodyInput {
@@ -281,5 +283,43 @@
 
 	h2 {
 		font-size: 16px;
+	}
+
+	@media only screen and (max-width: 800px) {
+		h1 {
+			margin-left: -50px;
+		}
+
+		p {
+			font-size: 14px;
+		}
+
+		.paraBox {
+			margin-left: -50px;
+		}
+
+		.contactForm {
+			margin-top: 100px;
+			padding-bottom: 50px;
+			margin-left: 50px;
+		}
+
+		.inputHolder {
+			width: 75vw;
+		}
+
+		.userInput, #bodyInput {
+			width: 65vw;
+			font-size: 14px;
+		}
+
+		#loginButton {
+			width: 75vw;
+			margin-left: 0px;
+		}
+
+		#forBody {
+			display: none;
+		}
 	}
 </style>
