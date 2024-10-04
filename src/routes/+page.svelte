@@ -373,7 +373,7 @@
 	}
 
 	#siteMap {
-		height: 2000px;
+		height: 1700px;
 		
 		position: sticky;
 		position: -webkit-sticky !important;
@@ -584,6 +584,8 @@
 	#activity {
 		height: 600px;
 	}
+
+
 
 	.siteMapDesc {
 		position: absolute;
@@ -867,6 +869,10 @@
 
 		.end {
 			height: 150px;
+		}
+
+		#siteMap {
+		height: 1500px;
 		}
 	}
 </style>
