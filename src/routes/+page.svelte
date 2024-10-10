@@ -208,7 +208,7 @@
 				</div>
 			</div>
 			<div class="subdomainHolder">
-				<a href="www.jadd.live">
+				<a href="https://jadd.live">
 					<div class="subdomain" >
 										<h3>WWW</h3>
 									</div>
