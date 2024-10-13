@@ -2,11 +2,14 @@
 	import { SvelteSimpleMarquee } from 'sveltesimplemarquee';
 	import { SvelteScrollTypewriter } from 'sveltescrolltypewriter';
 	import { SvelteInertiaScroll } from 'svelteinertiascroll';
+	import Intro from './__components/intro/+page.svelte'
+ 
 	import { onMount } from 'svelte';
 	import { fly } from 'svelte/transition';
 	import { quintOut } from 'svelte/easing';
 
 	export let data;
+	export let finished = false;
 
 	let screenWidth;
 	$: if (screenWidth < 800) {
@@ -117,6 +120,11 @@
 />
 
 <body>
+	{#if finished == false}
+		<Intro bind:finished />
+	{/if}
+
+	{#if finished}
 	<main>
 		<div class="hero">
 			<div class="marquee">
@@ -265,6 +273,7 @@
 		</div>
 		<div class="end" />
 	</main>
+	{/if}
 </body>
 
 <style>

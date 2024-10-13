@@ -4,6 +4,8 @@
 	import Lenis from '@studio-freight/lenis';
 	import { onMount } from 'svelte';
 
+	let finished;
+
 	onMount(() => {
 		const lenis = new Lenis();
 
@@ -21,7 +23,7 @@
 </script>
 
 
-	<slot />
+	<slot bind:finished />
 	<div class="nav">
 		<a href="/"><div class="box">Home</div></a>
 		<a href="/contact"><div class="box" id="contact">Contact Me</div></a>
