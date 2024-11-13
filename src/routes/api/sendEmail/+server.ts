@@ -20,6 +20,7 @@ async function sendEmailToClient(email: string, name: string, enquiry: string, t
 		console.log(err, info);
 		if (err) {
 			return false;
+			console.log(err)
 		}
 	});
 
@@ -44,6 +45,7 @@ async function sendEmailToMe(email: string, name: string, enquiry: string, trans
 	transport.sendMail(mailOptions, function (err, info) {
 		if (err) {
 			return false;
+			console.log(err)
 		}
 	});
 
@@ -66,6 +68,7 @@ async function setUp(email, name, enquiry) {
 	transport.verify(function (error, success) {
 		if (error) {
 			return 'auth';
+			console.log(error)
 		}
 	});
 
@@ -89,7 +92,7 @@ export const POST = async ({ request }) => {
 	}
 
 	const email = await setUp(body.email, body.name, body.enquiry);
-
+	
 	if (!email) {
 		return new Response(
 			'Sorry, there has been an issue sending the email. Please try again later. If this issue persists, please email me jaddalkwork@gmail.com',
