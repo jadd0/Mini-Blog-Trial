@@ -82,6 +82,12 @@ async function setUp(email, name, enquiry) {
 export const POST = async ({ request }) => {
 	const body = await request.json();
 
+	if (!body.email || !body.name || !body.enquiry) {
+		return new Response('Please provide an email, name and enquiry', {
+			status: 401
+		})
+	}
+
 	const email = await setUp(body.email, body.name, body.enquiry);
 
 	if (!email) {
