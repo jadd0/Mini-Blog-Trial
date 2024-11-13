@@ -7,20 +7,39 @@
 
 	async function submit() {
 		loading = true;
-		const response = await fetch('/api/sendEmail', {
-			method: 'post',
-			headers: {
-				Accept: 'application/json',
-				'Content-Type': 'application/json'
-			},
-			body: JSON.stringify({
-				name, email, enquiry
-			})
-		});
 
-		if (response.ok) location.reload();
+		// Execute reCAPTCHA
+		const token = await grecaptcha.enterprise.execute('6LcWCH4qAAAAAI2ukaiHSv0wtuKcFf8EcooDSHyO', { action: 'submit' });
+
+		if (token) {
+			// Send form data including the reCAPTCHA token
+			const response = await fetch('/api/sendEmail', {
+				method: 'post',
+				headers: {
+					Accept: 'application/json',
+					'Content-Type': 'application/json'
+				},
+				body: JSON.stringify({
+					name,
+					email,
+					enquiry,
+					recaptchaToken: token // Include the reCAPTCHA token
+				})
+			});
+
+			if (response.ok) location.reload();
+			else console.error('Form submission failed');
+		} else {
+			console.error('reCAPTCHA failed');
+		}
+
+		loading = false;
 	}
 </script>
+
+<svelte:head>
+	<script src="https://www.google.com/recaptcha/enterprise.js?render=6LcWCH4qAAAAAI2ukaiHSv0wtuKcFf8EcooDSHyO"></script>
+</svelte:head>
 
 <body>
 	<main>
@@ -29,7 +48,7 @@
 			<div class="paraBox">
 				<p>
 					Interested in working with me? Or simply want to get in contact? Great! Just fill in the
-					form below and I will reply shortly
+					form below and I will reply shortly.
 				</p>
 			</div>
 		</div>
@@ -48,7 +67,7 @@
 				</div>
 			</div>
 			<div class="fullInput">
-				<h2>Full Name</h2>
+				<h2>Email Address</h2>
 				<div class="inputHolder">
 					<textarea
 						class="userInput"
@@ -60,12 +79,11 @@
 				</div>
 			</div>
 			<div class="fullInput">
-				<h2>Full Name</h2>
+				<h2>Enquiry</h2>
 				<div class="inputHolder" id="body">
 					<textarea
 						class="userInput"
 						maxlength="450"
-						placeholder="Enquiry"
 						id="bodyInput"
 						bind:value={enquiry}
 						use:autoresize
@@ -74,9 +92,11 @@
 				</div>
 			</div>
 
-			<button id="loginButton" on:click={submit}>Submit</button>
-		</div>
-	</main>
+			<button id="loginButton" on:click={submit} disabled={loading}>Submit</button>
+			
+		 </div>
+		
+   </main>
 </body>
 
 <style>
